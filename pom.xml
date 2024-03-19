@@ -11,6 +11,7 @@
 		<module>jobs4u.app1</module>
 		<module>jobs4u.app2</module>
 		<module>jobs4u.util.ci</module>
+		<module>jobs4u.persistence.impl</module>
 	</modules>
 	<version>0.1.0</version>
 
@@ -55,6 +56,22 @@
 			<version>2.2.224</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>2.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+			<version>2.5.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 
 		<!-- Project Lombok -->
 		<dependency>
@@ -62,6 +79,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>lapr4</groupId>
+			<artifactId>jobs4u.persistence.impl</artifactId>
+			<version>0.1.0</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
@@ -73,7 +96,6 @@
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
 					<aggregate>true</aggregate>
 				</configuration>
 				<executions>

@@ -1,4 +1,4 @@
-package hello;
+package persistence;
 
 public class HelloWorld {
 	public static void main(String[] args) {
