@@ -14,7 +14,7 @@ import util.Console;
  */
 public class MainMenu {
 
-	static CLientUI ClientUI = new ClientUI();
+	static ClientUI ClientUI = new ClientUI();
     public static void mainLoop() throws InstantiationException {
 		int opcao = 0;
 		do {
@@ -25,15 +25,15 @@ public class MainMenu {
 					System.out.println("fim ...");
 					break;
 				case 1:
-					ClientUI.registarGA();
+					ClientUI.registarClient();
 					break;
 
 				case 2:
-					ClientUI.listarGAs();
+					ClientUI.listarClients();
 					break;
 
 				case 3:
-					ClientUI.procurarGAPorID();
+					ClientUI.procurarClientPorNome();
 					break;
 
 				
