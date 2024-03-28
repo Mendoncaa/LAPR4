@@ -6,8 +6,10 @@
 package apresentacao;
 
 import aplicacao.ClientController;
-import persistence.impl.jpa.ClientEntity;
+import domain.ClientEntity;
 import util.Console;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -18,10 +20,10 @@ public class ClientUI {
 
     private final ClientController controller = new ClientController();
 
-    public void registarClient() throws InstantiationException {
+    public void registarClient() throws InstantiationException, NoSuchAlgorithmException {
         System.out.println("*** Registar Cliente ***\n");
         final String username = Console.readLine("Username");
-        final String password = Console.readLine("Password");
+        String password = Console.readLine("Password");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
@@ -46,22 +48,29 @@ public class ClientUI {
                     break;
             }
         } while (opcao != 1 && opcao != 2);
-        
-        ClientEntity clientEntity = controller.checkValidClient(username, password, firstName, lastName, email, phone, role);
-        System.out.println("User: " + clientEntity + "\nRegistado com sucesso!");
+
+        if(controller.checkValidClient(username, password, firstName, lastName, email, phone, role)){
+            System.out.println("A registar User...\n");
+            ClientEntity clientEntity = controller.createAndSaveClient(username, password, firstName, lastName, email, phone, role);
+            System.out.println("User: " + clientEntity + "\nRegistado com sucesso!");
+        } else {
+
+            System.out.println("Erro ao registar User");
+        }
+
     }
     public void listarClients() {
-		List<GrupoAutomovel> lista = controller.listarGruposAutomoveis();
-        for (GrupoAutomovel ga : lista) {
-            System.out.println(ga);
+		List<ClientEntity> lista = controller.listarGruposAutomoveis();
+        for (ClientEntity ce : lista) {
+            System.out.println(ce);
         }
 	}
 
 	public void procurarClientPorNome() {
         long id = Console.readInteger("Por favor introduza o ID do Grupo Automóvel:");
-        GrupoAutomovel ga = controller.procurarGrupoAutomovel(id);
-        if (ga != null) {
-            System.out.println(ga);
+        ClientEntity ce = controller.procurarGrupoAutomovel(id);
+        if (ce != null) {
+            System.out.println(ce);
         } else {
             System.out.println("Grupo Automóvel não encontrado");
         }

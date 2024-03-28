@@ -5,8 +5,9 @@
  */
 package apresentacao;
 
-import persistence.impl.jpa.ClientEntity;
 import util.Console;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -15,7 +16,7 @@ import util.Console;
 public class MainMenu {
 
 	static ClientUI ClientUI = new ClientUI();
-    public static void mainLoop() throws InstantiationException {
+    public static void mainLoop() throws InstantiationException, NoSuchAlgorithmException {
 		int opcao = 0;
 		do {
 			opcao = menu();

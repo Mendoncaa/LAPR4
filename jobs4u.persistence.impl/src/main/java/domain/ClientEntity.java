@@ -1,4 +1,4 @@
-package persistence.impl.jpa;
+package domain;
 
 import javax.persistence.*;
 

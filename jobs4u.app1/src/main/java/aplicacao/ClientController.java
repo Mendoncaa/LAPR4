@@ -5,18 +5,27 @@
  */
 package aplicacao;
 
-import persistence.impl.jpa.ClientEntity;
+import domain.ClientEntity;
 import persistence.impl.jpa.ClientEntityRepositorio;
 import persistence.impl.jpa.ClientEntityRepositorioJPAImpl;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class ClientController {
 
-    public ClientEntity registarClient(String nome, int portas,
-            String classe) throws InstantiationException {
-        ClientEntity clientEntity = new ClientEntity(nome, portas, classe);
+    public ClientEntity createAndSaveClient(String username, String password, String firstName, String lastName, String email, String phone, String role) throws NoSuchAlgorithmException {
+        String formatedFirstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+        String formatedLastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
+        String encryptedPassword = encodePassword(password);
+        ClientEntity cl = new ClientEntity(username, encryptedPassword, formatedFirstName, formatedLastName, email, phone, role);
         ClientEntityRepositorio repo = new ClientEntityRepositorioJPAImpl();
-        return repo.add(clientEntity);
+        return repo.add(cl);
+    }
+
+    public boolean checkValidClient(String username, String password, String firstName, String lastName, String email, String phone, String role) throws InstantiationException {
+        CheckClient checkClient = new CheckClient();
+        return checkClient.checkValidClient(username, password, firstName, lastName, email, phone, role);
     }
     
     public List<ClientEntity> listarGruposAutomoveis() {
@@ -28,4 +37,14 @@ public class ClientController {
         ClientEntityRepositorio repo = new ClientEntityRepositorioJPAImpl();
         return repo.findById(id);
 	}
+
+    public String encodePassword(String password) throws NoSuchAlgorithmException {
+        EncryptPassword encryptPassword = new EncryptPassword();
+        return encryptPassword.encrypt(password);
+    }
+
+
+
+    public void registarClient(ClientEntity clientEntity) {
+    }
 }
