@@ -3,9 +3,8 @@ package domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS", schema = "PUBLIC", catalog = "JOBS4U")
 public class ClientEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Id
     @Column(name = "IDCLIENT")
     private int idClient;
@@ -46,12 +45,6 @@ public class ClientEntity {
 
     public ClientEntity() {
 
-    }
-
-    public String toString(){
-        return "User " + idClient +
-                ": username='" + username + '\'' +
-                "| role=" + role;
     }
  /*   @Override
     public int hashCode() {

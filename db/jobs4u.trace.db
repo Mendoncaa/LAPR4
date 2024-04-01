@@ -40,3 +40,225 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 21:57:10 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:01:36 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:01:42 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:02:48.817808Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:02:48.828818Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT)) [42001-224]
+2024-03-28 22:02:48.856808Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+INSERT INTO CLIENTENTITY (EMAIL, FIRSTNAME, ISENABLED, LASTNAME, PASSWORD, PHONE, ROLE, USERNAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2024-03-28 22:06:20 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:07:07.808105Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:07:07.820104Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT)) [42001-224]
+2024-03-28 22:07:07.846097Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+INSERT INTO CLIENTENTITY (EMAIL, FIRSTNAME, ISENABLED, LASTNAME, PASSWORD, PHONE, ROLE, USERNAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2024-03-28 22:08:27.816855Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:08:27.827847Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT)) [42001-224]
+2024-03-28 22:08:49 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:12:30.362740Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:12:30.373741Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT)) [42001-224]
+2024-03-28 22:12:30.397740Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+INSERT INTO CLIENTENTITY (EMAIL, FIRSTNAME, ISENABLED, LASTNAME, PASSWORD, PHONE, ROLE, USERNAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2024-03-28 22:16:53.116809Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:16:53.129825Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENT INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENT)) [42001-224]
+2024-03-28 22:16:53.154811Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+INSERT INTO CLIENTENTITY (EMAIL, FIRSTNAME, ISENABLED, LASTNAME, PASSWORD, PHONE, ROLE, USERNAME) VALUES (?, ?, ?, ?, ?, ?, ?, ?) [42104-224]
+2024-03-28 22:19:14.264826Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENTE FROM CLIENTENTITY WHERE IDCLIENTE <> IDCLIENTE [42104-224]
+2024-03-28 22:19:14.275826Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE CLIENTENTITY (IDCLIENTE INTEGER [*]IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENTE))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE CLIENTENTITY (IDCLIENTE INTEGER IDENTITY NOT NULL, EMAIL VARCHAR, FIRSTNAME VARCHAR, ISENABLED BOOLEAN, LASTNAME VARCHAR, PASSWORD VARCHAR, PHONE VARCHAR, ROLE VARCHAR, USERNAME VARCHAR, PRIMARY KEY (IDCLIENTE)) [42001-224]
+2024-03-28 22:20:39.621853Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTENTITY" not found (this database is empty); SQL statement:
+SELECT IDCLIENT FROM CLIENTENTITY WHERE IDCLIENT <> IDCLIENT [42104-224]
+2024-03-28 22:20:39.637853Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SEQUENCE" not found; SQL statement:
+SELECT SEQ_NAME FROM SEQUENCE WHERE SEQ_NAME <> SEQ_NAME [42102-224]
+2024-03-28 22:20:49 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:21:44 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2024-03-28 22:21:52 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1573)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:469)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)

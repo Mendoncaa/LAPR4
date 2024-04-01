@@ -15,8 +15,17 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MainMenu {
 
+	public static void main(String[] args) {
+		try {
+			mainloop();
+		} catch (InstantiationException | NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	static ClientUI ClientUI = new ClientUI();
-    public static void mainLoop() throws InstantiationException, NoSuchAlgorithmException {
+    public static void mainloop() throws InstantiationException, NoSuchAlgorithmException {
 		int opcao = 0;
 		do {
 			opcao = menu();

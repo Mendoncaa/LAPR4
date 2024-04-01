@@ -46,7 +46,7 @@ public class ClientEntityRepositorioJPAImpl implements ClientEntityRepositorio {
     @Override
     public List<ClientEntity> findAll() {
         Query query = getEntityManager().createQuery(
-                "SELECT e FROM USERS e");
+                "SELECT e FROM Users e");
         List<ClientEntity> list = query.getResultList();
         return list;
     }
