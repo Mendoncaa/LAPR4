@@ -18,7 +18,7 @@ public class ClientController {
         String formatedFirstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
         String formatedLastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
         String encryptedPassword = encodePassword(password);
-        ClientEntity cl = new ClientEntity(username, encryptedPassword, formatedFirstName, formatedLastName, email, phone, role);
+        ClientEntity cl = new ClientEntity(username, encryptedPassword, formatedFirstName, formatedLastName, phone, email, role);
         ClientEntityRepositorio repo = new ClientEntityRepositorioJPAImpl();
         return repo.add(cl);
     }
