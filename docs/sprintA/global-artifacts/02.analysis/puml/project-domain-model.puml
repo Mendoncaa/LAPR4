@@ -34,7 +34,7 @@ package "Candidato" {
     Candidate --> Phone
 }
 
-package "Application" {
+package "App" {
     entity "Application" as Application <<root>> {
     }
     ' Objetos de valor
@@ -61,7 +61,7 @@ package "Application" {
     Application --> Analysis
 }
 
-package "Job" {
+package "Job Agg" {
     entity "Job" as Job <<root>> {
     }
     ' Objetos de valor
@@ -85,7 +85,6 @@ package "Job" {
     Job --> Mode
 }
 
-' Relações reorganizadas para clareza sem remover conexões
 Client -[hidden]right-> Admin
 Client -[hidden]left-> Operator
 Client -[hidden]right-> CustomManager
@@ -93,7 +92,7 @@ Operator -[hidden]down-> Admin
 CustomManager -[hidden]down-> Admin
 Operator -[hidden]left-> Candidate
 Operator -[hidden]down-> Application
-Candidate -[hidden]down-> Application
+Candidate --> Application : ""
 Application -[hidden]left-> Job
 CustomManager -[hidden]up-> Job
 
@@ -104,7 +103,6 @@ Operator --> Admin : ""
 CustomManager --> Admin : ""
 Operator --> Candidate :""
 Operator --> Application :""
-Candidate --> Application : ""
 Application --> Job : ""
 CustomManager --> Job : ""
 
