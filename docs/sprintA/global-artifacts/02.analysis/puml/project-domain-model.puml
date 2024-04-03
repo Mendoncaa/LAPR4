@@ -1,61 +1,111 @@
 @startuml
-entity "Job Opening" as JobOpening <<root>> {
+
+skinparam package {
+  BackgroundColor<<root>> LightGreen
+  BackgroundColor<<value object>> LightBlue
+  BackgroundColor<<entity>> LightYellow
 }
 
-' Objetos de valor
-class "Job Requirements" <<value>> {
-}
-class "Contract Type" <<value>> {
-}
-class "Job Mode" <<value>> {
-}
-class "Address" <<value>> {
+package "ClientAgg" {
+  class Client <<root>> {
+  }
+  class ClientID <<value object>> {}
+  Client "1" -- "1" ClientID
+
+  class Name <<value object>> {}
+  class Address <<value object>> {}
+  Client "1" -- "1" Name
+  Client "1" -- "1" Address
+
+  class ClientRepresentative <<entity>> {
+  }
+  class RepresentativeID <<value object>> {}
+  class Email <<value object>> {}
+  class PhoneNumber <<value object>> {}
+  class FullName <<value object>> {}
+  class ShortName <<value object>> {}
+  class Password <<value object>> {}
+  ClientRepresentative "1" -- "1" RepresentativeID
+  ClientRepresentative "1" -- "1" Email
+  ClientRepresentative "1" -- "1" PhoneNumber
+  ClientRepresentative "1" -- "1" FullName
+  ClientRepresentative "1" -- "1" ShortName
+  ClientRepresentative "1" -- "1" Password
+
+  Client "1" -- "1" ClientRepresentative
 }
 
-JobOpening --> "Job Requirements"
-JobOpening --> "Contract Type"
-JobOpening --> "Job Mode"
-JobOpening --> "Address"
+package "JobOpeningAgg" {
+  class JobOpening <<root>> {
+  }
 
-' Novas entidades e classes
-entity "Client" as Client <<root>> {
-}
-entity "Candidate" as Candidate <<root>> {
-}
-entity "Application" as Application <<root>> {
-}
-class "File" <<value>> {
-}
 
-Client --> JobOpening : "Creates"
-Candidate ..> Application : "Applies with"
-Application --> JobOpening : "For"
-Application --> File : "Includes"
+  class JobReference <<value object>> {}
+  class Phase <<value object>> {}
+  class Duration <<value object>> {}
+  class NrVacancies <<value object>> {}
+  class Title <<value object>> {}
+  class ContractType <<value object>> {}
+  class Description <<value object>> {}
+  class Address <<value object>> {}
+  class Mode <<value object>> {}
+  JobOpening "1" -- "1" JobReference
+  JobOpening "1" -- "1" Phase
+  JobOpening "1" -- "1" Duration
+  JobOpening "1" -- "1" NrVacancies
+  JobOpening "1" -- "1" Title
+  JobOpening "1" -- "1" ContractType
+  JobOpening "1" -- "1" Description
+  JobOpening "1" -- "1" Address
+  JobOpening "1" -- "1" Mode
 
-' Service
-class "RequirementsEvaluater" <<service>> {
-}
-
-RequirementsEvaluater ..> File : "Evaluates"
-RequirementsEvaluater ..> "Job Requirements" : "Compares"
-
-' Novas entidades, classes e serviços
-entity "Interviews" as Interviews <<root>> {
-}
-class "Interview Model" <<value>> {
-}
-class "Interview Answers" <<value>> {
-}
-class "Interview Evaluater" <<service>> {
-}
-class "Interview Results" <<value>> {
+  ClientID --> JobOpening : Creates
 }
 
-JobOpening --> "Interview Model" : "Defines"
+package "RequirementsSpecificationAgg" {
+  class RequirementsSpecification <<root>> {
+  }
 
-Candidate ..> Interviews : "Participates in"
-Interviews --> "Interview Model" : "Follows"
-Interviews --> "Interview Answers" : "Generates"
-"Interview Answers" ..> "Interview Evaluater" : "Evaluated by"
-"Interview Evaluater" --> "Interview Results" : "Generates"
-@enduml
+  class JarFile <<value object>> {}
+  class SpecName <<value object>> {}
+  RequirementsSpecification "1" -- "1" JarFile
+  RequirementsSpecification "1" -- "1" SpecName
+
+  JobReference --> RequirementsSpecification : Has
+}
+package "CandidateAgg" {
+  class Candidate <<root>> {
+  }
+  class CandidateID <<value object>> {}
+  class CandidateEmail <<value object>> {}
+  class CandidateName <<value object>> {}
+  class CandidatePhoneNumber <<value object>> {}
+  Candidate "1" -- "1" CandidateID
+  Candidate "1" -- "1" CandidateEmail
+  Candidate "1" -- "1" CandidateName
+  Candidate "1" -- "1" CandidatePhoneNumber
+}
+
+package "ApplicationAgg" {
+  class Application <<root>> {
+  }
+  class ApplicationID <<value object>> {}
+  class ApplicationState <<value object>> {}
+  Application "1" -- "1" ApplicationID
+  Application "1" -- "1" ApplicationState
+
+  CandidateID --> Application : Makes
+  ApplicationID --> JobReference : Refers
+}
+
+package "RequirementsEvaluationAgg" {
+  class RequirementsEvaluation <<root>> {
+  }
+  class RequirementsResults <<value object>> {}
+  RequirementsEvaluation "1" -- "1" RequirementsResults
+
+  ApplicationID --> RequirementsEvaluation : Evaluates
+  RequirementsSpecification --> RequirementsEvaluation : Evaluates
+}
+
+@enduml         
