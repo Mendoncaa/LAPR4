@@ -1,111 +1,179 @@
 @startuml
+'https://plantuml.com/class-diagram
 
-skinparam package {
-  BackgroundColor<<root>> LightGreen
-  BackgroundColor<<value object>> LightBlue
-  BackgroundColor<<entity>> LightYellow
+hide field
+hide methods
+
+title Domain Driven Design
+skinparam linetype ortho
+
+package InterviewAgg #bababa {
+
+    class Interview<<Root>><<Entity>>
+    class InterviewQuestions<<Value Object>>
+    class InterviewAnswers<<Value Object>>
+    class InterviewResults<<Value Object>>
+
+    Interview-->"1"InterviewQuestions
+    Interview-->"1"InterviewAnswers
+    Interview-->"1"InterviewResults
+
+
+
+    class TrueFalseQuestion<<Value Object>>
+    class ShortTextAnswerQuestion<<Value Object>>
+    class SingleAnswerChoiceQuestion<<Value Object>>
+    class MultipleAnswerChoiceQuestion<<Value Object>>
+    class IntegerNumberQuestion<<Value Object>>
+    class DecimalNumberQuestion<<Value Object>>
+    class DateQuestion<<Value Object>>
+    class TimeQuestion<<Value Object>>
+    class NumericScaleQuestion<<Value Object>>
+
+    "InterviewQuestions""1" --> "*"TrueFalseQuestion
+    "InterviewQuestions""1" --> "*"ShortTextAnswerQuestion
+    "InterviewQuestions""1" --> "*"SingleAnswerChoiceQuestion
+    "InterviewQuestions""1" --> "*"MultipleAnswerChoiceQuestion
+    "InterviewQuestions""1" --> "*"IntegerNumberQuestion
+    "InterviewQuestions""1" --> "*"DecimalNumberQuestion
+    "InterviewQuestions""1" --> "*"DateQuestion
+    "InterviewQuestions""1" --> "*"TimeQuestion
+    "InterviewQuestions""1" --> "*"NumericScaleQuestion
 }
 
-package "ClientAgg" {
-  class Client <<root>> {
-  }
-  class ClientID <<value object>> {}
-  Client "1" -- "1" ClientID
+package InterviewModel #baabab {
 
-  class Name <<value object>> {}
-  class Address <<value object>> {}
-  Client "1" -- "1" Name
-  Client "1" -- "1" Address
+    class InterviewModel<<Root>><<Entity>>
+    class InterviewName<<Value Object>><<Id>>
+    class InterviewJarFile<<Value Object>>
+    class InterviewDescription<<Value Object>>
 
-  class ClientRepresentative <<entity>> {
-  }
-  class RepresentativeID <<value object>> {}
-  class Email <<value object>> {}
-  class PhoneNumber <<value object>> {}
-  class FullName <<value object>> {}
-  class ShortName <<value object>> {}
-  class Password <<value object>> {}
-  ClientRepresentative "1" -- "1" RepresentativeID
-  ClientRepresentative "1" -- "1" Email
-  ClientRepresentative "1" -- "1" PhoneNumber
-  ClientRepresentative "1" -- "1" FullName
-  ClientRepresentative "1" -- "1" ShortName
-  ClientRepresentative "1" -- "1" Password
 
-  Client "1" -- "1" ClientRepresentative
+    InterviewModel-->"1"InterviewName
+    InterviewModel-->"1"InterviewJarFile
+    InterviewModel-->"1"InterviewDescription
+
+    Interview --> InterviewModel : Makes
+
 }
 
-package "JobOpeningAgg" {
-  class JobOpening <<root>> {
-  }
 
 
-  class JobReference <<value object>> {}
-  class Phase <<value object>> {}
-  class Duration <<value object>> {}
-  class NrVacancies <<value object>> {}
-  class Title <<value object>> {}
-  class ContractType <<value object>> {}
-  class Description <<value object>> {}
-  class Address <<value object>> {}
-  class Mode <<value object>> {}
-  JobOpening "1" -- "1" JobReference
-  JobOpening "1" -- "1" Phase
-  JobOpening "1" -- "1" Duration
-  JobOpening "1" -- "1" NrVacancies
-  JobOpening "1" -- "1" Title
-  JobOpening "1" -- "1" ContractType
-  JobOpening "1" -- "1" Description
-  JobOpening "1" -- "1" Address
-  JobOpening "1" -- "1" Mode
+note right of InterviewModel
+  Responsibilities:
+  - Generate a template text file with the questions to be asked in the interview and the possible answers for each question
+  - Evaluate if a text file with the questions and answers for a particular candidate interview is syntactically correct
+  - Evaluate a text file with the questions and answers for a particular candidate interview and provide a numeric grade for that interview
+end note
 
-  ClientID --> JobOpening : Creates
+package ClientAgg #bababa {
+
+    class Client<<Root>>
+    class ClientID<<Value Object>>
+    class Name<<Value Object>>
+    class Address<<Value Object>>
+    class ClientRepresentative<<Entity>>
+    class RepresentativeID<<Value Object>>
+    class Email<<Value Object>>
+    class PhoneNumber<<Value Object>>
+    class FullName<<Value Object>>
+    class ShortName<<Value Object>>
+    class Password<<Value Object>>
+
+    Client "1" -- "1" ClientID
+    Client "1" -- "1" Name
+    Client "1" -- "1" Address
+    Client "1" -- "1" ClientRepresentative
+    ClientRepresentative "1" -- "1" RepresentativeID
+    ClientRepresentative "1" -- "1" Email
+    ClientRepresentative "1" -- "1" PhoneNumber
+    ClientRepresentative "1" -- "1" FullName
+    ClientRepresentative "1" -- "1" ShortName
+    ClientRepresentative "1" -- "1" Password
+
+    Interview --> ClientID : Refers
+
 }
 
-package "RequirementsSpecificationAgg" {
-  class RequirementsSpecification <<root>> {
-  }
+package JobOpeningAgg #baabab {
 
-  class JarFile <<value object>> {}
-  class SpecName <<value object>> {}
-  RequirementsSpecification "1" -- "1" JarFile
-  RequirementsSpecification "1" -- "1" SpecName
+    class JobOpening<<Root>>
+    class JobReference<<Value Object>>
+    class Phase<<Value Object>>
+    class Duration<<Value Object>>
+    class NrVacancies<<Value Object>>
+    class Title<<Value Object>>
+    class ContractType<<Value Object>>
+    class Description<<Value Object>>
+    class Address<<Value Object>>
+    class Mode<<Value Object>>
 
-  JobReference --> RequirementsSpecification : Has
-}
-package "CandidateAgg" {
-  class Candidate <<root>> {
-  }
-  class CandidateID <<value object>> {}
-  class CandidateEmail <<value object>> {}
-  class CandidateName <<value object>> {}
-  class CandidatePhoneNumber <<value object>> {}
-  Candidate "1" -- "1" CandidateID
-  Candidate "1" -- "1" CandidateEmail
-  Candidate "1" -- "1" CandidateName
-  Candidate "1" -- "1" CandidatePhoneNumber
-}
+    JobOpening "1" -- "1" JobReference
+    JobOpening "1" -- "1" Phase
+    JobOpening "1" -- "1" Duration
+    JobOpening "1" -- "1" NrVacancies
+    JobOpening "1" -- "1" Title
+    JobOpening "1" -- "1" ContractType
+    JobOpening "1" -- "1" Description
+    JobOpening "1" -- "1" Address
+    JobOpening "1" -- "1" Mode
 
-package "ApplicationAgg" {
-  class Application <<root>> {
-  }
-  class ApplicationID <<value object>> {}
-  class ApplicationState <<value object>> {}
-  Application "1" -- "1" ApplicationID
-  Application "1" -- "1" ApplicationState
+    ClientID --> JobOpening : Creates
 
-  CandidateID --> Application : Makes
-  ApplicationID --> JobReference : Refers
+    Interview --> JobReference : Refers
 }
 
-package "RequirementsEvaluationAgg" {
-  class RequirementsEvaluation <<root>> {
-  }
-  class RequirementsResults <<value object>> {}
-  RequirementsEvaluation "1" -- "1" RequirementsResults
+package RequirementsSpecificationAgg #bababa {
 
-  ApplicationID --> RequirementsEvaluation : Evaluates
-  RequirementsSpecification --> RequirementsEvaluation : Evaluates
+    class RequirementsSpecification<<Root>>
+    class JarFile<<Value Object>>
+    class SpecName<<Value Object>>
+
+    RequirementsSpecification "1" -- "1" JarFile
+    RequirementsSpecification "1" -- "1" SpecName
+
+    JobReference --> RequirementsSpecification : Has
 }
 
-@enduml         
+package CandidateAgg #baabab {
+
+    class Candidate<<Root>>
+    class CandidateID<<Value Object>>
+    class CandidateEmail<<Value Object>>
+    class CandidateName<<Value Object>>
+    class CandidatePhoneNumber<<Value Object>>
+
+    Candidate "1" -- "1" CandidateID
+    Candidate "1" -- "1" CandidateEmail
+    Candidate "1" -- "1" CandidateName
+    Candidate "1" -- "1" CandidatePhoneNumber
+}
+
+package ApplicationAgg #baabab {
+
+    class Application<<Root>>
+    class ApplicationID<<Value Object>>
+    class ApplicationState<<Value Object>>
+
+    Application "1" -- "1" ApplicationID
+    Application "1" -- "1" ApplicationState
+
+    CandidateID --> Application : Makes
+    ApplicationID --> JobReference : Refers
+}
+
+package RequirementsEvaluationAgg #baabab {
+
+    class RequirementsEvaluation<<Root>>
+    class RequirementsResults<<Value Object>>
+
+    RequirementsEvaluation "1" -- "1" RequirementsResults
+
+    ApplicationID --> RequirementsEvaluation : Evaluates
+    RequirementsSpecification --> RequirementsEvaluation : Evaluates
+}
+
+
+
+
+@enduml
