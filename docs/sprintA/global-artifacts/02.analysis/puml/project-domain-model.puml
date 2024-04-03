@@ -1,114 +1,61 @@
 @startuml
-skinparam classAttributeIconSize 0
-hide empty attributes
-skinparam classBackgroundColor beige
-skinparam ArrowColor #222222
-
-' Agregados e entidades
-package "Clientes" {
-    entity "Client" as Client <<root>> {
-    }
-    entity "Operator" as Operator {
-    }
-    entity "CustomManager" as CustomManager {
-    }
+entity "Job Opening" as JobOpening <<root>> {
 }
 
-package "Administração" {
-    entity "Admin" as Admin <<root>> {
-    }
+' Objetos de valor
+class "Job Requirements" <<value>> {
+}
+class "Contract Type" <<value>> {
+}
+class "Job Mode" <<value>> {
+}
+class "Address" <<value>> {
 }
 
-package "Candidato" {
-    entity "Candidate" as Candidate <<root>> {
-    }
-    ' Objetos de valor
-    class "Name" <<value>> {
-    }
-    class "Email" <<value>> {
-    }
-    class "Phone" <<value>> {
-    }
-    Candidate --> Name
-    Candidate --> Email
-    Candidate --> Phone
+JobOpening --> "Job Requirements"
+JobOpening --> "Contract Type"
+JobOpening --> "Job Mode"
+JobOpening --> "Address"
+
+' Novas entidades e classes
+entity "Client" as Client <<root>> {
+}
+entity "Candidate" as Candidate <<root>> {
+}
+entity "Application" as Application <<root>> {
+}
+class "File" <<value>> {
 }
 
-package "App" {
-    entity "Application" as Application <<root>> {
-    }
-    ' Objetos de valor
-    class "Name" <<value>> {
-    }
-    class "Email" <<value>> {
-    }
-    class "Phone" <<value>> {
-    }
-    class "State" <<value>> {
-    }
-    class "Screening" <<value>> {
-    }
-    class "Interview" <<value>> {
-    }
-    class "Analysis" <<value>> {
-    }
-    Application --> Name
-    Application --> Email
-    Application --> Phone
-    Application --> State
-    Application --> Screening
-    Application --> Interview
-    Application --> Analysis
+Client --> JobOpening : "Creates"
+Candidate ..> Application : "Applies with"
+Application --> JobOpening : "For"
+Application --> File : "Includes"
+
+' Service
+class "RequirementsEvaluater" <<service>> {
 }
 
-package "Job Agg" {
-    entity "Job" as Job <<root>> {
-    }
-    ' Objetos de valor
-    class "JobReference" <<value>> {
-    }
-    class "ContractType" <<value>> {
-    }
-    class "Company" <<value>> {
-    }
-    class "Description" <<value>> {
-    }
-    class "Address" <<value>> {
-    }
-    class "Mode" <<value>> {
-    }
-    Job --> JobReference
-    Job --> ContractType
-    Job --> Company
-    Job --> Description
-    Job --> Address
-    Job --> Mode
+RequirementsEvaluater ..> File : "Evaluates"
+RequirementsEvaluater ..> "Job Requirements" : "Compares"
+
+' Novas entidades, classes e serviços
+entity "Interviews" as Interviews <<root>> {
+}
+class "Interview Model" <<value>> {
+}
+class "Interview Answers" <<value>> {
+}
+class "Interview Evaluater" <<service>> {
+}
+class "Interview Results" <<value>> {
 }
 
-Client -[hidden]right-> Admin
-Client -[hidden]left-> Operator
-Client -[hidden]right-> CustomManager
-Operator -[hidden]down-> Admin
-CustomManager -[hidden]down-> Admin
-Operator -[hidden]left-> Candidate
-Operator -[hidden]down-> Application
-Candidate --> Application : ""
-Application -[hidden]left-> Job
-CustomManager -[hidden]up-> Job
+JobOpening --> "Interview Model" : "Defines"
 
-Client --> Admin : ""
-Client --> Operator : ""
-Client --> CustomManager : ""
-Operator --> Admin : ""
-CustomManager --> Admin : ""
-Operator --> Candidate :""
-Operator --> Application :""
-Application --> Job : ""
-CustomManager --> Job : ""
-
-' Eventos
-class "NotifyClient" <<Event>> {
-}
-Application --> NotifyClient : ""
-
+Candidate ..> Interviews : "Participates in"
+Interviews --> "Interview Model" : "Follows"
+Interviews --> "Interview Answers" : "Generates"
+"Interview Answers" ..> "Interview Evaluater" : "Evaluated by"
+"Interview Evaluater" --> "Interview Results" : "Generates"
 @enduml
