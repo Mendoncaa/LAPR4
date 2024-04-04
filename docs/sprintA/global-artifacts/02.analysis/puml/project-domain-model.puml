@@ -12,11 +12,11 @@ package InterviewAgg #bababa {
     class Interview<<Root>><<Entity>>
     class InterviewQuestions<<Value Object>>
     class InterviewAnswers<<Value Object>>
-    class InterviewResults<<Value Object>>
+    
 
     Interview-->"1"InterviewQuestions
     Interview-->"1"InterviewAnswers
-    Interview-->"1"InterviewResults
+    
 
 
 
@@ -39,9 +39,10 @@ package InterviewAgg #bababa {
     "InterviewQuestions""1" --> "*"DateQuestion
     "InterviewQuestions""1" --> "*"TimeQuestion
     "InterviewQuestions""1" --> "*"NumericScaleQuestion
+
 }
 
-package InterviewModel #baabab {
+package InterviewModelAgg #baabab {
 
     class InterviewModel<<Root>><<Entity>>
     class InterviewName<<Value Object>><<Id>>
@@ -52,14 +53,16 @@ package InterviewModel #baabab {
     InterviewModel-->"1"InterviewName
     InterviewModel-->"1"InterviewJarFile
     InterviewModel-->"1"InterviewDescription
+    
 
     Interview --> InterviewModel : Makes
+    
 
 }
 
 
 
-note right of InterviewModel
+note right of InterviewModelAgg
   Responsibilities:
   - Generate a template text file with the questions to be asked in the interview and the possible answers for each question
   - Evaluate if a text file with the questions and answers for a particular candidate interview is syntactically correct
@@ -68,7 +71,7 @@ end note
 
 package ClientAgg #bababa {
 
-    class Client<<Root>>
+    class Client<<Entity>><<Root>>
     class ClientID<<Value Object>>
     class Name<<Value Object>>
     class Address<<Value Object>>
@@ -91,13 +94,13 @@ package ClientAgg #bababa {
     ClientRepresentative "1" -- "1" ShortName
     ClientRepresentative "1" -- "1" Password
 
-    Interview --> ClientID : Refers
+    
 
 }
 
 package JobOpeningAgg #baabab {
 
-    class JobOpening<<Root>>
+    class JobOpening<<Root>><<Entity>>
     class JobReference<<Value Object>>
     class Phase<<Value Object>>
     class Duration<<Value Object>>
@@ -107,6 +110,7 @@ package JobOpeningAgg #baabab {
     class Description<<Value Object>>
     class Address<<Value Object>>
     class Mode<<Value Object>>
+    class Requirements<<Value Object>>
 
     JobOpening "1" -- "1" JobReference
     JobOpening "1" -- "1" Phase
@@ -117,15 +121,16 @@ package JobOpeningAgg #baabab {
     JobOpening "1" -- "1" Description
     JobOpening "1" -- "1" Address
     JobOpening "1" -- "1" Mode
+    JobOpening "1" -- "1" Requirements
 
     ClientID --> JobOpening : Creates
 
-    Interview --> JobReference : Refers
+    
 }
 
 package RequirementsSpecificationAgg #bababa {
 
-    class RequirementsSpecification<<Root>>
+    class RequirementsSpecification<<Root>><<Service>>
     class JarFile<<Value Object>>
     class SpecName<<Value Object>>
 
@@ -137,7 +142,7 @@ package RequirementsSpecificationAgg #bababa {
 
 package CandidateAgg #baabab {
 
-    class Candidate<<Root>>
+    class Candidate<<Root>><<Entity>>
     class CandidateID<<Value Object>>
     class CandidateEmail<<Value Object>>
     class CandidateName<<Value Object>>
@@ -147,30 +152,43 @@ package CandidateAgg #baabab {
     Candidate "1" -- "1" CandidateEmail
     Candidate "1" -- "1" CandidateName
     Candidate "1" -- "1" CandidatePhoneNumber
+
 }
 
 package ApplicationAgg #baabab {
 
-    class Application<<Root>>
+    class Application<<Root>><<Entity>>
     class ApplicationID<<Value Object>>
-    class ApplicationState<<Value Object>>
+    class ApplicationData<<Value Object>>
+    class ApplicationEmailContent<<Value Object>>
+    class ApplicationState<<Entity>>
+    class ApplicationStateID <<Value Object>>
+    class ApplicationRanking<<Entity>>
+    class RequirementsResult<<Value Object>>
+    class InterviewResults<<Value Object>>
+    class ApplicationStateDate<<Value Object>>
 
     Application "1" -- "1" ApplicationID
     Application "1" -- "1" ApplicationState
+    Application "1" -- "1" ApplicationData
+    Application "1" -- "1" ApplicationEmailContent
+    Application "1" -- "1" ApplicationRanking
+    ApplicationState "1" -- "1" ApplicationStateDate
+    ApplicationState "1" -- "1" ApplicationStateID
 
     CandidateID --> Application : Makes
     ApplicationID --> JobReference : Refers
-}
 
-package RequirementsEvaluationAgg #baabab {
+    ApplicationID --> RequirementsSpecification : is evaluated by
+    Interview-->ApplicationID : Refers
+    ApplicationRanking --> InterviewResults : Has
+    ApplicationRanking --> RequirementsResult : Has
 
-    class RequirementsEvaluation<<Root>>
-    class RequirementsResults<<Value Object>>
+    InterviewModel --> InterviewResults : Refers
+    RequirementsSpecification --> RequirementsResult : Refers
 
-    RequirementsEvaluation "1" -- "1" RequirementsResults
+    
 
-    ApplicationID --> RequirementsEvaluation : Evaluates
-    RequirementsSpecification --> RequirementsEvaluation : Evaluates
 }
 
 
