@@ -33,10 +33,6 @@ package InterviewModelAgg #808080 {
     InterviewModel-->"1"SpecName
     InterviewModel-->"1"Description
 
-
-    Interview --> InterviewModel : Makes
-
-
 }
 
 package ClientAgg #696969 {
@@ -92,8 +88,6 @@ package JobOpeningAgg #778899 {
     JobOpening "1" --> "1" Mode
     JobOpening "1" --> "1" Requirements
 
-    Client --> JobOpening : Creates
-
 
 }
 
@@ -107,9 +101,6 @@ package RequirementsSpecificationAgg #708090 {
     RequirementsSpecification "1" --> "1" JarFile
     RequirementsSpecification "1" --> "1" SpecName
     RequirementsSpecification "1" --> "1" Description
-
-    JobOpening --> RequirementsSpecification : Has
-
 
 }
 
@@ -157,22 +148,13 @@ package ApplicationAgg #696969 {
     ApplicationState "1" --> "1" ApplicationStateDate
     ApplicationState "1" --> "1" ApplicationStateID
 
-    Candidate --> Application : Makes
-    Application --> JobOpening : Refers
+    Application --> JobOpening : Refers to
 
     Application --> RequirementsSpecification : is evaluated by
-    Interview-->Application : Refers
+    Application --> Interview
     ApplicationRanking --> InterviewResults : Has
     ApplicationRanking --> RequirementsResult : Has
 
-    InterviewModel --> InterviewResults : Refers
-    RequirementsSpecification --> RequirementsResult : Refers
-
-
-
 }
-
-
-
 
 @enduml
