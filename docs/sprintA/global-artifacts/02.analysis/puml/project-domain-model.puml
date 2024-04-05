@@ -99,7 +99,7 @@ package JobOpeningAgg #778899 {
 
 package RequirementsSpecificationAgg #708090 {
 
-    class RequirementsSpecification<<Root>><<Service>>
+    class RequirementsSpecification<<Root>><<Entity>>
     class JarFile<<Value Object>>
     class SpecName<<Value Object>><<Id>>
     class Description<<Value Object>>
@@ -109,7 +109,17 @@ package RequirementsSpecificationAgg #708090 {
     RequirementsSpecification "1" --> "1" Description
 
     JobOpening --> RequirementsSpecification : Has
+
+
 }
+
+class RequirementsGenerate<<Service>>
+RequirementsGenerate ..> RequirementsSpecification
+RequirementsGenerate ..> Requirements : generates template
+
+class InterviewGenerate<<Service>>
+InterviewGenerate ..> InterviewModel
+InterviewGenerate ..> Interview : generates template
 
 package CandidateAgg #778899 {
 
