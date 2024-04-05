@@ -15,29 +15,47 @@ The company’s clients are other companies or entities that need to recruit hum
 
 Make sure Maven is installed and on the PATH
 
-If using an Oracle database, you will need to change your maven settings for
-downloading the Oracle drivers. see https://blogs.oracle.com/dev2dev/entry/how_to_get_oracle_jdbc#settings for more information.
 
-1. **run script:**
-2. **rebuild-all.bat:** 
+### Windows
+
+
+```bash
+cd scripts;
+.\build.bat
+```
+
+### UNIX (MacOS and Linux)
+
+```shell
+cd scripts;
+./build.sh
+```
+
 
 ## 4. How to Execute Tests
 
 We don't have any tests for now
 
+
 ## 5. How to Run
 
 Make sure a JRE is installed and on the PATH
 
-1. **run script:**
-2. **run-backoffice:**
+
+### Windows
 
 
+```bash
+cd scripts;
+.\run.bat
+```
 
-or
+### UNIX (MacOS and Linux)
 
-
-**run-user.bat:** 
+```shell
+cd scripts;
+./run.sh
+```
 
 
 
