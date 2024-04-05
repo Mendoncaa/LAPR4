@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '00 23 * * *'
+
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set execute permission on build-all.sh
+        run: chmod 777 build-all.sh
+
+      - name: Build Project
+        run: ./build-all.sh
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jobs4U-$(date + '%Y-%m-%d')-BETA.jar
+          path: .*.jar
+          retention-days: 7
+          compression-level: 0
+
+      - name: GIT commit and push docs
+        env:
+          CI_COMMIT_MESSAGE: Continuous Integration Build Artifacts
+          CI_COMMIT_AUTHOR: Continuous Integration
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "ContinuosIntegration@users.noreply.github.com"
+          git tag -a Build#${{github.run_number}} -m "${{ github.event.head_commit.message }}"
+          git push --tags
