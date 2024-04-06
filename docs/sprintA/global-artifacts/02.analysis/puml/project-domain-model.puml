@@ -44,7 +44,6 @@ package ClientAgg #baabab {
 package JobOpeningAgg #bbaabb {
     class JobOpening<<Root>><<Entity>>
     class JobReference<<Value Object>><<Id>>
-    class Phase<<Value Object>>
     class Duration<<Value Object>>
     class NrVacancies<<Value Object>>
     class Title<<Value Object>>
@@ -54,7 +53,6 @@ package JobOpeningAgg #bbaabb {
     class Mode<<Value Object>>
 
     JobOpening "1" --> "1" JobReference
-    JobOpening "1" --> "1" Phase
     JobOpening "1" --> "1" Duration
     JobOpening "1" --> "1" NrVacancies
     JobOpening "1" --> "1" Title
@@ -62,6 +60,7 @@ package JobOpeningAgg #bbaabb {
     JobOpening "1" --> "1" Description
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" Mode
+    JobOpening "1"--> "1" Client : Refers to
 }
 
 package RequirementsSpecificationAgg #bbbbaa {
@@ -95,13 +94,16 @@ package ApplicationAgg #aaaabb {
     class ApplicationEmailContent<<Value Object>>
     class ApplicationState<<Value Object>>
     class InterviewEvaluation<<Value Object>>
+    class RequirementsEvaluation<<Value Object>>
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
     Application "1" --> "1" ApplicationData
     Application "1" --> "1" ApplicationEmailContent
     Application "1" --> "1" InterviewEvaluation
-    Application --> JobOpening : Refers to
+    Application "1" --> "1" RequirementsEvaluation
+    Application "1"-->"1" JobOpening : Refers to
+    Application "1..*"-->"1" Candidate : Refers to
 }
 
 package RankingAgg #abbabb {
@@ -122,13 +124,30 @@ package FileAgg #abbaba {
     File "1" --> "1" Filepath
 }
 
+package RecruitmentProcessAgg #abbaba {
+    class Phase<<Root>><<Entity>>
+    class Name<<Value Object>><<Id>>
+    class StartDate<<Value Object>>
+    class EndDate<<Value Object>>
+    class Status <<Value Object>>
+
+    Phase "1" --> "1" Name
+    Phase "1" --> "1" StartDate
+    Phase "1" --> "1" EndDate
+    Phase "1" --> "1" Status
+
+    JobOpening "1"-->"1" Phase : Refers to
+}
+
 class RequirementsGenerate<<Service>>
 RequirementsGenerate ..> RequirementsSpecification
 RequirementsGenerate ..> File : Generates Requirements Template
+RequirementsGenerate ..> JobOpening: Refers to
 
 class InterviewGenerate<<Service>>
 InterviewGenerate ..> InterviewModel
 InterviewGenerate ..> File : Generates Interview Template
+InterviewGenerate ..> JobOpening: Refers to
 
 class InterviewEvaluate<<Service>>
 InterviewEvaluate ..> File
