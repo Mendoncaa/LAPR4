@@ -7,38 +7,20 @@ hide methods
 title Domain Driven Design
 skinparam linetype ortho
 
-package InterviewAgg #A9A9A9 {
-
-    class Interview<<Root>><<Entity>>
-    class InterviewID<<Value Object>><<Id>>
-    class InterviewQuestions<<Value Object>>
-    class InterviewAnswers<<Value Object>>
-
-    Interview "1" --> "1" InterviewID
-    Interview-->"1"InterviewQuestions
-    Interview-->"1"InterviewAnswers
-
-}
-
-package InterviewModelAgg #808080 {
-
+package InterviewModelAgg #bababa {
     class InterviewModel<<Root>><<Entity>>
-
     class JarFile<<Value Object>>
     class SpecName<<Value Object>><<Id>>
     class Description<<Value Object>>
 
-
     InterviewModel-->"1"JarFile
     InterviewModel-->"1"SpecName
     InterviewModel-->"1"Description
-
 }
 
-package ClientAgg #696969 {
-
+package ClientAgg #baabab {
     class Client<<Entity>><<Root>>
-    class ClientID<<Value Object>><<Id>>
+    class CustomerCode<<Value Object>><<Id>>
     class Name<<Value Object>>
     class Address<<Value Object>>
     class ClientRepresentative<<Entity>>
@@ -46,10 +28,9 @@ package ClientAgg #696969 {
     class Email<<Value Object>><<Id>>
     class PhoneNumber<<Value Object>>
     class FullName<<Value Object>>
-
     class Password<<Value Object>>
 
-    Client "1" --> "1" ClientID
+    Client "1" --> "1" CustomerCode
     Client "1" --> "1" Name
     Client "1" --> "1" Address
     Client "1" --> "1" ClientRepresentative
@@ -58,13 +39,9 @@ package ClientAgg #696969 {
     ClientRepresentative "1" --> "1" PhoneNumber
     ClientRepresentative "1" --> "1" FullName
     ClientRepresentative "1" --> "1" Password
-
-
-
 }
 
-package JobOpeningAgg #778899 {
-
+package JobOpeningAgg #bbaabb {
     class JobOpening<<Root>><<Entity>>
     class JobReference<<Value Object>><<Id>>
     class Phase<<Value Object>>
@@ -75,7 +52,6 @@ package JobOpeningAgg #778899 {
     class Description<<Value Object>>
     class Address<<Value Object>>
     class Mode<<Value Object>>
-    class Requirements<<Value Object>>
 
     JobOpening "1" --> "1" JobReference
     JobOpening "1" --> "1" Phase
@@ -86,13 +62,9 @@ package JobOpeningAgg #778899 {
     JobOpening "1" --> "1" Description
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" Mode
-    JobOpening "1" --> "1" Requirements
-
-
 }
 
-package RequirementsSpecificationAgg #708090 {
-
+package RequirementsSpecificationAgg #bbbbaa {
     class RequirementsSpecification<<Root>><<Entity>>
     class JarFile<<Value Object>>
     class SpecName<<Value Object>><<Id>>
@@ -101,19 +73,9 @@ package RequirementsSpecificationAgg #708090 {
     RequirementsSpecification "1" --> "1" JarFile
     RequirementsSpecification "1" --> "1" SpecName
     RequirementsSpecification "1" --> "1" Description
-
 }
 
-class RequirementsGenerate<<Service>>
-RequirementsGenerate ..> RequirementsSpecification
-RequirementsGenerate ..> Requirements : generates template
-
-class InterviewGenerate<<Service>>
-InterviewGenerate ..> InterviewModel
-InterviewGenerate ..> Interview : generates template
-
-package CandidateAgg #778899 {
-
+package CandidateAgg #aababb {
     class Candidate<<Root>><<Entity>>
     class Email<<Value Object>><<Id>>
     class Name<<Value Object>>
@@ -124,37 +86,64 @@ package CandidateAgg #778899 {
     Candidate "1" --> "1" Name
     Candidate "1" --> "1" PhoneNumber
     Candidate "1" --> "1" Password
-
 }
 
-package ApplicationAgg #696969 {
-
+package ApplicationAgg #aaaabb {
     class Application<<Root>><<Entity>>
-    class ApplicationID<<Value Object>>
+    class ApplicationID<<Value Object>><<Id>>
     class ApplicationData<<Value Object>>
     class ApplicationEmailContent<<Value Object>>
-    class ApplicationState<<Entity>>
-    class ApplicationStateID <<Value Object>>
-    class ApplicationRanking<<Entity>>
-    class RequirementsResult<<Value Object>>
-    class InterviewResults<<Value Object>>
-    class ApplicationStateDate<<Value Object>>
+    class ApplicationState<<Value Object>>
+    class InterviewEvaluation<<Value Object>>
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
     Application "1" --> "1" ApplicationData
     Application "1" --> "1" ApplicationEmailContent
-    Application "1" --> "1" ApplicationRanking
-    ApplicationState "1" --> "1" ApplicationStateDate
-    ApplicationState "1" --> "1" ApplicationStateID
-
+    Application "1" --> "1" InterviewEvaluation
     Application --> JobOpening : Refers to
-
-    Application --> RequirementsSpecification : is evaluated by
-    Application --> Interview
-    ApplicationRanking --> InterviewResults : Has
-    ApplicationRanking --> RequirementsResult : Has
-
 }
+
+package RankingAgg #abbabb {
+    class Rank<<Root>><<Entity>>
+    class RankID<<Value Object>><<Id>>
+
+    Rank "1" --> "1" RankID
+    Rank --> JobOpening
+    Rank --> Candidate
+}
+
+package FileAgg #abbaba {
+    class File<<Root>><<Entity>>
+    class FileID<<Value Object>><<Id>>
+    class Filepath<<Value Object>>
+
+    File "1" --> "1" FileID
+    File "1" --> "1" Filepath
+}
+
+class RequirementsGenerate<<Service>>
+RequirementsGenerate ..> RequirementsSpecification
+RequirementsGenerate ..> File : Generates Requirements Template
+
+class InterviewGenerate<<Service>>
+InterviewGenerate ..> InterviewModel
+InterviewGenerate ..> File : Generates Interview Template
+
+class InterviewEvaluate<<Service>>
+InterviewEvaluate ..> File
+InterviewEvaluate ..> Application
+InterviewEvaluate ..> InterviewModel
+
+class RequirementsEvaluate<<Service>>
+RequirementsEvaluate ..> File
+RequirementsEvaluate ..> Application
+RequirementsEvaluate ..> RequirementsSpecification
+
+class NotificationService<<Service>>
+NotificationService ..> Candidate : notifies
+NotificationService ..> Client : notifies
+NotificationService ..> Application : gets verification result
+NotificationService ..> JobOpening : gets job opening state
 
 @enduml
