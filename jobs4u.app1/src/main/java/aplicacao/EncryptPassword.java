@@ -7,8 +7,7 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptPassword {
     public String encrypt(String password) throws NoSuchAlgorithmException {
         final MessageDigest digest = MessageDigest.getInstance("SHA3-256");
-        final byte[] hashbytes = digest.digest(
-                password.getBytes(StandardCharsets.UTF_8));
+        final byte[] hashbytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         return bytesToHex(hashbytes);
     }
 

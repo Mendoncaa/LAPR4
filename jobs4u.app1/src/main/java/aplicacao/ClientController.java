@@ -28,7 +28,7 @@ public class ClientController {
         return checkClient.checkValidClient(username, password, firstName, lastName, email, phone, role);
     }
     
-    public List<ClientEntity> listarGruposAutomoveis() {
+    public List<ClientEntity> listarClients() {
         ClientEntityRepositorio repo = new ClientEntityRepositorioJPAImpl();
         return repo.findAll();
 	}
@@ -41,10 +41,5 @@ public class ClientController {
     public String encodePassword(String password) throws NoSuchAlgorithmException {
         EncryptPassword encryptPassword = new EncryptPassword();
         return encryptPassword.encrypt(password);
-    }
-
-
-
-    public void registarClient(ClientEntity clientEntity) {
     }
 }

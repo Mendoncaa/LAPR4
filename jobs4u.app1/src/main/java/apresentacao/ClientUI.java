@@ -54,15 +54,14 @@ public class ClientUI {
             ClientEntity clientEntity = controller.createAndSaveClient(username, password, firstName, lastName, email, phone, role);
             System.out.println("User: " + clientEntity + "\nRegistado com sucesso!");
         } else {
-
             System.out.println("Erro ao registar User");
         }
 
     }
     public void listarClients() {
-		List<ClientEntity> lista = controller.listarGruposAutomoveis();
+		List<ClientEntity> lista = controller.listarClients();
         for (ClientEntity ce : lista) {
-            System.out.println(ce);
+            System.out.println(ce.getUsername());
         }
 	}
 

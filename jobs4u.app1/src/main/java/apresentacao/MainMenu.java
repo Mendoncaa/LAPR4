@@ -8,11 +8,6 @@ package apresentacao;
 import util.Console;
 
 import java.security.NoSuchAlgorithmException;
-
-/**
- *
- * @author mcn
- */
 public class MainMenu {
 
 	public static void main(String[] args) {
@@ -42,10 +37,6 @@ public class MainMenu {
 					ClientUI.listarClients();
 					break;
 
-				case 3:
-					ClientUI.procurarClientPorNome();
-					break;
-
 				
 				default:
 					System.out.println("opcao não reconhecida.");
@@ -57,16 +48,14 @@ public class MainMenu {
 
 	private static int menu() {
 		int option = -1;
-		System.out.println("");
-		System.out.println("=============================");
+		System.out.println(" ");
+		System.out.println("======================================");
 		System.out.println(" Jobs4u - Test scripts and persistence");
-		System.out.println("=============================\n");
+		System.out.println("======================================");
 		System.out.println("1.Registar User");
 		System.out.println("2.Listar todos os Users");
-		System.out.println("3.Procurar Users por Nome");
-		
-        System.out.println("=============================");
-        System.out.println("0. Sair\n\n");
+        System.out.println("======================================");
+        System.out.println("0. Sair\n");
 		option = Console.readInteger("Por favor escolha opção");
 		return option;
 	}
