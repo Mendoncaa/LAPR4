@@ -9,8 +9,8 @@ skinparam linetype ortho
 
 package InterviewModelAgg #bababa {
     class InterviewModel<<Root>><<Entity>>
-    class JarFile<<Value Object>>
     class SpecName<<Value Object>><<Id>>
+    class JarFile<<Value Object>>
     class Description<<Value Object>>
 
     InterviewModel-->"1"JarFile
@@ -102,8 +102,8 @@ package ApplicationAgg #aaaabb {
     Application "1" --> "1" ApplicationEmailContent
     Application "1" --> "1" InterviewEvaluation
     Application "1" --> "1" RequirementsEvaluation
-    Application "1"-->"1" JobOpening : Refers to
-    Application "1..*"-->"1" Candidate : Refers to
+    Application "1" --> "1" JobOpening : Refers to
+    Application "1*" --> "1" Candidate : Refers to
 }
 
 package RankingAgg #abbabb {
@@ -118,10 +118,12 @@ package RankingAgg #abbabb {
 package FileAgg #abbaba {
     class File<<Root>><<Entity>>
     class FileID<<Value Object>><<Id>>
-    class Filepath<<Value Object>>
+    class FilePath<<Value Object>>
+    class FileType<<Value Object>>
 
     File "1" --> "1" FileID
-    File "1" --> "1" Filepath
+    File "1" --> "1" FilePath
+    File "1" --> "1" FileType
 }
 
 package RecruitmentProcessAgg #abbaba {
