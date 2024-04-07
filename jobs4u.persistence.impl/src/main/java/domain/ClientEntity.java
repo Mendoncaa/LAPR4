@@ -46,6 +46,54 @@ public class ClientEntity {
     public ClientEntity() {
 
     }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    /* @Override
+    public String toString() {
+        return "ClientEntity{\n" +
+                "Username: '" + username + '\n' +
+                "First Name: '" + firstName + '\n' +
+                "Last Name: '" + lastName + '\n' +
+                "Phone: '" + phone + '\n' +
+                "E-mail: '" + email + '\n' +
+                "Role: '" + role + '\n' +
+                '}';
+    }
  /*   @Override
     public int hashCode() {
         int result = idClient;

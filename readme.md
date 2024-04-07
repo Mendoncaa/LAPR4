@@ -46,14 +46,12 @@ Make sure a JRE is installed and on the PATH
 
 
 ```bash
-cd scripts;
 .\run.bat
 ```
 
 ### UNIX (MacOS and Linux)
 
 ```shell
-cd scripts;
 ./run.sh
 ```
 
