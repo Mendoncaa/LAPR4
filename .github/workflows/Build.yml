@@ -15,11 +15,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set execute permission on build-all.sh
-        run: chmod 777 build-all.sh
+      - name: Set execute permission on build.sh
+        run: cd scripts && chmod 777 build.sh
 
       - name: Build Project
-        run: ./build-all.sh
+        run: ./scripts/build.sh
 
       - name: Pull latest changes
         run: git pull origin main

@@ -92,4 +92,4 @@
 **Selected Level:** 4
 
 **Justification and Evidences:**
---> My self assessment is based on the interest and effort that I putted on the the work to be developed, co-working with my team, helping and requesting for help when needed. I was a present colleague, organized and interested on achieving the main goal. I think our goal was reached, the domain model was discussed properly and, in our point of view, is very coherent and shows some knowledge acquired in classes. We were always aware of the client´s requirements and we tried to satisfy them.    
+--> My self assessment is based on the interest and effort that I putted on the work to be developed, co-working with my team, helping and requesting for help when needed. I was a present colleague, organized and interested on achieving the main goal. I think our goal was reached, the domain model was discussed properly and, in our point of view, is very coherent and shows some knowledge acquired in classes. We were always aware of the client´s requirements, and we tried to satisfy them.    

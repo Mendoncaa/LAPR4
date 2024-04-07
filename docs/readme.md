@@ -36,7 +36,7 @@ The assignment of tasks (requirements/user stories/use cases) during the project
 
 | Student Nr.	                      | Name            | Justification                              | Engineering Process | Issues and Version Control | Team Work | Deployment | Integration | Req. Satisfaction | 
 |-----------------------------------|-----------------|--------------------------------------------|---------------------|----------------------------|-----------|------------|-------------|-------------------|
-| **[1211895](1211895/readme.md)**  | Diogo Nunes     | [readme.md](1211895%2Fsprinta%2Freadme.md) |                     |                            |           |            |             |                   |
+| **[1211895](1211895/readme.md)**  | Diogo Nunes     | [readme.md](1211895%2Fsprinta%2Freadme.md) | 4                   | 4                          | 5         | 5          | 5           | 4                 |
 | **[1220672](1220672/readme.md)**  | Bruna Barbosa   | [readme.md](1220672%2Fsprinta%2Freadme.md) | 4                   | 4                          | 5         | 5          | 5           | 4                 |
 | **[1211681](1211681/readme.md)**  | João Fernandes  | [readme.md](1211681%2Fsprinta%2Freadme.md) |                     |                            |           |            |             |                   |
 | **[1211572](1211672/readme.md)**  | David Mendonça  | [readme.md](1211572%2Fsprinta%2Freadme.md) | 4                   | 4                          | 5         | 5          | 5           | 4                 |

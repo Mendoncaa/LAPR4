@@ -164,4 +164,4 @@ Conceptual Classes and Their Attributes:
 
 **Insert the Domain Model diagram in SVG format below.**
 
-![Domain Model](domain-model.svg)
+![Domain Model](svg/project-domain-model-Domain_Driven_Design.svg)
