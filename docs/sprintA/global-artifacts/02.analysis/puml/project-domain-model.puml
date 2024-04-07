@@ -5,7 +5,8 @@ hide field
 hide methods
 
 title Domain Driven Design
-skinparam linetype ortho
+skinparam linetype wavy 
+
 
 package InterviewModelAgg #bababa {
     class InterviewModel<<Root>><<Entity>>
@@ -13,9 +14,9 @@ package InterviewModelAgg #bababa {
     class JarFile<<Value Object>>
     class Description<<Value Object>>
 
-    InterviewModel-->"1"JarFile
-    InterviewModel-->"1"SpecName
-    InterviewModel-->"1"Description
+    InterviewModel"1"-->"1"JarFile
+    InterviewModel"1"-->"1"SpecName
+    InterviewModel"1"-->"1"Description
 }
 
 package ClientAgg #baabab {
@@ -60,7 +61,7 @@ package JobOpeningAgg #bbaabb {
     JobOpening "1" --> "1" Description
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" Mode
-    JobOpening "1"--> "1" Client : Refers to
+    JobOpening "1..*"--> "1" Client : Refers to
 }
 
 package RequirementsSpecificationAgg #bbbbaa {
@@ -102,8 +103,8 @@ package ApplicationAgg #aaaabb {
     Application "1" --> "1" ApplicationEmailContent
     Application "1" --> "1" InterviewEvaluation
     Application "1" --> "1" RequirementsEvaluation
-    Application "1" --> "1" JobOpening : Refers to
-    Application "1*" --> "1" Candidate : Refers to
+    Application "0..*" --> "1" JobOpening : Refers to
+    Application "1..*" --> "1" Candidate : Is submitted by
 }
 
 package RankingAgg #abbabb {
@@ -111,8 +112,8 @@ package RankingAgg #abbabb {
     class RankID<<Value Object>><<Id>>
 
     Rank "1" --> "1" RankID
-    Rank --> JobOpening
-    Rank --> Candidate
+    Rank "1"-->"1" JobOpening : Refers to
+    Rank "1"-->"*" Candidate : Is ordered by
 }
 
 package FileAgg #abbaba {
@@ -138,33 +139,39 @@ package RecruitmentProcessAgg #abbaba {
     Phase "1" --> "1" EndDate
     Phase "1" --> "1" Status
 
-    JobOpening "1"-->"1" Phase : Refers to
+    JobOpening "1"-->"4..5" Phase : Is separated into 
 }
 
 class RequirementsGenerate<<Service>>
+
 RequirementsGenerate ..> RequirementsSpecification
 RequirementsGenerate ..> File : Generates Requirements Template
 RequirementsGenerate ..> JobOpening: Refers to
 
 class InterviewGenerate<<Service>>
+
 InterviewGenerate ..> InterviewModel
 InterviewGenerate ..> File : Generates Interview Template
 InterviewGenerate ..> JobOpening: Refers to
 
 class InterviewEvaluate<<Service>>
-InterviewEvaluate ..> File
-InterviewEvaluate ..> Application
+
 InterviewEvaluate ..> InterviewModel
+InterviewEvaluate ..> File : Evaluate
+InterviewEvaluate ..> Application : Generates Interview Evaluation
+
 
 class RequirementsEvaluate<<Service>>
-RequirementsEvaluate ..> File
-RequirementsEvaluate ..> Application
+
+RequirementsEvaluate ..> File : Evaluate
+RequirementsEvaluate ..> Application: Generates Requirements Evaluation
 RequirementsEvaluate ..> RequirementsSpecification
 
 class NotificationService<<Service>>
-NotificationService ..> Candidate : notifies
-NotificationService ..> Client : notifies
-NotificationService ..> Application : gets verification result
-NotificationService ..> JobOpening : gets job opening state
+
+NotificationService ..> Candidate : Notifies
+NotificationService ..> Client : Notifies
+NotificationService ..> Application : Gets verification result
+NotificationService ..> JobOpening : Gets job opening state
 
 @enduml
