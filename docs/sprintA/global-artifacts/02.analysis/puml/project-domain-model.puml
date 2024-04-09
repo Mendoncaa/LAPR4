@@ -176,4 +176,5 @@ NotificationService ..> Client : Notifies
 NotificationService ..> Application : Gets verification result
 NotificationService ..> JobOpening : Gets job opening state
 
+
 @enduml
