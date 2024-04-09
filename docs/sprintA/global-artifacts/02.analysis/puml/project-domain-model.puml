@@ -159,6 +159,7 @@ class InterviewEvaluate<<Service>>
 InterviewEvaluate ..> InterviewModel
 InterviewEvaluate ..> File : Evaluate
 InterviewEvaluate ..> Application : Generates Interview Evaluation
+InterviewEvaluate ..> JobOpening : Refers to
 
 
 class RequirementsEvaluate<<Service>>
@@ -166,6 +167,7 @@ class RequirementsEvaluate<<Service>>
 RequirementsEvaluate ..> File : Evaluate
 RequirementsEvaluate ..> Application: Generates Requirements Evaluation
 RequirementsEvaluate ..> RequirementsSpecification
+RequirementsEvaluate ..> JobOpening : Refers to
 
 class NotificationService<<Service>>
 
