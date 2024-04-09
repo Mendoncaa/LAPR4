@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set execute permission on build.sh
-        run: cd scripts && chmod 777 build.sh
+        run: chmod 777 build.sh
 
       - name: Build Project
         run: ./build.sh
