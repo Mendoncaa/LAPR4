@@ -101,7 +101,7 @@ package ApplicationAgg #aaaabb {
     Application "1" --> "1" ApplicationState
     Application "1" --> "1" ApplicationData
     Application "1" --> "1" ApplicationEmailContent
-    Application "1" --> "1" InterviewEvaluation
+    Application "1" --> "0" InterviewEvaluation
     Application "1" --> "1" RequirementsEvaluation
     Application "0..*" --> "1" JobOpening : Refers to
     Application "1..*" --> "1" Candidate : Is submitted by
