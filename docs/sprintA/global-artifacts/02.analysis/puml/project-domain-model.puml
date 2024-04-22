@@ -96,7 +96,8 @@ package CandidateAgg #aababb {
     class Email<<Value Object>><<Id>>
     class Name<<Value Object>>
     class PhoneNumber<<Value Object>>
-    class Password<<Value Object>>
+    class CandidateState<<Value Object>>
+
 
     Candidate "1" --> "1" Email
     Candidate "1" --> "1" Name
@@ -115,12 +116,13 @@ package ApplicationAgg #aaaabb {
     class InterviewResults<<Value Object>>
     class RequirementsEvaluation<<Value Object>>
     class RequirementsAnswers<<Value Object>>
+    class InterviewAnswers<<Value Object>>
 
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
     
-    Application "1" --> "1" ApplicationData
+
     Application "1" --> "1" ApplicationFileAttached
     Application "1" --> "1" ApplicationFileAttachedContent
     Application "1" --> "1" ApplicationEmailContent
@@ -130,7 +132,7 @@ package ApplicationAgg #aaaabb {
     Application "1" --> "0..1" InterviewResults
     Application "1" --> "1" RequirementsEvaluation
     Application "1" --> "1" RequirementsAnswers
-    
+    Application "1" --> "1" InterviewAnswers
 
     Application "0..*" --> "1" JobOpening : Refers to
     Application "1..*" --> "1" Candidate : Is submitted by
