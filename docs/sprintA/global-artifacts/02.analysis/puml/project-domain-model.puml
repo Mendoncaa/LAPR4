@@ -108,12 +108,19 @@ package CandidateAgg #aababb {
 package ApplicationAgg #aaaabb {
     class Application<<Root>><<Entity>>
     class ApplicationID<<Value Object>><<Id>>
+
+    class File <<Entity>><<Root>>
+    class FilePath<<Value Object>><<Id>>
+
     class ApplicationFileAttached<<Value Object>>
     class ApplicationFileAttachedContent<<Value Object>>
     class ApplicationEmailContent<<Value Object>>
+    class ApplicationCandidateAppData<<Value Object>>
+    
     class ApplicationState<<Value Object>>
     class InterviewEvaluation<<Value Object>>
-    class InterviewResults<<Value Object>>
+
+    class InterviewGrade<<Value Object>>
     class RequirementsEvaluation<<Value Object>>
     class RequirementsAnswers<<Value Object>>
     class InterviewAnswers<<Value Object>>
@@ -123,16 +130,23 @@ package ApplicationAgg #aaaabb {
     Application "1" --> "1" ApplicationState
     
 
-    Application "1" --> "1" ApplicationFileAttached
-    Application "1" --> "1" ApplicationFileAttachedContent
-    Application "1" --> "1" ApplicationEmailContent
     
 
-    Application "1" --> "0" InterviewEvaluation
-    Application "1" --> "0..1" InterviewResults
-    Application "1" --> "1" RequirementsEvaluation
-    Application "1" --> "1" RequirementsAnswers
-    Application "1" --> "1" InterviewAnswers
+    Application "1" --> "1" File
+    File "1" --> "1" FilePath
+
+    fi
+    File "1" --> "0..*" ApplicationFileAttached
+    File "1" --> "0..*" ApplicationFileAttachedContent
+    File "1" --> "1" ApplicationEmailContent
+
+    
+
+    Application "1" --> "0..1" InterviewEvaluation
+    Application "1" --> "0..1" RequirementsEvaluation
+    Application "1" --> "0..1" RequirementsAnswers
+    Application "1" --> "0..1" InterviewAnswers
+    Application "1" --> "0..1" InterviewGrade
 
     Application "0..*" --> "1" JobOpening : Refers to
     Application "1..*" --> "1" Candidate : Is submitted by
