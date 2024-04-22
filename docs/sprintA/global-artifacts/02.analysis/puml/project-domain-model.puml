@@ -53,6 +53,7 @@ package JobOpeningAgg #bbaabb {
     class Description<<Value Object>>
     class Address<<Value Object>>
     class JobMode<<Value Object>>
+    class JobState<<Value Object>>
 
     class Phase<<Root>><<Entity>>
     class Name<<Value Object>><<Id>>
@@ -68,6 +69,7 @@ package JobOpeningAgg #bbaabb {
     JobOpening "1" --> "1" Description
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" JobMode
+    JobOpening "1" --> "1" JobState
 
     JobOpening "1..*"--> "1" Costumer : Refers to
 
@@ -128,25 +130,19 @@ package ApplicationAgg #aaaabb {
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
-    
-
-    
-
-    Application "1" --> "1" File
-    File "1" --> "1" FilePath
-
-    fi
-    File "1" --> "0..*" ApplicationFileAttached
-    File "1" --> "0..*" ApplicationFileAttachedContent
-    File "1" --> "1" ApplicationEmailContent
-
-    
-
     Application "1" --> "0..1" InterviewEvaluation
     Application "1" --> "0..1" RequirementsEvaluation
     Application "1" --> "0..1" RequirementsAnswers
     Application "1" --> "0..1" InterviewAnswers
     Application "1" --> "0..1" InterviewGrade
+    Application "1" --> "1" File
+
+
+    File "1" --> "1" FilePath
+    File "1" --> "0..*" ApplicationFileAttached
+    File "1" --> "0..*" ApplicationFileAttachedContent
+    File "1" --> "1" ApplicationEmailContent
+    File "1" --> "1" ApplicationCandidateAppData
 
     Application "0..*" --> "1" JobOpening : Refers to
     Application "1..*" --> "1" Candidate : Is submitted by
