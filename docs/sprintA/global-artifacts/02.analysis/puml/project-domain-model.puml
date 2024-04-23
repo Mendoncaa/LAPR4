@@ -48,12 +48,13 @@ package JobOpeningAgg #bbaabb {
     class JobReference<<Value Object>><<Id>>
     class Duration<<Value Object>>
     class NrVacancies<<Value Object>>
-    class Title<<Value Object>>
+    class JobOpeningTitle<<Value Object>>
     class ContractType<<Value Object>>
     class Description<<Value Object>>
     class Address<<Value Object>>
     class JobMode<<Value Object>>
     class JobState<<Value Object>>
+    class StartDate<<Value Object>>
 
     class Phase<<Root>><<Entity>>
     class Name<<Value Object>><<Id>>
@@ -64,12 +65,13 @@ package JobOpeningAgg #bbaabb {
     JobOpening "1" --> "1" JobReference
     JobOpening "1" --> "1" Duration
     JobOpening "1" --> "1" NrVacancies
-    JobOpening "1" --> "1" Title
+    JobOpening "1" --> "1" JobOpeningTitle
     JobOpening "1" --> "1" ContractType
     JobOpening "1" --> "1" Description
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" JobMode
     JobOpening "1" --> "1" JobState
+    JobOpening "1" --> "1" StartDate
 
     JobOpening "1..*"--> "1" Costumer : Refers to
 
@@ -110,9 +112,9 @@ package CandidateAgg #aababb {
 package ApplicationAgg #aaaabb {
     class Application<<Root>><<Entity>>
     class ApplicationID<<Value Object>><<Id>>
-
     class File <<Entity>><<Root>>
     class FilePath<<Value Object>><<Id>>
+    class RequirementsAnswers<<Value Object>>
 
     class ApplicationFileAttached<<Value Object>>
     class ApplicationFileAttachedContent<<Value Object>>
@@ -120,23 +122,19 @@ package ApplicationAgg #aaaabb {
     class ApplicationCandidateAppData<<Value Object>>
     
     class ApplicationState<<Value Object>>
-    class InterviewEvaluation<<Value Object>>
-
+    class Interview<<Value Object>>
     class InterviewGrade<<Value Object>>
-    class RequirementsEvaluation<<Value Object>>
-    class RequirementsAnswers<<Value Object>>
     class InterviewAnswers<<Value Object>>
-
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
-    Application "1" --> "0..1" InterviewEvaluation
-    Application "1" --> "0..1" RequirementsEvaluation
+    Application "1" --> "0..1" Interview
     Application "1" --> "0..1" RequirementsAnswers
-    Application "1" --> "0..1" InterviewAnswers
-    Application "1" --> "0..1" InterviewGrade
     Application "1" --> "1" File
 
+
+    Interview "1" --> "0..1" InterviewAnswers
+    Interview "1" --> "0..1" InterviewGrade
 
     File "1" --> "1" FilePath
     File "1" --> "0..*" ApplicationFileAttached
