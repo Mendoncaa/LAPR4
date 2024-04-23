@@ -56,11 +56,14 @@ package JobOpeningAgg #bbaabb {
     class JobState<<Value Object>>
     class StartDate<<Value Object>>
 
-    class Phase<<Root>><<Entity>>
-    class Name<<Value Object>><<Id>>
+    class Phase<<Entity>>
+    class PhaseName<<Enum>><<Id>>
     class StartDate<<Value Object>>
+    class JobStartDate<<Value Object>>
     class EndDate<<Value Object>>
     class Status <<Value Object>>
+    class RecruitmentProcess<<Entity>>
+
 
     JobOpening "1" --> "1" JobReference
     JobOpening "1" --> "1" Duration
@@ -71,17 +74,18 @@ package JobOpeningAgg #bbaabb {
     JobOpening "1" --> "1" Address
     JobOpening "1" --> "1" JobMode
     JobOpening "1" --> "1" JobState
-    JobOpening "1" --> "1" StartDate
+    JobOpening "1" --> "1" JobStartDate
+    JobOpening "1" --> "0..1" RecruitmentProcess
 
     JobOpening "1..*"--> "1" Costumer : Refers to
 
     
-    Phase "1" --> "1" Name
+    Phase "1" --> "1" PhaseName
     Phase "1" --> "1" StartDate
     Phase "1" --> "1" EndDate
     Phase "1" --> "1" Status
 
-    JobOpening "1"-->"4..5" Phase : Is separated into 
+    RecruitmentProcess "1"-->"4..5" Phase : Is separated into 
 }
 
 package RequirementsSpecificationAgg #bbbbaa {
@@ -110,37 +114,47 @@ package CandidateAgg #aababb {
 }
 
 package ApplicationAgg #aaaabb {
+    
     class Application<<Root>><<Entity>>
     class ApplicationID<<Value Object>><<Id>>
-    class File <<Entity>><<Root>>
-    class FilePath<<Value Object>><<Id>>
+    
+    class FilePath<<Value Object>>
+    class File<<Value Object>>
+    class FileType<<Enum>>
     class RequirementsAnswers<<Value Object>>
 
-    class ApplicationFileAttached<<Value Object>>
-    class ApplicationFileAttachedContent<<Value Object>>
-    class ApplicationEmailContent<<Value Object>>
-    class ApplicationCandidateAppData<<Value Object>>
+    class RejectionJustification<<Value Object>>
+    class InterviewDateTime<<Value Object>>
     
-    class ApplicationState<<Value Object>>
+    class ApplicationState<<Entity>>
+    class ApplicationStateName<<Enum>><<ID>>
+
+    class RequirementsEvaluation<<Value Object>>
+
     class Interview<<Value Object>>
     class InterviewGrade<<Value Object>>
     class InterviewAnswers<<Value Object>>
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
+    ApplicationState "1" --> "1" ApplicationStateName
+    ApplicationState "1" --> "0..1" RejectionJustification
     Application "1" --> "0..1" Interview
     Application "1" --> "0..1" RequirementsAnswers
-    Application "1" --> "1" File
+    Application "1" --> "*" File
 
+    Application "1" --> "1" RequirementsEvaluation
+
+    File "1" --> "1" FilePath
+    File "1" --> "1" FileType
+
+    
 
     Interview "1" --> "0..1" InterviewAnswers
     Interview "1" --> "0..1" InterviewGrade
+    Interview "1" --> "1" InterviewDateTime
 
-    File "1" --> "1" FilePath
-    File "1" --> "0..*" ApplicationFileAttached
-    File "1" --> "0..*" ApplicationFileAttachedContent
-    File "1" --> "1" ApplicationEmailContent
-    File "1" --> "1" ApplicationCandidateAppData
+ 
 
     Application "0..*" --> "1" JobOpening : Refers to
     Application "1..*" --> "1" Candidate : Is submitted by
@@ -158,12 +172,13 @@ package RankingAgg #abbabb {
 
 
 
-JobOpening ..> RequirementsSpecification
-InterviewModel ..> JobOpening
+JobOpening "1"-->"0..1" RequirementsSpecification
+JobOpening "1"-->"0..1" InterviewModel
 
 
 
 
+/'
 
 class InterviewEvaluate<<Service>>
 
@@ -185,6 +200,6 @@ NotificationService ..> Candidate : Notifies
 NotificationService ..> Costumer : Notifies
 NotificationService ..> Application : Gets verification result
 NotificationService ..> JobOpening : Gets job opening state
-
+'/
 
 @enduml
