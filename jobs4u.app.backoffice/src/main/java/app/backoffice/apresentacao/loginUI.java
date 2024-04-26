@@ -26,10 +26,10 @@ public class loginUI {
             outcome = mc.auth(usr,psw);
             if (outcome == 0){
                 attempts++;
-                System.out.println("User of Password incorrect");
+                System.out.println("Username or Password incorrect");
                 System.out.println("YOU HAVE " + (DEFAULT_MAX_ATTEMPTS - attempts) + " ATTEMPTS LEFT");
             }
-            if(outcome == 1){
+            else if(outcome == 1){
                 int AdminId = mc.getAdminId(usr,psw);
                 new adminUI(AdminId);
                 outcome = 0;

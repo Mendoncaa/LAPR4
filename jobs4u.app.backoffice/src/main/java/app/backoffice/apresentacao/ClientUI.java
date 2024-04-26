@@ -6,7 +6,7 @@
 package app.backoffice.apresentacao;
 
 import app.backoffice.aplicacao.ClientController;
-import app.backoffice.util.Console;
+import core.util.Console;
 import domain.AdminEntity;
 
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author mcn
  */
 public class ClientUI {
-
+/*
     private final ClientController controller = new ClientController();
 
     public void registarClient() throws InstantiationException, NoSuchAlgorithmException {
@@ -85,5 +85,5 @@ public class ClientUI {
         System.out.println("=============================\n");
         option = Console.readInteger("Por favor escolha opção");
         return option;
-    }
+    }*/
 }

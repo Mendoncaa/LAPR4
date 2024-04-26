@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.persistence.*;
 
-import app.backoffice.aplicacao.EncryptPassword;
+import core.aplicacao.EncryptPassword;
 
 public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
 

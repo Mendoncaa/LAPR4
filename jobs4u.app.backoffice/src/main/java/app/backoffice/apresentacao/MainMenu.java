@@ -6,7 +6,7 @@
 package app.backoffice.apresentacao;
 
 import app.backoffice.aplicacao.mainController;
-import app.backoffice.util.Console;
+import core.util.Console;
 public class MainMenu {
 
 	private static mainController mc = new mainController();
@@ -14,7 +14,7 @@ public class MainMenu {
 	public static void main(String[] args) {
 		try {
 			//create factory
-			if(!mc.createFactory("server")){
+			if(!mc.createFactory("jobs4u_pu")){
 				throw new InstantiationException("Erro ao criar a factory");
 			}
 			//load bootsrap data
