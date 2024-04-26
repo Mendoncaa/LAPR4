@@ -20,11 +20,13 @@ public interface AdminEntityRepositorio {
 
     int auth(EntityManagerFactory factory, String usr, String psw);
 
-    int getAdminId(EntityManagerFactory factory, String usr, String psw);
+    Long getAdminId(EntityManagerFactory factory, String usr, String psw);
 
     AdminEntity add(AdminEntity adminEntity, EntityManagerFactory factory);
 
     AdminEntity findById(Long id, EntityManagerFactory factory);
+
+    String findUsernameById(Long id, EntityManagerFactory factory);
 
     List<AdminEntity> findAll(EntityManagerFactory factory);
 }

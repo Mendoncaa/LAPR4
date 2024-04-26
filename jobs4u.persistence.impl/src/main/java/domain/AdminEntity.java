@@ -7,7 +7,7 @@ public class AdminEntity {
     @GeneratedValue
     @Id
     @Column(name = "IDADMIN")
-    private int idAdmin;
+    private Long idAdmin;
     @Basic
     @Column(name = "PASSWORD")
     private String password;
@@ -31,7 +31,7 @@ public class AdminEntity {
 
     }
 
-    public int getIdAdmin() {
+    public Long getIdAdmin() {
         return idAdmin;
     }
 

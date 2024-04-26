@@ -30,17 +30,14 @@ public class loginUI {
                 System.out.println("YOU HAVE " + (DEFAULT_MAX_ATTEMPTS - attempts) + " ATTEMPTS LEFT");
             }
             else if(outcome == 1){
-                int AdminId = mc.getAdminId(usr,psw);
+                Long AdminId = mc.getAdminId(usr,psw);
                 new adminUI(AdminId);
-                outcome = 0;
             }
             else{
                 throw new InstantiationException("Couldn't login");
             }
 
         } while (outcome == 0 && attempts < DEFAULT_MAX_ATTEMPTS);
-
-        // Get authentication info
 
     }
 }

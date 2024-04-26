@@ -63,19 +63,19 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     }
 
     @Override
-    public int getAdminId(EntityManagerFactory factory, String usr, String psw) {
+    public Long getAdminId(EntityManagerFactory factory, String usr, String psw) {
         EntityManager manager = factory.createEntityManager();
         try {
             Query q = manager.createQuery("select us.idAdmin from AdminEntity us where us.username= :usn and us.password=:pwd ");
             q.setParameter("usn",usr);
             q.setParameter("pwd",encryptPassword(psw));
 
-            int output = (int) q.getSingleResult();
+            Long output = (Long) q.getSingleResult();
 
             return output;
         } catch (Exception ex){
             System.out.println("Error executing the query");
-            return 0;
+            return 0L;
         }
     }
 
@@ -97,6 +97,11 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     @Override
     public AdminEntity findById(Long id, EntityManagerFactory factory){
         return getEntityManager(factory).find(AdminEntity.class, id);
+    }
+
+    @Override
+    public String findUsernameById(Long id, EntityManagerFactory factory){
+        return getEntityManager(factory).find(AdminEntity.class, id).getUsername();
     }
 
     @Override

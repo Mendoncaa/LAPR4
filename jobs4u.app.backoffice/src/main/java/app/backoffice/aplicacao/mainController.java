@@ -7,19 +7,9 @@ import javax.persistence.*;
 
 public class mainController {
 
-    static EntityManagerFactory factory;
-
     private AdminEntityRepositorio adminRep = new AdminEntityRepositorioJPAImpl();
 
-    public boolean createFactory(String connectionName){
-        try {
-            factory = Persistence.createEntityManagerFactory(connectionName);
-            return true;
-        } catch (Exception ex) {
-            System.out.println("Error creating factory");
-            return false;
-        }
-    }
+    private EntityManagerFactory factory = Factory.getFactory();
 
     public void loadData() {
         if(adminRep.findAll(factory).isEmpty())
@@ -30,7 +20,7 @@ public class mainController {
         return adminRep.auth(factory,usr,psw);
     }
 
-    public int getAdminId(String usr, String psw) {
+    public Long getAdminId(String usr, String psw) {
         return adminRep.getAdminId(factory,usr,psw);
     }
 
