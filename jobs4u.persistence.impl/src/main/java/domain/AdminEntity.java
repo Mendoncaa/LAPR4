@@ -3,11 +3,11 @@ package domain;
 import javax.persistence.*;
 
 @Entity
-public class ClientEntity {
+public class AdminEntity {
     @GeneratedValue
     @Id
-    @Column(name = "IDCLIENT")
-    private int idClient;
+    @Column(name = "IDADMIN")
+    private int idAdmin;
     @Basic
     @Column(name = "PASSWORD")
     private String password;
@@ -15,40 +15,24 @@ public class ClientEntity {
     @Column(name = "USERNAME")
     private String username;
     @Basic
-    @Column(name = "FIRSTNAME")
-    private String firstName;
-    @Basic
-    @Column(name = "LASTNAME")
-    private String lastName;
-    @Basic
-    @Column(name = "PHONE")
-    private String phone;
-    @Basic
-    @Column(name = "EMAIL")
-    private String email;
-    @Basic
     @Column(name = "ROLE")
     private String role;
     @Basic
     @Column(name = "ISENABLED")
     private boolean isEnabled = true;
 
-    public ClientEntity(String username, String password, String firstName, String lastName, String phone, String email, String role){
+    public AdminEntity(String username, String password, String role){
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.email = email;
         this.role = role;
     }
 
-    public ClientEntity() {
+    public AdminEntity() {
 
     }
 
-    public int getIdClient() {
-        return idClient;
+    public int getIdAdmin() {
+        return idAdmin;
     }
 
     public String getPassword() {
@@ -57,22 +41,6 @@ public class ClientEntity {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getRole() {

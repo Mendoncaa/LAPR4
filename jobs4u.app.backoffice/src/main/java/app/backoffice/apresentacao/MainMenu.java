@@ -3,24 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apresentacao;
+package app.backoffice.apresentacao;
 
-import util.Console;
-
-import java.security.NoSuchAlgorithmException;
+import app.backoffice.aplicacao.mainController;
+import app.backoffice.util.Console;
 public class MainMenu {
+
+	private static mainController mc = new mainController();
 
 	public static void main(String[] args) {
 		try {
+			//create factory
+			if(!mc.createFactory("server")){
+				throw new InstantiationException("Erro ao criar a factory");
+			}
+			//load bootsrap data
+			mc.loadData();
+
+			//main loop
 			mainloop();
-		} catch (InstantiationException | NoSuchAlgorithmException e) {
+		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	static ClientUI ClientUI = new ClientUI();
-    public static void mainloop() throws InstantiationException, NoSuchAlgorithmException {
+    public static void mainloop() throws InstantiationException {
 		int opcao = 0;
 		do {
 			opcao = menu();
@@ -30,14 +38,9 @@ public class MainMenu {
 					System.out.println("fim ...");
 					break;
 				case 1:
-					ClientUI.registarClient();
+					new loginUI(mc);
 					break;
 
-				case 2:
-					ClientUI.listarClients();
-					break;
-
-				
 				default:
 					System.out.println("opcao não reconhecida.");
 					break;
@@ -50,10 +53,9 @@ public class MainMenu {
 		int option = -1;
 		System.out.println(" ");
 		System.out.println("======================================");
-		System.out.println(" Jobs4u - Test scripts and persistence");
+		System.out.println(" Jobs4u - BackOffice");
 		System.out.println("======================================");
-		System.out.println("1.Registar User");
-		System.out.println("2.Listar todos os Users");
+		System.out.println("1.Login");
         System.out.println("======================================");
         System.out.println("0. Sair\n");
 		option = Console.readInteger("Por favor escolha opção");

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apresentacao;
+package app.backoffice.apresentacao;
 
-import aplicacao.ClientController;
-import domain.ClientEntity;
-import util.Console;
+import app.backoffice.aplicacao.ClientController;
+import app.backoffice.util.Console;
+import domain.AdminEntity;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -51,23 +51,23 @@ public class ClientUI {
 
         if(controller.checkValidClient(username, password, firstName, lastName, email, phone, role)){
             System.out.println("A registar User...\n");
-            ClientEntity clientEntity = controller.createAndSaveClient(username, password, firstName, lastName, email, phone, role);
-            System.out.println("User: " + clientEntity + "\nRegistado com sucesso!");
+            AdminEntity adminEntity = controller.createAndSaveClient(username, password, firstName, lastName, email, phone, role);
+            System.out.println("User: " + adminEntity + "\nRegistado com sucesso!");
         } else {
             System.out.println("Erro ao registar User");
         }
 
     }
     public void listarClients() {
-		List<ClientEntity> lista = controller.listarClients();
-        for (ClientEntity ce : lista) {
+		List<AdminEntity> lista = controller.listarClients();
+        for (AdminEntity ce : lista) {
             System.out.println(ce.getUsername());
         }
 	}
 
 	public void procurarClientPorNome() {
         long id = Console.readInteger("Por favor introduza o ID do Grupo Automóvel:");
-        ClientEntity ce = controller.procurarGrupoAutomovel(id);
+        AdminEntity ce = controller.procurarGrupoAutomovel(id);
         if (ce != null) {
             System.out.println(ce);
         } else {
