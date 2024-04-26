@@ -1,25 +1,30 @@
 package app.backoffice.apresentacao;
 
-import app.backoffice.aplicacao.AdminController;
+import app.backoffice.aplicacao.BackOfficeController;
 import core.util.Console;
-
-import javax.persistence.EntityManagerFactory;
 
 public class adminUI {
 
-    private static final AdminController ac = new AdminController();
-    public adminUI(Long AdminId) {
+    private static final BackOfficeController ac = new BackOfficeController();
+
+    static String username;
+
+    public adminUI(Long UserID) {
 
         int opcao = 0;
         do {
-            opcao = menu(AdminId);
+            opcao = menu(UserID);
 
             switch (opcao) {
                 case 0:
                     System.out.println("fim ...");
                     break;
                 case 1:
-                    //new loginUI();
+                    System.out.println("Nao implementado.");
+                    break;
+
+                case 2:
+                    new viewUserUI(UserID, username);
                     break;
 
                 default:
@@ -29,9 +34,9 @@ public class adminUI {
         } while (opcao != 0);
 
     }
-    private static int menu(Long AdminId) {
+    private static int menu(Long UserId) {
         int option = -1;
-        String username = ac.getUsername(AdminId);
+        username = ac.getUsername(UserId);
         System.out.println(" ");
         System.out.println("======================================");
         System.out.println(" Jobs4u - BackOffice - Admin Menu (" + username + ")");

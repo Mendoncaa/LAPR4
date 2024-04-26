@@ -5,13 +5,6 @@
  */
 package app.backoffice.aplicacao;
 
-import domain.AdminEntity;
-import persistence.impl.jpa.AdminEntityRepositorioJPAImpl;
-import persistence.impl.jpa.AdminEntityRepositorio;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
 public class ClientController {
 /*
     public AdminEntity createAndSaveClient(String username, String password, String firstName, String lastName, String email, String phone, String role) throws NoSuchAlgorithmException {

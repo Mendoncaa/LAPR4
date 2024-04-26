@@ -3,11 +3,11 @@ package domain;
 import javax.persistence.*;
 
 @Entity
-public class AdminEntity {
+public class UserEntity {
     @GeneratedValue
     @Id
-    @Column(name = "IDADMIN")
-    private Long idAdmin;
+    @Column(name = "IDUSER")
+    private Long idUser;
     @Basic
     @Column(name = "PASSWORD")
     private String password;
@@ -15,28 +15,44 @@ public class AdminEntity {
     @Column(name = "USERNAME")
     private String username;
     @Basic
+    @Column(name = "FIRSTNAME")
+    private String firstName;
+    @Basic
+    @Column(name = "LASTNAME")
+    private String lastName;
+    @Basic
     @Column(name = "ROLE")
     private String role;
     @Basic
     @Column(name = "ISENABLED")
     private boolean isEnabled = true;
 
-    public AdminEntity(String username, String password, String role){
+    public UserEntity(String username, String password, String firstName, String lastName, String role){
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
 
-    public AdminEntity() {
+    public UserEntity() {
 
     }
 
-    public Long getIdAdmin() {
-        return idAdmin;
+    public Long getIdUser() {
+        return idUser;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getUsername() {

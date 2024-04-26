@@ -5,7 +5,7 @@
  */
 package persistence.impl.jpa;
 
-import domain.AdminEntity;
+import domain.UserEntity;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 import core.aplicacao.EncryptPassword;
 
-public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
+public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
 
     private EntityManager getEntityManager(EntityManagerFactory factory) {
         EntityManager manager = factory.createEntityManager();
@@ -28,8 +28,17 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     public void defaultData(EntityManagerFactory factory){
         try {
 
-            AdminEntity admin1 = new AdminEntity("admin", encryptPassword("Password1"), "Admin");
-            add(admin1, factory);
+            UserEntity admin = new UserEntity("admin", encryptPassword("Password1"), "Administrator", "One", "Admin");
+            add(admin, factory);
+
+            UserEntity candidate = new UserEntity("candidate1", encryptPassword("Password1"), "Antonio", "Silva", "Candidate");
+            add(candidate, factory);
+
+            UserEntity costumer = new UserEntity("costumer1", encryptPassword("Password1"), "Empresa", "Teste", "Costumer");
+            add(costumer, factory);
+
+            UserEntity candidate2 = new UserEntity("candidate2", encryptPassword("Password2"), "Joao", "Guedes", "Candidate");
+            add(candidate2, factory);
 
         } catch (Exception ex){
             System.out.println("Error loading default data");
@@ -39,7 +48,7 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     @Override
     public int auth(EntityManagerFactory factory, String usr, String psw) {
         try {
-            Query q = getEntityManager(factory).createQuery("select us.role, us.isEnabled from AdminEntity us where us.username= :usn and us.password=:pwd ");
+            Query q = getEntityManager(factory).createQuery("select us.role, us.isEnabled from UserEntity us where us.username= :usn and us.password=:pwd ");
             q.setParameter("usn",usr);
             q.setParameter("pwd",encryptPassword(psw));
 
@@ -66,7 +75,7 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     public Long getAdminId(EntityManagerFactory factory, String usr, String psw) {
         EntityManager manager = factory.createEntityManager();
         try {
-            Query q = manager.createQuery("select us.idAdmin from AdminEntity us where us.username= :usn and us.password=:pwd ");
+            Query q = manager.createQuery("select us.idUser from UserEntity us where us.username= :usn and us.password=:pwd ");
             q.setParameter("usn",usr);
             q.setParameter("pwd",encryptPassword(psw));
 
@@ -80,36 +89,36 @@ public class AdminEntityRepositorioJPAImpl implements AdminEntityRepositorio {
     }
 
     @Override
-    public AdminEntity add(AdminEntity adminEntity, EntityManagerFactory factory) {
-        if (adminEntity == null) {
+    public UserEntity add(UserEntity userEntity, EntityManagerFactory factory) {
+        if (userEntity == null) {
             throw new IllegalArgumentException();
         }
         EntityManager em = getEntityManager(factory);
         EntityTransaction tx = em.getTransaction();
         tx.begin();
-        em.persist(adminEntity);
+        em.persist(userEntity);
         tx.commit();
         em.close();
 
-        return adminEntity;
+        return userEntity;
     }
 
     @Override
-    public AdminEntity findById(Long id, EntityManagerFactory factory){
-        return getEntityManager(factory).find(AdminEntity.class, id);
+    public UserEntity findById(Long id, EntityManagerFactory factory){
+        return getEntityManager(factory).find(UserEntity.class, id);
     }
 
     @Override
     public String findUsernameById(Long id, EntityManagerFactory factory){
-        return getEntityManager(factory).find(AdminEntity.class, id).getUsername();
+        return getEntityManager(factory).find(UserEntity.class, id).getUsername();
     }
 
     @Override
-    public List<AdminEntity> findAll(EntityManagerFactory factory) {
+    public List<UserEntity> findAll(EntityManagerFactory factory) {
 
         Query query = getEntityManager(factory).createQuery(
-                "SELECT e FROM AdminEntity e");
-        List<AdminEntity> list = query.getResultList();
+                "SELECT e FROM UserEntity e");
+        List<UserEntity> list = query.getResultList();
         return list;
     }
 

@@ -5,13 +5,6 @@
  */
 package app.backoffice.apresentacao;
 
-import app.backoffice.aplicacao.ClientController;
-import core.util.Console;
-import domain.AdminEntity;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
 /**
  *
  * @author mcn

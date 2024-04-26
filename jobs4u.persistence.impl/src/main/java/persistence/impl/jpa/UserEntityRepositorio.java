@@ -5,7 +5,7 @@
  */
 package persistence.impl.jpa;
 
-import domain.AdminEntity;
+import domain.UserEntity;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author eapli
  */
-public interface AdminEntityRepositorio {
+public interface UserEntityRepositorio {
 
     void defaultData(EntityManagerFactory factory);
 
@@ -22,11 +22,11 @@ public interface AdminEntityRepositorio {
 
     Long getAdminId(EntityManagerFactory factory, String usr, String psw);
 
-    AdminEntity add(AdminEntity adminEntity, EntityManagerFactory factory);
+    UserEntity add(UserEntity userEntity, EntityManagerFactory factory);
 
-    AdminEntity findById(Long id, EntityManagerFactory factory);
+    UserEntity findById(Long id, EntityManagerFactory factory);
 
     String findUsernameById(Long id, EntityManagerFactory factory);
 
-    List<AdminEntity> findAll(EntityManagerFactory factory);
+    List<UserEntity> findAll(EntityManagerFactory factory);
 }
