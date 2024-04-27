@@ -52,7 +52,7 @@ Make sure a JRE is installed and on the PATH
 ### UNIX (MacOS and Linux)
 
 ```shell
-./run.sh
+./run-backoffice.sh
 ```
 
 

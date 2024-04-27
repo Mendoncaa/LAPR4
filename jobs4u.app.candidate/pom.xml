@@ -13,7 +13,7 @@
     <artifactId>jobs4u.app.candidate</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.app.costumer</name>
+    <name>jobs4u.app.candidate</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.costumer.apresentacao;
+package app.candidate.apresentacao;
 
-import app.costumer.aplicacao.mainController;
+import app.candidate.aplicacao.mainController;
 import core.util.Console;
 
 import java.security.NoSuchAlgorithmException;
@@ -52,7 +52,7 @@ public class MainMenu {
 		int option = -1;
 		System.out.println(" ");
 		System.out.println("======================================");
-		System.out.println(" Jobs4u - Candidate App");
+		System.out.println(" Jobs4u - Costumer App");
 		System.out.println("======================================");
 		System.out.println("1.Login");
         System.out.println("======================================");

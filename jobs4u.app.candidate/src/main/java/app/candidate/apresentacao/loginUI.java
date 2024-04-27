@@ -1,6 +1,6 @@
-package app.costumer.apresentacao;
+package app.candidate.apresentacao;
 
-import app.costumer.aplicacao.mainController;
+import app.candidate.aplicacao.mainController;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class loginUI {
             System.out.println("Password:");
             String psw = scan.nextLine();
 
-            outcome = mc.auth(usr,psw, "Costumer");
+            outcome = mc.auth(usr,psw, "Candidate");
             if (outcome == 0){
                 attempts++;
                 System.out.println("Username or Password incorrect");
@@ -33,11 +33,11 @@ public class loginUI {
                 System.out.println("User is Deactivated");
             }
             else if(outcome == -2){
-                System.out.println("User is not a Costumer");
+                System.out.println("User is not a Candidate");
             }
             else if(outcome == 1){
-                Long CostumerId = mc.getCostumerId(usr,psw);
-                new CostumerUI(CostumerId);
+                Long CandidateId = mc.getCandidateId(usr,psw);
+                new CandidateUI(CandidateId);
             }
             else{
                 throw new InstantiationException("Couldn't login");
