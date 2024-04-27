@@ -1,2 +1,4 @@
-cmd /k call build.bat clean
+call clean.bat
+cd Scripts
+call build.bat
 
