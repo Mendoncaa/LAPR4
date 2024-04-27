@@ -18,7 +18,7 @@
     <version>0.1.0</version>
   </parent>
   <groupId>lapr4</groupId>
-  <artifactId>jobs4u.app2</artifactId>
+  <artifactId>jobs4u.app.candidate</artifactId>
   <version>0.1.0</version>
   <name>jobs4u.app2</name>
   <properties>

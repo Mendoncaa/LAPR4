@@ -77,7 +77,7 @@ public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
     }
 
     @Override
-    public Long getAdminId(EntityManagerFactory factory, String usr, String psw) {
+    public Long getId(EntityManagerFactory factory, String usr, String psw) {
         EntityManager manager = factory.createEntityManager();
         try {
             Query q = manager.createQuery("select us.idUser from UserEntity us where us.username= :usn and us.password=:pwd ");

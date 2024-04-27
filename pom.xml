@@ -9,7 +9,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>jobs4u.app.backoffice</module>
-		<module>jobs4u.app2</module>
+		<module>jobs4u.app.costumer</module>
+		<module>jobs4u.app.candidate</module>
 		<module>jobs4u.core</module>
 		<module>jobs4u.persistence.impl</module>
 	</modules>

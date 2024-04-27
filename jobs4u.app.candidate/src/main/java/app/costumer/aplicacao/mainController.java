@@ -1,10 +1,10 @@
-package app.backoffice.aplicacao;
+package app.costumer.aplicacao;
 
 import core.aplicacao.Factory;
 import persistence.impl.jpa.UserEntityRepositorio;
 import persistence.impl.jpa.UserEntityRepositorioJPAImpl;
 
-import javax.persistence.*;
+import javax.persistence.EntityManagerFactory;
 
 public class mainController {
 
@@ -21,7 +21,7 @@ public class mainController {
         return userRep.auth(factory,usr,psw, role);
     }
 
-    public Long getAdminId(String usr, String psw) {
+    public Long getCandidateId(String usr, String psw) {
         return userRep.getId(factory,usr,psw);
     }
 

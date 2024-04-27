@@ -20,7 +20,7 @@ public interface UserEntityRepositorio {
 
     int auth(EntityManagerFactory factory, String usr, String psw, String role);
 
-    Long getAdminId(EntityManagerFactory factory, String usr, String psw);
+    Long getId(EntityManagerFactory factory, String usr, String psw);
 
     UserEntity add(UserEntity userEntity, EntityManagerFactory factory);
 
