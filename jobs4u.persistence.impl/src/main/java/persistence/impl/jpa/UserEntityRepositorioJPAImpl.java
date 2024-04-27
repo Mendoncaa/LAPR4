@@ -46,7 +46,7 @@ public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
     }
 
     @Override
-    public int auth(EntityManagerFactory factory, String usr, String psw) {
+    public int auth(EntityManagerFactory factory, String usr, String psw, String role) {
         try {
             Query q = getEntityManager(factory).createQuery("select us.role, us.isEnabled from UserEntity us where us.username= :usn and us.password=:pwd ");
             q.setParameter("usn",usr);
@@ -54,17 +54,22 @@ public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
 
             Object[] output = q.getResultList().toArray();
 
+            if(output.length == 0){
+                return 0;
+            }
+
             Object[] aux = (Object[]) output[0];
 
             String ret = (String) aux[0];
 
-            if (!((boolean) aux[1]) && !ret.equals("Admin")) {
-                return 0;
+            if (!((boolean) aux[1])) {
+                return -1;
+            }
+            else if(!ret.equals(role)){
+                return -2;
             }
 
             return 1;
-
-            //return output;
         } catch (Exception ex){
             System.out.println("Error executing the query");
             return 0;
@@ -120,6 +125,36 @@ public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
                 "SELECT e FROM UserEntity e");
         List<UserEntity> list = query.getResultList();
         return list;
+    }
+
+    @Override
+    public List<UserEntity> findAllActive(EntityManagerFactory factory) {
+
+        Query query = getEntityManager(factory).createQuery(
+                "SELECT e FROM UserEntity e WHERE e.isEnabled = true");
+        List<UserEntity> list = query.getResultList();
+        return list;
+    }
+
+    @Override
+    public List<UserEntity> findAllInactive(EntityManagerFactory factory) {
+
+        Query query = getEntityManager(factory).createQuery(
+                "SELECT e FROM UserEntity e WHERE e.isEnabled = false");
+        List<UserEntity> list = query.getResultList();
+        return list;
+    }
+
+    @Override
+    public void deactivateOrActivateUser(Long id, EntityManagerFactory factory, boolean b){
+        EntityManager manager = factory.createEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
+        transaction.begin();
+        UserEntity user = manager.find(UserEntity.class, id);
+        user.setEnabled(b);
+        manager.persist(user);
+        transaction.commit();
+        manager.close();
     }
 
 }

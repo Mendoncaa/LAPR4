@@ -67,6 +67,10 @@ public class UserEntity {
         return isEnabled;
     }
 
+    public void setEnabled(boolean b) {
+        isEnabled = b;
+    }
+
     /* @Override
     public String toString() {
         return "ClientEntity{\n" +

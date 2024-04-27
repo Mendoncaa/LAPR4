@@ -1,4 +1,4 @@
-package app.backoffice.aplicacao;
+package core.aplicacao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

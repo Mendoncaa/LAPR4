@@ -2,12 +2,16 @@ package app.backoffice.apresentacao;
 
 import app.backoffice.aplicacao.BackOfficeController;
 import core.util.Console;
+import domain.UserEntity;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class viewUserUI {
 
     private static final BackOfficeController uc = new BackOfficeController();
 
-    public viewUserUI(Long UserId, String username) {
+    public viewUserUI(Long UserId, String username) throws NoSuchAlgorithmException, InstantiationException {
 
         int opcao = 0;
         do {
@@ -15,10 +19,9 @@ public class viewUserUI {
 
             switch (opcao) {
                 case 0:
-                    System.out.println("fim ...");
                     break;
                 case 1:
-                    System.out.println("Nao implementado.");
+                    new CreateUserUI();
                     break;
 
                 case 2:
@@ -26,11 +29,11 @@ public class viewUserUI {
                     break;
 
                 case 3:
-                    System.out.println("Nao implementado.");
+                    deactivateUser();
                     break;
 
                 case 4:
-                    System.out.println("Nao implementado.");
+                    activateUser();
                     break;
 
                 default:
@@ -64,5 +67,31 @@ public class viewUserUI {
             count[0]++;
         });
         System.out.println("===================================================================================+\n");
+    }
+
+    private void deactivateUser() {
+        int[] count = {1};
+        System.out.println("SELECT User to Deactivate");
+        System.out.printf("%-3s %-15s %-30s %-30s\n", "#.", "USERNAME", "FIRST NAME", "LAST NAME");
+        List<UserEntity> listUsers = uc.findAllActive();
+        listUsers.forEach(user -> {
+            System.out.printf("%-3s %-15s %-30s %-30s\n", count[0] + ".", user.getUsername(), user.getFirstName(), user.getLastName());
+            count[0]++;
+        });
+        int option = Console.readInteger("\nEnter the number of the user to deactivate or 0 to cancel");
+        if(option != 0) uc.deactivateOrActivateUser(listUsers.get(option - 1).getIdUser(), false);
+    }
+
+    private void activateUser() {
+        int[] count = {1};
+        System.out.println("SELECT User to Deactivate");
+        System.out.printf("%-3s %-15s %-30s %-30s\n", "#.", "USERNAME", "FIRST NAME", "LAST NAME");
+        List<UserEntity> listUsers = uc.findAllInactive();
+        listUsers.forEach(user -> {
+            System.out.printf("%-3s %-15s %-30s %-30s\n", count[0] + ".", user.getUsername(), user.getFirstName(), user.getLastName());
+            count[0]++;
+        });
+        int option = Console.readInteger("\nEnter the number of the user to deactivate or 0 to cancel");
+        if(option != 0) uc.deactivateOrActivateUser(listUsers.get(option - 1).getIdUser(), true);
     }
 }

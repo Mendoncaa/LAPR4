@@ -18,7 +18,7 @@ public interface UserEntityRepositorio {
 
     void defaultData(EntityManagerFactory factory);
 
-    int auth(EntityManagerFactory factory, String usr, String psw);
+    int auth(EntityManagerFactory factory, String usr, String psw, String role);
 
     Long getAdminId(EntityManagerFactory factory, String usr, String psw);
 
@@ -29,4 +29,10 @@ public interface UserEntityRepositorio {
     String findUsernameById(Long id, EntityManagerFactory factory);
 
     List<UserEntity> findAll(EntityManagerFactory factory);
+
+    List<UserEntity> findAllActive(EntityManagerFactory factory);
+
+    List<UserEntity> findAllInactive(EntityManagerFactory factory);
+
+    void deactivateOrActivateUser(Long id, EntityManagerFactory factory, boolean b);
 }

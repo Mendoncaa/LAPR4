@@ -1,5 +1,6 @@
 package app.backoffice.aplicacao;
 
+import core.aplicacao.Factory;
 import persistence.impl.jpa.UserEntityRepositorio;
 import persistence.impl.jpa.UserEntityRepositorioJPAImpl;
 
@@ -16,8 +17,8 @@ public class mainController {
             userRep.defaultData(factory);
     }
 
-    public int auth(String usr, String psw) {
-        return userRep.auth(factory,usr,psw);
+    public int auth(String usr, String psw, String role) {
+        return userRep.auth(factory,usr,psw, role);
     }
 
     public Long getAdminId(String usr, String psw) {

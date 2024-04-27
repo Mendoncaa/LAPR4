@@ -8,7 +8,7 @@ package app.backoffice.apresentacao;
 import app.backoffice.aplicacao.mainController;
 import core.util.Console;
 
-import app.backoffice.aplicacao.Factory;
+import java.security.NoSuchAlgorithmException;
 
 public class MainMenu {
 
@@ -21,13 +21,13 @@ public class MainMenu {
 
 			//main loop
 			mainloop();
-		} catch (InstantiationException e) {
+		} catch (InstantiationException | NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
 
-	}
+    }
 
-    public static void mainloop() throws InstantiationException {
+    public static void mainloop() throws InstantiationException, NoSuchAlgorithmException {
 		int opcao = 0;
 		do {
 			opcao = menu();

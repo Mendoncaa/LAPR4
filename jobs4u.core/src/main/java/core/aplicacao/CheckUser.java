@@ -1,10 +1,8 @@
 package core.aplicacao;
 
-import java.util.regex.Pattern;
-
-public class CheckClient {
-    private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 2);
-    public boolean checkValidClient(String username, String password, String firstName, String lastName, String email, String phone, String role) throws InstantiationException{
+public class CheckUser {
+ //   private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 2);
+    public boolean checkValidClient(String username, String password, String firstName, String lastName, String role) throws InstantiationException{
         if (username == null || username.isEmpty()) {
             throw new InstantiationException("Username não pode ser vazio");
         }
@@ -25,16 +23,6 @@ public class CheckClient {
         }
         if (lastName == null || lastName.isEmpty()) {
             throw new InstantiationException("Last Name não pode ser vazio");
-        }
-        if (email == null || email.isEmpty()) {
-            throw new InstantiationException("Email não pode ser vazio");
-        }
-
-        if(!VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()){
-            throw new InstantiationException("Email inválido");
-        }
-        if (phone == null || phone.isEmpty()) {
-            throw new InstantiationException("Phone não pode ser vazio");
         }
         if (role == null || role.isEmpty()) {
             throw new InstantiationException("Role não pode ser vazio");

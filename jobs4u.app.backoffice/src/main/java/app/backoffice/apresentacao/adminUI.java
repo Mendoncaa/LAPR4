@@ -3,13 +3,15 @@ package app.backoffice.apresentacao;
 import app.backoffice.aplicacao.BackOfficeController;
 import core.util.Console;
 
+import java.security.NoSuchAlgorithmException;
+
 public class adminUI {
 
     private static final BackOfficeController ac = new BackOfficeController();
 
     static String username;
 
-    public adminUI(Long UserID) {
+    public adminUI(Long UserID) throws NoSuchAlgorithmException, InstantiationException {
 
         int opcao = 0;
         do {
@@ -17,7 +19,6 @@ public class adminUI {
 
             switch (opcao) {
                 case 0:
-                    System.out.println("fim ...");
                     break;
                 case 1:
                     System.out.println("Nao implementado.");
