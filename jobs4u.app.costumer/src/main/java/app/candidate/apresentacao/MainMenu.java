@@ -5,7 +5,7 @@
  */
 package app.candidate.apresentacao;
 
-import app.candidate.aplicacao.mainController;
+import core.aplicacao.mainController;
 import core.util.Console;
 
 import java.security.NoSuchAlgorithmException;

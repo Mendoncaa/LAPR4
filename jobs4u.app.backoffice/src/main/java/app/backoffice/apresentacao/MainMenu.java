@@ -5,8 +5,8 @@
  */
 package app.backoffice.apresentacao;
 
-import app.backoffice.aplicacao.mainController;
 import core.util.Console;
+import core.aplicacao.mainController;
 
 import java.security.NoSuchAlgorithmException;
 

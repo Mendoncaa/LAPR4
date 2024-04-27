@@ -1,9 +1,8 @@
 package app.candidate.apresentacao;
 
-import app.candidate.aplicacao.mainController;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import core.aplicacao.mainController;
 
 
 public class loginUI {
@@ -36,7 +35,7 @@ public class loginUI {
                 System.out.println("User is not a Candidate");
             }
             else if(outcome == 1){
-                Long CandidateId = mc.getCandidateId(usr,psw);
+                Long CandidateId = mc.getId(usr,psw);
                 new CandidateUI(CandidateId);
             }
             else{

@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.persistence.*;
 
-import core.aplicacao.EncryptPassword;
+import aplicacao.EncryptPassword;
 
 public class UserEntityRepositorioJPAImpl implements UserEntityRepositorio {
 

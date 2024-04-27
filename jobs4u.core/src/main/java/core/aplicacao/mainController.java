@@ -1,6 +1,5 @@
-package app.candidate.aplicacao;
+package core.aplicacao;
 
-import core.aplicacao.Factory;
 import persistence.impl.jpa.UserEntityRepositorio;
 import persistence.impl.jpa.UserEntityRepositorioJPAImpl;
 
@@ -21,7 +20,7 @@ public class mainController {
         return userRep.auth(factory,usr,psw, role);
     }
 
-    public Long getCandidateId(String usr, String psw) {
+    public Long getId(String usr, String psw) {
         return userRep.getId(factory,usr,psw);
     }
 

@@ -5,10 +5,10 @@
  */
 package app.candidate.apresentacao;
 
-import app.candidate.aplicacao.mainController;
 import core.util.Console;
 
 import java.security.NoSuchAlgorithmException;
+import core.aplicacao.mainController;
 
 public class MainMenu {
 

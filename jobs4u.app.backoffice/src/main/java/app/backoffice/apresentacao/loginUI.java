@@ -1,9 +1,8 @@
 package app.backoffice.apresentacao;
 
-import app.backoffice.aplicacao.mainController;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import core.aplicacao.mainController;
 
 
 
@@ -37,7 +36,7 @@ public class loginUI {
                 System.out.println("User is not an Admin");
             }
             else if(outcome == 1){
-                Long AdminId = mc.getAdminId(usr,psw);
+                Long AdminId = mc.getId(usr,psw);
                 new adminUI(AdminId);
             }
             else{

@@ -1,6 +1,6 @@
 package app.candidate.apresentacao;
 
-import app.candidate.aplicacao.mainController;
+import core.aplicacao.mainController;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
@@ -36,7 +36,7 @@ public class loginUI {
                 System.out.println("User is not a Costumer");
             }
             else if(outcome == 1){
-                Long CostumerId = mc.getCostumerId(usr,psw);
+                Long CostumerId = mc.getId(usr,psw);
                 new CostumerUI(CostumerId);
             }
             else{
