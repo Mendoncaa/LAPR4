@@ -7,11 +7,11 @@ import domain.UserEntity;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-public class viewUserUI {
+public class ViewUserUI {
 
     private static final BackOfficeController uc = new BackOfficeController();
 
-    public viewUserUI(Long UserId, String username) throws NoSuchAlgorithmException, InstantiationException {
+    public ViewUserUI(Long UserId, String username) throws NoSuchAlgorithmException, InstantiationException {
 
         int opcao = 0;
         do {

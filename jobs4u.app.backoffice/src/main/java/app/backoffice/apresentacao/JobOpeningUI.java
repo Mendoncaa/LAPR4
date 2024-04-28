@@ -2,24 +2,14 @@ package app.backoffice.apresentacao;
 
 import java.util.Scanner;
 
-import core.jobOpening.application.controller.RegisterJobOpeningController;
 import core.jobOpening.domain.JobOpening;
-import core.jobOpening.domain.JobReference;
-import core.jobOpening.domain.Title;
-import core.jobOpening.domain.Description;
-import core.jobOpening.domain.NrVacancies;
-import core.jobOpening.domain.Address;
-import app.backoffice.apresentacao.adminUI;
 
-
-import java.util.Scanner;
-
-public class RegisterJobOpeningUI {
+public class JobOpeningUI {
 
     private Long UserID;
     private String username;
 
-    public RegisterJobOpeningUI(Long UserID, String username) {
+    public JobOpeningUI(Long UserID, String username) {
         this.UserID = UserID;
         this.username = username;
     }
@@ -60,5 +50,6 @@ public class RegisterJobOpeningUI {
         );
 
         */
+        return null;
     }
 }

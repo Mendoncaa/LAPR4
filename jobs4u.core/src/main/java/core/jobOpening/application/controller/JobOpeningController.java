@@ -1,5 +1,5 @@
 package core.jobOpening.application.controller;
 
-public class RegisterJobOpeningController {
+public class JobOpeningController {
     
 }

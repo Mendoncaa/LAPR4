@@ -25,11 +25,11 @@ public class adminUI {
                     break;
 
                 case 2:
-                    new viewUserUI(UserID, username);
+                    new ViewUserUI(UserID, username);
                     break;
 
                 case 3:
-                    new RegisterJobOpeningUI(UserID, username);
+                    new JobOpeningUI(UserID, username);
                     break;
 
                 default:
