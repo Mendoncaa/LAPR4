@@ -2,16 +2,20 @@ package app.backoffice.apresentacao;
 
 import app.backoffice.aplicacao.BackOfficeController;
 import core.util.Console;
+import persistence.impl.jpa.UserEntityRepositorioJPAImpl;
+import javax.persistence.EntityManagerFactory;
+import core.aplicacao.Factory;
 
 import java.security.NoSuchAlgorithmException;
 
 public class adminUI {
 
-    private static final BackOfficeController ac = new BackOfficeController();
-
-    static String username;
+    private final BackOfficeController controller;
 
     public adminUI(Long UserID) throws NoSuchAlgorithmException, InstantiationException {
+        EntityManagerFactory factory = Factory.getFactory();
+        UserEntityRepositorioJPAImpl userRepo = new UserEntityRepositorioJPAImpl();
+        this.controller = new BackOfficeController(UserID, factory, userRepo);
 
         int opcao = 0;
         do {
@@ -23,15 +27,12 @@ public class adminUI {
                 case 1:
                     System.out.println("Nao implementado.");
                     break;
-
                 case 2:
-                    new ViewUserUI(UserID, username);
+                    new ViewUserUI(controller);
                     break;
-
                 case 3:
-                    new JobOpeningUI(UserID, username);
+                    new JobOpeningUI(controller);
                     break;
-
                 default:
                     System.out.println("opcao não reconhecida.");
                     break;
@@ -39,18 +40,17 @@ public class adminUI {
         } while (opcao != 0);
 
     }
-    private static int menu(Long UserId) {
+    private int menu(Long UserId) {
         int option = -1;
-        username = ac.getUsername(UserId);
-        System.out.println(" ");
+        String username = controller.getUsername(UserId);
+        System.out.println("\n======================================");
+        System.out.println("| Jobs4u - BackOffice - Admin Menu   |");
         System.out.println("======================================");
-        System.out.println(" Jobs4u - BackOffice - Admin Menu (" + username + ")");
+        System.out.println("| 1. My account                      |");
+        System.out.println("| 2. Users                           |");
+        System.out.println("| 0. Exit                            |");
         System.out.println("======================================");
-        System.out.println("1.My account");
-        System.out.println("2.Users");
-        System.out.println("======================================");
-        System.out.println("0. Sair\n");
-        option = Console.readInteger("Por favor escolha opção");
+        option = Console.readInteger("Please choose an option");
         return option;
     }
 }

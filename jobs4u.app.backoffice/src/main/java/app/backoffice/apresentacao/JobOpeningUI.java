@@ -1,55 +1,76 @@
 package app.backoffice.apresentacao;
 
-import java.util.Scanner;
+import app.backoffice.aplicacao.BackOfficeController;
+import core.util.Console;
 
-import core.jobOpening.domain.JobOpening;
+import java.security.NoSuchAlgorithmException;
 
 public class JobOpeningUI {
 
-    private Long UserID;
-    private String username;
+    private final BackOfficeController controller;
 
-    public JobOpeningUI(Long UserID, String username) {
-        this.UserID = UserID;
-        this.username = username;
+    public JobOpeningUI(BackOfficeController controller) {
+        this.controller = controller;
+
+        int opcao = 0;
+        do {
+            opcao = menu();
+
+            switch (opcao) {
+                case 0:
+                    break;
+                case 1:
+                    //JobOpening jobOpening = createJobOpening();
+                    // Optionally handle the created job opening, e.g., save to database or display details
+                    break;
+
+                default:
+                    System.out.println("Option not recognized.");
+                    break;
+            }
+        } while (opcao != 0);
+
     }
 
+    private int menu() {
+        int option = -1;
+        System.out.println("\n======= Job Opening Management =======");
+        System.out.println("| 1. Create Job Opening              |");
+        System.out.println("| 2. List All Job Openings           |");
+        System.out.println("| 0. Exit                            |");
+        System.out.println("======================================");
+        option = Console.readInteger("Please choose an option");
+        return option;
+    }
+
+    /*
     public JobOpening createJobOpening() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter job title:");
-        String title = scanner.nextLine();
+        System.out.println("Enter job reference ID:");
+        String reference = scanner.nextLine();
 
-        System.out.println("Enter job description:");
-        String description = scanner.nextLine();
+        System.out.println("Enter contract type (FULL_TIME/PART_TIME):");
+        ContractType.Type contractType = readContractType(scanner);
 
-        System.out.println("Enter job requirements:");
-        String requirements = scanner.nextLine();
+        System.out.println("Enter job mode (REMOTE/HYBRID/ONSITE):");
+        JobMode.Mode mode = readJobMode(scanner);
 
-        System.out.println("Enter number of vacancies:");
-        int vacancies = scanner.nextInt();
+        // Setting default JobState and Active Date
+        JobState.State state = JobState.State.OPEN;
+        Date activeSinceDate = new Date();
 
-        System.out.println("Enter contract type:");
-        String contractType = scanner.next();
+        // Create required embedded objects
+        JobReference jobReference = new JobReference(reference);
+        ContractType contract = new ContractType(contractType);
+        JobMode jobMode = new JobMode(mode);
+        JobState jobState = new JobState(state);
+        JobActiveSinceDate jobActiveSince = new JobActiveSinceDate(activeSinceDate);
 
-        System.out.println("Enter job mode:");
-        String mode = scanner.next();
-
-        System.out.println("Enter job address:");
-        String address = scanner.next();
-
-        /* 
-        return new JobOpening(
-                new JobReference(),
-                new Title(title),
-                new JobDescription(description),
-                new JobNumberOfVacancies(vacancies),
-                new ContractType(contractType),
-                new JobMode(mode),
-                new JobAddress(address)
-        );
-
-        */
-        return null;
+        // Construct the JobOpening with required fields
+        return new JobOpening(jobReference, contract, jobMode, jobState, jobActiveSince);
     }
+
+     */
+
 }

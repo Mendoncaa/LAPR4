@@ -9,13 +9,14 @@ import java.util.List;
 
 public class ViewUserUI {
 
-    private static final BackOfficeController uc = new BackOfficeController();
+    private BackOfficeController uc;
 
-    public ViewUserUI(Long UserId, String username) throws NoSuchAlgorithmException, InstantiationException {
+    public ViewUserUI(BackOfficeController uc) throws NoSuchAlgorithmException, InstantiationException {
+        this.uc = uc;
 
         int opcao = 0;
         do {
-            opcao = menu(UserId);
+            opcao = menu();
 
             switch (opcao) {
                 case 0:
@@ -43,18 +44,19 @@ public class ViewUserUI {
         } while (opcao != 0);
 
     }
-    private static int menu(Long UserId) {
+
+    private int menu() {
         int option = -1;
-        String username = uc.getUsername(UserId);
-        System.out.println(" ");
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("Users:\n");
-        System.out.println("1.Add User");
-        System.out.println("2.List All Users");
-        System.out.println("3.Deactivate User");
-        System.out.println("4.Activate User");
-        System.out.println("\n0. Sair\n");
-        option = Console.readInteger("Por favor escolha opção");
+        System.out.println("\n======================================");
+        System.out.println("|           User Management          |");
+        System.out.println("======================================");
+        System.out.println("| 1. Add User                        |");
+        System.out.println("| 2. List All Users                  |");
+        System.out.println("| 3. Deactivate User                 |");
+        System.out.println("| 4. Activate User                   |");
+        System.out.println("| 0. Exit                            |");
+        System.out.println("======================================");
+        option = Console.readInteger("Please choose an option");
         return option;
     }
 

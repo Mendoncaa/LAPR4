@@ -50,14 +50,13 @@ public class MainMenu {
 
 	private static int menu() {
 		int option = -1;
-		System.out.println(" ");
+		System.out.println("\n======================================");
+		System.out.println("| Jobs4u - BackOffice                 |");
 		System.out.println("======================================");
-		System.out.println(" Jobs4u - BackOffice");
+		System.out.println("| 1. Login                            |");
+		System.out.println("| 0. Exit                             |");
 		System.out.println("======================================");
-		System.out.println("1.Login");
-        System.out.println("======================================");
-        System.out.println("0. Sair\n");
-		option = Console.readInteger("Por favor escolha opção");
+		option = Console.readInteger("Please choose an option");
 		return option;
 	}
 }

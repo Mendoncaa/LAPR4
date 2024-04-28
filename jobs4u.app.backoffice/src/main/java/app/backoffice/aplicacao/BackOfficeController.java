@@ -1,37 +1,45 @@
 package app.backoffice.aplicacao;
 
-import core.aplicacao.Factory;
 import domain.UserEntity;
 import java.util.List;
 import persistence.impl.jpa.UserEntityRepositorio;
-import persistence.impl.jpa.UserEntityRepositorioJPAImpl;
 
 import javax.persistence.EntityManagerFactory;
 
 public class BackOfficeController {
+    private final Long userId;
+    private final UserEntityRepositorio userRepo;
+    private final EntityManagerFactory emFactory;
 
-    private UserEntityRepositorio UserRep = new UserEntityRepositorioJPAImpl();
+    // Constructor that injects the EntityManagerFactory and UserEntityRepositorio
+    public BackOfficeController(Long userId, EntityManagerFactory emFactory, UserEntityRepositorio userRepo) {
+        this.userId = userId;
+        this.emFactory = emFactory;
+        this.userRepo = userRepo;
+    }
 
-    private EntityManagerFactory factory = Factory.getFactory();
+    public String getUserId() {
+        return userId.toString();
+    }
 
-    public String getUsername(Long UserId) {
-        return UserRep.findUsernameById(UserId, factory);
+    public String getUsername(Long userId) {
+        return userRepo.findUsernameById(userId, emFactory);
     }
 
     public List<UserEntity> findAll(){
-        return UserRep.findAll(factory);
+        return userRepo.findAll(emFactory);
     }
 
     public List<UserEntity> findAllActive(){
-        return UserRep.findAllActive(factory);
+        return userRepo.findAllActive(emFactory);
     }
 
     public List<UserEntity> findAllInactive(){
-        return UserRep.findAllInactive(factory);
+        return userRepo.findAllInactive(emFactory);
     }
 
-    public void deactivateOrActivateUser(Long UserId, boolean b){
-        UserRep.deactivateOrActivateUser(UserId, factory, b);
+    public void deactivateOrActivateUser(Long userId, boolean active){
+        userRepo.deactivateOrActivateUser(userId, emFactory, active);
     }
 
 }
