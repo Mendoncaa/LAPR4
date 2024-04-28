@@ -52,7 +52,7 @@ package JobOpeningAgg #bbaabb {
     class Description<<Value Object>>
     class Address<<Value Object>>
     class JobMode<<Value Object>>
-    class JobState<<Value Object>>
+    class JobState<<Enum>><<Value Object>>
     class StartDate<<Value Object>>
 
     class Phase<<Entity>>
