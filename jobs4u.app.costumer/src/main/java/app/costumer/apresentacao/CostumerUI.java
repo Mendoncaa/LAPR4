@@ -1,4 +1,4 @@
-package app.candidate.apresentacao;
+package app.costumer.apresentacao;
 
 public class CostumerUI {
     public CostumerUI(Long costumerId) {

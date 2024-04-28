@@ -48,6 +48,7 @@ public class adminUI {
         System.out.println("======================================");
         System.out.println("| 1. My account                      |");
         System.out.println("| 2. Users                           |");
+        System.out.println("| 3. Job Opening                     |");
         System.out.println("| 0. Exit                            |");
         System.out.println("======================================");
         option = Console.readInteger("Please choose an option");

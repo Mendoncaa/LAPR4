@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.candidate.apresentacao;
+package app.costumer.apresentacao;
 
 import core.aplicacao.mainController;
 import core.util.Console;

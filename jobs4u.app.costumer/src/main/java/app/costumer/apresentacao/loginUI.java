@@ -1,4 +1,4 @@
-package app.candidate.apresentacao;
+package app.costumer.apresentacao;
 
 import core.aplicacao.mainController;
 
