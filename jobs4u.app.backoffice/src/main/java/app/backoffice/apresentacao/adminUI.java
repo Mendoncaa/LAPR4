@@ -28,6 +28,10 @@ public class adminUI {
                     new viewUserUI(UserID, username);
                     break;
 
+                case 3:
+                    new RegisterJobOpeningUI(UserID, username);
+                    break;
+
                 default:
                     System.out.println("opcao não reconhecida.");
                     break;
