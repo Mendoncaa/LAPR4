@@ -1,17 +1,29 @@
 package core.jobOpening.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Embeddable
 public class JobState {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "job_state")
+    private State value;
 
-    private String state;
-
-    public JobState(String state) {
-        // Validação opcional pode ser realizada aqui
-        this.state = state;
-    }
-    public String getState() {
-        return state;
+    public JobState(State value) {
+        this.value = value;
     }
 
+    public State getValue() {
+        return value;
+    }
 
-    
+    public void setValue(State value) {
+        this.value = value;
+    }
+
+    public enum State {
+        OPEN, CLOSED
+    }
 }

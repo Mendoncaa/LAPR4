@@ -12,30 +12,39 @@ public class JobOpening {
 
     @Id
     @Embedded
+    @Column(unique = true, nullable = false)
     private JobReference jobReference;
 
     @Embedded
+    @Column(nullable = false)
     private Title title;
 
     @Embedded
+    @Column(nullable = false)
     private Description description;
 
     @Embedded
+    @Column(nullable = false)
     private Address address;
 
     @Embedded
+    @Column(nullable = false)
     private JobNrVacancies jobNrVacancies;
 
     @Embedded
+    @Column(nullable = false)
     private JobContractType jobContractType;
 
     @Embedded
+    @Column(nullable = false)
     private JobMode jobMode;
 
     @Embedded
+    @Column(nullable = false)
     private JobState jobState;
 
     @Embedded
+    @Column(nullable = false)
     private JobActiveSinceDate jobActiveSinceDate;
 
     public JobOpening(JobReference jobReference, JobContractType jobContractType, JobMode jobMode, JobState jobState,
