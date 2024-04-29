@@ -15,11 +15,25 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.*;
+
+
 /**
  *
  * @author mcn
  */
 public class Console {
+
+    static public void showList(List list, String header) {
+        System.out.println("\n" + header);
+
+        int index = 0;
+        for (Object o : list) {
+            index++;
+
+            System.out.println(index + ". " + o.toString());
+        }
+    }
 
     public static String readLine(String prompt) {
         try {
