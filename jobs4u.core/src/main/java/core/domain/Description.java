@@ -1,15 +1,15 @@
-package core.jobOpening.domain;
+package core.domain;
 
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Title {
-    @Column(name = "title")
+public class Description {
+    @Column(name = "description")
     private String value;
 
-    public Title(String value) {
+    public Description(String value) {
         this.value = value;
     }
 
@@ -21,4 +21,3 @@ public class Title {
         this.value = value;
     }
 }
-

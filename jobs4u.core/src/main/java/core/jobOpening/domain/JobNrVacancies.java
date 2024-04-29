@@ -5,19 +5,19 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Description {
-    @Column(name = "description")
-    private String value;
+public class JobNrVacancies {
+    @Column(name = "number_of_vacancies")
+    private int value;
 
-    public Description(String value) {
+    public JobNrVacancies(int value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 }

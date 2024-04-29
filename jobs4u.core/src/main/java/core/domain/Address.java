@@ -1,4 +1,4 @@
-package core.jobOpening.domain;
+package core.domain;
 
 
 import javax.persistence.Column;
