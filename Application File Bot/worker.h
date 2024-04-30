@@ -1,6 +1,6 @@
 #ifndef WORKER_H
 #define WORKER_H
 
-void worker(const char *file_name, int child_id);
+void worker(int read_fd, int write_fd);
 
 #endif
