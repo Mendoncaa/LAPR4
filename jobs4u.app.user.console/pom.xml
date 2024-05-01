@@ -9,7 +9,7 @@
         <version>1.4.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>console</artifactId>
+    <artifactId>user.console</artifactId>
     <packaging>jar</packaging>
 
     <name>jobs4u.app.user.console</name>
@@ -20,16 +20,10 @@
     </properties>
 
     <dependencies>
-        <!--dependency>
-            <groupId>lapr</groupId>
-            <artifactId>console</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency-->
         <dependency>
             <groupId>lapr</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>common.console</artifactId>
             <version>${project.parent.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>lapr</groupId>

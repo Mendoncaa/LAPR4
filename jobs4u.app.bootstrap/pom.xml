@@ -25,7 +25,7 @@
     <dependencies>
         <dependency>
             <groupId>lapr</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>common.console</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

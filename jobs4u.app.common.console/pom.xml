@@ -9,7 +9,7 @@
         <version>1.4.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>console</artifactId>
+    <artifactId>common.console</artifactId>
     <packaging>jar</packaging>
 
     <name>jobs4u.app.common.console</name>
