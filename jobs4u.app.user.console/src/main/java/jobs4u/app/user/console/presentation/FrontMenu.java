@@ -26,7 +26,7 @@ package jobs4u.app.user.console.presentation;
 import jobs4u.app.common.console.presentation.authz.LoginUI;
 import jobs4u.app.user.console.presentation.myuser.SignupRequestAction;
 import jobs4u.infrastructure.authz.AuthenticationCredentialHandler;
-import jobs4u.usermanagement.domain.ExemploRoles;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.actions.ChainedAction;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.presentation.console.AbstractUI;

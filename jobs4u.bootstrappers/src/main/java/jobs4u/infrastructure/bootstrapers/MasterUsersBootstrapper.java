@@ -23,7 +23,7 @@ package jobs4u.infrastructure.bootstrapers;
 import java.util.HashSet;
 import java.util.Set;
 
-import jobs4u.usermanagement.domain.ExemploRoles;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 

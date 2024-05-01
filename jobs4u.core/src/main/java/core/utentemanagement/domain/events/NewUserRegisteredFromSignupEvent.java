@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.domain.events;
+package core.utentemanagement.domain.events;
 
-import jobs4u.utentemanagement.domain.MecanographicNumber;
+import core.utentemanagement.domain.MecanographicNumber;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.events.DomainEventBase;
 import eapli.framework.infrastructure.authz.domain.model.Username;

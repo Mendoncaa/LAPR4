@@ -5,3 +5,5 @@ ECHO make sure maven is on the system PATH
 cd ../
 
 call mvn test
+
+cd scripts

@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.application;
+package core.utentemanagement.application;
 
-import jobs4u.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.domain.SignupRequest;
 
 /**
  * The controller for the use case "Accept or refuse signup request".

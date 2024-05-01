@@ -25,9 +25,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import jobs4u.Application;
-import jobs4u.utentemanagement.domain.Utente;
-import jobs4u.utentemanagement.domain.MecanographicNumber;
-import jobs4u.utentemanagement.repositories.UtenteRepository;
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.MecanographicNumber;
+import core.utentemanagement.repositories.UtenteRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

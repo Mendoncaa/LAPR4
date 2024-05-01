@@ -6,7 +6,7 @@ import java.util.Set;
 @Entity
 public class JobOpening {
     @Id
-    private JobReference jobReference; // Agora usando JobReference como ID.
+    private Long jobReference; // Agora usando JobReference como ID.
 
     @Embedded
     private JobTitle title;
@@ -31,7 +31,7 @@ public class JobOpening {
     // CostumerCode como foreign key
 
     // Constructor, getters, and setters
-    public JobOpeningDTO JobOpening(JobReference jobReference, JobTitle title, ContractType contractType, JobMode mode, Description description, String address, int numberOfVacancies, String company) {
+    public JobOpeningDTO JobOpening(Long jobReference, JobTitle title, ContractType contractType, JobMode mode, Description description, String address, int numberOfVacancies, String company) {
         this.jobReference = jobReference;
         this.title = title;
         this.contractType = contractType;
@@ -40,7 +40,8 @@ public class JobOpening {
         //this.address = address;
         //this.numberOfVacancies = numberOfVacancies;
         // this.company = company;
+        return new JobOpeningDTO(jobReference, title, contractType, mode, description, address, numberOfVacancies, company);
     }
-a
+
     // Additional methods and business logic
 }

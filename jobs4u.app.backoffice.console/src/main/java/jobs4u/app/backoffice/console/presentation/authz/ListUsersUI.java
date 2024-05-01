@@ -23,7 +23,7 @@
  */
 package jobs4u.app.backoffice.console.presentation.authz;
 
-import jobs4u.usermanagement.application.ListUsersController;
+import core.management.user.application.ListUsersController;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;

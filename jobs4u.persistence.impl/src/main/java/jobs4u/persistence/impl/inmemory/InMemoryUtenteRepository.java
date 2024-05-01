@@ -22,9 +22,9 @@ package jobs4u.persistence.impl.inmemory;
 
 import java.util.Optional;
 
-import jobs4u.utentemanagement.domain.Utente;
-import jobs4u.utentemanagement.domain.MecanographicNumber;
-import jobs4u.utentemanagement.repositories.UtenteRepository;
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.MecanographicNumber;
+import core.utentemanagement.repositories.UtenteRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

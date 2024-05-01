@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.usermanagement.domain;
+package core.management.user.domain;
 
-import jobs4u.utentemanagement.domain.SignupRequestBuilder;
+import core.utentemanagement.domain.SignupRequestBuilder;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 import eapli.framework.util.Utility;

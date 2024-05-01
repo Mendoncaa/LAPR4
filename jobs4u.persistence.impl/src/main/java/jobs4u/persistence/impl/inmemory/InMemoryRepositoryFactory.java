@@ -21,9 +21,9 @@
 package jobs4u.persistence.impl.inmemory;
 
 import jobs4u.infrastructure.bootstrapers.ExemploBootstrapper;
-import jobs4u.infrastructure.persistence.RepositoryFactory;
-import jobs4u.utentemanagement.repositories.UtenteRepository;
-import jobs4u.utentemanagement.repositories.SignupRequestRepository;
+import core.infrastructure.persistence.RepositoryFactory;
+import core.utentemanagement.repositories.UtenteRepository;
+import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.inmemory.InMemoryUserRepository;

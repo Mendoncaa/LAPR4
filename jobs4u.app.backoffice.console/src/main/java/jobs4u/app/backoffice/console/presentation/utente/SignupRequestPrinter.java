@@ -20,7 +20,7 @@
  */
 package jobs4u.app.backoffice.console.presentation.utente;
 
-import jobs4u.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.domain.SignupRequest;
 import eapli.framework.visitor.Visitor;
 
 /**

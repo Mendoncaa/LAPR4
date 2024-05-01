@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.domain;
+package core.utentemanagement.domain;
 
 import java.util.Calendar;
 

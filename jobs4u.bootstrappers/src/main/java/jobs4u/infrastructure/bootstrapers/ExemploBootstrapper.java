@@ -26,9 +26,9 @@ package jobs4u.infrastructure.bootstrapers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploRoles;
-import jobs4u.usermanagement.domain.UserBuilderHelper;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploRoles;
+import core.management.user.domain.UserBuilderHelper;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

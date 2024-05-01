@@ -26,7 +26,7 @@ package jobs4u.app.backoffice.console.presentation.authz;
 import java.util.HashSet;
 import java.util.Set;
 
-import jobs4u.usermanagement.application.AddUserController;
+import core.management.user.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

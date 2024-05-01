@@ -21,8 +21,8 @@
 package jobs4u.app.user.console;
 
 import jobs4u.app.user.console.presentation.FrontMenu;
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploPasswordPolicy;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 

@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.application;
+package core.utentemanagement.application;
 
 import java.util.Optional;
 
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploRoles;
-import jobs4u.utentemanagement.domain.Utente;
-import jobs4u.utentemanagement.domain.MecanographicNumber;
-import jobs4u.utentemanagement.repositories.UtenteRepository;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploRoles;
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.MecanographicNumber;
+import core.utentemanagement.repositories.UtenteRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Username;

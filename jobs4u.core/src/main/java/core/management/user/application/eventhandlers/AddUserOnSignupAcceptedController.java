@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.usermanagement.application.eventhandlers;
+package core.management.user.application.eventhandlers;
 
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploRoles;
-import jobs4u.usermanagement.domain.UserBuilderHelper;
-import jobs4u.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import jobs4u.utentemanagement.domain.events.SignupAcceptedEvent;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploRoles;
+import core.management.user.domain.UserBuilderHelper;
+import core.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import core.utentemanagement.domain.events.SignupAcceptedEvent;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.ConcurrencyException;

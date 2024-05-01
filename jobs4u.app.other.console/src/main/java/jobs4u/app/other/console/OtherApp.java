@@ -22,9 +22,9 @@ package jobs4u.app.other.console;
 
 import jobs4u.app.common.console.presentation.authz.LoginAction;
 import jobs4u.app.other.console.presentation.MainMenu;
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploPasswordPolicy;
-import jobs4u.usermanagement.domain.ExemploRoles;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploPasswordPolicy;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 

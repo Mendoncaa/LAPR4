@@ -23,7 +23,7 @@ package jobs4u.app.user.console.presentation.myuser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jobs4u.myutente.application.SignupController;
+import core.myutente.application.SignupController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

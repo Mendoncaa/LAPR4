@@ -6,3 +6,4 @@ cd ../
 
 REM Clean the project using Maven
 call mvn clean
+cd scripts

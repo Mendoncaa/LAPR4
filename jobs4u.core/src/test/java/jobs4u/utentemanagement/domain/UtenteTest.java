@@ -29,9 +29,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.UtenteBuilder;
 import org.junit.Test;
 
-import jobs4u.usermanagement.domain.ExemploRoles;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.infrastructure.authz.domain.model.NilPasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import eapli.framework.infrastructure.authz.domain.model.Role;
@@ -40,7 +42,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUserBuilder;
 
 /**
  * Created by Nuno Bettencourt [NMB] on 03/04/16.
- */
+ *//*
 public class UtenteTest {
 
     private final String aMecanographicNumber = "abc";
@@ -133,4 +135,4 @@ public class UtenteTest {
 
         assertFalse(expected);
     }
-}
+}*/

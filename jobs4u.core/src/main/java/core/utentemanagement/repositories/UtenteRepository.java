@@ -18,12 +18,12 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.utentemanagement.repositories;
+package core.utentemanagement.repositories;
 
 import java.util.Optional;
 
-import jobs4u.utentemanagement.domain.Utente;
-import jobs4u.utentemanagement.domain.MecanographicNumber;
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.MecanographicNumber;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 

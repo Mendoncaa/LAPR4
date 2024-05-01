@@ -20,8 +20,8 @@
  */
 package jobs4u.persistence.impl.inmemory;
 
-import jobs4u.utentemanagement.domain.SignupRequest;
-import jobs4u.utentemanagement.repositories.SignupRequestRepository;
+import core.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

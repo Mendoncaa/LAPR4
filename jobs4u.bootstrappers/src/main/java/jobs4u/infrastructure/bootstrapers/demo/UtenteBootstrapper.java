@@ -24,10 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jobs4u.infrastructure.bootstrapers.TestDataConstants;
-import jobs4u.myutente.application.SignupController;
-import jobs4u.utentemanagement.application.AcceptRefuseSignupFactory;
-import jobs4u.utentemanagement.application.AcceptRefuseSignupRequestController;
-import jobs4u.utentemanagement.domain.SignupRequest;
+import core.myutente.application.SignupController;
+import core.utentemanagement.application.AcceptRefuseSignupFactory;
+import core.utentemanagement.application.AcceptRefuseSignupRequestController;
+import core.utentemanagement.domain.SignupRequest;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

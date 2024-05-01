@@ -25,7 +25,7 @@ package jobs4u.app.other.console.presentation;
 
 import jobs4u.Application;
 import jobs4u.app.common.console.presentation.authz.MyUserMenu;
-import jobs4u.usermanagement.domain.ExemploRoles;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;

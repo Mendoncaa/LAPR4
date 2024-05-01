@@ -23,9 +23,9 @@ package jobs4u.app.backoffice.console.presentation.utente;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jobs4u.utentemanagement.application.AcceptRefuseSignupFactory;
-import jobs4u.utentemanagement.application.AcceptRefuseSignupRequestController;
-import jobs4u.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.application.AcceptRefuseSignupFactory;
+import core.utentemanagement.application.AcceptRefuseSignupRequestController;
+import core.utentemanagement.domain.SignupRequest;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;

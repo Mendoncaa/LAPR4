@@ -254,6 +254,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<release>11</release>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

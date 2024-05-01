@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.application.eventhandlers;
+package core.utentemanagement.application.eventhandlers;
 
 import java.util.Optional;
 
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.utentemanagement.domain.Utente;
-import jobs4u.utentemanagement.domain.UtenteBuilder;
-import jobs4u.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
-import jobs4u.utentemanagement.repositories.UtenteRepository;
+import core.infrastructure.persistence.PersistenceContext;
+import core.utentemanagement.domain.Utente;
+import core.utentemanagement.domain.UtenteBuilder;
+import core.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import core.utentemanagement.repositories.UtenteRepository;
 import eapli.framework.functional.Functions;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;

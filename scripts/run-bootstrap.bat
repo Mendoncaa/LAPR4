@@ -5,3 +5,5 @@ SET BASE_CP=jobs4u.app.bootstrap\target\bootstrap-1.4.0-SNAPSHOT.jar;jobs4u.app.
 REM call the java VM, e.g, 
 cd ../
 java -cp %BASE_CP% jobs4u.app.bootstrap.ExemploBootstrap
+
+cd scripts

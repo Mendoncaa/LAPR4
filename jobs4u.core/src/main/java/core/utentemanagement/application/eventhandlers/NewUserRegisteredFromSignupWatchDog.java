@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.application.eventhandlers;
+package core.utentemanagement.application.eventhandlers;
 
-import jobs4u.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
+import core.utentemanagement.domain.events.NewUserRegisteredFromSignupEvent;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.infrastructure.pubsub.EventHandler;
 

@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jobs4u.utentemanagement.application;
+package core.utentemanagement.application;
 
-import jobs4u.utentemanagement.repositories.SignupRequestRepository;
+import core.utentemanagement.repositories.SignupRequestRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import jobs4u.infrastructure.persistence.PersistenceContext;
-import jobs4u.usermanagement.domain.ExemploRoles;
-import jobs4u.utentemanagement.domain.SignupRequest;
-import jobs4u.utentemanagement.domain.events.SignupAcceptedEvent;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploRoles;
+import core.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.domain.events.SignupAcceptedEvent;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.domain.events.DomainEvent;
 import eapli.framework.domain.repositories.ConcurrencyException;
