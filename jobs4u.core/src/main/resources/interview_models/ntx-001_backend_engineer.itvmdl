@@ -1,0 +1,34 @@
+create interview model "Junior Developer - Backend Engineer" for job opening "ntx-001" as follows;
+
+- requirements
+-> "Years of Experience" as number may be 2;
+-> "Programming Languages" as multiple may be into ["JavaScript","Java", "TypeScript"];
+-> "Years of Experience with Language" as number may be 1;
+-> "Knowledge of the English Language" as yes/no may be yes;
+-> "Has a previous dismissal for unprofessional behaviour" as yes/no may be no;
+-> "Ask for a description of self in 3 words (or less)" as text;
+
+- interview
+-> true/false question with id "q1" being "Are Java and C# interpreted languages?" with difficulty
+of 1; its validation is defined as false awarding 10;
+
+-> short text question with id "q2" being "Which type iteration focus on iterating over elements by a defined condition?"
+with difficulty of 2; its validation is defined as "^[wW]hile ([lL]oops?)?$" of type regex awarding 10;
+
+->  single choice question with id "q3" being "Which one of the following options is not a primitive type?"
+with difficulty of 4; its validation is defined as "string" from "int" "double" "char" awarding 10;
+
+
+
+-> multiple choice question with id "q4" being "Which of the following options are not a primitive type?"
+with difficulty of 10; its validation is defined as ("string",2) ("date",2) ("array",3) from "int" "double" "char" awarding 10;
+
+-> integer number question with id "q5" being "What is the result of the following code when mistery is called with argument 5: \n mystery(x){ if(x==1) return 1; return x*mystery(x-1);}"
+with difficulty of 1; its validation is defined as 120 awarding 10;
+
+-> real number question with id "q6" being "What is the result of the following code when mistery is called with argument 3: \n mystery(x){ return Math.round(Math.PI,x);}"
+with difficulty of 2; its validation is defined as 3.14 awarding 10;
+
+- footer
+
+passing results must score 40, outstanding results must score 60; interview should be conducted in random order;
