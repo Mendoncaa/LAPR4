@@ -39,10 +39,5 @@
             <version>${project.parent.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-        	<groupId>lapr</groupId>
-        	<artifactId>console</artifactId>
-        	<version>${project.parent.version}</version>
-        </dependency>
     </dependencies>
 </project>
