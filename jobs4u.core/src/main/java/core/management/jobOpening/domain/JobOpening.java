@@ -16,7 +16,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private JobTitle jobTitle;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "BINARY(2)")
+    @Column(nullable = false)
     private JobState jobState;
 
     @Embedded
@@ -24,7 +24,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private ContractType contractType;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "BINARY(2)")
+    @Column(nullable = false)
     private JobMode mode;
 
     @Embedded
