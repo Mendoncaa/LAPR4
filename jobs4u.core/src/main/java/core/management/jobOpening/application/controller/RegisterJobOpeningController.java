@@ -3,20 +3,7 @@ package core.management.jobOpening.application.controller;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.repository.JobOpeningRepository;
-import shared.exception.DomainInvariantViolatedException;
-import shared.exception.IllegalOperationException;
-import core.management.jobOpening.domain.RegisterJobOpeningDTO;
-import core.management.jobOpening.domain.Address;
-import core.management.jobOpening.domain.ContractType;
-import core.management.jobOpening.domain.JobMode;
-import core.management.jobOpening.domain.Description;
-import core.management.jobOpening.domain.JobReference;
-import core.management.jobOpening.domain.JobState;
-import core.management.jobOpening.domain.NumberOfVacancies;
-import core.management.jobOpening.domain.JobTitle;
-import core.management.jobOpening.domain.JobOpening;
 
 
 @RequiredArgsConstructor

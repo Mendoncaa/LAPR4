@@ -1,6 +1,7 @@
 package core.management.jobOpening.domain;
 
 
+import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 
 @NoArgsConstructor
 @Embeddable
-public class JobTitle implements Comparable<JobTitle>, Serializable {
+public class JobTitle implements ValueObject{
 
     @Column(length = 100, nullable = false)
     private String jobTitle;
@@ -30,8 +31,4 @@ public class JobTitle implements Comparable<JobTitle>, Serializable {
         this.jobTitle = jobTitle;
     }
 
-    @Override
-    public int compareTo(JobTitle o) {
-        return jobTitle.compareTo(o.jobTitle);
-    }
 }

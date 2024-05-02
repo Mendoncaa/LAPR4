@@ -1,6 +1,7 @@
 package core.management.jobOpening.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.general.domain.model.Description;
 import jakarta.persistence.*;
 
 @Entity
