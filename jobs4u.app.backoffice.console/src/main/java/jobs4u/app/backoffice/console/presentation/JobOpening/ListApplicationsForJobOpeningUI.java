@@ -4,7 +4,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
 import jobs4u.Application;
-import core.management.jobApplication.application.controller.ListApplicationsController;
+import core.management.jobOpening.controller.ListApplicationsController;
 
 /**
  * UI to display applications for a specific job opening.

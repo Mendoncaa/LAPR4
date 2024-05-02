@@ -4,7 +4,7 @@ import core.management.jobOpening.domain.*;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import core.management.jobApplication.application.controller.CreateJobOpeningController;
+import core.management.jobOpening.controller.CreateJobOpeningController;
 
 /**
  * UI for creating a job opening in the application.

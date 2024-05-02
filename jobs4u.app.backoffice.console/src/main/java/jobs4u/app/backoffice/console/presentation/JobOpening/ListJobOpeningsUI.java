@@ -3,7 +3,7 @@ package jobs4u.app.backoffice.console.presentation.JobOpening;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
-import core.management.jobApplication.application.controller.ListJobOpeningsController;
+import core.management.jobOpening.controller.ListJobOpeningsController;
 
 /**
  * UI to display all job openings.

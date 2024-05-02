@@ -1,4 +1,4 @@
-package core.management.jobApplication.application.controller;
+package core.management.jobOpening.controller;
 
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

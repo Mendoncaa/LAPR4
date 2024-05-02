@@ -1,4 +1,4 @@
-package core.management.jobApplication.application.controller;
+package core.management.jobOpening.controller;
 
 import jobs4u.Application;
 
