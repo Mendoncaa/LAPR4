@@ -4,7 +4,6 @@ import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
-import java.io.Serializable;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
@@ -18,10 +17,12 @@ public class JobReference implements ValueObject, Comparable<JobReference> {
         return jobReference;
     }
 
-
-
     @Override
     public int compareTo(JobReference o) {
         return jobReference.compareTo(o.jobReference);
+    }
+
+    public JobReference(String jobReference) {
+        this.jobReference = jobReference;
     }
 }

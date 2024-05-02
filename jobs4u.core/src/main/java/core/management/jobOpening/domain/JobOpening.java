@@ -18,7 +18,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JobState jobState;
-
     @Embedded
     @Column(nullable = false)
     private ContractType contractType;
@@ -79,6 +78,30 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     public Object jobState() {
         return this.jobState;
+    }
+
+    public Object jobTitle() {
+        return this.jobTitle;
+    }
+
+    public Object address() {
+        return this.address;
+    }
+
+    public Object contractType() {
+        return this.contractType;
+    }
+
+    public Object jobMode() {
+        return this.mode;
+    }
+
+    public Object description() {
+        return this.description;
+    }
+
+    public Object numberOfVacancies() {
+        return this.numberOfVacancies;
     }
 
 
