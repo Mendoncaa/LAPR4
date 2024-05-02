@@ -12,6 +12,7 @@
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
     <class>core.utentemanagement.domain.Utente</class>
     <class>core.utentemanagement.domain.SignupRequest</class>
+    <class>core.management.jobOpening.domain.JobOpening</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/eapliexemplo"/>-->

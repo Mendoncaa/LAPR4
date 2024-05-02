@@ -41,13 +41,13 @@ public class DeactivateUserController {
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
     public Iterable<SystemUser> activeUsers() {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
 
         return userSvc.activeUsers();
     }
 
     public SystemUser deactivateUser(final SystemUser user) {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
 
         return userSvc.deactivateUser(user);
     }

@@ -60,14 +60,21 @@ public class MainMenu extends AbstractUI {
 	private static final int DEACTIVATE_USER_OPTION = 3;
 	private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
 
-	// SETTINGS
-	//private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
+	// CUSTOMERS
+	private static final int ADD_CUSTOMER_OPTION = 1;
+	private static final int LIST_CUSTOMERS_OPTION = 2;
+
+	// JOB OPENING
+	private static final int CREATE_JOBOPENING_OPTION = 1;
+	private static final int LIST_JOBOPENINGS_OPTION = 2;
+	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 3;
 
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
 	private static final int USERS_OPTION = 2;
-	private static final int COSTUMERS_OPTION = 3;
-	private static final int SETTINGS_OPTION = 4;
+	private static final int CM_COSTUMERS_OPTION = 2;
+	private static final int CM_JOBOPENING_OPTION = 3;
+	private static final int LIST_CANDIDATE_INFO_OPTION = 4;
 
 	private static final String SEPARATOR_LABEL = "--------------";
 
@@ -111,13 +118,18 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 		}
 
-		if (authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.POWER_USER, ExemploRoles.ADMIN)) {
+		if (authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN)) {
 			final var usersMenu = buildUsersMenu();
 			mainMenu.addSubMenu(USERS_OPTION, usersMenu);
-			final var costumerMenu = buildCostumersMenu();
-			mainMenu.addSubMenu(COSTUMERS_OPTION, costumerMenu);
-			final var settingsMenu = buildAdminSettingsMenu();
-			mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+		//	final var settingsMenu = buildAdminSettingsMenu();
+		//	mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+		}
+		else if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
+			final var customersMenu = buildCustomersMenu();
+			mainMenu.addSubMenu(CM_COSTUMERS_OPTION, customersMenu);
+			final var jobOpeningMenu = buildJobOpeningMenu();
+			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
+			mainMenu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -129,7 +141,7 @@ public class MainMenu extends AbstractUI {
 		return mainMenu;
 	}
 
-	private Menu buildAdminSettingsMenu() {
+	/*private Menu buildAdminSettingsMenu() {
 		final var menu = new Menu("Settings >");
 
 		//menu.addItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
@@ -137,7 +149,7 @@ public class MainMenu extends AbstractUI {
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
-	}
+	}*/
 
 	private Menu buildUsersMenu() {
 		final var menu = new Menu("Users >");
@@ -152,11 +164,22 @@ public class MainMenu extends AbstractUI {
 		return menu;
 	}
 
-	private Menu buildCostumersMenu() {
-		final var menu = new Menu("Costumers >");
+	private Menu buildCustomersMenu() {
+		final var menu = new Menu("Customers >");
 
-		menu.addItem(ADD_USER_OPTION, "Add Costumer", new AddUserUI()::show);
-		menu.addItem(LIST_USERS_OPTION, "List all Costumers", new ListUsersAction());
+		menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new AddUserUI()::show);
+		menu.addItem(LIST_CUSTOMERS_OPTION, "List all Customers", new ListUsersAction());
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildJobOpeningMenu() {
+		final var menu = new Menu("JobOpening >");
+
+		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new AddUserUI()::show);
+		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListUsersAction());
+		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListUsersAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

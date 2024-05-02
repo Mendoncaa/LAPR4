@@ -10,9 +10,9 @@ public enum JobMode implements ValueObject {
     REMOTE("Remote"), HYBRID("Hybrid"), ONSITE("Onsite");
 
     @Getter
-    private final String description;
+    private final String mode;
 
-    JobMode(String description) {
-        this.description = description;
+    JobMode(String mode) {
+        this.mode = mode;
     }
 }

@@ -1,5 +1,6 @@
 package core.management.jobOpening.domain;
 
+import eapli.framework.general.domain.model.Description;
 import eapli.framework.representations.dto.DTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

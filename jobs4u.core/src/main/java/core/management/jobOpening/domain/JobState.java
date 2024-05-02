@@ -9,10 +9,10 @@ public enum JobState implements ValueObject {
     OPENED("Opened"), CLOSED("Closed");
 
     @Getter
-    private final String description;
+    private final String jobState;
 
-    JobState(String description) {
-        this.description = description;
+    JobState(String jobState) {
+        this.jobState = jobState;
     }
 
 }

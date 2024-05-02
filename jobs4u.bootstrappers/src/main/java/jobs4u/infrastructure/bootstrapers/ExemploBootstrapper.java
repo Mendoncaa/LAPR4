@@ -49,8 +49,12 @@ import eapli.framework.validations.Invariants;
 public class ExemploBootstrapper implements Action {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExemploBootstrapper.class);
 
-	private static final String POWERUSER_PWD = "poweruserA1";
-	private static final String POWERUSER = "poweruser";
+	private static final String ADMIN = "TEST_admin_for_creation";
+	private static final String ADMIN_PWD = "passwordA1";
+	private static final String OPERATOR_PWD = "operatorA1";
+	private static final String OPERATOR = "operator";
+	private static final String CUSTOMER_MANAGER_PWD = "managerA1";
+	private static final String CUSTOMER_MANAGER = "manager";
 
 	private final AuthorizationService authz = AuthzRegistry.authorizationService();
 	private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
@@ -61,7 +65,9 @@ public class ExemploBootstrapper implements Action {
 		// declare bootstrap actions
 		final Action[] actions = { new MasterUsersBootstrapper(), };
 
-		registerPowerUser();
+		registerAdmin();
+		registerOperator();
+		registerCustomerManager();
 		authenticateForBootstrapping();
 
 		// execute all bootstrapping
@@ -77,16 +83,56 @@ public class ExemploBootstrapper implements Action {
 	 * register a power user directly in the persistence layer as we need to
 	 * circumvent authorisations in the Application Layer
 	 */
-	private boolean registerPowerUser() {
+	private boolean registerOperator() {
 		final var userBuilder = UserBuilderHelper.builder();
-		userBuilder.withUsername(POWERUSER).withPassword(POWERUSER_PWD).withName("joe", "power")
-				.withEmail("joe@email.org").withRoles(ExemploRoles.POWER_USER);
+		userBuilder.withUsername(OPERATOR).withPassword(OPERATOR_PWD).withName("Operator", "First")
+				.withEmail("operator@email.org").withRoles(ExemploRoles.OPERATOR);
 		final var newUser = userBuilder.build();
 
-		SystemUser poweruser;
+		SystemUser operator;
 		try {
-			poweruser = userRepository.save(newUser);
-			assert poweruser != null;
+			operator = userRepository.save(newUser);
+			assert operator != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", newUser.username());
+			LOGGER.trace("Assuming existing record", e);
+			return false;
+		}
+	}
+
+	private boolean registerAdmin() {
+		final var userBuilder = UserBuilderHelper.builder();
+		userBuilder.withUsername(ADMIN).withPassword(ADMIN_PWD).withName("admin", "creation")
+				.withEmail("creator_admin@email.org").withRoles(ExemploRoles.ADMIN);
+		final var newUser = userBuilder.build();
+
+		SystemUser operator;
+		try {
+			operator = userRepository.save(newUser);
+			assert operator != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", newUser.username());
+			LOGGER.trace("Assuming existing record", e);
+			return false;
+		}
+	}
+
+	private boolean registerCustomerManager() {
+		final var userBuilder = UserBuilderHelper.builder();
+		userBuilder.withUsername(CUSTOMER_MANAGER).withPassword(CUSTOMER_MANAGER_PWD).withName("Customer", "Manager")
+				.withEmail("customer_manager@email.org").withRoles(ExemploRoles.CUSTOMER_MANAGER);
+		final var newUser = userBuilder.build();
+
+		SystemUser manager;
+		try {
+			manager = userRepository.save(newUser);
+			assert manager != null;
 			return true;
 		} catch (ConcurrencyException | IntegrityViolationException e) {
 			// ignoring exception. assuming it is just a primary key violation
@@ -102,7 +148,7 @@ public class ExemploBootstrapper implements Action {
 	 *
 	 */
 	protected void authenticateForBootstrapping() {
-		authenticationService.authenticate(POWERUSER, POWERUSER_PWD);
+		authenticationService.authenticate(ADMIN, ADMIN_PWD);
 		Invariants.ensure(authz.hasSession());
 	}
 

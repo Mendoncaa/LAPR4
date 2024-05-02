@@ -58,7 +58,7 @@ public class FrontMenu extends AbstractUI {
 	public boolean doShow() {
 		final var menu = new Menu();
 		menu.addItem(LOGIN_OPTION, "Login",
-				new ChainedAction(new LoginUI(new AuthenticationCredentialHandler(), ExemploRoles.UTENTE)::show, () -> {
+				new ChainedAction(new LoginUI(new AuthenticationCredentialHandler(), ExemploRoles.CANDIDATE)::show, () -> {
 					new MainMenu().mainLoop();
 					return true;
 				}));

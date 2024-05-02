@@ -34,8 +34,8 @@ public class MasterUsersBootstrapper extends AbstractUserBootstrapper implements
 
     @Override
     public boolean execute() {
-        registerAdmin("admin", TestDataConstants.PASSWORD1, "Jane", "Doe Admin",
-                "jane.doe@email.local");
+        registerAdmin("admin", TestDataConstants.PASSWORD1, "Administrator", "Admin",
+                "admin@email.local");
         return true;
     }
 

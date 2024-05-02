@@ -43,12 +43,12 @@ public class UtenteService {
 	private final UtenteRepository repo = PersistenceContext.repositories().utentes();
 
 	public Optional<Utente> findExemploUtenteByMecNumber(final String mecNumber) {
-		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN, ExemploRoles.CUSTOMER);
+		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER);
 		return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
 	}
 
 	public Optional<Utente> findExemploUtenteByUsername(final Username user) {
-		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN);
+		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
 		return repo.findByUsername(user);
 	}
 }

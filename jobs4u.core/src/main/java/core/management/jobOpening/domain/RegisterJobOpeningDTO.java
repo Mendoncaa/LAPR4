@@ -1,5 +1,6 @@
 package core.management.jobOpening.domain;
 
+import eapli.framework.general.domain.model.Description;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

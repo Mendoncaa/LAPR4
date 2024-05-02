@@ -49,7 +49,7 @@ public class MyUtenteService {
     }
 
     public Utente myUser() {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.UTENTE);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.CANDIDATE);
         final UserSession s = authz.session().orElseThrow(IllegalStateException::new);
         final SystemUser me = s.authenticatedUser();
         return repo.findByUsername(me.identity()).orElseThrow(IllegalStateException::new);

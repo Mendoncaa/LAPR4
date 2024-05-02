@@ -11,9 +11,9 @@ public enum ContractType implements ValueObject {
     FULL_TIME("Full Time"), PART_TIME("Part Time");
 
     @Getter
-    private final String description;
+    private final String type;
 
-    ContractType(String description) {
-        this.description = description;
+    ContractType(String type) {
+        this.type = type;
     }
 }

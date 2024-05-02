@@ -36,11 +36,11 @@ public final class ExemploRoles {
 	/**
 	 * poweruser
 	 */
-	public static final Role POWER_USER = Role.valueOf("POWER_USER");
+	public static final Role OPERATOR = Role.valueOf("OPERATOR");
 	/**
 	 * Utente
 	 */
-	public static final Role UTENTE = Role.valueOf("CANDIDATE");
+	public static final Role CANDIDATE = Role.valueOf("CANDIDATE");
 	/**
 	 * Administrator
 	 */
@@ -60,10 +60,6 @@ public final class ExemploRoles {
 	 * @return
 	 */
 	public static Role[] nonUserValues() {
-		return new Role[] { ADMIN, CUSTOMER_MANAGER, CUSTOMER };
-	}
-
-	public boolean isCollaborator(final Role role) {
-		return role != UTENTE;
+		return new Role[] { ADMIN, CUSTOMER_MANAGER, OPERATOR };
 	}
 }

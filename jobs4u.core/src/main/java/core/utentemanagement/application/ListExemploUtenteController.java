@@ -40,7 +40,7 @@ public class ListExemploUtenteController {
     private final UtenteRepository repo = PersistenceContext.repositories().utentes();
 
     public Iterable<Utente> activeExemploUtente() {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
 
         return this.repo.findAllActive();
     }
