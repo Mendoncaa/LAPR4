@@ -2,13 +2,13 @@ package core.management.jobOpening.domain;
 
 import eapli.framework.domain.model.ValueObject;
 
-import java.io.Serializable;
-
 public class NumberOfVacancies implements ValueObject {
-    private final int numberOfVacancies;
+    private final int number;
 
-    public NumberOfVacancies(int numberOfVacancies) {
-        this.numberOfVacancies = numberOfVacancies;
+    public NumberOfVacancies(int number) {
+        if (number <= 0) {
+            throw new IllegalArgumentException("Number of vacancies must be greater than zero");
+        }
+        this.number = number;
     }
-
 }

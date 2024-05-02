@@ -15,17 +15,16 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(nullable = false)
     private JobTitle jobTitle;
 
-    
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private JobState  jobState;
+    @Column(nullable = false, columnDefinition = "BINARY(2)")
+    private JobState jobState;
 
     @Embedded
     @Column(nullable = false)
     private ContractType contractType;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BINARY(2)")
     private JobMode mode;
 
     @Embedded
@@ -41,6 +40,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private NumberOfVacancies numberOfVacancies;
 
     public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
+        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null) {
+            throw new IllegalArgumentException("None of the fields can be null");
+        }
         this.jobReference = jobReference;
         this.jobTitle = jobTitle;
         this.jobState = jobState;
@@ -51,9 +53,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.numberOfVacancies = numberOfVacancies;
     }
 
-    public JobOpening() {
-
+    protected JobOpening() {
+        // for ORM
     }
+
 
     @Override
     public boolean sameAs(Object other) {

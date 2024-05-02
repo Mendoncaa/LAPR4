@@ -3,10 +3,9 @@ package core.management.jobOpening.domain;
 import eapli.framework.domain.model.ValueObject;
 import lombok.Getter;
 
-import java.io.Serializable;
-
 public enum JobState implements ValueObject {
-    OPENED("Opened"), CLOSED("Closed");
+    OPENED("Opened"),
+    CLOSED("Closed");
 
     @Getter
     private final String jobState;
@@ -14,5 +13,4 @@ public enum JobState implements ValueObject {
     JobState(String jobState) {
         this.jobState = jobState;
     }
-
 }
