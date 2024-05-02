@@ -30,17 +30,17 @@ import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
  * Utente App.
  */
 @SuppressWarnings("squid:S106")
-public final class UtenteApp {
+public final class CandidateApp {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
 	 */
-	private UtenteApp() {
+	private CandidateApp() {
 	}
 
 	public static void main(final String[] args) {
 		System.out.println("=====================================");
-		System.out.println("Utente App");
+		System.out.println("Candidate App");
 		System.out.println("(C) 2016 - 2024");
 		System.out.println("=====================================");
 

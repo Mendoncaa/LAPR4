@@ -43,7 +43,7 @@ public class UtenteService {
 	private final UtenteRepository repo = PersistenceContext.repositories().utentes();
 
 	public Optional<Utente> findExemploUtenteByMecNumber(final String mecNumber) {
-		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN, ExemploRoles.OTHER_EXAMPLE);
+		authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.POWER_USER, ExemploRoles.ADMIN, ExemploRoles.CUSTOMER);
 		return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
 	}
 

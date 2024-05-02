@@ -20,6 +20,7 @@
  */
 package core.infrastructure.persistence;
 
+import core.management.jobOpening.repository.JobOpeningRepository;
 import core.utentemanagement.repositories.UtenteRepository;
 import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -68,7 +69,7 @@ public interface RepositoryFactory {
      */
     UtenteRepository utentes();
 
-    /**
+     /**
      *
      * @param autoTx
      *            the transactional context to enroll
@@ -82,5 +83,20 @@ public interface RepositoryFactory {
      * @return
      */
     SignupRequestRepository signupRequests();
+
+    /**
+     *
+     * @param autoTx
+     *            the transactional context to enroll
+     * @return
+     */
+    JobOpeningRepository jobOpenings(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    JobOpeningRepository jobOpenings();
 
 }

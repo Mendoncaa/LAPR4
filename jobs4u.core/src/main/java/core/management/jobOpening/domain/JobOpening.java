@@ -1,11 +1,12 @@
 package core.management.jobOpening.domain;
 
+import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 
 @Entity
-public class JobOpening {
+public class JobOpening implements AggregateRoot<JobReference> {
 
-    @Embedded
+    @EmbeddedId
     @Column(unique = true, nullable = false)
     private JobReference jobReference;
 
@@ -38,9 +39,6 @@ public class JobOpening {
     @Column(nullable = false)
     private NumberOfVacancies numberOfVacancies;
 
-    @Id
-    private Long id;
-
     public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
         this.jobReference = jobReference;
         this.jobTitle = jobTitle;
@@ -54,6 +52,29 @@ public class JobOpening {
 
     public JobOpening() {
 
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        return false;
+    }
+
+    @Override
+    public JobReference identity() {
+        return null;
+    }
+
+    @Override
+    public boolean hasIdentity(JobReference id) {
+        return AggregateRoot.super.hasIdentity(id);
+    }
+
+    public Object jobReference() {
+        return this.jobReference;
+    }
+
+    public Object jobState() {
+        return this.jobState;
     }
 
 

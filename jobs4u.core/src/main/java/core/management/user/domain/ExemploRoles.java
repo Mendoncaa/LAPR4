@@ -40,7 +40,7 @@ public final class ExemploRoles {
 	/**
 	 * Utente
 	 */
-	public static final Role UTENTE = Role.valueOf("UTENTE");
+	public static final Role UTENTE = Role.valueOf("CANDIDATE");
 	/**
 	 * Administrator
 	 */
@@ -48,15 +48,11 @@ public final class ExemploRoles {
 	/**
 	 *
 	 */
-	public static final Role SAMPLE_1_MANAGER = Role.valueOf("SAMPLE_1_MANAGER");
+	public static final Role CUSTOMER_MANAGER = Role.valueOf("CUSTOMER_MANAGER");
 	/**
 	 *
 	 */
-	public static final Role ANOTHER_EXAMPLE_MANAGER = Role.valueOf("ANOTHER_EXAMPLE_MANAGER");
-	/**
-	 *
-	 */
-	public static final Role OTHER_EXAMPLE = Role.valueOf("OTHER_EXAMPLE");
+	public static final Role CUSTOMER = Role.valueOf("CUSTOMER");
 
 	/**
 	 * get available role types for adding new users
@@ -64,7 +60,7 @@ public final class ExemploRoles {
 	 * @return
 	 */
 	public static Role[] nonUserValues() {
-		return new Role[] { ADMIN, SAMPLE_1_MANAGER, ANOTHER_EXAMPLE_MANAGER, OTHER_EXAMPLE };
+		return new Role[] { ADMIN, CUSTOMER_MANAGER, CUSTOMER };
 	}
 
 	public boolean isCollaborator(final Role role) {

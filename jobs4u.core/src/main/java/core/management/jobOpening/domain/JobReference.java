@@ -8,7 +8,7 @@ import shared.exception.DomainInvariantViolatedException;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Embeddable
-public class JobReference implements ValueObject {
+public class JobReference implements ValueObject, Comparable<JobReference> {
 
     private String jobReference;
 
@@ -25,5 +25,10 @@ public class JobReference implements ValueObject {
             throw new DomainInvariantViolatedException("The course jobReference is invalid!");
         }
         this.jobReference = jobReference2;
+    }
+
+    @Override
+    public int compareTo(JobReference o) {
+        return 0;
     }
 }

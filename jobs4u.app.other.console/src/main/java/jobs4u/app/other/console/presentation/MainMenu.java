@@ -94,14 +94,14 @@ public class MainMenu extends AbstractUI {
 	private Menu buildMainMenu() {
 		final var mainMenu = new Menu();
 
-		final Menu myUserMenu = new MyUserMenu(ExemploRoles.OTHER_EXAMPLE);
+		final Menu myUserMenu = new MyUserMenu(ExemploRoles.CUSTOMER);
 		mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
 			mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 		}
 
-		if (authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OTHER_EXAMPLE)) {
+		if (authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER)) {
 			final var cashierMenu = buildCashierMenu();
 			mainMenu.addSubMenu(SALES_OPTION, cashierMenu);
 		}

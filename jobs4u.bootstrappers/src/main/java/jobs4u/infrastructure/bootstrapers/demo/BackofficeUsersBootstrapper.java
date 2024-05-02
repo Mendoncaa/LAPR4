@@ -38,32 +38,14 @@ public class BackofficeUsersBootstrapper extends AbstractUserBootstrapper implem
 
     @Override
     public boolean execute() {
-        registerOtherExample("cashier", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
-        registerSample1Manager("kitchen", PASSWORD1, "Oven", "Stove", "Oven.and.stove@emai.l.com");
-        registerAnotherExampleManager("chef", PASSWORD1, "Master", "Chef", "master.chef@emai.l.com");
+        registerCustomerExample("customer1", PASSWORD1, "Johny", "Cash", "johny.doe@emai.l.com");
         return true;
     }
 
-    private void registerOtherExample(final String username, final String password,
+    private void registerCustomerExample(final String username, final String password,
             final String firstName, final String lastName, final String email) {
         final Set<Role> roles = new HashSet<>();
-        roles.add(ExemploRoles.OTHER_EXAMPLE);
-
-        registerUser(username, password, firstName, lastName, email, roles);
-    }
-
-    private void registerSample1Manager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
-        final Set<Role> roles = new HashSet<>();
-        roles.add(ExemploRoles.SAMPLE_1_MANAGER);
-
-        registerUser(username, password, firstName, lastName, email, roles);
-    }
-
-    private void registerAnotherExampleManager(final String username, final String password,
-            final String firstName, final String lastName, final String email) {
-        final Set<Role> roles = new HashSet<>();
-        roles.add(ExemploRoles.ANOTHER_EXAMPLE_MANAGER);
+        roles.add(ExemploRoles.CUSTOMER);
 
         registerUser(username, password, firstName, lastName, email, roles);
     }

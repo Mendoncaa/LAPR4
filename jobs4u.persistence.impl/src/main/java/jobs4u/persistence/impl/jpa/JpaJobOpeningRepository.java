@@ -20,30 +20,50 @@
  */
 package jobs4u.persistence.impl.jpa;
 
-import jobs4u.Application;
+import core.management.jobOpening.domain.JobOpening;
+import core.management.jobOpening.domain.JobReference;
+import core.management.jobOpening.domain.JobState;
+import core.management.jobOpening.repository.JobOpeningRepository;
+import core.utentemanagement.domain.MecanographicNumber;
 import core.utentemanagement.domain.SignupRequest;
+import core.utentemanagement.domain.Utente;
 import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import jobs4u.Application;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaSignupRequestRepository extends JpaAutoTxRepository<SignupRequest, Username, Username>
-		implements SignupRequestRepository {
+class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
+		implements JobOpeningRepository {
 
-	public JpaSignupRequestRepository(final TransactionalContext autoTx) {
+	public JpaJobOpeningRepository(final TransactionalContext autoTx) {
 		super(autoTx, "username");
 	}
 
-	public JpaSignupRequestRepository(final String puname) {
+	public JpaJobOpeningRepository(final String puname) {
 		super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
 	}
 
 	@Override
-	public Iterable<SignupRequest> pendingSignupRequests() {
-		return match("e.approvalStatus=core.utentemanagement.domain.ApprovalStatus.PENDING");
+	public List<JobOpening> findAllByState(JobState jobState) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("jobState", jobState);
+		return match("e.jobState=:jobState", params);
+	}
+
+	@Override
+	public Optional<JobOpening> findByJobReference(final JobReference number) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("number", number);
+		return matchOne("e.jobReference=:number", params);
 	}
 }

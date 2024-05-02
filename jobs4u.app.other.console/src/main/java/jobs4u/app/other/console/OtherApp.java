@@ -43,7 +43,7 @@ public final class OtherApp {
 
 	public static void main(final String[] args) {
 		System.out.println("=====================================");
-		System.out.println("Other App");
+		System.out.println("Customer App");
 		System.out.println("(C) 2016-2024");
 		System.out.println("=====================================");
 
@@ -51,7 +51,7 @@ public final class OtherApp {
 				new PlainTextEncoder());
 
 		// login and go to main menu
-		if (new LoginAction(ExemploRoles.OTHER_EXAMPLE).execute()) {
+		if (new LoginAction(ExemploRoles.CUSTOMER).execute()) {
 			final var menu = new MainMenu();
 			menu.mainLoop();
 		}
