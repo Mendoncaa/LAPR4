@@ -48,22 +48,43 @@ public class CreateJobOpeningUI extends AbstractUI {
 
 
     private ContractType selectContractType() {
+        ContractType[] types = ContractType.values();
+        int index = 1;
         System.out.println("Select Contract Type:");
-        for (ContractType type : ContractType.values()) {
-            System.out.println("- " + type.name());
+        for (ContractType type : types) {
+            System.out.printf("%d - %s\n", index++, type.name());
         }
-        String type = Console.readLine("Enter contract type:");
-        return ContractType.valueOf(type.toUpperCase());
+        ContractType selectedType = null;
+        while (selectedType == null) {
+            int choice = Console.readInteger("Enter the number for the contract type:");
+            if (choice > 0 && choice <= types.length) {
+                selectedType = types[choice - 1];
+            } else {
+                System.out.println("Invalid choice, please try again.");
+            }
+        }
+        return selectedType;
     }
 
     private JobMode selectJobMode() {
+        JobMode[] modes = JobMode.values();
+        int index = 1;
         System.out.println("Select Job Mode:");
-        for (JobMode mode : JobMode.values()) {
-            System.out.println("- " + mode.name());
+        for (JobMode mode : modes) {
+            System.out.printf("%d - %s\n", index++, mode.name());
         }
-        String mode = Console.readLine("Enter job mode:");
-        return JobMode.valueOf(mode.toUpperCase());
+        JobMode selectedMode = null;
+        while (selectedMode == null) {
+            int choice = Console.readInteger("Enter the number for the job mode:");
+            if (choice > 0 && choice <= modes.length) {
+                selectedMode = modes[choice - 1];
+            } else {
+                System.out.println("Invalid choice, please try again.");
+            }
+        }
+        return selectedMode;
     }
+
 
     @Override
     public String headline() {
