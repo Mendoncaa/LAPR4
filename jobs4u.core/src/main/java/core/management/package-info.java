@@ -1,1 +1,1 @@
-package jobs4u.usermanagement;
+package core.management;
