@@ -7,47 +7,63 @@ import java.util.Set;
 public class JobOpening {
 
     @Embedded
-    private JobReference jobReference; // Agora usando JobReference como ID.
+    @Column(unique = true, nullable = false)
+    private JobReference jobReference;
 
     @Embedded
+    @Column(nullable = false)
     private JobTitle jobTitle;
 
-    @Embedded
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "BINARY(2)")
     private JobState  jobState;
 
     @Embedded
+    @Column(nullable = false)
     private ContractType contractType;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "BINARY(2)")
     private JobMode mode;
 
     @Embedded
+    @Column(nullable = false)
     private Description description;
 
     @Embedded
+    @Column(nullable = false)
     private Address address;
 
     @Embedded
+    @Column(nullable = false)
     private NumberOfVacancies numberOfVacancies;
+
     @Id
     private Long id;
 
-    //@Column(nullable = false)
-    
-    // CostumerCode como foreign key
-
-    // Constructor, getters, and setters
-    public RegisterJobOpeningDTO JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, String address, int numberOfVacancies, String company) {
+    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
         this.jobReference = jobReference;
         this.jobTitle = jobTitle;
         this.jobState=jobState;
         this.contractType = contractType;
         this.mode = mode;
         this.description = description;
-        //this.address = address;
-        //this.numberOfVacancies = numberOfVacancies;
-        // this.company = company;
-        return null;
+        this.address = address;
+        this.numberOfVacancies = numberOfVacancies;
+    }
+
+    public static RegisterJobOpeningDTO toJobOpeningDTO(JobOpening jobOpening) {
+        if (jobOpening == null) {
+            return null;
+        }
+        RegisterJobOpeningDTO registerJobOpeningDTO = new RegisterJobOpeningDTO();
+        registerJobOpeningDTO.setRegisterJobOpeningCode(jobOpening.jobReference.getValue());
+        registerJobOpeningDTO.setRegisterJobOpeningName(jobOpening.jobTitle.getValue());
+        registerJobOpeningDTO.setRegisterJobOpeningDescription(jobOpening.description.getValue());
+        registerJobOpeningDTO.setRegisterJobOpeningState(jobOpening.jobState.getValue());
+        registerJobOpeningDTO.setMaximumEnrollmentLimit(jobOpening.numberOfVacancies.getValue());
+        return registerJobOpeningDTO;
     }
 
     // Additional methods and business logic

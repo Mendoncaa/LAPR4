@@ -4,30 +4,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@Getter
+String
 public class RegisterJobOpeningDTO {
 
-    private JobTitle title;
+    private JobReference jobReference;
 
-    private JobState state;
+    private JobTitle jobTitle;
+
+    private JobState jobState;
 
     private ContractType contractType;
 
-    private JobMode mode;
+    private JobMode jobMode;
 
-    private Description description;
+    private Description jobDescription;
 
     private Address address;
 
     private NumberOfVacancies numberOfVacancies;
 
 
-    public RegisterJobOpeningDTO (JobTitle title, JobState state, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
-        this.title = title;
-        this.state = state;
+    public RegisterJobOpeningDTO (JobReference jobReference, JobTitle title, JobState state, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
+        this.jobTitle = title;
+        this.jobState = state;
         this.contractType = contractType;
-        this.mode = mode;
-        this.description = description;
+        this.jobMode = mode;
+        this.jobDescription = description;
         this.address = address;
         this.numberOfVacancies = numberOfVacancies;
     }
