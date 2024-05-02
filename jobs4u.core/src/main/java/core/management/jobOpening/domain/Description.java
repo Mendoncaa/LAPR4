@@ -1,6 +1,8 @@
 package core.management.jobOpening.domain;
 
-public class Description {
+import eapli.framework.domain.model.ValueObject;
+
+public class Description implements ValueObject {
     private final String description;
 
     public Description(String description) {

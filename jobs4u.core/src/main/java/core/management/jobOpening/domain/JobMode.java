@@ -1,13 +1,12 @@
 package core.management.jobOpening.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
 
-public enum JobMode {
-    
-    OPENED("Opened"), CLOSED("Closed"); 
+public enum JobMode implements Serializable {
+
+    REMOTE("Remote"), HYBRID("Hybrid"), ONSITE("Onsite");
 
     @Getter
     private final String description;

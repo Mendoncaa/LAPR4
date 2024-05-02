@@ -2,13 +2,13 @@ package core.management.jobOpening.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
-import core.infrastructure.domain.ValueObject;
-import shared.exception.DomainInvariantViolatedException;
+
+import java.io.Serializable;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Embeddable
-public class JobReference implements ValueObject, Comparable<JobReference> {
+public class JobReference implements Comparable<JobReference>, Serializable {
 
     private String jobReference;
 
@@ -17,18 +17,10 @@ public class JobReference implements ValueObject, Comparable<JobReference> {
         return jobReference;
     }
 
-    public JobReference (String jobReference2) throws DomainInvariantViolatedException {
-        if(jobReference2 == null) {
-            throw new DomainInvariantViolatedException("The course jobReference is invalid!");
-        }
-        if(!jobReference2.matches("^[a-zA-Z0-9\\-]{1,30}$")) {
-            throw new DomainInvariantViolatedException("The course jobReference is invalid!");
-        }
-        this.jobReference = jobReference2;
-    }
+
 
     @Override
     public int compareTo(JobReference o) {
-        return 0;
+        return jobReference.compareTo(o.jobReference);
     }
 }

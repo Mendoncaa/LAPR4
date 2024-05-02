@@ -1,13 +1,16 @@
 package core.management.jobOpening.domain;
 
+import eapli.framework.representations.dto.DTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.annotation.Annotation;
+
 @NoArgsConstructor
 @Setter
 @Getter
-public class JobOpeningDTO {
+public class JobOpeningDTO implements DTO {
 
     
     private JobReference jobReference; // Agora usando JobReference como ID.
@@ -43,7 +46,12 @@ public class JobOpeningDTO {
      
 
     }
-   
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
+    }
+
     public JobOpeningDTO(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
         this.jobReference = jobReference;
         this.jobTitle = jobTitle;

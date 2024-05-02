@@ -1,10 +1,14 @@
 package core.management.jobOpening.domain;
 
+import eapli.framework.representations.dto.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.lang.annotation.Annotation;
+
+
 @AllArgsConstructor
-public class JobStateDTO {
+public class JobStateDTO implements DTO {
 
     @Getter
     private String description;
@@ -13,5 +17,10 @@ public class JobStateDTO {
     @Override
     public String toString() {
         return description;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
     }
 }

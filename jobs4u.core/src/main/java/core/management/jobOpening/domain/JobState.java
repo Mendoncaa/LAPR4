@@ -1,11 +1,10 @@
 package core.management.jobOpening.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
 
-public enum JobState {
+public enum JobState implements Serializable {
     OPENED("Opened"), CLOSED("Closed");
 
     @Getter
@@ -14,4 +13,5 @@ public enum JobState {
     JobState(String description) {
         this.description = description;
     }
+
 }
