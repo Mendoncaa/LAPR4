@@ -37,7 +37,6 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.ExitWithMessageAction;
-import eapli.framework.presentation.console.ShowMessageAction;
 import eapli.framework.presentation.console.menu.HorizontalMenuRenderer;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
@@ -68,6 +67,11 @@ public class MainMenu extends AbstractUI {
 	private static final int CREATE_JOBOPENING_OPTION = 1;
 	private static final int LIST_JOBOPENINGS_OPTION = 2;
 	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 3;
+	private static final int SETUP_JOBOPENING_PHASES_OPTION = 4;
+
+	// JOB APPLICATION
+
+	private static final int REGISTER_JOBAPPLICATION_OPTION = 1;
 
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
@@ -180,6 +184,16 @@ public class MainMenu extends AbstractUI {
 		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new AddUserUI()::show);
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListUsersAction());
 		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListUsersAction());
+		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new ListUsersAction());
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildJobApplicationMenu() {
+		final var menu = new Menu("JobApplication >");
+
+		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserUI()::show);
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
