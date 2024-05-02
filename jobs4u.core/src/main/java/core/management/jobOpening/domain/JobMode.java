@@ -1,4 +1,4 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

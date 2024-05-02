@@ -1,7 +1,6 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 @Entity
 public class JobOpening {
@@ -45,7 +44,7 @@ public class JobOpening {
     public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
         this.jobReference = jobReference;
         this.jobTitle = jobTitle;
-        this.jobState=jobState;
+        this.jobState = jobState;
         this.contractType = contractType;
         this.mode = mode;
         this.description = description;
@@ -53,6 +52,12 @@ public class JobOpening {
         this.numberOfVacancies = numberOfVacancies;
     }
 
+    public JobOpening() {
+
+    }
+
+
+    /*
     public static RegisterJobOpeningDTO toJobOpeningDTO(JobOpening jobOpening) {
         if (jobOpening == null) {
             return null;
@@ -67,4 +72,6 @@ public class JobOpening {
     }
 
     // Additional methods and business logic
+
+     */
 }

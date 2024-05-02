@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import core.management.jobOpening.domain.RegisterJobOpening.JobState;
-import core.management.jobOpening.domain.RegisterJobOpening.JobReference;
+import core.management.jobOpening.domain.JobState;
+import core.management.jobOpening.domain.JobReference;
 import java.util.List;
-import core.management.jobOpening.domain.RegisterJobOpening.JobOpening;
+import core.management.jobOpening.domain.JobOpening;
 
 @Repository
 public interface JobOpeningRepository extends JpaRepository<JobOpening, Long> {

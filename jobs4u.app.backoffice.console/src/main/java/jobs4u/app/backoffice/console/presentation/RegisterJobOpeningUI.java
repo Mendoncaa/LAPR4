@@ -1,11 +1,12 @@
 package jobs4u.app.backoffice.console.presentation;
 
+import core.management.jobOpening.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import core.management.jobOpening.application.controller.RegisterJobOpeningController;
 import java.util.Scanner;
-import core.management.jobOpening.domain.RegisterJobOpening.JobOpeningDTO;
-import core.management.jobOpening.domain.RegisterJobOpening.*;
+
+import core.management.jobOpening.domain.JobOpening.*;
 
 @Component
 public class RegisterJobOpeningUI {
@@ -16,6 +17,7 @@ public class RegisterJobOpeningUI {
         this.controller = controller;
     }
 
+    /*
     public void show() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Register a new job opening");
@@ -52,4 +54,6 @@ public class RegisterJobOpeningUI {
             System.out.println("Failed to register job opening.");
         }
     }
+
+     */
 }

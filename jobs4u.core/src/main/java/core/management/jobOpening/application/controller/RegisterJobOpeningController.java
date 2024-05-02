@@ -3,20 +3,20 @@ package core.management.jobOpening.application.controller;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import core.management.jobOpening.domain.RegisterJobOpeningJobOpening;
+import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import shared.exception.DomainInvariantViolatedException;
 import shared.exception.IllegalOperationException;
-import core.management.jobOpening.domain.RegisterJobOpening.RegisterJobOpeningDTO;
-import core.management.jobOpening.domain.RegisterJobOpening.Address;
-import core.management.jobOpening.domain.RegisterJobOpening.ContractType;
-import core.management.jobOpening.domain.RegisterJobOpening.JobMode;
-import core.management.jobOpening.domain.RegisterJobOpening.Description;
-import core.management.jobOpening.domain.RegisterJobOpening.JobReference;
-import core.management.jobOpening.domain.RegisterJobOpening.JobState;
-import core.management.jobOpening.domain.RegisterJobOpening.NumberOfVacancies;
-import core.management.jobOpening.domain.RegisterJobOpening.JobTitle;
-import core.management.jobOpening.domain.RegisterJobOpening.JobOpening;
+import core.management.jobOpening.domain.RegisterJobOpeningDTO;
+import core.management.jobOpening.domain.Address;
+import core.management.jobOpening.domain.ContractType;
+import core.management.jobOpening.domain.JobMode;
+import core.management.jobOpening.domain.Description;
+import core.management.jobOpening.domain.JobReference;
+import core.management.jobOpening.domain.JobState;
+import core.management.jobOpening.domain.NumberOfVacancies;
+import core.management.jobOpening.domain.JobTitle;
+import core.management.jobOpening.domain.JobOpening;
 
 
 @RequiredArgsConstructor
@@ -25,6 +25,7 @@ public class RegisterJobOpeningController {
     @NonNull
     private final JobOpeningRepository jobOpeningRepository;
 
+    /*
     public boolean registerJobOpening(RegisterJobOpeningDTO registerJobOpeningDTO) {
         try {
             // Initialize value objects with data from DTO
@@ -55,4 +56,6 @@ public class RegisterJobOpeningController {
             return false;
         }
     }
+
+     */
 }

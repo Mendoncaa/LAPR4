@@ -1,10 +1,9 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-String
+
 public class RegisterJobOpeningDTO {
 
     private JobReference jobReference;

@@ -1,7 +1,7 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
 public class NumberOfVacancies {
-    private final String numberOfVacancies;
+    private final int numberOfVacancies;
 
     public NumberOfVacancies(int i) {
         this.numberOfVacancies = i;

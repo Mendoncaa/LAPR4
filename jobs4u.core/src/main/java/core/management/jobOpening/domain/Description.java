@@ -1,4 +1,4 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
 public class Description {
     private final String description;

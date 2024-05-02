@@ -1,4 +1,4 @@
-package core.management.jobOpening.domain.RegisterJobOpening;
+package core.management.jobOpening.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
@@ -17,7 +17,7 @@ public class JobReference implements ValueObject {
         return jobReference;
     }
 
-    public JobReference (JobReference jobReference2) throws DomainInvariantViolatedException {
+    public JobReference (String jobReference2) throws DomainInvariantViolatedException {
         if(jobReference2 == null) {
             throw new DomainInvariantViolatedException("The course jobReference is invalid!");
         }
@@ -26,5 +26,4 @@ public class JobReference implements ValueObject {
         }
         this.jobReference = jobReference2;
     }
-
 }
