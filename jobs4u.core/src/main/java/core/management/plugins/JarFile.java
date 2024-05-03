@@ -1,13 +1,21 @@
 package core.management.plugins;
 
-public class JarFile {
+import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
+public class JarFile implements ValueObject {
         private String path;
 
         public JarFile(String path) {
             this.path = path;
         }
 
-        public String getPath() {
+    protected JarFile() {
+
+    }
+
+    public String getPath() {
             return path;
         }
 
