@@ -20,40 +20,35 @@
  */
 package jobs4u.persistence.impl.inmemory;
 
-import core.management.jobOpening.domain.JobOpening;
-import core.management.jobOpening.domain.JobReference;
-import core.management.jobOpening.domain.JobState;
-import core.management.jobOpening.repository.JobOpeningRepository;
-import core.utentemanagement.domain.MecanographicNumber;
-import core.utentemanagement.domain.Utente;
-import core.utentemanagement.repositories.UtenteRepository;
+import core.management.costumer.domain.Customer;
+import core.management.costumer.domain.CustomerCode;
+import core.management.costumer.repository.CustomerRepository;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemoryJobOpeningRepository
-        extends InMemoryDomainRepository<JobOpening, JobReference>
-        implements JobOpeningRepository {
+public class InMemoryCustomerRepository
+        extends InMemoryDomainRepository<Customer, CustomerCode>
+        implements CustomerRepository {
 
     static {
         InMemoryInitializer.init();
     }
 
     @Override
-    public List<JobOpening> findAllByState(JobState jobState) {
-        return (List<JobOpening>) match(e -> e.getJobState().equals(jobState));
+    public List<Customer> findByRepresentatice(Username user) {
+        return (List<Customer>) match(e -> e.getCustomerRepresentative().equals(user));
     }
 
     @Override
-    public Optional<JobOpening> findByJobReference(final JobReference number) {
+    public Optional<Customer> findByCustomerCode(final CustomerCode number) {
         return matchOne(e -> e.identity().equals(number));
     }
 }

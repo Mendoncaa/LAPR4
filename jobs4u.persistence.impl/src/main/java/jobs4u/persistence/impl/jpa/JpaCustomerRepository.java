@@ -18,17 +18,16 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.persistence.impl.inmemory;
+package jobs4u.persistence.impl.jpa;
 
-import core.management.jobOpening.domain.JobOpening;
-import core.management.jobOpening.domain.JobReference;
-import core.management.jobOpening.domain.JobState;
-import core.management.jobOpening.repository.JobOpeningRepository;
-import core.utentemanagement.domain.MecanographicNumber;
-import core.utentemanagement.domain.Utente;
-import core.utentemanagement.repositories.UtenteRepository;
+import core.management.costumer.domain.Customer;
+import core.management.costumer.domain.CustomerCode;
+import core.management.costumer.repository.CustomerRepository;
+import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
+import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+import jobs4u.Application;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,21 +38,28 @@ import java.util.Optional;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class InMemoryJobOpeningRepository
-        extends InMemoryDomainRepository<JobOpening, JobReference>
-        implements JobOpeningRepository {
+class JpaCustomerRepository extends JpaAutoTxRepository<Customer, CustomerCode, CustomerCode>
+		implements CustomerRepository {
 
-    static {
-        InMemoryInitializer.init();
-    }
+	public JpaCustomerRepository(final TransactionalContext autoTx) {
+		super(autoTx, "username");
+	}
 
-    @Override
-    public List<JobOpening> findAllByState(JobState jobState) {
-        return (List<JobOpening>) match(e -> e.getJobState().equals(jobState));
-    }
+	public JpaCustomerRepository(final String puname) {
+		super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
+	}
 
-    @Override
-    public Optional<JobOpening> findByJobReference(final JobReference number) {
-        return matchOne(e -> e.identity().equals(number));
-    }
+	@Override
+	public List<Customer> findByRepresentatice(Username user) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("user", user);
+		return match("e.customerRepresentative=:user", params);
+	}
+
+	@Override
+	public Optional<Customer> findByCustomerCode(final CustomerCode number) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("code", number);
+		return matchOne("e.customerCode=:code", params);
+	}
 }

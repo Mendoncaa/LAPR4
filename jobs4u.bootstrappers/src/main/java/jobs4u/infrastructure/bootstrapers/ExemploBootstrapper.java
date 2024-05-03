@@ -76,6 +76,9 @@ public class ExemploBootstrapper implements Action {
 			System.out.println("Bootstrapping " + nameOfEntity(boot) + "...");
 			ret &= boot.execute();
 		}
+
+		removeExtraAdmin();
+
 		return ret;
 	}
 
@@ -133,6 +136,23 @@ public class ExemploBootstrapper implements Action {
 		try {
 			manager = userRepository.save(newUser);
 			assert manager != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", newUser.username());
+			LOGGER.trace("Assuming existing record", e);
+			return false;
+		}
+	}
+
+	private boolean removeExtraAdmin() {
+		final var userBuilder = UserBuilderHelper.builder();
+		userBuilder.withUsername(ADMIN).withPassword(ADMIN_PWD).withName("admin", "creation")
+				.withEmail("creator_admin@email.org").withRoles(ExemploRoles.ADMIN);
+		final var newUser = userBuilder.build();
+		try {
+			userRepository.deleteOfIdentity(newUser.identity());
 			return true;
 		} catch (ConcurrencyException | IntegrityViolationException e) {
 			// ignoring exception. assuming it is just a primary key violation
