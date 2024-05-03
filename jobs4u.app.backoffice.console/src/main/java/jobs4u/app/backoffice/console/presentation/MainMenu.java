@@ -81,7 +81,10 @@ public class MainMenu extends AbstractUI {
 	private static final int USERS_OPTION = 2;
 	private static final int CM_COSTUMERS_OPTION = 2;
 	private static final int CM_JOBOPENING_OPTION = 3;
-	private static final int LIST_CANDIDATE_INFO_OPTION = 4;
+	private static final int ADMIN_COSTUMERS_OPTION = 3;
+	private static final int ADMIN_JOBOPENING_OPTION = 4;
+	private static final int LIST_CANDIDATE_INFO_OPTION = 5;
+	private static final int CM_LIST_CANDIDATE_INFO_OPTION = 4;
 
 	private static final String SEPARATOR_LABEL = "--------------";
 
@@ -128,17 +131,20 @@ public class MainMenu extends AbstractUI {
 		if (authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN)) {
 			final var usersMenu = buildUsersMenu();
 			mainMenu.addSubMenu(USERS_OPTION, usersMenu);
+			final var customersMenu = buildCustomersMenu();
+			mainMenu.addSubMenu(ADMIN_COSTUMERS_OPTION, customersMenu);
 			final var jobOpeningMenu = buildJobOpeningMenu();
-			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
-		//	final var settingsMenu = buildAdminSettingsMenu();
-		//	mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
+			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
+			final var candidatesMenu = buildCandidatesMenu();
+			mainMenu.addSubMenu(LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
 		}
-		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
 			final var customersMenu = buildCustomersMenu();
 			mainMenu.addSubMenu(CM_COSTUMERS_OPTION, customersMenu);
 			final var jobOpeningMenu = buildJobOpeningMenu();
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
-			mainMenu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
+			final var candidatesMenu = buildCandidatesMenu();
+			mainMenu.addSubMenu(CM_LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -199,6 +205,15 @@ public class MainMenu extends AbstractUI {
 		final var menu = new Menu("JobApplication >");
 
 		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserUI()::show);
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildCandidatesMenu() {
+		final var menu = new Menu("Candidates >");
+
+		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
