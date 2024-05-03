@@ -20,6 +20,7 @@
  */
 package core.infrastructure.persistence;
 
+import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import core.utentemanagement.repositories.UtenteRepository;
@@ -114,5 +115,20 @@ public interface RepositoryFactory {
      * @return
      */
     CustomerRepository customer();
+
+    /**
+     *
+     * @param autoTx
+     *            the transactional context to enroll
+     * @return
+     */
+    CandidateRepository candidate(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    CandidateRepository candidate();
 
 }
