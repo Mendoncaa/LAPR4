@@ -51,4 +51,9 @@ public class InMemoryCustomerRepository
     public Optional<Customer> findByCustomerCode(final CustomerCode number) {
         return matchOne(e -> e.identity().equals(number));
     }
+
+    @Override
+    public List<Customer> findBySystemUser(SystemUser user) {
+        return (List<Customer>) match(e -> e.getCostumerManager().equals(user));
+    }
 }

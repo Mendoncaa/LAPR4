@@ -1,9 +1,12 @@
 package jobs4u.app.backoffice.console.presentation.JobOpening;
 
+import core.management.costumer.domain.Customer;
 import core.management.jobOpening.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import core.management.jobOpening.controller.CreateJobOpeningController;
+
+import java.util.List;
 
 public class CreateJobOpeningUI extends AbstractUI {
 
@@ -11,7 +14,23 @@ public class CreateJobOpeningUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        final String jobReference = Console.readLine("Job Reference (ID):");
+        List<Customer> customers = theController.findCustomerByCustomerManager();
+        String customerCode;
+        if (customers.isEmpty()) {
+            System.out.println("No customers found. Please create a customer first.");
+            return false;
+        }
+        else
+        {
+            customerCode = selectCustomerCode(customers);
+        }
+
+        // TODO:
+        // Criar JobReference com o CustomerCode
+
+        // jobReference só para não dar erro
+        final String jobReference = customerCode;
+
         final String jobTitle = Console.readLine("Job Title:");
         final ContractType contractType = selectContractType();
         final JobMode mode = selectJobMode();
@@ -77,6 +96,26 @@ public class CreateJobOpeningUI extends AbstractUI {
             }
         }
         return selectedMode;
+    }
+
+    private String selectCustomerCode(List<Customer> customers) {
+        System.out.println("Select Customer:");
+        int index = 1;
+        for (Customer customer : customers) {
+            System.out.printf("%d. %s\n", index++, customer.getCustomerCode());
+        }
+
+        String selectedCustomerCode = null;
+        while (selectedCustomerCode == null) {
+            int choice = Console.readInteger("Enter the number for the customer:");
+            if (choice > 0 && choice <= customers.size()) {
+                selectedCustomerCode = customers.get(choice - 1).getCustomerCode().toString();
+            } else {
+                System.out.println("Invalid choice, please try again.");
+            }
+        }
+
+        return selectedCustomerCode;
     }
 
 

@@ -1,25 +1,40 @@
 package core.management.jobOpening.controller;
 
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.costumer.domain.Customer;
+import core.management.costumer.repository.CustomerRepository;
 import core.management.jobOpening.domain.*;
+import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.List;
+import java.util.Optional;
 
 public class CreateJobOpeningController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public void createJobOpening(String jobReference, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
-        authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"));
+    private final CustomerRepository customerRepository = PersistenceContext.repositories().customer();
 
-        // Convert and validate inputs
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
+
+    public void createJobOpening(String jobReference, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
+
         JobReference ref = new JobReference(jobReference);
         JobTitle title = JobTitle.valueOf(jobTitle);
         Description desc = Description.valueOf(description);
         Address addr = Address.valueOf(street, doorNumber, floor, postalCode);
         NumberOfVacancies vacancies = new NumberOfVacancies(numberOfVacancies);
 
-        // Here you would call your domain services or repository methods to actually create the JobOpening and persist it.
-        // Example: jobOpeningRepository.add(new JobOpening(ref, title, getCurrentJobState(), contractType, jobMode, desc, addr, vacancies));
+        jobOpeningRepository.save(new JobOpening(ref, title, JobState.CLOSED, contractType, jobMode, desc, addr, vacancies));
+
+    }
+    public List<Customer> findCustomerByCustomerManager()
+    {
+        Optional<SystemUser> user = authz.loggedinUserWithPermissions(ExemploRoles.CUSTOMER_MANAGER);
+        return customerRepository.findBySystemUser(user.get());
     }
 }
