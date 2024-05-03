@@ -1,10 +1,15 @@
 package core.management.jobOpening.domain;
 
+import core.management.jobOpening.domain.RecruitmentProcess.RecruitmentProcess;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Table(name = "job_openings") // Explicit table name definition
+@Access(AccessType.FIELD) // Explicitly setting field access for consistency
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @EmbeddedId
@@ -18,6 +23,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private JobState jobState;
+
     @Embedded
     @Column(nullable = false)
     private ContractType contractType;
@@ -38,8 +44,14 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(nullable = false)
     private NumberOfVacancies numberOfVacancies;
 
-    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
-        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null) {
+    @Getter
+    @Setter
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "recruitmentProcessId", referencedColumnName = "id")
+    private RecruitmentProcess recruitmentProcess;
+
+    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies, RecruitmentProcess recruitmentProcess) {
+        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null || recruitmentProcess == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.jobReference = jobReference;
@@ -50,76 +62,64 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = description;
         this.address = address;
         this.numberOfVacancies = numberOfVacancies;
+        this.recruitmentProcess = recruitmentProcess;
     }
 
     protected JobOpening() {
-        // for ORM
-    }
 
+    }
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        if (this == other) return true;
+        if (!(other instanceof JobOpening)) return false;
+        JobOpening that = (JobOpening) other;
+        return this.jobReference.equals(that.jobReference);
     }
 
     @Override
     public JobReference identity() {
-        return null;
-    }
-
-    @Override
-    public boolean hasIdentity(JobReference id) {
-        return AggregateRoot.super.hasIdentity(id);
-    }
-
-    public Object jobReference() {
         return this.jobReference;
     }
 
-    public Object jobState() {
-        return this.jobState;
+    // Getters for all fields
+    public JobReference getJobReference() {
+        return jobReference;
     }
 
-    public Object jobTitle() {
-        return this.jobTitle;
+    public JobTitle getJobTitle() {
+        return jobTitle;
     }
 
-    public Object address() {
-        return this.address;
+    public JobState getJobState() {
+        return jobState;
     }
 
-    public Object contractType() {
-        return this.contractType;
+    public ContractType getContractType() {
+        return contractType;
     }
 
-    public Object jobMode() {
-        return this.mode;
+    public JobMode getMode() {
+        return mode;
     }
 
-    public Object description() {
-        return this.description;
+    public Description getDescription() {
+        return description;
     }
 
-    public Object numberOfVacancies() {
-        return this.numberOfVacancies;
+    public Address getAddress() {
+        return address;
     }
 
-
-    /*
-    public static RegisterJobOpeningDTO toJobOpeningDTO(JobOpening jobOpening) {
-        if (jobOpening == null) {
-            return null;
-        }
-        RegisterJobOpeningDTO registerJobOpeningDTO = new RegisterJobOpeningDTO();
-        registerJobOpeningDTO.setRegisterJobOpeningCode(jobOpening.jobReference.getValue());
-        registerJobOpeningDTO.setRegisterJobOpeningName(jobOpening.jobTitle.getValue());
-        registerJobOpeningDTO.setRegisterJobOpeningDescription(jobOpening.description.getValue());
-        registerJobOpeningDTO.setRegisterJobOpeningState(jobOpening.jobState.getValue());
-        registerJobOpeningDTO.setMaximumEnrollmentLimit(jobOpening.numberOfVacancies.getValue());
-        return registerJobOpeningDTO;
+    public NumberOfVacancies getNumberOfVacancies() {
+        return numberOfVacancies;
     }
 
-    // Additional methods and business logic
+    public RecruitmentProcess getRecruitmentProcess() {
+        return recruitmentProcess;
+    }
 
-     */
+    public RecruitmentProcess RecruitmentProcess() {
+        return recruitmentProcess;
+    }
 }
