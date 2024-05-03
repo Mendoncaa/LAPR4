@@ -77,6 +77,34 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return this.jobReference.equals(that.jobReference);
     }
 
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
+
+    public ContractType getContractType() {
+        return contractType;
+    }
+
+    public JobMode getMode() {
+        return mode;
+    }
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public NumberOfVacancies getNumberOfVacancies() {
+        return numberOfVacancies;
+    }
+
+    public RecruitmentProcess getRecruitmentProcess() {
+        return recruitmentProcess;
+    }
+
     @Override
     public JobReference identity() {
         return this.jobReference;
@@ -84,5 +112,9 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     public RecruitmentProcess RecruitmentProcess() {
         return recruitmentProcess;
+    }
+
+    public JobState getJobState() {
+        return this.jobState;
     }
 }

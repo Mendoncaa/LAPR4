@@ -133,7 +133,7 @@ public class MainMenu extends AbstractUI {
 		//	final var settingsMenu = buildAdminSettingsMenu();
 		//	mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
 		}
-		else if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
 			final var customersMenu = buildCustomersMenu();
 			mainMenu.addSubMenu(CM_COSTUMERS_OPTION, customersMenu);
 			final var jobOpeningMenu = buildJobOpeningMenu();

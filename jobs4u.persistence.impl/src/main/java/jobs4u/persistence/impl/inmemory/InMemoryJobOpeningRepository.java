@@ -49,11 +49,11 @@ public class InMemoryJobOpeningRepository
 
     @Override
     public List<JobOpening> findAllByState(JobState jobState) {
-        return (List<JobOpening>) match(e -> e.jobState().equals(jobState));
+        return (List<JobOpening>) match(e -> e.getJobState().equals(jobState));
     }
 
     @Override
     public Optional<JobOpening> findByJobReference(final JobReference number) {
-        return matchOne(e -> e.jobReference().equals(number));
+        return matchOne(e -> e.identity().equals(number));
     }
 }

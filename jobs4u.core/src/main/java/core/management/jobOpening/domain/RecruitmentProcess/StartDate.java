@@ -2,14 +2,20 @@ package core.management.jobOpening.domain.RecruitmentProcess;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.Embeddable;
 
 import java.time.LocalDate;
 
+@Embeddable
 public class StartDate implements ValueObject {
-    private final LocalDate date;
+    private final LocalDate startDate;
 
     private StartDate(LocalDate date) {
-        this.date = date;
+        this.startDate = date;
+    }
+
+    public StartDate() {
+        this.startDate = LocalDate.now();
     }
 
     public static StartDate valueOf(String dateString) {
@@ -20,7 +26,7 @@ public class StartDate implements ValueObject {
 
     @Override
     public String toString() {
-        return date.toString();
+        return startDate.toString();
     }
 }
 
