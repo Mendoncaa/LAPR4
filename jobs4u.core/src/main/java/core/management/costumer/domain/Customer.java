@@ -29,7 +29,11 @@ public class Customer implements AggregateRoot<CustomerCode> {
     @Column(nullable = false)
     private Username customerRepresentative;
 
-    public Customer(CustomerCode customerCode, Address address, CustomerName customerName, Username customerRepresentative) {
+    @OneToOne
+    @JoinColumn(name = "system_user_id")
+    private SystemUser costumerManager;
+
+    public Customer(CustomerCode customerCode, Address address, CustomerName customerName, Username customerRepresentative, SystemUser costumerManager) {
         if (customerCode == null || address == null || customerName == null || customerRepresentative == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
@@ -37,6 +41,7 @@ public class Customer implements AggregateRoot<CustomerCode> {
         this.address = address;
         this.customerName = customerName;
         this.customerRepresentative = customerRepresentative;
+        this.costumerManager = costumerManager;
     }
 
     protected Customer() {
