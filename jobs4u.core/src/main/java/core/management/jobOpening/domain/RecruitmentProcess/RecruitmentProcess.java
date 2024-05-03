@@ -32,4 +32,3 @@ public class RecruitmentProcess {
 }
 
 
-// Enums and value objects for PhaseName, StartDate, EndDate, Status here

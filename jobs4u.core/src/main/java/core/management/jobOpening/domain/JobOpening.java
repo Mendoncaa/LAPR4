@@ -13,7 +13,6 @@ import lombok.Setter;
 @Access(AccessType.FIELD) // Explicitly setting field access for consistency
 public class JobOpening implements AggregateRoot<JobReference> {
 
-    // Getters for all fields
     @EmbeddedId
     @Column(unique = true, nullable = false)
     private JobReference jobReference;
@@ -51,8 +50,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @JoinColumn(name = "recruitmentProcessId", referencedColumnName = "id")
     private RecruitmentProcess recruitmentProcess;
 
-    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies, RecruitmentProcess recruitmentProcess) {
-        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null || recruitmentProcess == null) {
+    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
+        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.jobReference = jobReference;
@@ -63,7 +62,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = description;
         this.address = address;
         this.numberOfVacancies = numberOfVacancies;
-        this.recruitmentProcess = recruitmentProcess;
     }
 
     protected JobOpening() {
@@ -77,44 +75,50 @@ public class JobOpening implements AggregateRoot<JobReference> {
         return this.jobReference.equals(that.jobReference);
     }
 
-    public JobTitle getJobTitle() {
-        return jobTitle;
+    @Override
+    public int compareTo(JobReference other) {
+        return AggregateRoot.super.compareTo(other);
     }
 
-    public ContractType getContractType() {
-        return contractType;
-    }
-
-    public JobMode getMode() {
+    public Object jobMode() {
         return mode;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public NumberOfVacancies getNumberOfVacancies() {
-        return numberOfVacancies;
-    }
-
-    public RecruitmentProcess getRecruitmentProcess() {
-        return recruitmentProcess;
     }
 
     @Override
     public JobReference identity() {
-        return this.jobReference;
+        return jobReference;
     }
 
-    public RecruitmentProcess RecruitmentProcess() {
-        return recruitmentProcess;
+    @Override
+    public boolean hasIdentity(JobReference id) {
+        return AggregateRoot.super.hasIdentity(id);
     }
 
-    public JobState getJobState() {
-        return this.jobState;
+    public Object JobReference() {
+        return jobReference;
+    }
+
+    public Object jobTitle() {
+        return jobTitle;
+    }
+
+    public Object address() {
+        return address;
+    }
+
+    public Object contractType() {
+        return contractType;
+    }
+
+    public Object jobState() {
+        return jobState;
+    }
+
+    public Object description() {
+        return description;
+    }
+
+    public Object numberOfVacancies() {
+        return numberOfVacancies;
     }
 }

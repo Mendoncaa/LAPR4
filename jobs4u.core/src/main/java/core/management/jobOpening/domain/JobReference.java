@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Embeddable
+@Getter
 public class JobReference implements ValueObject, Comparable<JobReference> {
 
     private String jobReference;

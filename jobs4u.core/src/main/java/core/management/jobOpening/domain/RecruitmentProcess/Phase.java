@@ -4,14 +4,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class Phase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+
+    @EmbeddedId
+    private PhaseName name;
 
     @Embedded
-    private PhaseName name;
     private StartDate startDate;
+
+    @Embedded
     private EndDate endDate;
+
     @Embedded
     private Status status;
 
@@ -30,5 +32,4 @@ public class Phase {
     }
 
 
-    // Getters and setters
 }

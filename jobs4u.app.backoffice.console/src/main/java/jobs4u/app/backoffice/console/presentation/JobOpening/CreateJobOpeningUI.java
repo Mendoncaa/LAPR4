@@ -1,14 +1,10 @@
 package jobs4u.app.backoffice.console.presentation.JobOpening;
 
 import core.management.jobOpening.domain.*;
-import eapli.framework.general.domain.model.Description;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import core.management.jobOpening.controller.CreateJobOpeningController;
 
-/**
- * UI for creating a job opening in the application.
- */
 public class CreateJobOpeningUI extends AbstractUI {
 
     private final CreateJobOpeningController theController = new CreateJobOpeningController();
@@ -20,20 +16,17 @@ public class CreateJobOpeningUI extends AbstractUI {
         final ContractType contractType = selectContractType();
         final JobMode mode = selectJobMode();
         final String descriptionText = Console.readLine("Job Description:");
-        final String addressText = Console.readLine("Job Location Address:");
+
+        // Gather address in steps
+        final String street = Console.readLine("Street:");
+        final int doorNumber = Console.readInteger("Door Number:");
+        final String floor = Console.readLine("Floor:");
+        final String postalCode = Console.readLine("Postal Code:");
+
         final int numberOfVacancies = Console.readInteger("Number of Vacancies:");
 
         try {
-            // Using valueOf to create Description, Address, and JobTitle objects
-            Description description = Description.valueOf(descriptionText);
-            Address address = Address.valueOf(addressText);
-            JobTitle title = JobTitle.valueOf(jobTitle);
-
-            // Assuming JobReference and NumberOfVacancies have appropriate constructors
-            JobReference reference = new JobReference(jobReference);
-            NumberOfVacancies vacancies = new NumberOfVacancies(numberOfVacancies);
-
-            this.theController.createJobOpening(reference, title, contractType, mode, description, address, vacancies);
+            this.theController.createJobOpening(jobReference, jobTitle, contractType, mode, descriptionText, street, doorNumber, floor, postalCode, numberOfVacancies);
             System.out.println("Job opening created successfully.");
         } catch (IllegalArgumentException e) {
             System.err.println("Invalid input: " + e.getMessage());
@@ -44,6 +37,7 @@ public class CreateJobOpeningUI extends AbstractUI {
         }
         return true;
     }
+
 
 
 

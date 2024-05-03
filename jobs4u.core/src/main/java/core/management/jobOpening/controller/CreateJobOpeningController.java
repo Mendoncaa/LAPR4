@@ -9,8 +9,17 @@ import eapli.framework.infrastructure.authz.domain.model.Role;
 public class CreateJobOpeningController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    public void createJobOpening(JobReference jobReference, JobTitle jobTitle, ContractType contractType, JobMode jobMode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
+    public void createJobOpening(String jobReference, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
         authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"));
+
+        // Convert and validate inputs
+        JobReference ref = new JobReference(jobReference);
+        JobTitle title = JobTitle.valueOf(jobTitle);
+        Description desc = Description.valueOf(description);
+        Address addr = Address.valueOf(street, doorNumber, floor, postalCode);
+        NumberOfVacancies vacancies = new NumberOfVacancies(numberOfVacancies);
+
         // Here you would call your domain services or repository methods to actually create the JobOpening and persist it.
+        // Example: jobOpeningRepository.add(new JobOpening(ref, title, getCurrentJobState(), contractType, jobMode, desc, addr, vacancies));
     }
 }
