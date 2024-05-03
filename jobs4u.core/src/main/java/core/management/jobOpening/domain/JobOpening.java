@@ -7,11 +7,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Entity
 @Table(name = "job_openings") // Explicit table name definition
 @Access(AccessType.FIELD) // Explicitly setting field access for consistency
 public class JobOpening implements AggregateRoot<JobReference> {
 
+    // Getters for all fields
     @EmbeddedId
     @Column(unique = true, nullable = false)
     private JobReference jobReference;
@@ -44,7 +46,6 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(nullable = false)
     private NumberOfVacancies numberOfVacancies;
 
-    @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recruitmentProcessId", referencedColumnName = "id")
@@ -72,51 +73,13 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
-        if (!(other instanceof JobOpening)) return false;
-        JobOpening that = (JobOpening) other;
+        if (!(other instanceof JobOpening that)) return false;
         return this.jobReference.equals(that.jobReference);
     }
 
     @Override
     public JobReference identity() {
         return this.jobReference;
-    }
-
-    // Getters for all fields
-    public JobReference getJobReference() {
-        return jobReference;
-    }
-
-    public JobTitle getJobTitle() {
-        return jobTitle;
-    }
-
-    public JobState getJobState() {
-        return jobState;
-    }
-
-    public ContractType getContractType() {
-        return contractType;
-    }
-
-    public JobMode getMode() {
-        return mode;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public NumberOfVacancies getNumberOfVacancies() {
-        return numberOfVacancies;
-    }
-
-    public RecruitmentProcess getRecruitmentProcess() {
-        return recruitmentProcess;
     }
 
     public RecruitmentProcess RecruitmentProcess() {
