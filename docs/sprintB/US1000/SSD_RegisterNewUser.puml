@@ -1,0 +1,6 @@
+actor Admin
+
+Admin -> System: 1. Asks to register a new user
+System --> Admin: 1.1 Shows form to enter user details
+Admin -> System: 2. Submits user details (name, email)
+System --> Admin: 2.1 Confirms user registration
