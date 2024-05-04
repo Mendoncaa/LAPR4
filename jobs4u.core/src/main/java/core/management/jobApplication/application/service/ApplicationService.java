@@ -1,49 +1,56 @@
-package core.management.jobApplication.application.service;
-/*package core.management.jobApplication.application;
+/*package core.management.jobApplication.application.service;
+
+import core.management.candidate.domain.Candidate;
+import core.management.candidate.repository.CandidateRepository;
+import core.management.jobApplication.domain.Application;
+import core.management.jobApplication.repository.ApplicationRepository;
+import core.management.jobOpening.domain.JobOpening;
+import core.management.jobOpening.repository.JobOpeningRepository;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import core.management.jobApplication.repository.ApplicationRepository;
-// import core.management.jobApplication.repository.CandidateRepository;
-
 public class ApplicationService {
-    private final CandidateRepository candidateRepository;
     private final ApplicationRepository applicationRepository;
+    private final CandidateRepository candidateRepository;
+    private final JobOpeningRepository jobOpeningRepository;
 
-    public ApplicationService(CandidateRepository candidateRepository, ApplicationRepository applicationRepository) {
-        this.candidateRepository = candidateRepository;
+    public ApplicationService(ApplicationRepository applicationRepository,
+                              CandidateRepository candidateRepository,
+                              JobOpeningRepository jobOpeningRepository) {
         this.applicationRepository = applicationRepository;
+        this.candidateRepository = candidateRepository;
+        this.jobOpeningRepository = jobOpeningRepository;
     }
 
-    public void processFilesFromDirectory(String directoryPath) throws IOException {
+    public void processApplicationFiles(String directoryPath) throws IOException {
         List<File> files = Files.list(Paths.get(directoryPath))
                                 .map(Path::toFile)
                                 .collect(Collectors.toList());
 
         for (File file : files) {
             String fileName = file.getName();
-            String jobReference = fileName.split("-")[0];  // Assume the format "JOBREF-001.txt"
-            
-            // Extract candidate data from the file
-            // For this example, assume that the candidate's email, name, and phone are in the file
-            String content = new String(Files.readAllBytes(file.toPath()));
-            String[] candidateData = content.split("\n");
-            String email = candidateData[0];
-            String name = candidateData[1];
-            String phoneNumber = candidateData[2];
+            String[] parts = fileName.split("-");
+            String jobReference = parts[0];
+            JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobReference).orElseThrow(); //alterar isto para receber um objeto jobOpening
+            Candidate candidate = extractCandidate(file);
 
-            if (!candidateRepository.existsByEmail(email)) {
-                Candidate candidate = CandidateFactory.createCandidate(email, name, phoneNumber);
-                candidateRepository.save(candidate);
-                
-                Application application = new Application(candidate, jobReference);
-                applicationRepository.save(application);
-            }
+            Application application = new Application(candidate, jobOpening);
+            applicationRepository.save(application);
         }
     }
+
+    private Candidate extractCandidate(File file) throws IOException {
+        String content = new String(Files.readAllBytes(file.toPath()));
+        String[] lines = content.split("\n");
+        String email = lines[0]; // Simples exemplo, precisa de validação e parse adequados
+        return candidateRepository.findByCandidateEmail(email) // modificar para enviar um objeto do tipo de candidate
+                                  .orElseGet(() -> candidateRepository.save(new Candidate(email)));
+    }
 }
-/* */
+*/
