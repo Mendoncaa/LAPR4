@@ -16,7 +16,7 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
     @Column(unique = true, nullable = false)
     private CandidateEmail candidateEmail;
 
-    @Embedded
+    @Enumerated(EnumType.STRING) 
     @Column(nullable = false)
     private CandidateState candidateState;
 

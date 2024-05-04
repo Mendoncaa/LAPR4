@@ -1,4 +1,4 @@
-/*package core.management.jobApplication.application.controller;
+package core.management.jobApplication.application.controller;
 
 import java.io.IOException;
 
@@ -15,4 +15,3 @@ public class RegisterApplicationController {
         applicationService.processApplicationFiles(path);
     }
 }
-*/

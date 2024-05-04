@@ -1,10 +1,15 @@
-/*package core.management.jobApplication.application.service;
+package core.management.jobApplication.application.service;
 
 import core.management.candidate.domain.Candidate;
+import core.management.candidate.domain.CandidateEmail;
+import core.management.candidate.domain.CandidateName;
+import core.management.candidate.domain.CandidatePhone;
+import core.management.candidate.domain.CandidateState;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.jobApplication.domain.Application;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
+import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
 
 import java.io.File;
@@ -36,8 +41,9 @@ public class ApplicationService {
         for (File file : files) {
             String fileName = file.getName();
             String[] parts = fileName.split("-");
-            String jobReference = parts[0];
-            JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobReference).orElseThrow(); //alterar isto para receber um objeto jobOpening
+            JobReference jobReference = new JobReference(parts[0]);
+            JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobReference)
+                .orElseThrow(() -> new IllegalArgumentException("No job opening found for the given job reference: " + jobReference));
             Candidate candidate = extractCandidate(file);
 
             Application application = new Application(candidate, jobOpening);
@@ -48,9 +54,17 @@ public class ApplicationService {
     private Candidate extractCandidate(File file) throws IOException {
         String content = new String(Files.readAllBytes(file.toPath()));
         String[] lines = content.split("\n");
-        String email = lines[0]; // Simples exemplo, precisa de validação e parse adequados
-        return candidateRepository.findByCandidateEmail(email) // modificar para enviar um objeto do tipo de candidate
-                                  .orElseGet(() -> candidateRepository.save(new Candidate(email)));
+        if (lines.length < 4) {
+            throw new IllegalArgumentException("The file format is incorrect or missing information.");
+        }
+
+        CandidateEmail email = new CandidateEmail(lines[1].trim());
+        CandidateName name = new CandidateName(lines[2].trim());
+        CandidatePhone phone = new CandidatePhone(lines[3].trim());
+        CandidateState state = CandidateState.ENABLED;
+        
+        return candidateRepository.findByCandidateEmail(email)
+            .orElseGet(() -> candidateRepository.save(new Candidate(email, state, name, phone)));
     }
+    
 }
-*/

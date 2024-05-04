@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import core.management.jobApplication.application.controller.RegisterApplicationController;
-import core.management.jobOpening.application.ListJobOpeningService;
+import core.management.jobOpening.controller.ListJobOpeningService;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.io.util.Console;
