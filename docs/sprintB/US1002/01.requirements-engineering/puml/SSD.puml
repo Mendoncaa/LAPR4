@@ -1,0 +1,26 @@
+@startuml
+
+title System Sequence Diagram (SSD) - Register a job opening
+
+actor "Customer Manager" as U
+participant ":System" as S
+
+U -> S : Asks to update a job opening
+S -> U : Ask for customer selection
+U --> S : Selects a customer
+
+S -> U : Request job opening details (Title, Contract, Mode, Description)
+U --> S : Provides job opening details
+
+S -> U : Request address information (Street, Number, Floor, Postal Code)
+U --> S : Provides address information
+
+S -> U : Ask for number of vacancies
+U --> S : Provides number of vacancies
+
+S -> S : Create job opening with provided information
+
+S -> U : Job opening created successfully
+S -> U : Error message (if creation fails)
+
+@enduml
