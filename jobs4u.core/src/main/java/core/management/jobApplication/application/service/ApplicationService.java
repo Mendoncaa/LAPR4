@@ -67,7 +67,7 @@ public class ApplicationService {
         }
 
         CandidateEmail email = new CandidateEmail(lines[1].trim());
-        CandidateName name = new CandidateName(lines[1].trim());
+        CandidateName name = new CandidateName(lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim());
         CandidatePhone phone = new CandidatePhone(lines[3].trim());
         CandidateState state = CandidateState.ENABLED;
         Set<Role> roles = Set.of(ExemploRoles.CANDIDATE);

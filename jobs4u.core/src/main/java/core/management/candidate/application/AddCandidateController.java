@@ -70,12 +70,12 @@ public class AddCandidateController {
         return addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
     }
 
-    public void addCandidate(final SystemUser candidate, final String phone, final String email, final String name){
+    public void addCandidate(final SystemUser candidate, final String phone, final String email, final String firstName, final String lastName) {
 
         authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR);
 
         CandidateEmail candidateEmail = new CandidateEmail(email);
-        CandidateName candidateName = new CandidateName(name);
+        CandidateName candidateName = new CandidateName(firstName, lastName);
         CandidatePhone candidatePhone = new CandidatePhone(phone);
         CandidateState candidateState = CandidateState.ENABLED;
 

@@ -23,6 +23,7 @@
  */
 package jobs4u.app.backoffice.console.presentation;
 
+import eapli.framework.presentation.console.ShowMessageAction;
 import jobs4u.Application;
 import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
@@ -198,7 +199,7 @@ public class MainMenu extends AbstractUI {
 
 		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new CreateJobOpeningAction());
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
-		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction());
+		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ShowMessageAction("Not implemented yet")); //new ListApplicationsForJobOpeningAction());
 		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

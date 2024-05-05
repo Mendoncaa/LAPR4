@@ -24,11 +24,8 @@ public class CreateJobOpeningController {
 
     public void createJobOpening(String customerCode, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
 
-        //TODO
-        // Criar JobReference com o CustomerCode
-        // exemplo: int jobNumber = jobOpeningRepository.nextJobNumber(customerCode);
+        int jobNumber = jobOpeningRepository.nextJobNumber(customerCode);
 
-        int jobNumber = 1;
         JobReference ref = new JobReference(customerCode, jobNumber);
         JobTitle title = JobTitle.valueOf(jobTitle);
         Description desc = Description.valueOf(description);
