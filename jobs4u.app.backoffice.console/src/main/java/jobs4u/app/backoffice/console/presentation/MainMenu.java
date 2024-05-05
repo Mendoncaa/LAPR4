@@ -190,8 +190,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildCustomersMenu() {
 		final var menu = new Menu("Customers >");
 
-		menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new AddUserUI()::show);
-		menu.addItem(LIST_CUSTOMERS_OPTION, "List all Customers", new ListUsersAction());
+		menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new RegisterCustomerUI()::show);
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

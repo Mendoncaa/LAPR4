@@ -1,6 +1,7 @@
 package core.management.costumer.builder;
 
 
+import core.management.costumer.domain.CustomerCode;
 import core.management.costumer.domain.CustomerRepresentative;
 import core.management.costumer.domain.Customer;
 import core.management.costumer.domain.PhoneNumber;
@@ -10,7 +11,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 public class CustomerBuilder implements DomainFactory<CustomerRepresentative> {
 
     private SystemUser systemUser;
-    private Customer customer;
+    private CustomerCode customerCode;
     private PhoneNumber phoneNumber;
     private SystemUser customerManager;
 
@@ -21,8 +22,8 @@ public class CustomerBuilder implements DomainFactory<CustomerRepresentative> {
         return this;
     }
 
-    public CustomerBuilder withCompany (Customer customer){
-        this.customer=customer;
+    public CustomerBuilder withCompany (CustomerCode customerCode){
+        this.customerCode=customerCode;
         return this;
     }
     public CustomerBuilder withPhoneNumber(PhoneNumber phoneNumber){
@@ -38,7 +39,7 @@ public class CustomerBuilder implements DomainFactory<CustomerRepresentative> {
 
 @Override
     public CustomerRepresentative build(){
-        return new CustomerRepresentative(systemUser,customer,phoneNumber, customerManager);
+        return new CustomerRepresentative(systemUser,customerCode,phoneNumber, customerManager);
     }
 
 }

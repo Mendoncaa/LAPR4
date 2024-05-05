@@ -46,7 +46,6 @@ import java.io.File;
  */
 @Entity
 @Embeddable
-
 public class CustomerRepresentative implements AggregateRoot<PhoneNumber> {
 
     private static final long serialVersionUID = 1L;
@@ -62,7 +61,7 @@ public class CustomerRepresentative implements AggregateRoot<PhoneNumber> {
     private SystemUser customerManager;
 
     @Embedded
-    private Customer customer;
+    private CustomerCode customerCode;
 
 
     @OneToOne()
@@ -76,9 +75,9 @@ public class CustomerRepresentative implements AggregateRoot<PhoneNumber> {
         this.phoneNumber = phoneNumber;
     }
 
-    public Customer getCustomer() {
+    public CustomerCode getCustomerCode() {
         if (systemUser.hasAny(ExemploRoles.CUSTOMER)) {
-            return customer;
+            return customerCode;
         }
         return null;
     }
@@ -86,26 +85,26 @@ public class CustomerRepresentative implements AggregateRoot<PhoneNumber> {
     /**
      * instatiates a new Customer
      * 
-     * @param customer
+     * @param customerCode
      * @param systemUser
      */
-    public CustomerRepresentative(SystemUser systemUser, Customer customer, PhoneNumber phoneNumber) {
-        this.customer = customer;
+    public CustomerRepresentative(SystemUser systemUser, CustomerCode customerCode, PhoneNumber phoneNumber) {
+        this.customerCode = customerCode;
         this.systemUser = systemUser;
         this.phoneNumber = phoneNumber;
-        if (systemUser == null || customer == null || phoneNumber == null
+        if (systemUser == null || customerCode == null || phoneNumber == null
                 || !systemUser.hasAny(ExemploRoles.CUSTOMER)) {
             throw new IllegalArgumentException();
         }
     }
 
-    public CustomerRepresentative(SystemUser systemUser, Customer customer, PhoneNumber phoneNumber,
+    public CustomerRepresentative(SystemUser systemUser, CustomerCode customerCode, PhoneNumber phoneNumber,
             SystemUser customerManager) {
-        this.customer = customer;
+        this.customerCode = customerCode;
         this.systemUser = systemUser;
         this.phoneNumber = phoneNumber;
         this.customerManager = customerManager;
-        if (systemUser == null || customer == null || phoneNumber == null || customerManager == null
+        if (systemUser == null || customerCode == null || phoneNumber == null || customerManager == null
                 || !systemUser.hasAny(ExemploRoles.CUSTOMER)) {
             throw new IllegalArgumentException();
         }
@@ -145,7 +144,7 @@ public class CustomerRepresentative implements AggregateRoot<PhoneNumber> {
 
     @Override
     public String toString() {
-        String customerData = (customer == null) ? "NO DATA" : customer.toString();
+        String customerData = (customerCode == null) ? "NO DATA" : customerCode.toString();
         String customerManagerData = (customerManager == null) ? "NO DATA" : customerManager.toString();
 
         return "Name: " + systemUser.name() +

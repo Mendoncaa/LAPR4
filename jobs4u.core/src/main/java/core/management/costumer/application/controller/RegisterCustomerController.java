@@ -1,6 +1,7 @@
 package core.management.costumer.application.controller;
 
 import core.management.costumer.domain.Customer;
+import core.management.costumer.domain.CustomerCode;
 import core.management.costumer.domain.CustomerRepresentative;
 import core.management.costumer.domain.PhoneNumber;
 import core.management.costumer.builder.CustomerBuilder;
@@ -37,7 +38,7 @@ public class RegisterCustomerController {
         return authz.session().get().authenticatedUser();
     }
 
-    public CustomerRepresentative registerCustomer(String username, String pwd, String firstName, String lastName, String email, Customer customer, PhoneNumber phoneNumber, SystemUser customerManager) {
+    public CustomerRepresentative registerCustomer(String username, String pwd, String firstName, String lastName, String email, CustomerCode customerCode, PhoneNumber phoneNumber, SystemUser customerManager) {
         Set<Role> roles = Set.of(ExemploRoles.CUSTOMER);
         SystemUser systemUser = addUserController.addUser(username, pwd, firstName, lastName, email, roles);
 
@@ -47,7 +48,7 @@ public class RegisterCustomerController {
 
         CustomerBuilder builder = new CustomerBuilder();
         builder.withSystemUser(systemUser)
-               .withCompany(customer)
+               .withCompany(customerCode)
                .withPhoneNumber(phoneNumber)
                .withCustomManager(customerManager);
 

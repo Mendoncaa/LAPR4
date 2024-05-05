@@ -57,9 +57,7 @@ public class RegisterCustomerUI extends AbstractUI {
             Address address = new Address(customerStreet, customerCity, costumerPostalCode);
             CustomerName name = new CustomerName(customerName);
 
-            Customer customer = new Customer(code, address, name);
-
-            theController.registerCustomer(username, password, firstName, lastName, email, customer, number,
+            theController.registerCustomer(username, password, firstName, lastName, email, code, number,
                     customerManager);
             System.out.println("\nCustomer registered with success!\n");
             System.out.println(customerManager.toString());

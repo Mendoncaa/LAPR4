@@ -16,6 +16,7 @@
     <class>core.management.RecruitmentProcess.domain.RecruitmentProcess</class>
     <class>core.management.RecruitmentProcess.domain.Phase</class>
     <class>core.management.costumer.domain.Customer</class>
+    <class>core.management.costumer.domain.CustomerRepresentative</class>
     <class>core.management.candidate.domain.Candidate</class>
     <class>core.management.jobApplication.domain.Application</class>
     <class>core.management.plugins.interviewModel.domain.InterviewModel</class>
