@@ -20,6 +20,12 @@
  */
 package core.management.candidate.application;
 
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.candidate.domain.Candidate;
+import core.management.candidate.domain.CandidateEmail;
+import core.management.candidate.domain.CandidateName;
+import core.management.candidate.domain.CandidatePhone;
+import core.management.candidate.repository.CandidateRepository;
 import core.management.user.domain.ExemploRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -41,6 +47,7 @@ public class AddCandidateController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
+    private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidate();
 
     /**
      * Get existing RoleTypes available to the user.
@@ -54,7 +61,7 @@ public class AddCandidateController {
     public SystemUser addUser(final String username, final String password, final String firstName,
             final String lastName,
             final String email, final Set<Role> roles, final Calendar createdOn) {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR);
 
         return userSvc.registerNewUser(username, password, firstName, lastName, email, roles,
                 createdOn);
@@ -64,5 +71,16 @@ public class AddCandidateController {
             final String lastName,
             final String email, final Set<Role> roles) {
         return addUser(username, password, firstName, lastName, email, roles, CurrentTimeCalendars.now());
+    }
+
+    public void addCandidate(final SystemUser candidate, final String phone, final String email, final String name){
+
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR);
+
+        CandidateEmail candidateEmail = new CandidateEmail(email);
+        CandidateName candidateName = new CandidateName(name);
+        CandidatePhone candidatePhone = new CandidatePhone(phone);
+
+        candidateRepository.save(new Candidate(candidateEmail, candidateName, candidatePhone, candidate));
     }
 }

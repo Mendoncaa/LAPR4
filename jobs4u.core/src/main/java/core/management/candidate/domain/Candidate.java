@@ -1,6 +1,7 @@
 package core.management.candidate.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,24 +19,24 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
 
     @Embedded
     @Column(nullable = false)
-    private CandidateState candidateState;
-
-    @Embedded
-    @Column(nullable = false)
     private CandidateName candidateName;
 
     @Embedded
     @Column(nullable = false)
     private CandidatePhone candidatePhone;
 
-    public Candidate(CandidateEmail candidateEmail, CandidateState candidateState, CandidateName candidateName, CandidatePhone candidatePhone) {
-        if (candidateEmail == null || candidateState == null || candidateName == null || candidatePhone == null) {
+    @OneToOne
+    @JoinColumn(name = "system_user_id")
+    private SystemUser candidateUser;
+
+    public Candidate(CandidateEmail candidateEmail, CandidateName candidateName, CandidatePhone candidatePhone, SystemUser candidateUser) {
+        if (candidateEmail == null || candidateName == null || candidatePhone == null || candidateUser == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.candidateEmail = candidateEmail;
-        this.candidateState = candidateState;
         this.candidateName = candidateName;
         this.candidatePhone = candidatePhone;
+        this.candidateUser = candidateUser;
     }
 
     protected Candidate() {

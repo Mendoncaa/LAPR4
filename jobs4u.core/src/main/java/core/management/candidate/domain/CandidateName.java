@@ -8,7 +8,7 @@ import jakarta.persistence.Embeddable;
 public class CandidateName implements ValueObject {
     private final String candidateName;
 
-    private CandidateName(String customerName) {
+    public CandidateName(String customerName) {
         this.candidateName = customerName;
     }
 

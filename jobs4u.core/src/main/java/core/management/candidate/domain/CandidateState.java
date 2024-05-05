@@ -4,20 +4,20 @@ import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 
 public class CandidateState implements ValueObject {
-    private final String address;
+    private final String state;
 
-    private CandidateState(String address) {
-        this.address = address;
+    private CandidateState(String state) {
+        this.state = state;
     }
 
-    public static CandidateState valueOf(String address) {
-        Preconditions.nonEmpty(address, "Address cannot be empty");
+    public static CandidateState valueOf(String state) {
+        Preconditions.nonEmpty(state, "State cannot be empty");
         // Additional validation logic can be added here
-        return new CandidateState(address);
+        return new CandidateState(state);
     }
 
     @Override
     public String toString() {
-        return address;
+        return state;
     }
 }

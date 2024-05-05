@@ -25,12 +25,14 @@ package jobs4u.app.backoffice.console.presentation.Candidate;
 
 import core.management.candidate.application.AddCandidateController;
 import core.management.user.application.AddUserController;
+import core.management.user.domain.ExemploRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
@@ -51,22 +53,22 @@ public class AddCandidateUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
         // UtenteApp
         final String username = Console.readLine("Username");
         final String password = Console.readLine("Password");
         final String firstName = Console.readLine("First Name");
         final String lastName = Console.readLine("Last Name");
         final String email = Console.readLine("E-Mail");
+        final String phone = Console.readLine("Phone");
 
         final Set<Role> roleTypes = new HashSet<>();
-        boolean show;
-        do {
-            show = showRoles(roleTypes);
-        } while (!show);
+        roleTypes.add(ExemploRoles.CANDIDATE);
 
         try {
-            this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+            SystemUser candidate = this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
+
+            this.theController.addCandidate(candidate, phone, email, firstName + " " + lastName);
+
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
         }
@@ -74,25 +76,8 @@ public class AddCandidateUI extends AbstractUI {
         return false;
     }
 
-    private boolean showRoles(final Set<Role> roleTypes) {
-        // TODO we could also use the "widget" classes from the framework...
-        final Menu rolesMenu = buildRolesMenu(roleTypes);
-        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildRolesMenu(final Set<Role> roleTypes) {
-        final Menu rolesMenu = new Menu();
-        int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Role roleType : theController.getRoleTypes()) {
-            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> roleTypes.add(roleType)));
-        }
-        return rolesMenu;
-    }
-
     @Override
     public String headline() {
-        return "Add User";
+        return "Add Candidate";
     }
 }

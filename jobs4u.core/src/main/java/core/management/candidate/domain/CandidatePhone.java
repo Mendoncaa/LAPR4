@@ -6,7 +6,7 @@ import eapli.framework.validations.Preconditions;
 public class CandidatePhone implements ValueObject {
     private final String address;
 
-    private CandidatePhone(String address) {
+    public CandidatePhone(String address) {
         this.address = address;
     }
 
