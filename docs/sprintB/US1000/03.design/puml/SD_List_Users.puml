@@ -1,0 +1,16 @@
+@startuml
+actor Admin
+participant "ListUsersUI" as UI
+participant "ListUsersController" as LC
+participant "AuthorizationService" as Authz
+participant "UserManagementService" as UserSvc
+
+Admin -> UI: Request to view all users
+UI -> LC: Sends request to view all users
+LC -> Authz: Checks if the user is an ADMIN
+Authz --> LC: Authorization confirmed
+LC -> UserSvc: Requests list of all users
+UserSvc --> LC: Returns list of all users
+LC --> UI: Sends list of all users to UI
+UI --> Admin: Displays list of all users with current status
+@enduml

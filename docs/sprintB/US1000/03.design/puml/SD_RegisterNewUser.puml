@@ -1,0 +1,32 @@
+@startuml
+actor Administrator
+participant "AddUserUI" as UI
+participant "AddUserController" as AC
+participant "AuthorizationService" as AS
+participant "UserManagementService" as UMS
+
+
+Administrator -> UI: 1. Ask to register a new user
+
+
+UI --> Administrator: 1.1 Shows form to enter user details
+
+
+Administrator -> UI: 2. Submits user details (Username, Password, First Name, Last Name, Email, Roles)
+
+
+UI -> AC: 3. Sends user details for registration
+
+
+AC -> AS: 4. Ensures Admin has the required roles
+AS --> AC: 4.1 Authorization confirmed
+
+
+AC -> UMS: 5. Registers new user with provided details
+UMS --> AC: 5.1 User registration successful
+
+
+AC --> UI: 6. User added successfully
+UI --> Administrator: 6.1 Confirms user registration successful
+
+@enduml
