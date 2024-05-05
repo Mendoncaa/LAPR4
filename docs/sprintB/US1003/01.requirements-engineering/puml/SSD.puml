@@ -1,0 +1,10 @@
+@startuml
+title System Sequence Diagram (SSD) - List All Job Openings
+
+actor "Customer Manager" as CM
+participant ":System" as S
+
+CM -> S : Request to list all job openings
+S -> CM : Displays list of all job openings
+
+@enduml

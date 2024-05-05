@@ -5,7 +5,7 @@ title System Sequence Diagram (SSD) - Register a job opening
 actor "Customer Manager" as U
 participant ":System" as S
 
-U -> S : Asks to update a job opening
+U -> S : Asks to Register a job opening
 S -> U : Ask for customer selection
 U --> S : Selects a customer
 
