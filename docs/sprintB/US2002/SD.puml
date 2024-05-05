@@ -1,0 +1,65 @@
+@startuml
+
+title Register and Process Job Application Files
+
+actor User
+
+participant "ui:RegisterApplicationUI" as UI
+participant "ctrl:RegisterApplicationController" as CTRL
+participant "jobOpeningCtrl:ListJobOpeningsController" as JOBOPENINGCTRL
+participant "jobOpeningSrv:JobOpeningRepository" as JOBOPENINGSRV
+participant "appSrv:ApplicationService" as APPSRV
+participant "applicationRepo:ApplicationRepository" as APPREPO
+participant "candidateRepo:CandidateRepository" as CANDREPO
+participant "application:Application" as APPLICATION
+
+User -> UI : show()
+activate UI
+
+UI -> JOBOPENINGCTRL : allJobOpenings()
+activate JOBOPENINGCTRL
+JOBOPENINGCTRL -> JOBOPENINGSRV : findAll()
+activate JOBOPENINGSRV
+JOBOPENINGSRV --> JOBOPENINGCTRL : List<JobOpening>
+deactivate JOBOPENINGSRV
+JOBOPENINGCTRL --> UI : List<JobOpeningDTO>
+deactivate JOBOPENINGCTRL
+UI -> UI : displayJobOpenings()
+
+UI -> UI : selectJobOpening()
+
+UI -> UI : selectApplicationFiles()
+UI -> CTRL : registerApplication(selectedPath)
+activate CTRL
+
+CTRL -> APPSRV : processApplicationFiles(selectedPath)
+activate APPSRV
+
+APPSRV -> JOBOPENINGSRV : findByJobReference(jobReference)
+activate JOBOPENINGSRV
+JOBOPENINGSRV --> APPSRV : Optional<JobOpening>
+deactivate JOBOPENINGSRV
+APPSRV -> CANDREPO : extractCandidate(file)
+activate CANDREPO
+CANDREPO --> APPSRV : Candidate
+deactivate CANDREPO
+
+APPSRV -> APPLICATION : new Application(candidate, jobOpening)
+activate APPLICATION
+APPLICATION --> APPSRV : void
+deactivate APPLICATION
+
+APPSRV -> APPREPO : save(application)
+activate APPREPO
+APPREPO --> APPSRV : Application
+deactivate APPREPO
+
+APPSRV --> CTRL : void
+deactivate APPSRV
+CTRL --> UI : confirmRegistration()
+deactivate CTRL
+UI --> User : displayConfirmation()
+
+deactivate UI
+
+@enduml

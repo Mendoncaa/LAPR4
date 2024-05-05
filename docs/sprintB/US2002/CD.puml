@@ -1,0 +1,66 @@
+@startuml
+
+title Job Application System Class Diagram
+
+
+
+class RegisterApplicationUI {
+    -theController: RegisterApplicationController
+    -jobOpeningController: ListJobOpeningsController
+    +doShow(): boolean
+    +headline(): String
+}
+
+class RegisterApplicationController {
+    -applicationService: ApplicationService
+    +registerApplication(String): void
+}
+
+class ListJobOpeningsController {
+    +allJobOpenings(): Iterable<JobOpening>
+}
+
+class JobOpeningRepository {
+    +findAll(): List<JobOpening>
+    +findByJobReference(JobReference): Optional<JobOpening>
+}
+
+class ApplicationService {
+    -applicationRepository: ApplicationRepository
+    -candidateRepository: CandidateRepository
+    -jobOpeningRepository: JobOpeningRepository
+    +processApplicationFiles(String): void
+    +extractCandidate(File): Candidate
+}
+
+class ApplicationRepository {
+    +save(Application): Application
+}
+
+class CandidateRepository {
+    +findByCandidateEmail(CandidateEmail): Optional<Candidate>
+    +save(Candidate): Candidate
+}
+
+
+
+class Application {
+    -candidate: Candidate
+    -jobOpening: JobOpening
+    -status: String
+    +approve(): void
+    +reject(): void
+}
+
+
+
+RegisterApplicationUI *-- RegisterApplicationController
+RegisterApplicationController *-- ApplicationService
+ListJobOpeningsController *-- JobOpeningRepository
+ApplicationService *-- ApplicationRepository
+ApplicationService *-- CandidateRepository
+ApplicationService *-- JobOpeningRepository
+ApplicationService ..> Application 
+
+
+@enduml
