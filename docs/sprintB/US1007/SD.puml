@@ -1,0 +1,38 @@
+@startuml
+
+title SD - Set Up Recruitment Process
+
+actor Recruiter
+participant "UI : SetUpRecruitmentProcessUI" as UI
+participant "Controller : SetUpRecruitmentProcessController" as controller
+participant "Repository : JobOpeningRepository" as jobRepo
+
+Recruiter -> UI : initiateProcessSetup()
+activate UI
+
+UI -> controller : selectJobOpening()
+activate controller
+
+controller -> jobRepo : findAll()
+activate jobRepo
+jobRepo --> controller : List<JobOpening>
+deactivate jobRepo
+
+controller --> UI : selectedJobOpening
+deactivate controller
+
+UI -> controller : setupPhases(selectedJobOpening, dates, details)
+activate controller
+
+controller -> jobRepo : save(jobOpening)
+activate jobRepo
+jobRepo --> controller : boolean
+deactivate jobRepo
+
+controller --> UI : displaySuccess/failure()
+deactivate controller
+
+UI --> Recruiter : showResult()
+deactivate UI
+
+@enduml
