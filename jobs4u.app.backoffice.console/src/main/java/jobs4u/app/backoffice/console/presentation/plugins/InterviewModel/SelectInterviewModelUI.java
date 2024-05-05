@@ -34,7 +34,7 @@ public class SelectInterviewModelUI extends AbstractUI {
         return selectWidget.selectedElement();
     }
 
-    private InterviewModel selectRequirementsSpecification() {
+    private InterviewModel selectInterviewModel() {
         Iterable<InterviewModel> jobRequirementsSpecifications = controller.AllInterviewModels();
 
         SelectWidget<InterviewModel> selectWidget = new SelectWidget<>("Select a Interview Model", jobRequirementsSpecifications);
