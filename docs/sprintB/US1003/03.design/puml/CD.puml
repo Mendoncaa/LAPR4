@@ -1,0 +1,50 @@
+@startuml
+
+title CD - List Job Openings
+
+
+
+class ListJobOpeningsUI {
+    -theController : ListJobOpeningsController
+
+    +headline(): String
+    +emptyMessage(): String
+    +elements(): Iterable<JobOpening>
+    +elementPrinter(): Visitor<JobOpening>
+    +elementName(): String
+    +listHeader(): String
+}
+
+class ListJobOpeningsController {
+    -jobOpeningRepository : JobOpeningRepository
+
+    +allJobOpenings(): Iterable<JobOpening>
+}
+
+class JobOpeningRepository {
+    +findAll(): Iterable<JobOpening>
+}
+
+class JobOpening {
+    -jobReference : JobReference
+    -jobTitle : JobTitle
+    -jobState : JobState
+    -contractType : ContractType
+    -mode : JobMode
+    -description : Description
+    -address : Address
+    -numberOfVacancies : NumberOfVacancies
+    -recruitmentProcess : RecruitmentProcess
+    -activeSince : JobActiveSince
+
+    +identity(): JobReference
+    +compareTo(other: JobReference): int
+}
+
+
+
+ListJobOpeningsUI  --  ListJobOpeningsController
+ListJobOpeningsController --  JobOpeningRepository
+JobOpeningRepository  -- JobOpening
+
+@enduml
