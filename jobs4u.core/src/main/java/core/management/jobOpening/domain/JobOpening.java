@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDate; // Import LocalDate for handling dates
 
 @Getter
+@Setter
 @Entity
 @Table(name = "job_openings")
 @Access(AccessType.FIELD)

@@ -20,4 +20,9 @@ public class SelectRequirementsSpecificationController {
     public Iterable<RequirementsSpecification> AllRequirementsSpecifications() {
         return requirementsSpecificationRepository.findAll();
     }
+
+    public void associateRequirementsSpecificationToJobOpening(JobOpening jobOpening, RequirementsSpecification requirementsSpecification) {
+        jobOpening.setRequirementsSpecification(requirementsSpecification);
+        jobOpeningRepository.save(jobOpening);
+    }
 }

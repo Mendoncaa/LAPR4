@@ -24,6 +24,7 @@ import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.plugins.requirementsSpecifications.Repository.RequirementsSpecificationRepository;
 import core.utentemanagement.repositories.UtenteRepository;
 import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -135,4 +136,18 @@ public interface RepositoryFactory {
      */
     CandidateRepository candidate();
 
+    /**
+     *
+     * @param autoTx
+     *            the transactional context to enroll
+     * @return
+     */
+    RequirementsSpecificationRepository requirementsSpecifications(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    RequirementsSpecificationRepository requirementsSpecifications();
 }

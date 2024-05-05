@@ -91,6 +91,7 @@ public class MainMenu extends AbstractUI {
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
 	private static final int ADMIN_JOBOPENING_OPTION = 4;
 	private static final int ADMIN_CANDIDATE_OPTION = 5;
+	private static final int OP_CANDIDATE_OPTION = 2;
 
 
 	private static final String SEPARATOR_LABEL = "--------------";
@@ -152,6 +153,10 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
+		}
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
+			final var candidatesMenu = buildCandidatesMenu();
+			mainMenu.addSubMenu(OP_CANDIDATE_OPTION, candidatesMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
