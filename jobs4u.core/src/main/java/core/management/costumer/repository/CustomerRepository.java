@@ -17,5 +17,6 @@ public interface CustomerRepository extends DomainRepository<CustomerCode, Custo
 
     Optional<Customer> findByCustomerCode(CustomerCode customerCode);
 
+    List<Customer> findBySystemUser(SystemUser systemUser);
 
 }

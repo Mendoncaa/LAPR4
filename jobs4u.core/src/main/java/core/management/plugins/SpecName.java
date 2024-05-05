@@ -1,13 +1,21 @@
 package core.management.plugins;
 
-public class SpecName {
+import eapli.framework.domain.model.ValueObject;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
+public class SpecName implements ValueObject {
         private String name;
 
         public SpecName(String name) {
             this.name = name;
         }
 
-        public String getName() {
+    protected SpecName() {
+
+    }
+
+    public String getName() {
             return name;
         }
 

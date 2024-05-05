@@ -1,51 +1,58 @@
-/*package core.management.jobApplication.domain;
+package core.management.jobApplication.domain;
 
+import core.management.candidate.domain.Candidate;
+import core.management.jobOpening.domain.JobOpening;
+import eapli.framework.domain.model.AggregateRoot;
 
-// import sem4pi.core.management.candidate.domain.Candidate;
-import core.management.job.domain.JobOpening;
+import jakarta.persistence.*;
 
-public class Application {
+@Entity
+@Table(name = "applications") // Define o nome da tabela explicitamente
+public class Application implements AggregateRoot<Long> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Candidate candidate;
-    private JobOpening jobOpening;
-    private String status;  // Exemplos de status: "Pending", "Approved", "Rejected"
 
+    @ManyToOne
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private Candidate candidate;
+
+    @ManyToOne
+    @JoinColumn(name = "job_opening_id", nullable = false)
+    private JobOpening jobOpening;
+
+    @Column(nullable = false)
+    private String status; // O status da aplicação
+
+    // Construtor com argumentos essenciais
     public Application(Candidate candidate, JobOpening jobOpening) {
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.status = "Pending";  // Estado inicial padrão
+        this.status = "Pending"; // O status inicial é sempre "Pendente"
     }
 
-    // Encapsula a transição de estados, garantindo controle sobre o fluxo de mudança de estado
+    // Construtor protegido para JPA
+    protected Application() {
+    }
+
     public void approve() {
-        if (!"Pending".equals(status)) {
-            throw new IllegalStateException("Only pending applications can be approved.");
-        }
         this.status = "Approved";
     }
 
     public void reject() {
-        if (!"Pending".equals(status)) {
-            throw new IllegalStateException("Only pending applications can be rejected.");
-        }
         this.status = "Rejected";
     }
 
-    // Métodos de acesso controlado para consulta sem modificar o estado interno
-    public Long getApplicationId() {
+    @Override
+    public boolean sameAs(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Application that)) return false;
+        return this.id != null && this.id.equals(that.id);
+    }
+
+    @Override
+    public Long identity() {
         return this.id;
     }
-
-    public String getApplicationStatus() {
-        return this.status;
-    }
-
-    public Candidate getAssociatedCandidate() {
-        return this.candidate;
-    }
-
-    public JobOpening getAssociatedJobOpening() {
-        return this.jobOpening;
-    }
 }
-*/

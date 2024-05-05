@@ -1,0 +1,25 @@
+@startuml
+actor Admin
+participant "DeactivateUserUI" as UI
+participant "DeactivateUserController" as DC
+participant "AuthorizationService" as Authz
+participant "UserManagementService" as UserSvc
+
+Admin -> UI: Requests list of active users
+UI -> DC: Requests list of active users
+DC -> Authz: Checks if the user is an ADMIN
+Authz --> DC: Authorization confirmed
+DC -> UserSvc: Requests list of active users
+UserSvc --> DC: Returns list of active users
+DC --> UI: Sends list of active users
+UI --> Admin: Displays list of active users
+
+Admin -> UI: Selects a user to deactivate
+UI -> DC: Requests deactivation of the selected user
+DC -> Authz: Checks if the user is an ADMIN
+Authz --> DC: Authorization confirmed
+DC -> UserSvc: Deactivates the user
+UserSvc --> DC: Confirms deactivation
+DC --> UI: Confirms deactivation
+UI --> Admin: Deactivation confirmation for the selected user
+@enduml

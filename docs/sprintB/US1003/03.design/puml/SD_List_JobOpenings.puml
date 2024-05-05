@@ -1,0 +1,14 @@
+@startuml
+actor "Customer Manager" as CM
+participant "ListJobOpeningsUI" as UI
+participant "ListJobOpeningsController" as LC
+participant "AuthorizationService" as Authz
+
+CM -> UI: Request to list all job openings
+UI -> LC: Requests all job openings
+LC -> Authz: Verifies authorization for CUSTOMER_MANAGER or ADMIN
+Authz --> LC: Authorization confirmed
+LC -> UI: Retrieves list of all job openings
+UI --> CM: Displays list of all job openings or "No job openings available"
+
+@enduml

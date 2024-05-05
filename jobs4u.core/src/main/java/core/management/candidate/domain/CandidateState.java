@@ -3,21 +3,18 @@ package core.management.candidate.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 
-public class CandidateState implements ValueObject {
-    private final String state;
+public enum CandidateState implements ValueObject {
+    ENABLED("Enabled"),
+    DISABLED("Disabled");
 
-    private CandidateState(String state) {
-        this.state = state;
-    }
+    private final String description;
 
-    public static CandidateState valueOf(String state) {
-        Preconditions.nonEmpty(state, "State cannot be empty");
-        // Additional validation logic can be added here
-        return new CandidateState(state);
+    private CandidateState(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return state;
+        return description;
     }
 }

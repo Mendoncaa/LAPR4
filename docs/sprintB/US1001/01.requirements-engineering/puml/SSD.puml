@@ -1,0 +1,20 @@
+@startuml
+
+
+title Register Customer User - US1001
+
+actor CustomManager as "CustomManager"
+
+' Iniciar processo de criação de um novo cliente
+CustomManager -> System: 1. Requests to create a new customer user
+System --> CustomManager: 1.1 Displays form for customer user details
+
+' CustomManager fornece detalhes do cliente
+CustomManager -> System: 2. Enters customer's name and email
+System --> CustomManager: 2.1 Asks for confirmation of details
+
+' CustomManager confirma os detalhes
+CustomManager -> System: 3. Confirms details
+System --> CustomManager: 3.2 Customer user created successfully
+
+@enduml

@@ -62,4 +62,10 @@ class JpaCustomerRepository extends JpaAutoTxRepository<Customer, CustomerCode, 
 		params.put("code", number);
 		return matchOne("e.customerCode=:code", params);
 	}
+	@Override
+	public List<Customer> findBySystemUser(SystemUser user) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("user", user);
+		return match("e.customerManager=:user", params);
+	}
 }
