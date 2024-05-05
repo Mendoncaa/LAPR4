@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // Keep the no-arg constructor for JPA
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode
 @Embeddable
 @Getter
@@ -21,13 +21,13 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
     @Column(nullable = false)
     private int jobNumber;
 
-    // Regular constructor
+
     public JobReference(String customerCode, int jobNumber) {
         this.customerCode = customerCode;
         this.jobNumber = jobNumber;
     }
 
-    // Constructor that accepts a single string e.g., "ISP2"
+
     public JobReference(String jobReference) {
         if (jobReference == null || jobReference.isEmpty()) {
             throw new IllegalArgumentException("Job reference cannot be null or empty");
