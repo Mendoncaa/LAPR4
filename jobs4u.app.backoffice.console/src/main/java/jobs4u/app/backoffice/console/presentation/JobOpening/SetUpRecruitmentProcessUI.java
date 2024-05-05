@@ -5,6 +5,7 @@ import eapli.framework.presentation.console.AbstractUI;
 import core.management.RecruitmentProcess.controller.SetUpRecruitmentProcessController;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 public class SetUpRecruitmentProcessUI extends AbstractUI {
@@ -14,6 +15,12 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+
+        //TODO
+        // Get list of job openings for that customerManager
+        // Select a job opening
+        List<JobOpening> jobOpenings = controller.getJobOpenings(); // Assume this method exists and fetches the job openings
+        JobOpening selectedJobOpening = selectJobOpening(jobOpenings);
 
         boolean includeInterviews = askYesNo("Include Interviews phase? (yes/no):");
 
@@ -36,10 +43,7 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
         LocalDate resultStart = askForDate("Enter Result phase start date (yyyy-mm-dd):", analysisEnd);
         LocalDate resultEnd = askForDate("Enter Result phase end date (yyyy-mm-dd):", resultStart);
 
-        // TODO: get jobOpening
-        JobOpening jobOpening = null;
-
-        boolean success = controller.setupPhases(jobOpening, includeInterviews,
+        boolean success = controller.setupPhases(selectedJobOpening, includeInterviews,
                 applicationStart, applicationEnd, screeningStart, screeningEnd,
                 interviewStart, interviewEnd, analysisStart, analysisEnd,
                 resultStart, resultEnd);
@@ -55,6 +59,36 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
     @Override
     public String headline() {
         return "Set Up Recruitment Process";
+    }
+
+    private JobOpening selectJobOpening(List<JobOpening> jobOpenings) {
+        if (jobOpenings == null || jobOpenings.isEmpty()) {
+            System.out.println("No job openings available.");
+            return null;
+        }
+
+        System.out.println("Select a Job Opening:");
+        for (int i = 0; i < jobOpenings.size(); i++) {
+            System.out.println((i + 1) + ": " + jobOpenings.get(i).getDescription()); // Assuming JobOpening has a getDescription method
+        }
+
+        int index = -1;
+        do {
+            System.out.print("Enter your choice (1-" + jobOpenings.size() + "): ");
+            if (scanner.hasNextInt()) {
+                index = scanner.nextInt() - 1;
+                scanner.nextLine(); // Consume newline left-over
+                if (index < 0 || index >= jobOpenings.size()) {
+                    System.out.println("Invalid choice. Please try again.");
+                    index = -1; // Reset index to loop again
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Consume the invalid input
+            }
+        } while (index == -1);
+
+        return jobOpenings.get(index);
     }
 
     private boolean askYesNo(String prompt) {

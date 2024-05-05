@@ -7,6 +7,7 @@ import core.management.RecruitmentProcess.domain.Status;
 import core.management.jobOpening.domain.JobOpening;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SetUpRecruitmentProcessController {
 
@@ -39,7 +40,8 @@ public class SetUpRecruitmentProcessController {
 
         jobOpening.setRecruitmentProcess(recruitmentProcess);
 
-        // TODO: save jobOpening
+        //TODO
+        // jobOpeningRepository.save(jobOpening);
 
         return true;
     }
@@ -50,5 +52,11 @@ public class SetUpRecruitmentProcessController {
 
     private boolean isValidDates(LocalDate start, LocalDate end) {
         return !start.isAfter(end);
+    }
+
+    public List<JobOpening> getJobOpenings() {
+        //TODO: get job openings for the logged in customer manager
+        // return jobOpeningRepository.getJobOpenings();
+        return null;
     }
 }

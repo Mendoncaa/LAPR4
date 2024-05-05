@@ -15,13 +15,12 @@ public class CreateJobOpeningUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        List<Customer> customers = theController.findCustomerByCustomerManager();
-        if (customers.isEmpty()) {
-            System.out.println("No customers found. Please create a customer first.");
-            return false;
-        }
 
-        final String customerCode = selectCustomerCode(customers);
+
+        final String customerCode = Console.readLine("Customer Code:");
+        //TODO
+        // Verficar no controller se o customer existe e se o user logado tem permissões para criar job openings para esse customer
+
         final String jobTitle = Console.readLine("Job Title:");
         final ContractType contractType = selectEnum(ContractType.values(), "Select Contract Type:");
         final JobMode mode = selectEnum(JobMode.values(), "Select Job Mode:");
@@ -65,29 +64,6 @@ public class CreateJobOpeningUI extends AbstractUI {
             }
         }
         return selected;
-    }
-
-    private String selectCustomerCode(List<Customer> customers) {
-        System.out.println("Select Customer:");
-        int index = 1;
-        for (Customer customer : customers) {
-            System.out.printf("%d. %s\n", index++, customer.getCustomerCode());
-        }
-
-        String selectedCustomerCode = null;
-        while (selectedCustomerCode == null) {
-            try {
-                int choice = Console.readInteger("Enter the number for the customer:");
-                if (choice > 0 && choice <= customers.size()) {
-                    selectedCustomerCode = customers.get(choice - 1).getCustomerCode().toString();
-                } else {
-                    System.out.println("Invalid choice, please try again.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number.");
-            }
-        }
-        return selectedCustomerCode;
     }
 
     @Override
