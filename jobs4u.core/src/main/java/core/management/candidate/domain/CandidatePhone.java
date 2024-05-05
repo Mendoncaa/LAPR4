@@ -2,12 +2,18 @@ package core.management.candidate.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class CandidatePhone implements ValueObject {
     private final String address;
 
     public CandidatePhone(String address) {
         this.address = address;
+    }
+
+    public CandidatePhone() {
+        this.address = "";
     }
 
     public static CandidatePhone valueOf(String address) {

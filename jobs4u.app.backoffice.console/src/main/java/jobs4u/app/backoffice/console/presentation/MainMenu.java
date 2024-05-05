@@ -25,6 +25,7 @@ package jobs4u.app.backoffice.console.presentation;
 
 import jobs4u.Application;
 import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
+import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.CreateJobOpeningUI;
 import jobs4u.app.backoffice.console.presentation.JobOpening.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.ListJobOpeningsAction;
@@ -215,7 +216,7 @@ public class MainMenu extends AbstractUI {
 		final var menu = new Menu("Candidates >");
 
 		menu.addItem(REGISTER_CANDIDATE_OPTION, "Register Candidate", new AddCandidateAction());
-		menu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
+		menu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Candidates", new ListCandidatesAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
