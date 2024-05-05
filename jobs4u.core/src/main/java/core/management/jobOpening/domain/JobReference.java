@@ -47,7 +47,7 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
 
     @Override
     public String toString() {
-        return customerCode + jobNumber;
+        return String.format("%s-%06d", customerCode, jobNumber);
     }
 
     @Override

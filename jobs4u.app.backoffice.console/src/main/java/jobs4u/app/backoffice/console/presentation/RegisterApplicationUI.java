@@ -35,7 +35,7 @@ public class RegisterApplicationUI extends AbstractUI {
         jobOpenings.forEach(job -> System.out.println(job.getJobReference().toString()));
 
         String selectedJobRef = Console.readLine("Enter the Job Reference from the above list:");
-        Path jobOpeningPath = Paths.get("path/to/applications", selectedJobRef);
+        Path jobOpeningPath = Paths.get("SCOMP/File_Report", selectedJobRef);
 
         if (!Files.exists(jobOpeningPath) || !Files.isDirectory(jobOpeningPath)) {
             System.out.println("Invalid Job Reference or no applications found for the selected reference.");
