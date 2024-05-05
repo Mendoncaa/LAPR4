@@ -56,4 +56,10 @@ public class InMemoryJobOpeningRepository
     public Optional<JobOpening> findByJobReference(final JobReference number) {
         return matchOne(e -> e.identity().equals(number));
     }
+
+    @Override
+    public int nextJobNumber(String customerCode) {
+        List<JobOpening> list = (List<JobOpening>) match(e -> e.getJobReference().getCustomerCode().equals(customerCode));
+        return list.size() + 1;
+    }
 }

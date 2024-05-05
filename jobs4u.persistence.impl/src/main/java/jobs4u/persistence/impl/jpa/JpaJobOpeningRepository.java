@@ -61,4 +61,11 @@ class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReferen
 		params.put("number", number);
 		return matchOne("e.jobReference=:number", params);
 	}
+
+	@Override
+	public int nextJobNumber(String customerCode) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("customerCode", customerCode);
+		return match("e.customerCode=:customerCode", params).size() + 1;
+	}
 }

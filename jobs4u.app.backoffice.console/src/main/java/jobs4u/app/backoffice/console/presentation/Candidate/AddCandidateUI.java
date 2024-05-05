@@ -60,7 +60,7 @@ public class AddCandidateUI extends AbstractUI {
         try {
             SystemUser candidate = this.theController.addUser(username, password, firstName, lastName, email, roleTypes);
 
-            this.theController.addCandidate(candidate, phone, email, firstName + " " + lastName);
+            this.theController.addCandidate(candidate, phone, email, firstName, lastName);
 
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That username is already in use.");
