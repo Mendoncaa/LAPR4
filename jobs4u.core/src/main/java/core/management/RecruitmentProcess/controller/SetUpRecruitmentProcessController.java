@@ -10,9 +10,11 @@ import core.management.jobOpening.repository.JobOpeningRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
 
+@Controller
 public class SetUpRecruitmentProcessController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();

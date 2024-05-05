@@ -11,10 +11,12 @@ import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
 
+@Controller
 public class CreateJobOpeningController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 

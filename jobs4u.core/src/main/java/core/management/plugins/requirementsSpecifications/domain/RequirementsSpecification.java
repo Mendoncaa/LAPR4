@@ -2,33 +2,24 @@ package core.management.plugins.requirementsSpecifications.domain;
 
 import core.management.plugins.JarFile;
 import core.management.plugins.SpecName;
+import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 
 @Entity
-public class RequirementsSpecification {
+public class RequirementsSpecification implements AggregateRoot<SpecName> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-
-    private JarFile jarFile;
-
-
+    @EmbeddedId
+    @Column(nullable = false)
     private SpecName specName;
 
+    @Embedded
+    @Column(nullable = false)
+    private JarFile jarFile;
 
+    @Embedded
+    @Column(nullable = false)
     private Description description;
-
-    public RequirementsSpecification() {
-
-    }
 
     public RequirementsSpecification(JarFile jarFile, SpecName specName, Description description) {
         this.jarFile = jarFile;
@@ -36,28 +27,18 @@ public class RequirementsSpecification {
         this.description = description;
     }
 
-    public JarFile getJarFile() {
-        return jarFile;
+    public RequirementsSpecification() {
+
     }
 
-    public void setJarFile(JarFile jarFile) {
-        this.jarFile = jarFile;
+    @Override
+    public boolean sameAs(Object other) {
+        return false;
     }
 
-    public SpecName getSpecName() {
-        return specName;
-    }
-
-    public void setSpecName(SpecName specName) {
-        this.specName = specName;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public void setDescription(Description description) {
-        this.description = description;
+    @Override
+    public SpecName identity() {
+        return null;
     }
 }
 
