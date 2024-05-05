@@ -70,6 +70,7 @@ public class MainMenu extends AbstractUI {
 
 	// CANDIDATES
 	private static final int REGISTER_CANDIDATE_OPTION = 1;
+	private static final int LIST_CANDIDATE_INFO_OPTION = 2;
 
 	// JOB OPENING
 	private static final int CREATE_JOBOPENING_OPTION = 1;
@@ -86,10 +87,11 @@ public class MainMenu extends AbstractUI {
 	private static final int USERS_OPTION = 2;
 	private static final int CM_COSTUMERS_OPTION = 2;
 	private static final int CM_JOBOPENING_OPTION = 3;
+	private static final int CM_CANDIDATE_OPTION = 4;
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
 	private static final int ADMIN_JOBOPENING_OPTION = 4;
-	private static final int LIST_CANDIDATE_INFO_OPTION = 5;
-	private static final int CM_LIST_CANDIDATE_INFO_OPTION = 4;
+	private static final int ADMIN_CANDIDATE_OPTION = 5;
+
 
 	private static final String SEPARATOR_LABEL = "--------------";
 
@@ -141,7 +143,7 @@ public class MainMenu extends AbstractUI {
 			final var jobOpeningMenu = buildJobOpeningMenu();
 			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
-			mainMenu.addSubMenu(LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
+			mainMenu.addSubMenu(ADMIN_CANDIDATE_OPTION, candidatesMenu);
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
 			final var customersMenu = buildCustomersMenu();
@@ -149,7 +151,7 @@ public class MainMenu extends AbstractUI {
 			final var jobOpeningMenu = buildJobOpeningMenu();
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
-			mainMenu.addSubMenu(CM_LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
+			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -160,16 +162,6 @@ public class MainMenu extends AbstractUI {
 
 		return mainMenu;
 	}
-
-	/*private Menu buildAdminSettingsMenu() {
-		final var menu = new Menu("Settings >");
-
-		//menu.addItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
-	//			new ShowMessageAction("Not implemented yet"));
-		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-		return menu;
-	}*/
 
 	private Menu buildUsersMenu() {
 		final var menu = new Menu("Users >");

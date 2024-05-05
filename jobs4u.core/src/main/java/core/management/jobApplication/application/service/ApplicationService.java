@@ -72,7 +72,7 @@ public class ApplicationService {
         CandidateState state = CandidateState.ENABLED;
         Set<Role> roles = Set.of(ExemploRoles.CANDIDATE);
 
-        SystemUser candidate = userSvc.registerNewUser(lines[2].trim(), "Password1", lines[2].trim(), lines[2].trim(), lines[1].trim(), roles, CurrentTimeCalendars.now());
+        SystemUser candidate = userSvc.registerNewUser("candidate" + lines[2].split(" ")[0].trim(), "Password1", lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim(), lines[1].trim(), roles, CurrentTimeCalendars.now());
         
         return candidateRepository.findByCandidateEmail(email)
             .orElseGet(() -> candidateRepository.save(new Candidate(email, state, name, phone, candidate)));
