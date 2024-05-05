@@ -1,0 +1,23 @@
+@startuml
+title List Candidates - UC2002
+
+actor Operator as "Operator"
+
+participant System
+
+' Step 1: Operator requests to list all candidates
+Operator -> System: Requests to list all candidates
+System --> Operator: Displays list of candidates (listHeader)
+
+' Step 2: System retrieves all candidates
+System -> System: Gets all candidates from the repository
+
+' Step 3: System verifies authorization
+System -> System: Verifies authorization
+
+' Step 4: System fetches all candidates from repository
+System -> System: Fetches all candidates
+
+' Step 5: System confirms data retrieval
+System --> Operator: Lists all candidates or displays "No data"
+@enduml
