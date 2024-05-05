@@ -1,0 +1,44 @@
+@startuml
+
+title CD - Add User
+
+class AbstractUI {
+    +doShow(): boolean
+    +headline(): String
+}
+
+class AddUserUI {
+    -theController : AddUserController
+
+    +doShow(): boolean
+    +headline(): String
+}
+
+class AddUserController {
+    -userSvc : UserManagementService
+
+    +addUser(username : String, password : String, firstName : String, lastName : String, email : String, roles : Set<Role>): SystemUser
+}
+
+class UserManagementService {
+    -userRepository : UserRepository
+    -encoder : PasswordEncoder
+    -policy : PasswordPolicy
+
+    +registerNewUser(username : String, password : String, firstName : String, lastName : String, email : String, roles : Set<Role>): SystemUser
+}
+
+class UserRepository {
+    +save(user : SystemUser): SystemUser
+}
+
+
+
+
+AbstractUI <|-- AddUserUI
+AddUserUI "1" *-- "1" AddUserController
+AddUserController --> UserManagementService
+UserManagementService --> UserRepository
+
+
+@enduml

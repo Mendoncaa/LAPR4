@@ -1,32 +1,29 @@
 @startuml
+
+title SD - Add User
+
 actor Administrator
-participant "AddUserUI" as UI
-participant "AddUserController" as AC
-participant "AuthorizationService" as AS
-participant "UserManagementService" as UMS
+participant "UI : AddUserUI" as UI
+participant "Controller : AddUserController" as controller
+participant "Service : UserManagementService" as userService
 
+Administrator -> UI : initiateAddUser()
+activate UI
 
-Administrator -> UI: 1. Ask to register a new user
+UI -> UI : getUserInput()
+UI -> controller : addUser(username, password, firstName, lastName, email, roles)
+activate controller
 
+controller -> userService : registerNewUser(username, password, firstName, lastName, email, roles)
+activate userService
+userService --> controller : SystemUser
+deactivate userService
 
-UI --> Administrator: 1.1 Shows form to enter user details
+controller --> UI : displaySuccess()
+deactivate controller
 
+UI --> Administrator : showResult()
 
-Administrator -> UI: 2. Submits user details (Username, Password, First Name, Last Name, Email, Roles)
-
-
-UI -> AC: 3. Sends user details for registration
-
-
-AC -> AS: 4. Ensures Admin has the required roles
-AS --> AC: 4.1 Authorization confirmed
-
-
-AC -> UMS: 5. Registers new user with provided details
-UMS --> AC: 5.1 User registration successful
-
-
-AC --> UI: 6. User added successfully
-UI --> Administrator: 6.1 Confirms user registration successful
+deactivate UI
 
 @enduml
