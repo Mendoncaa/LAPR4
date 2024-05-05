@@ -22,6 +22,7 @@ package jobs4u.persistence.impl.jpa;
 
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
+import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import jobs4u.Application;
 import core.infrastructure.persistence.RepositoryFactory;
@@ -86,6 +87,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public CustomerRepository customer() {
         return new JpaCustomerRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    
+
+    @Override
+    public CustomerRepresentativeRepository customerRepresentative() {
+        return new JpaCustomerRepresentativeRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

@@ -6,28 +6,26 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class CustomerName implements ValueObject {
-    private final String firstName;
-    private final String lastName;
+    private final String customerName;
+    
 
-    public CustomerName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public CustomerName(String customerName) {
+        this.customerName = customerName;
+        
     }
 
     public CustomerName() {
-        this.firstName = "";
-        this.lastName = "";
+        this.customerName = "";
     }
 
-    public static CustomerName valueOf(String firstName, String lastName) {
-        Preconditions.nonEmpty(firstName, "First name cannot be empty");
-        Preconditions.nonEmpty(lastName, "Last name cannot be empty");
+    public static CustomerName valueOf(String customerName, String lastName) {
+        Preconditions.nonEmpty(customerName, "First name cannot be empty");
         // Additional validation logic can be added here
-        return new CustomerName(firstName, lastName);
+        return new CustomerName(customerName);
     }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName;
+        return customerName;
     }
 }

@@ -22,7 +22,9 @@ package jobs4u.persistence.impl.inmemory;
 
 import core.management.costumer.domain.Customer;
 import core.management.costumer.domain.CustomerCode;
-import core.management.costumer.repository.CustomerRepository;
+import core.management.costumer.domain.CustomerRepresentative;
+import core.management.costumer.domain.PhoneNumber;
+import core.management.costumer.repository.CustomerRepresentativeRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -35,25 +37,28 @@ import java.util.Optional;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public class InMemoryCustomerRepository
-        extends InMemoryDomainRepository<Customer, CustomerCode>
-        implements CustomerRepository {
+        extends InMemoryDomainRepository<CustomerRepresentative, PhoneNumber>
+        implements CustomerRepresentativeRepository {
 
     static {
         InMemoryInitializer.init();
     }
 
     @Override
-    public List<Customer> findByRepresentatice(Username user) {
-        return (List<Customer>) match(e -> e.getCustomerRepresentative().equals(user));
+    public Optional<CustomerRepresentative> findByUsername(final Username name) {
+        // Implement your logic here to find the customer representative by username
+        // Return an Optional containing the customer representative if found, or an
+        // empty Optional if not found
+        return Optional.empty();
     }
 
     @Override
-    public Optional<Customer> findByCustomerCode(final CustomerCode number) {
-        return matchOne(e -> e.identity().equals(number));
+    public Optional<CustomerRepresentative> findByPhoneNumber(final PhoneNumber number) {
+        return Optional.of(data().get(number));
     }
 
     @Override
-    public List<Customer> findBySystemUser(SystemUser user) {
-        return (List<Customer>) match(e -> e.getCostumerManager().equals(user));
+    public Iterable<CustomerRepresentative> findAllActive() {
+        return match(e -> e.user().isActive());
     }
 }
