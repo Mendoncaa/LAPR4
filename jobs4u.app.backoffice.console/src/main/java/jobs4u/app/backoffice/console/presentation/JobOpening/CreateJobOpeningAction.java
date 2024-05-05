@@ -9,6 +9,6 @@ public class CreateJobOpeningAction implements Action {
 
     @Override
     public boolean execute() {
-        return new ListJobOpeningsUI().show();
+        return new CreateJobOpeningUI().show();
     }
 }

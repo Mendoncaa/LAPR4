@@ -14,7 +14,6 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        System.out.println("Set up phases for the recruitment process:");
 
         boolean includeInterviews = askYesNo("Include Interviews phase? (yes/no):");
 
@@ -59,9 +58,20 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
     }
 
     private boolean askYesNo(String prompt) {
-        System.out.println(prompt);
-        return scanner.next().trim().equalsIgnoreCase("yes");
+        String response;
+        while (true) {
+            System.out.println(prompt);
+            response = scanner.nextLine().trim().toLowerCase();
+            if (response.equals("yes")) {
+                return true;
+            } else if (response.equals("no")) {
+                return false;
+            } else {
+                System.out.println("Invalid response. Please answer 'yes' or 'no'.");
+            }
+        }
     }
+
 
     private LocalDate askForDate(String prompt) {
         while (true) {
