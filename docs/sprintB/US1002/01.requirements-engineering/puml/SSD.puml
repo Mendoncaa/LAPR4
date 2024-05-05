@@ -9,14 +9,8 @@ U -> S : Asks to Register a job opening
 S -> U : Ask for customer selection
 U --> S : Selects a customer
 
-S -> U : Request job opening details (Title, Contract, Mode, Description)
-U --> S : Provides job opening details
-
-S -> U : Request address information (Street, Number, Floor, Postal Code)
-U --> S : Provides address information
-
-S -> U : Ask for number of vacancies
-U --> S : Provides number of vacancies
+S -> U : Request job opening details (Title, Contract, Mode, Description), address information (Street, Number, Floor, Postal Code), and number of vacancies
+U --> S : Provides job opening details, address information, and number of vacancies
 
 S -> S : Create job opening with provided information
 
