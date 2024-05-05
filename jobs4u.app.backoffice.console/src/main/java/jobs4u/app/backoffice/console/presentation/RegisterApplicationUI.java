@@ -1,4 +1,4 @@
-/*package jobs4u.app.backoffice.console.presentation;
+package jobs4u.app.backoffice.console.presentation;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import core.management.jobApplication.application.controller.RegisterApplicationController;
-import core.management.jobOpening.controller.ListJobOpeningService;
+import core.management.jobOpening.controller.ListJobOpeningsController;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.io.util.Console;
@@ -19,20 +19,17 @@ import eapli.framework.io.util.Console;
 public class RegisterApplicationUI extends AbstractUI {
 
     private final RegisterApplicationController theController;
-    private final ListJobOpeningService jobOpeningService;
+    private final ListJobOpeningsController jobOpeningController;
 
-    public RegisterApplicationUI(RegisterApplicationController theController, ListJobOpeningService jobOpeningService) {
+    public RegisterApplicationUI(RegisterApplicationController theController, ListJobOpeningsController jobOpeningController) {
         this.theController = theController;
-        this.jobOpeningService = jobOpeningService;
+        this.jobOpeningController = jobOpeningController;
     }
 
     @Override
     protected boolean doShow() {
-        List<JobOpening> jobOpenings = jobOpeningService.listJobOpenings();
-        if (jobOpenings.isEmpty()) {
-            System.out.println("No job openings available.");
-            return false;
-        }
+        Iterable<JobOpening> jobOpenings = jobOpeningController.allJobOpenings();
+        
 
         System.out.println("Available Job Openings:");
         jobOpenings.forEach(job -> System.out.println(job.getJobReference().toString()));
@@ -84,4 +81,3 @@ public class RegisterApplicationUI extends AbstractUI {
         return "Import Candidate Files for Selected Job Opening and Application";
     }
 }
-*/
