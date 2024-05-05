@@ -1,0 +1,14 @@
+@startuml
+
+title SSD - List Candidates
+
+actor CustomManager as "Custom Manager"
+
+CustomManager -> ":System": Request to list candidates
+":System" --> CustomManager: Asks for authentication details
+CustomManager -> ":System": Provides credentials
+":System" --> CustomManager: Displays list of candidates
+CustomManager -> ":System": Selects a candidate for more details
+":System" --> CustomManager: Shows detailed information of the selected candidate
+
+@enduml

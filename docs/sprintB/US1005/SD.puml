@@ -1,0 +1,36 @@
+@startuml
+title List Applications for Job Opening - UC2003
+
+actor Operator as "Operator"
+
+participant "ListApplicationsForJobOpeningUI" as UI
+participant "ListApplicationsController" as LC
+participant "AuthorizationService" as Authz
+participant "JobOpeningRepository" as JOR
+
+' Step 1: Operator requests to list applications for a specific job opening
+Operator -> UI: Request to list applications
+
+' Step 2: UI prompts for job reference ID
+UI --> Operator: Enter Job Reference ID
+
+' Step 3: Operator provides Job Reference ID
+Operator -> UI: Enters Job Reference ID
+
+' Step 4: UI sends request to the controller
+UI -> LC: applicationsForJob (Job Reference ID)
+
+' Step 5: Controller verifies authorization
+LC -> Authz: ensureAuthenticatedUserHasAnyOf (ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR)
+Authz --> LC: Authorization confirmed
+
+' Step 6: Controller retrieves applications for the job opening
+LC -> JOR: findApplicationsForJob (Job Reference ID)
+JOR --> LC: Returns list of applications
+
+' Step 7: Controller sends list of applications to UI
+LC -> UI: elements (list of applications)
+
+' Step 8: UI displays list of applications or "No applications found"
+UI --> Operator: Displays list of applications or "No applications found" (emptyMessage)
+@enduml

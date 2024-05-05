@@ -1,0 +1,15 @@
+@startuml
+title SSD - Set Up Recruitment Process
+
+actor Custom Manager
+
+Custom Manager -> ":System": Request to set up a recruitment process
+":System" --> Custom Manager: Displays list of job openings
+Custom Manager -> ":System": Selects a job opening
+":System" --> Custom Manager: Asks for details of each recruitment phase
+Custom Manager -> ":System": Provides phase details
+":System" --> Custom Manager: Confirms details and asks for confirmation
+Custom Manager -> ":System": Confirms setup
+":System" --> Custom Manager: Confirms recruitment process setup
+
+@enduml

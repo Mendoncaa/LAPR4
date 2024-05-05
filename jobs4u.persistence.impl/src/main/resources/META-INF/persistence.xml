@@ -17,6 +17,9 @@
     <class>core.management.RecruitmentProcess.domain.Phase</class>
     <class>core.management.costumer.domain.Customer</class>
     <class>core.management.candidate.domain.Candidate</class>
+    <class>core.management.jobApplication.domain.Application</class>
+    <class>core.management.plugins.interviewModel.domain.InterviewModel</class>
+    <class>core.management.plugins.requirementsSpecifications.domain.RequirementsSpecification</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/eapliexemplo"/>-->

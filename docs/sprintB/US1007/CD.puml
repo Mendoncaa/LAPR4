@@ -1,0 +1,63 @@
+@startuml
+
+title CD - Recruitment Process Setup
+
+
+
+class SetUpRecruitmentProcessUI {
+    -controller : SetUpRecruitmentProcessController
+    -scanner : Scanner
+
+    +doShow(): boolean
+    +headline(): String
+}
+
+class SetUpRecruitmentProcessController {
+    -authz : AuthorizationService
+    -jobOpeningRepository : JobOpeningRepository
+
+    +setupPhases(JobOpening, boolean, LocalDate...): boolean
+    +allJobOpenings(): Iterable<JobOpening>
+}
+
+class JobOpeningRepository {
+    +findAll(): List<JobOpening>
+    +save(JobOpening): boolean
+}
+
+class JobOpening {
+    -jobReference : JobReference
+    -jobTitle : JobTitle
+    -jobState : JobState
+    -contractType : ContractType
+    -mode : JobMode
+    -description : Description
+    -address : Address
+    -numberOfVacancies : NumberOfVacancies
+    -recruitmentProcess : RecruitmentProcess
+
+    +identity(): JobReference
+}
+
+class RecruitmentProcess {
+    -phases : List<Phase>
+
+    +addPhase(Phase): void
+    +removePhase(Phase): void
+}
+
+class Phase {
+    -name : PhaseName
+    -startDate : LocalDate
+    -endDate : LocalDate
+    -status : Status
+}
+
+
+SetUpRecruitmentProcessUI "1" *-- "1" SetUpRecruitmentProcessController
+SetUpRecruitmentProcessController --> JobOpeningRepository
+JobOpeningRepository "0..*" -- "1" JobOpening
+JobOpening "1" *-- "1..*" RecruitmentProcess
+RecruitmentProcess "1" *-- "0..*" Phase
+
+@enduml
