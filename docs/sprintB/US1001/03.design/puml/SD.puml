@@ -1,0 +1,31 @@
+@startuml
+actor CustomManager
+participant "RegisterCustomerUI" as UI
+participant "RegisterCustomerController" as CC
+participant "AddUserController" as AUC
+participant "CustomerBuilder" as CB
+participant "Customer" as Cust
+participant "CustomerRepresentativeRepository" as CRR
+participant "AuthorizationService" as Authz
+
+CustomManager -> UI: Requests to create a new customer user
+UI --> CustomManager: Displays form for customer user details
+
+CustomManager -> UI: Enters customer details (Username, Password, First Name, Last Name, Email, Customer Name, Address, Phone Number)
+UI -> CC: Sends customer user details to controller
+
+CC -> Authz: Checks if user is authenticated
+Authz --> CC: Authorization confirmed
+
+CC -> AUC: Registers new system user with provided details
+AUC --> CC: System user created successfully
+
+CC -> CB: Builds a new CustomerRepresentative
+CB --> CC: Returns built CustomerRepresentative
+
+CC -> CRR: Registers new CustomerRepresentative
+CRR --> CC: CustomerRepresentative saved successfully
+
+CC --> UI: Confirms customer user creation
+UI --> CustomManager: Confirms customer user created successfully
+@enduml
