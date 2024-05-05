@@ -24,9 +24,11 @@
 package jobs4u.app.backoffice.console.presentation;
 
 import jobs4u.Application;
+import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.CreateJobOpeningUI;
 import jobs4u.app.backoffice.console.presentation.JobOpening.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.ListJobOpeningsAction;
+import jobs4u.app.backoffice.console.presentation.authz.AddUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
@@ -76,15 +78,20 @@ public class MainMenu extends AbstractUI {
 
 	private static final int REGISTER_JOBAPPLICATION_OPTION = 1;
 
+	// CANDIDATE
+	private static final int REGISTER_CANDIDATE_OPTION = 1;
+	private static final int LIST_CANDIDATE_INFO_OPTION = 2;
+
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
+	private static final int OP_CANDIDATE_OPTION = 2;
 	private static final int USERS_OPTION = 2;
 	private static final int CM_COSTUMERS_OPTION = 2;
 	private static final int CM_JOBOPENING_OPTION = 3;
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
-	private static final int ADMIN_JOBOPENING_OPTION = 4;
-	private static final int LIST_CANDIDATE_INFO_OPTION = 5;
-	private static final int CM_LIST_CANDIDATE_INFO_OPTION = 4;
+	private static final int ADMIN_JOBOPENING_OPTION = 4;;
+	private static final int CANDIDATE_OPTION = 5;
+	private static final int CM_CANDIDATE_OPTION = 4;
 
 	private static final String SEPARATOR_LABEL = "--------------";
 
@@ -136,15 +143,19 @@ public class MainMenu extends AbstractUI {
 			final var jobOpeningMenu = buildJobOpeningMenu();
 			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
-			mainMenu.addSubMenu(LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
+			mainMenu.addSubMenu(CANDIDATE_OPTION, candidatesMenu);
 		}
-		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
+		else if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
 			final var customersMenu = buildCustomersMenu();
 			mainMenu.addSubMenu(CM_COSTUMERS_OPTION, customersMenu);
 			final var jobOpeningMenu = buildJobOpeningMenu();
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
-			mainMenu.addSubMenu(CM_LIST_CANDIDATE_INFO_OPTION, candidatesMenu);
+			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
+		}
+		else if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
+			final var candidatesMenu = buildCandidatesMenu();
+			mainMenu.addSubMenu(OP_CANDIDATE_OPTION, candidatesMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -156,20 +167,10 @@ public class MainMenu extends AbstractUI {
 		return mainMenu;
 	}
 
-	/*private Menu buildAdminSettingsMenu() {
-		final var menu = new Menu("Settings >");
-
-		//menu.addItem(SET_KITCHEN_ALERT_LIMIT_OPTION, "Set kitchen alert limit",
-	//			new ShowMessageAction("Not implemented yet"));
-		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-		return menu;
-	}*/
-
 	private Menu buildUsersMenu() {
 		final var menu = new Menu("Users >");
 
-		menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
+		menu.addItem(ADD_USER_OPTION, "Add User", new AddUserAction());
 		menu.addItem(LIST_USERS_OPTION, "List all Users", new ListUsersAction());
 		menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
 		menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
@@ -182,7 +183,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildCustomersMenu() {
 		final var menu = new Menu("Customers >");
 
-		menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new AddUserUI()::show);
+		menu.addItem(ADD_CUSTOMER_OPTION, "Add Customer", new AddUserAction());
 		menu.addItem(LIST_CUSTOMERS_OPTION, "List all Customers", new ListUsersAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -204,7 +205,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildJobApplicationMenu() {
 		final var menu = new Menu("JobApplication >");
 
-		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserUI()::show);
+		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
@@ -213,7 +214,8 @@ public class MainMenu extends AbstractUI {
 	private Menu buildCandidatesMenu() {
 		final var menu = new Menu("Candidates >");
 
-		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
+		menu.addItem(REGISTER_CANDIDATE_OPTION, "Register Candidate", new AddCandidateAction());
+		menu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
