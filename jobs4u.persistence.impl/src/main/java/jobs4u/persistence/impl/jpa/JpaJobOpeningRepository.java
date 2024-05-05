@@ -24,12 +24,7 @@ import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.domain.JobState;
 import core.management.jobOpening.repository.JobOpeningRepository;
-import core.utentemanagement.domain.MecanographicNumber;
-import core.utentemanagement.domain.SignupRequest;
-import core.utentemanagement.domain.Utente;
-import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
 

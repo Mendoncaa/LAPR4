@@ -22,6 +22,7 @@ package core.infrastructure.persistence;
 
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
+import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import core.utentemanagement.repositories.UtenteRepository;
 import core.utentemanagement.repositories.SignupRequestRepository;
@@ -109,12 +110,15 @@ public interface RepositoryFactory {
      */
     CustomerRepository customer(TransactionalContext autoTx);
 
+
     /**
      * repository will be created in auto transaction mode
      *
      * @return
      */
     CustomerRepository customer();
+
+    CustomerRepresentativeRepository customerRepresentative();
 
     /**
      *

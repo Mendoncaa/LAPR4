@@ -22,6 +22,7 @@ package jobs4u.persistence.impl.inmemory;
 
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
+import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import jobs4u.infrastructure.bootstrapers.ExemploBootstrapper;
 import core.infrastructure.persistence.RepositoryFactory;
@@ -89,9 +90,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
+    public CustomerRepresentativeRepository customerRepresentative() {
+        return null;
+    }
+
+    @Override
     public CustomerRepository customer() {
         return null;
     }
+
+
 
     @Override
     public CandidateRepository candidate(TransactionalContext autoTx) {

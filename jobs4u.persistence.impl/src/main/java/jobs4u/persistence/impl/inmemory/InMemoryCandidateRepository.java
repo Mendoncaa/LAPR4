@@ -24,10 +24,6 @@ import core.management.candidate.domain.Candidate;
 import core.management.candidate.domain.CandidateEmail;
 import core.management.candidate.domain.CandidateName;
 import core.management.candidate.repository.CandidateRepository;
-import core.management.costumer.domain.Customer;
-import core.management.costumer.domain.CustomerCode;
-import core.management.costumer.repository.CustomerRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.List;
