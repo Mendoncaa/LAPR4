@@ -12,7 +12,6 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class SetUpRecruitmentProcessController {
 
@@ -47,9 +46,7 @@ public class SetUpRecruitmentProcessController {
         recruitmentProcess.addPhase(new Phase(PhaseName.RESULT, resultStart, resultEnd, Status.CLOSED));
 
         jobOpening.setRecruitmentProcess(recruitmentProcess);
-
-        //TODO
-        // jobOpeningRepository.save(jobOpening);
+        jobOpeningRepository.save(jobOpening);
 
         return true;
     }

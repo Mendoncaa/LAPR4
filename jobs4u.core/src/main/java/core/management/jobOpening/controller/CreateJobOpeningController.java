@@ -2,6 +2,7 @@ package core.management.jobOpening.controller;
 
 import core.infrastructure.persistence.PersistenceContext;
 import core.management.costumer.domain.Customer;
+import core.management.costumer.domain.CustomerCode;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.jobOpening.domain.*;
 import core.management.jobOpening.repository.JobOpeningRepository;
@@ -41,5 +42,9 @@ public class CreateJobOpeningController {
     {
         Optional<SystemUser> user = authz.loggedinUserWithPermissions(ExemploRoles.CUSTOMER_MANAGER);
         return customerRepository.findBySystemUser(user.get());
+    }
+    public boolean verifyIfCustomerExists(String customerCode)
+    {
+        return customerRepository.findByCustomerCode(new CustomerCode(customerCode)).isPresent();
     }
 }

@@ -1,13 +1,9 @@
 package jobs4u.app.backoffice.console.presentation.JobOpening;
 
-import core.management.costumer.domain.Customer;
 import core.management.jobOpening.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import core.management.jobOpening.controller.CreateJobOpeningController;
-
-
-import java.util.List;
 
 public class CreateJobOpeningUI extends AbstractUI {
 
@@ -15,11 +11,11 @@ public class CreateJobOpeningUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+        String customerCode;
+        do {
+            customerCode = Console.readLine("Customer Code:");
+        }while (!theController.verifyIfCustomerExists(customerCode));
 
-
-        final String customerCode = Console.readLine("Customer Code:");
-        //TODO
-        // Verficar no controller se o customer existe e se o user logado tem permissões para criar job openings para esse customer
 
         final String jobTitle = Console.readLine("Job Title:");
         final ContractType contractType = selectEnum(ContractType.values(), "Select Contract Type:");
