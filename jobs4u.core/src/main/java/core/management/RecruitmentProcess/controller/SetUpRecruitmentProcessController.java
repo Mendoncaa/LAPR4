@@ -1,16 +1,24 @@
 package core.management.RecruitmentProcess.controller;
 
+import core.infrastructure.persistence.PersistenceContext;
 import core.management.RecruitmentProcess.domain.Phase;
 import core.management.RecruitmentProcess.domain.PhaseName;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
 import core.management.RecruitmentProcess.domain.Status;
 import core.management.jobOpening.domain.JobOpening;
+import core.management.jobOpening.repository.JobOpeningRepository;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class SetUpRecruitmentProcessController {
 
+    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     public boolean setupPhases(JobOpening jobOpening, boolean includeInterviews,
                                LocalDate applicationStart, LocalDate applicationEnd,
                                LocalDate screeningStart, LocalDate screeningEnd,
@@ -54,9 +62,10 @@ public class SetUpRecruitmentProcessController {
         return !start.isAfter(end);
     }
 
-    public List<JobOpening> getJobOpenings() {
-        //TODO: get job openings for the logged in customer manager
-        // return jobOpeningRepository.getJobOpenings();
-        return null;
+    public Iterable<JobOpening> allJobOpenings() {
+
+        authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"), Role.valueOf("ADMIN"));
+
+        return jobOpeningRepository.findAll();
     }
 }

@@ -3,6 +3,8 @@ package jobs4u.app.backoffice.console.presentation.JobOpening;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.presentation.console.AbstractUI;
 import core.management.RecruitmentProcess.controller.SetUpRecruitmentProcessController;
+import eapli.framework.presentation.console.SelectWidget;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -16,11 +18,7 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
     @Override
     protected boolean doShow() {
 
-        //TODO
-        // Get list of job openings for that customerManager
-        // Select a job opening
-        List<JobOpening> jobOpenings = controller.getJobOpenings(); // Assume this method exists and fetches the job openings
-        JobOpening selectedJobOpening = selectJobOpening(jobOpenings);
+        JobOpening selectedJobOpening = selectJobOpening();
 
         boolean includeInterviews = askYesNo("Include Interviews phase? (yes/no):");
 
@@ -61,34 +59,14 @@ public class SetUpRecruitmentProcessUI extends AbstractUI {
         return "Set Up Recruitment Process";
     }
 
-    private JobOpening selectJobOpening(List<JobOpening> jobOpenings) {
-        if (jobOpenings == null || jobOpenings.isEmpty()) {
-            System.out.println("No job openings available.");
-            return null;
-        }
+    private JobOpening selectJobOpening() {
+        Iterable<JobOpening> jobOpenings = controller.allJobOpenings();
 
-        System.out.println("Select a Job Opening:");
-        for (int i = 0; i < jobOpenings.size(); i++) {
-            System.out.println((i + 1) + ": " + jobOpenings.get(i).getDescription()); // Assuming JobOpening has a getDescription method
-        }
+        SelectWidget<JobOpening> selectWidget = new SelectWidget<>("Select a job opening:", jobOpenings);
 
-        int index = -1;
-        do {
-            System.out.print("Enter your choice (1-" + jobOpenings.size() + "): ");
-            if (scanner.hasNextInt()) {
-                index = scanner.nextInt() - 1;
-                scanner.nextLine(); // Consume newline left-over
-                if (index < 0 || index >= jobOpenings.size()) {
-                    System.out.println("Invalid choice. Please try again.");
-                    index = -1; // Reset index to loop again
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); // Consume the invalid input
-            }
-        } while (index == -1);
+        selectWidget.show();
 
-        return jobOpenings.get(index);
+        return selectWidget.selectedElement();
     }
 
     private boolean askYesNo(String prompt) {

@@ -128,4 +128,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public Object numberOfVacancies() {
         return numberOfVacancies;
     }
+
+    public Object ActiveSince() {
+        return activeSince;
+    }
 }

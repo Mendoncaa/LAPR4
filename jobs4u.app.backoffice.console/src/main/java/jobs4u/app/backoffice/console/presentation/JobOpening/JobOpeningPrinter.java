@@ -14,7 +14,8 @@ public class JobOpeningPrinter implements Visitor<JobOpening> {
                 visitee.jobMode().toString(),
                 visitee.jobState().toString(),
                 visitee.description().toString(),
-                visitee.numberOfVacancies().toString()
+                visitee.numberOfVacancies().toString(),
+                visitee.ActiveSince().toString()
         );
     }
 }
