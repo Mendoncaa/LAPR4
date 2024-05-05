@@ -1,39 +1,41 @@
 @startuml
 
-actor "Customer Manager" as CM
-participant "CreateJobOpeningUI" as UI
-participant "CreateJobOpeningController" as CC
-participant "CustomerRepository" as CR
-participant "JobOpeningRepository" as JOR
-participant "AuthorizationService" as Authz
+title SD - Register Job Opening
 
-CM -> UI: Requests to create a new job opening
-UI -> CC: Asks for list of customers
-CC -> Authz: Checks if the user is a CUSTOMER_MANAGER
-Authz --> CC: Authorization confirmed
-CC -> CR: Requests list of customers for the Customer Manager
-CR --> CC: Returns list of customers
-CC --> UI: Provides customer list
+actor Recruiter
+participant "UI : RegisterJobOpeningUI" as UI
+participant "Controller : RegisterJobOpeningController" as controller
+participant "JobOpeningService" as jobService
+participant "JobOpening" as jobOpening
+participant "JobOpeningRepository" as jobRepo
 
-UI -> CM: Displays list of customers
-CM -> UI: Selects a customer
-UI -> CC: Sends selected customer code
+Recruiter -> UI : show()
+activate UI
 
-UI -> CM: Requests job opening details (title, contract, mode, description)
-CM --> UI: Provides job opening details
-UI --> CC: Sends job opening details to controller
+UI -> controller : getJobOpeningData()
+activate controller
 
-UI -> CM: Requests address information (street, number, floor, postal code)
-CM --> UI: Provides address information
-UI --> CC: Sends address information to controller
+controller -> jobService : createJobOpening(data)
+activate jobService
 
-UI -> CM: Requests number of vacancies
-CM --> UI: Provides number of vacancies
-UI --> CC: Sends number of vacancies to controller
+jobService -> jobOpening : new JobOpening(jobReference, jobTitle, jobState, contractType, mode, description, address, numberOfVacancies)
+activate jobOpening
+jobOpening --> jobService : jobOpening
+deactivate jobOpening
 
-CC -> JOR: Creates job opening with provided information
-JOR --> CC: Confirms job opening creation
+jobService -> jobRepo : save(jobOpening)
+activate jobRepo
+jobRepo --> jobService : jobOpening
+deactivate jobRepo
 
-CC --> UI: Job opening created successfully
-UI --> CM: Job opening created successfully
+jobService --> controller : jobOpening
+deactivate jobService
+
+controller --> UI : displaySuccess(jobOpening)
+deactivate controller
+
+UI -> Recruiter : showResult()
+
+deactivate UI
+
 @enduml

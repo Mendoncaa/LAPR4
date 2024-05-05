@@ -1,0 +1,53 @@
+@startuml
+
+title Job Opening Management System Class Diagram
+
+
+class ListJobOpeningsUI {
+    -theController: ListJobOpeningsController
+    +headline(): String
+    +emptyMessage(): String
+    +elements(): Iterable<JobOpening>
+    +elementPrinter(): Visitor<JobOpening>
+    +elementName(): String
+    +listHeader(): String
+}
+
+class ListJobOpeningsController {
+    +allJobOpenings(): Iterable<JobOpening>
+}
+
+class JobOpeningRepository {
+    +findAllByState(JobState): List<JobOpening>
+    +findByJobReference(JobReference): Optional<JobOpening>
+}
+
+class JobOpening {
+    -jobReference: JobReference
+    -jobTitle: JobTitle
+    -jobState: JobState
+    -contractType: ContractType
+    -mode: JobMode
+    -description: Description
+    -address: Address
+    -numberOfVacancies: NumberOfVacancies
+    -recruitmentProcess: RecruitmentProcess
+    -activeSince: JobActiveSince
+    +sameAs(Object): boolean
+    +compareTo(JobReference): int
+    +identity(): JobReference
+    +hasIdentity(JobReference): boolean
+    +{getters for all attributes}
+    +{setters for some attributes}
+}
+
+ListJobOpeningsUI *-- ListJobOpeningsController
+ListJobOpeningsController *-- JobOpeningRepository
+JobOpeningRepository  <--  JobOpening
+
+
+
+
+
+
+@enduml
