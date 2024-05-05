@@ -19,7 +19,10 @@ public class Application implements AggregateRoot<Long> {
     private Candidate candidate;
 
     @ManyToOne
-    @JoinColumn(name = "job_opening_id", nullable = false)
+    @JoinColumns({
+            @JoinColumn(name = "job_opening_id1", nullable = false),
+            @JoinColumn(name = "job_opening_id2", nullable = false)
+    })
     private JobOpening jobOpening;
 
     @Column(nullable = false)

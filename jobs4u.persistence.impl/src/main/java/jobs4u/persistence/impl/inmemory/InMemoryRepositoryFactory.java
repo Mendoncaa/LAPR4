@@ -24,6 +24,8 @@ import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.plugins.interviewModel.Repository.InterviewModelRepository;
+import core.management.plugins.requirementsSpecifications.Repository.RequirementsSpecificationRepository;
 import jobs4u.infrastructure.bootstrapers.ExemploBootstrapper;
 import core.infrastructure.persistence.RepositoryFactory;
 import core.utentemanagement.repositories.UtenteRepository;
@@ -110,6 +112,27 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     public CandidateRepository candidate() {
         return null;
     }
+
+    @Override
+    public RequirementsSpecificationRepository requirementsSpecifications(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public RequirementsSpecificationRepository requirementsSpecifications() {
+        return null;
+    }
+
+    @Override
+    public InterviewModelRepository interviewModel(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public InterviewModelRepository interviewModel() {
+        return null;
+    }
+
 
     @Override
     public TransactionalContext newTransactionalContext() {

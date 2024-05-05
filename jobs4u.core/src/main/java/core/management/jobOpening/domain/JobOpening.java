@@ -52,15 +52,15 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @Setter
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "recruitmentProcessId", referencedColumnName = "id")
+    @JoinColumn(name = "recruitmentProcessId")
     private RecruitmentProcess recruitmentProcess;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "requirementsSpecificationsId", referencedColumnName = "id")
+    @JoinColumn(name = "requirementsSpecificationsId")
     private RequirementsSpecification requirementsSpecification;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "interviewModelId", referencedColumnName = "id")
+    @JoinColumn(name = "interviewModelId")
     private InterviewModel interviewModel;
 
     @Embedded
