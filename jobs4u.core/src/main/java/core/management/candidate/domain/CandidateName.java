@@ -17,7 +17,7 @@ public class CandidateName implements ValueObject {
     }
 
     public static CandidateName valueOf(String candidateName) {
-        Preconditions.nonEmpty(candidateName, "Customer Name cannot be empty");
+        Preconditions.nonEmpty(candidateName, "Candidate Name cannot be empty");
         // Additional validation logic can be added here
         return new CandidateName(candidateName);
     }

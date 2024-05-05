@@ -11,6 +11,12 @@ import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.user.domain.ExemploRoles;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.time.util.CurrentTimeCalendars;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,12 +24,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final CandidateRepository candidateRepository;
     private final JobOpeningRepository jobOpeningRepository;
+    private final UserManagementService userSvc = AuthzRegistry.userService();
 
     public ApplicationService(ApplicationRepository applicationRepository,
                               CandidateRepository candidateRepository,
@@ -59,12 +67,15 @@ public class ApplicationService {
         }
 
         CandidateEmail email = new CandidateEmail(lines[1].trim());
-        CandidateName name = new CandidateName(lines[2].trim());
+        CandidateName name = new CandidateName(lines[1].trim());
         CandidatePhone phone = new CandidatePhone(lines[3].trim());
         CandidateState state = CandidateState.ENABLED;
+        Set<Role> roles = Set.of(ExemploRoles.CANDIDATE);
+
+        SystemUser candidate = userSvc.registerNewUser(lines[2].trim(), "Password1", lines[2].trim(), lines[2].trim(), lines[1].trim(), roles, CurrentTimeCalendars.now());
         
         return candidateRepository.findByCandidateEmail(email)
-            .orElseGet(() -> candidateRepository.save(new Candidate(email, state, name, phone)));
+            .orElseGet(() -> candidateRepository.save(new Candidate(email, state, name, phone, candidate)));
     }
     
 }

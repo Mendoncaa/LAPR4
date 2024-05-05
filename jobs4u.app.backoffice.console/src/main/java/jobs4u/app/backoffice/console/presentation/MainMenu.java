@@ -24,7 +24,10 @@
 package jobs4u.app.backoffice.console.presentation;
 
 import jobs4u.Application;
+import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
+import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
+import jobs4u.app.backoffice.console.presentation.authz.AddUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
@@ -63,6 +66,9 @@ public class MainMenu extends AbstractUI {
 	// CUSTOMERS
 	private static final int ADD_CUSTOMER_OPTION = 1;
 	private static final int LIST_CUSTOMERS_OPTION = 2;
+
+	// CANDIDATES
+	private static final int REGISTER_CANDIDATE_OPTION = 1;
 
 	// JOB OPENING
 	private static final int CREATE_JOBOPENING_OPTION = 1;
@@ -202,7 +208,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildJobApplicationMenu() {
 		final var menu = new Menu("JobApplication >");
 
-		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserUI()::show);
+		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
@@ -211,7 +217,8 @@ public class MainMenu extends AbstractUI {
 	private Menu buildCandidatesMenu() {
 		final var menu = new Menu("Candidates >");
 
-		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "List Personal Data of a Candidate", new ListUsersAction());
+		menu.addItem(REGISTER_CANDIDATE_OPTION, "Register Candidate", new AddCandidateAction());
+		menu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Candidates", new ListCandidatesAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

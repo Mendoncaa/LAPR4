@@ -4,7 +4,6 @@ import core.management.candidate.domain.Candidate;
 import core.management.candidate.domain.CandidateEmail;
 import core.management.candidate.domain.CandidateName;
 import eapli.framework.domain.repositories.DomainRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
