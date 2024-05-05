@@ -1,0 +1,31 @@
+@startuml
+title List Candidates - UC2002
+
+actor Operator as "Operator"
+
+participant "ListCandidatesUI" as UI
+participant "ListCandidatesController" as LC
+participant "AuthorizationService" as Authz
+participant "CandidateRepository" as CR
+
+' Step 1: Operator requests to list all candidates
+Operator -> UI: Request to list all candidates
+
+' Step 2: UI forwards the request to the controller
+UI -> LC: elements() (Requests all candidates)
+
+' Step 3: Controller verifies authorization
+LC -> Authz: ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR)
+Authz --> LC: Authorization confirmed
+
+' Step 4: Controller retrieves candidates from the repository
+LC -> CR: findAll() (Retrieve all candidates)
+CR --> LC: Returns list of candidates
+
+' Step 5: Controller sends list of candidates to UI
+LC -> UI: elements() (Forwards list of candidates)
+
+' Step 6: UI displays list of candidates or "No data"
+UI --> Operator: Displays list of candidates or "No data"
+
+@enduml

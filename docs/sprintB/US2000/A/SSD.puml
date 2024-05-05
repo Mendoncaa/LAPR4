@@ -1,0 +1,26 @@
+@startuml
+title Add Candidate - UC1002
+
+actor Operator as "Operator"
+
+participant System
+
+' Step 1: Operator requests to add a new candidate
+Operator -> System: 1. Requests to add a new candidate
+System --> Operator: 1.1 Displays form for candidate details
+
+' Step 2: Operator provides candidate details
+Operator -> System: 2. Enters candidate's details (username, password, first name, last name, email, phone)
+System --> Operator: 2.1 Confirms receipt of candidate details
+
+' Step 3: System verifies authorization
+System -> System: 3. Verifies authorization (authorization check)
+
+' Step 4: System creates a new system user and candidate
+System -> System: 4. Registers a new system user
+System -> System: 5. Adds new candidate to the repository
+
+' Step 5: Confirmation of successful candidate creation
+System --> Operator: 6. Confirms successful candidate creation
+
+@enduml
