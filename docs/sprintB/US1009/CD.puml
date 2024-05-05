@@ -1,0 +1,64 @@
+@startuml
+title CD - Select and Associate Requirements Specification
+
+
+
+class SelectRequirementsSpecificationUI {
+    -controller : SelectRequirementsSpecificationController
+
+    +doShow(): boolean
+    +headline(): String
+}
+
+class SelectRequirementsSpecificationController {
+    -jobOpeningRepository : JobOpeningRepository
+    -requirementsSpecificationRepository : RequirementsSpecificationRepository
+
+    +selectJobOpening(): JobOpening
+    +selectRequirementsSpecification(): RequirementsSpecification
+    +associateRequirementsSpecificationToJobOpening(JobOpening, RequirementsSpecification): void
+}
+
+class JobOpeningRepository {
+    +findAll(): List<JobOpening>
+    +save(JobOpening): boolean
+}
+
+class RequirementsSpecificationRepository {
+    +findAll(): List<RequirementsSpecification>
+}
+
+class JobOpening {
+    -jobReference : JobReference
+    -jobTitle : JobTitle
+    -jobState : JobState
+    -contractType : ContractType
+    -mode : JobMode
+    -description : Description
+    -address : Address
+    -numberOfVacancies : NumberOfVacancies
+    -recruitmentProcess : RecruitmentProcess
+    -requirementsSpecification : RequirementsSpecification
+
+    +setRequirementsSpecification(RequirementsSpecification): void
+}
+
+class RequirementsSpecification {
+    -specName : SpecName
+    -jarFile : JarFile
+    -description : Description
+
+    +identity(): SpecName
+}
+
+
+
+class SpecName {
+}
+
+SelectRequirementsSpecificationUI "1" *-- "1" SelectRequirementsSpecificationController
+SelectRequirementsSpecificationController --> JobOpeningRepository
+SelectRequirementsSpecificationController --> RequirementsSpecificationRepository
+JobOpening "1" *-- "0..1" RequirementsSpecification
+
+@enduml

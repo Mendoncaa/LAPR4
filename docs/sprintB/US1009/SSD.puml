@@ -1,0 +1,16 @@
+@startuml
+title SSD - Select and Associate Requirements Specification
+
+actor "Customer Manager" as CustomerManager
+
+CustomerManager -> ":System": Request to set up requirements for a job opening
+":System" --> CustomerManager: Displays list of job openings
+CustomerManager -> ":System": Selects a job opening
+":System" --> CustomerManager: Displays list of available requirements specifications
+CustomerManager -> ":System": Selects a requirements specification
+":System" --> CustomerManager: Asks for confirmation
+CustomerManager -> ":System": Confirms selection
+":System" --> CustomerManager: Associates requirements specification with the job opening
+":System" --> CustomerManager: Confirmation of successful association
+
+@enduml

@@ -1,0 +1,23 @@
+package CostumerAgg #baabab {
+    class Costumer<<Entity>><<Root>>
+    class CustomerCode<<Value Object>><<Id>>
+    class Name<<Value Object>>
+    class Address<<Value Object>>
+    class CostumerRepresentative<<Entity>>
+    class CostumerName<<Value Object>>
+
+    class Email<<Value Object>><<Id>>
+    class PhoneNumber<<Value Object>>
+    class Name<<Value Object>>
+    class Password<<Value Object>>
+
+    Costumer "1" --> "1" CustomerCode
+    Costumer "1" --> "1" CostumerName
+    Costumer "1" --> "1" Address
+    Costumer "1" --> "1" CostumerRepresentative
+
+    CostumerRepresentative "1" --> "1" Email
+    CostumerRepresentative "1" --> "1" PhoneNumber
+    CostumerRepresentative "1" --> "1" Name
+    CostumerRepresentative "1" --> "1" Password
+}

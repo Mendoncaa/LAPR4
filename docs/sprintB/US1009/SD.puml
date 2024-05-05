@@ -1,0 +1,42 @@
+@startuml
+title SD - Select and Associate Requirements Specification
+
+actor Recruiter
+participant "UI : SelectRequirementsSpecificationUI" as UI
+participant "Controller : SelectRequirementsSpecificationController" as controller
+participant "JobOpeningRepository : IRepository" as jobRepo
+participant "RequirementsSpecificationRepository : IRepository" as reqRepo
+
+Recruiter -> UI : initiateSelection()
+activate UI
+
+UI -> controller : selectJobOpening()
+activate controller
+controller -> jobRepo : findAll()
+activate jobRepo
+jobRepo --> controller : List<JobOpening>
+deactivate jobRepo
+controller --> UI : selectedJobOpening
+deactivate controller
+
+UI -> controller : selectRequirementsSpecification()
+activate controller
+controller -> reqRepo : findAll()
+activate reqRepo
+reqRepo --> controller : List<RequirementsSpecification>
+deactivate reqRepo
+controller --> UI : selectedRequirementsSpecification
+deactivate controller
+
+UI -> controller : associateRequirementsSpecificationToJobOpening(selectedJobOpening, selectedRequirementsSpecification)
+activate controller
+controller -> jobRepo : save(jobOpening)
+jobRepo --> controller : boolean
+deactivate jobRepo
+controller --> UI : displaySuccess/failure()
+deactivate controller
+
+UI --> Recruiter : showResult()
+deactivate UI
+
+@enduml

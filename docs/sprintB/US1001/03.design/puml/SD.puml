@@ -1,31 +1,49 @@
 @startuml
-actor CustomManager
-participant "RegisterCustomerUI" as UI
-participant "RegisterCustomerController" as CC
-participant "AddUserController" as AUC
-participant "CustomerBuilder" as CB
-participant "Customer" as Cust
-participant "CustomerRepresentativeRepository" as CRR
-participant "AuthorizationService" as Authz
 
-CustomManager -> UI: Requests to create a new customer user
-UI --> CustomManager: Displays form for customer user details
+title Customer Registration Process
 
-CustomManager -> UI: Enters customer details (Username, Password, First Name, Last Name, Email, Customer Name, Address, Phone Number)
-UI -> CC: Sends customer user details to controller
+actor "User" as user
+participant "UI : RegisterCustomerUI" as UI
+participant "Controller : RegisterCustomerController" as controller
+participant "Service : AddUserController" as userService
+participant "Builder : CustomerBuilder" as builder
+participant "Repository : CustomerRepresentativeRepository" as customerRepo
+participant "CustomerRepresentative" as customerRep
 
-CC -> Authz: Checks if user is authenticated
-Authz --> CC: Authorization confirmed
 
-CC -> AUC: Registers new system user with provided details
-AUC --> CC: System user created successfully
+user -> UI : show()
+activate UI
 
-CC -> CB: Builds a new CustomerRepresentative
-CB --> CC: Returns built CustomerRepresentative
+UI -> UI : getUserInput()
 
-CC -> CRR: Registers new CustomerRepresentative
-CRR --> CC: CustomerRepresentative saved successfully
+UI -> controller : registerCustomer(userData, customerData, phoneNumber)
+activate controller
 
-CC --> UI: Confirms customer user creation
-UI --> CustomManager: Confirms customer user created successfully
+controller -> userService : addUser(username, password, firstName, lastName, email, roles)
+activate userService
+userService -> userService : registerNewUser()
+return SystemUser
+deactivate userService
+
+controller -> builder : withSystemUser(SystemUser)
+activate builder
+builder -> builder : withCompany(Customer)
+builder -> builder : withPhoneNumber(PhoneNumber)
+builder -> builder : withCustomManager(SystemUser)
+builder -> customerRep : build()
+return customerRep
+deactivate builder
+
+controller -> customerRepo : save(customerRep)
+activate customerRepo
+customerRepo --> controller : CustomerRepresentative
+deactivate customerRepo
+
+controller --> UI : successMessage()
+deactivate controller
+
+UI -> user : displayResult()
+
+deactivate UI
+
 @enduml

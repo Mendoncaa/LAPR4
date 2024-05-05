@@ -1,0 +1,53 @@
+@startuml
+
+title CD - Register Customer
+
+class Customer {
+    - customerCode : CustomerCode
+    - address : Address
+    - customerName : CustomerName
+
+    + Customer(customerCode : CustomerCode, address : Address, customerName : CustomerName)
+}
+
+
+
+class CustomerRepresentative {
+    - phoneNumber : PhoneNumber
+    - customerManager : SystemUser
+    - customer : Customer
+    - systemUser : SystemUser
+
+    + CustomerRepresentative(user : SystemUser, phoneNumber : PhoneNumber)
+}
+
+
+class RegisterCustomerController {
+    + registerCustomer(userData : UserData, customerData : CustomerData, phoneNumber : PhoneNumber) : CustomerRepresentative
+}
+
+class AddUserController {
+    + addUser(username : String, password : String, firstName : String, lastName : String, email : String, roles : Set<Role>) : SystemUser
+}
+
+class CustomerBuilder {
+    + withSystemUser(SystemUser) : CustomerBuilder
+    + withCompany(Customer) : CustomerBuilder
+    + withPhoneNumber(PhoneNumber) : CustomerBuilder
+    + withCustomManager(SystemUser) : CustomerBuilder
+    + build() : CustomerRepresentative
+}
+
+class CustomerRepresentativeRepository {
+    + save(customerRepresentative : CustomerRepresentative) : CustomerRepresentative
+}
+
+RegisterCostumerUI --> RegisterCustomerController
+RegisterCustomerController --> AddUserController
+RegisterCustomerController --> CustomerBuilder
+CustomerBuilder ..> CustomerRepresentative : <<create>>
+RegisterCustomerController --> CustomerRepresentativeRepository
+Customer --> CustomerRepresentative
+
+
+@enduml
