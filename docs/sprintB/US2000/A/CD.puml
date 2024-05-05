@@ -1,0 +1,39 @@
+@startuml
+title CD - Add Candidate
+
+class AddCandidateUI {
+    + sendCandidateDetails(username: String, password: String, firstName: String, lastName: String, email: String, phone: String): void
+    + confirmCandidateCreation(SystemUser, phone: String, email: String, fullName: String): void
+}
+
+class AddCandidateController {
+    + registerNewUser(username: String, password: String, firstName: String, lastName: String, email: String, roles: Set<Role>): SystemUser
+    + saveNewCandidate(candidate: Candidate, phone: String, email: String, fullName: String): void
+}
+
+
+
+class UserManagementService {
+    + registerNewUser(username: String, password: String, firstName: String, lastName: String, email: String, roles: Set<Role>): SystemUser
+}
+
+class CandidateRepository {
+    + save(candidate: Candidate): Candidate
+}
+
+
+class Candidate {
+    - username: String
+    - email: String
+    - phone: String
+    - fullName: String
+    - systemUser: SystemUser
+}
+
+AddCandidateUI ..> AddCandidateController
+AddCandidateController ..> UserManagementService
+AddCandidateController ..> CandidateRepository
+CandidateRepository ..> Candidate
+
+
+@enduml

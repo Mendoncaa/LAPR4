@@ -1,0 +1,13 @@
+package CandidateAgg #aababb {
+    class Candidate<<Root>><<Entity>>
+    class Email<<Value Object>><<Id>>
+    class Name<<Value Object>>
+    class PhoneNumber<<Value Object>>
+    class CandidateState<<Value Object>>
+
+
+    Candidate "1" --> "1" Email
+    Candidate "1" --> "1" Name
+    Candidate "1" --> "1" PhoneNumber
+    Candidate "1" --> "1" CandidateState
+}
