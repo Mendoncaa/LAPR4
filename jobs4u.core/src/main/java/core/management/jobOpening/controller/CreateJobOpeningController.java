@@ -21,9 +21,13 @@ public class CreateJobOpeningController {
 
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
-    public void createJobOpening(String jobReference, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
+    public void createJobOpening(String customerCode, String jobTitle, ContractType contractType, JobMode jobMode, String description, String street, int doorNumber, String floor, String postalCode, int numberOfVacancies) {
 
-        JobReference ref = new JobReference(jobReference);
+        // TODO:
+        // Criar JobReference com o CustomerCode
+        // exemplo: int jobNumber = jobOpeningRepository.nextJobNumber(customerCode);
+        int jobNumber = 1;
+        JobReference ref = new JobReference(customerCode, jobNumber);
         JobTitle title = JobTitle.valueOf(jobTitle);
         Description desc = Description.valueOf(description);
         Address addr = Address.valueOf(street, doorNumber, floor, postalCode);

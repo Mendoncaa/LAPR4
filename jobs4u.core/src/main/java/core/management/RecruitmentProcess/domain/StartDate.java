@@ -1,16 +1,19 @@
-package core.management.jobOpening.domain.RecruitmentProcess;
+package core.management.RecruitmentProcess.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Getter
 @Embeddable
 public class StartDate implements ValueObject {
     private final LocalDate startDate;
 
-    private StartDate(LocalDate date) {
+    public StartDate(LocalDate date) {
+
         this.startDate = date;
     }
 
@@ -20,7 +23,7 @@ public class StartDate implements ValueObject {
 
     public static StartDate valueOf(String dateString) {
         Preconditions.nonEmpty(dateString, "Start date cannot be empty");
-        LocalDate date = LocalDate.parse(dateString); // Assuming date is in standard ISO format
+        LocalDate date = LocalDate.parse(dateString);
         return new StartDate(date);
     }
 
@@ -29,4 +32,3 @@ public class StartDate implements ValueObject {
         return startDate.toString();
     }
 }
-

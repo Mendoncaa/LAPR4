@@ -1,4 +1,4 @@
-package core.management.jobOpening.domain.RecruitmentProcess;
+package core.management.RecruitmentProcess.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import lombok.Getter;

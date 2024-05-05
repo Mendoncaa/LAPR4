@@ -1,11 +1,13 @@
-package core.management.jobOpening.domain.RecruitmentProcess;
+package core.management.RecruitmentProcess.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Getter
 @Embeddable
 public class EndDate implements ValueObject {
     private final LocalDate endDate;

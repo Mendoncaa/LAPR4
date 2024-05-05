@@ -1,16 +1,18 @@
 package core.management.jobOpening.domain;
 
-import core.management.jobOpening.domain.RecruitmentProcess.RecruitmentProcess;
+import core.management.RecruitmentProcess.domain.RecruitmentProcess;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate; // Import LocalDate for handling dates
+
 @Getter
 @Entity
-@Table(name = "job_openings") // Explicit table name definition
-@Access(AccessType.FIELD) // Explicitly setting field access for consistency
+@Table(name = "job_openings")
+@Access(AccessType.FIELD)
 public class JobOpening implements AggregateRoot<JobReference> {
 
     @EmbeddedId
@@ -50,6 +52,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @JoinColumn(name = "recruitmentProcessId", referencedColumnName = "id")
     private RecruitmentProcess recruitmentProcess;
 
+    @Embedded
+    @Column(nullable = false)
+    private JobActiveSince activeSince;
+
     public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
         if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null) {
             throw new IllegalArgumentException("None of the fields can be null");
@@ -62,6 +68,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.description = description;
         this.address = address;
         this.numberOfVacancies = numberOfVacancies;
+        this.activeSince = new JobActiveSince(LocalDate.now());
     }
 
     protected JobOpening() {

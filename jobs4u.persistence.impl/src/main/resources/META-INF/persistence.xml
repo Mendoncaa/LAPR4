@@ -13,8 +13,8 @@
     <class>core.utentemanagement.domain.Utente</class>
     <class>core.utentemanagement.domain.SignupRequest</class>
     <class>core.management.jobOpening.domain.JobOpening</class>
-    <class>core.management.jobOpening.domain.RecruitmentProcess.RecruitmentProcess</class>
-    <class>core.management.jobOpening.domain.RecruitmentProcess.Phase</class>
+    <class>core.management.RecruitmentProcess.domain.RecruitmentProcess</class>
+    <class>core.management.RecruitmentProcess.domain.Phase</class>
     <class>core.management.costumer.domain.Customer</class>
 
     <properties>

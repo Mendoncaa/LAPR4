@@ -11,10 +11,8 @@ public class ListJobOpeningsController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
     public Iterable<JobOpening> allJobOpenings() {
-        authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("HR_VIEWER"), Role.valueOf("HR_MANAGER")); // Assuming HR_VIEWER and HR_MANAGER are roles with permissions to view job openings
-        // Mock implementation. Replace with actual data fetching logic, e.g., from a repository.
+        authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"), Role.valueOf("ADMIN"));
         List<JobOpening> jobOpenings = new ArrayList<>();
-        // jobOpenings = repository.findAll(); // Uncomment and implement repository call
         return jobOpenings;
     }
 }

@@ -1,4 +1,4 @@
-package core.management.jobOpening.domain.RecruitmentProcess;
+package core.management.RecruitmentProcess.domain;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class RecruitmentProcess {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruitmentProcessId") // This column will be added to the Phase table
+    @JoinColumn(name = "recruitmentProcessId")
     private List<Phase> phases;
 
     public RecruitmentProcess() {

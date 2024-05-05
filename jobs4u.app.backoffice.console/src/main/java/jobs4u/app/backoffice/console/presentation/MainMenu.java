@@ -24,9 +24,7 @@
 package jobs4u.app.backoffice.console.presentation;
 
 import jobs4u.Application;
-import jobs4u.app.backoffice.console.presentation.JobOpening.CreateJobOpeningUI;
-import jobs4u.app.backoffice.console.presentation.JobOpening.ListApplicationsForJobOpeningAction;
-import jobs4u.app.backoffice.console.presentation.JobOpening.ListJobOpeningsAction;
+import jobs4u.app.backoffice.console.presentation.JobOpening.*;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
@@ -192,10 +190,10 @@ public class MainMenu extends AbstractUI {
 	private Menu buildJobOpeningMenu() {
 		final var menu = new Menu("JobOpening >");
 
-		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new CreateJobOpeningUI()::show);
+		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new CreateJobOpeningAction());
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
 		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction());
-		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new ListUsersAction());
+		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

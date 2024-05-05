@@ -25,11 +25,6 @@ public class CreateJobOpeningUI extends AbstractUI {
             customerCode = selectCustomerCode(customers);
         }
 
-        // TODO:
-        // Criar JobReference com o CustomerCode
-
-        // jobReference só para não dar erro
-        final String jobReference = customerCode;
 
         final String jobTitle = Console.readLine("Job Title:");
         final ContractType contractType = selectContractType();
@@ -45,7 +40,7 @@ public class CreateJobOpeningUI extends AbstractUI {
         final int numberOfVacancies = Console.readInteger("Number of Vacancies:");
 
         try {
-            this.theController.createJobOpening(jobReference, jobTitle, contractType, mode, descriptionText, street, doorNumber, floor, postalCode, numberOfVacancies);
+            this.theController.createJobOpening(customerCode, jobTitle, contractType, mode, descriptionText, street, doorNumber, floor, postalCode, numberOfVacancies);
             System.out.println("Job opening created successfully.");
         } catch (IllegalArgumentException e) {
             System.err.println("Invalid input: " + e.getMessage());
