@@ -1,0 +1,14 @@
+@startuml
+
+title System Sequence Diagram (SSD) - List Applications for Job Opening
+
+actor Operator as "Operator"
+
+participant System
+
+Operator -> System: Request to list applications for a specific job opening
+System -> Operator: Request to enter Job Reference ID
+Operator --> System: Enters Job Reference ID
+System --> Operator: Displays list of applications for the job opening or "No applications found"
+
+@enduml
