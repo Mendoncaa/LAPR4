@@ -32,6 +32,8 @@ import jobs4u.app.backoffice.console.presentation.authz.AddUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
+import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.SelectInterviewModelAction;
+import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.SelectRequirementsSpecificationAction;
 import jobs4u.app.backoffice.console.presentation.utente.AcceptRefuseSignupRequestAction;
 import jobs4u.app.common.console.presentation.authz.MyUserMenu;
 import core.management.user.domain.ExemploRoles;
@@ -91,6 +93,7 @@ public class MainMenu extends AbstractUI {
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
 	private static final int ADMIN_JOBOPENING_OPTION = 4;
 	private static final int ADMIN_CANDIDATE_OPTION = 5;
+	private static final int OP_CANDIDATE_OPTION = 2;
 
 
 	private static final String SEPARATOR_LABEL = "--------------";
@@ -152,6 +155,14 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
+			final var requirementsSpecificationMenu = buildRequirementsSpecMenu();
+			mainMenu.addSubMenu(5, requirementsSpecificationMenu);
+			final var interviewModelMenu = buildInterviewModelMenu();
+			mainMenu.addSubMenu(6, interviewModelMenu);
+		}
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
+			final var candidatesMenu = buildCandidatesMenu();
+			mainMenu.addSubMenu(OP_CANDIDATE_OPTION, candidatesMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -212,6 +223,24 @@ public class MainMenu extends AbstractUI {
 
 		menu.addItem(REGISTER_CANDIDATE_OPTION, "Register Candidate", new AddCandidateAction());
 		menu.addItem(LIST_CANDIDATE_INFO_OPTION, "List Candidates", new ListCandidatesAction());
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildRequirementsSpecMenu() {
+		final var menu = new Menu("Requirements Specification >");
+
+		menu.addItem(1, "Select Requirements Specification", new SelectRequirementsSpecificationAction());
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildInterviewModelMenu() {
+		final var menu = new Menu("Interview Model >");
+
+		menu.addItem(1, "Select Interview Model", new SelectInterviewModelAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

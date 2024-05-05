@@ -13,6 +13,14 @@ public class SelectRequirementsSpecificationUI extends AbstractUI
     @Override
     protected boolean doShow() {
 
+        try{
+            controller.associateRequirementsSpecificationToJobOpening(selectJobOpening(), selectRequirementsSpecification());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+
+
         return true;
     }
 
