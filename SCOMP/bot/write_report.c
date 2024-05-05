@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <fcntl.h>
 
+// Prints the contents received through a pipe to a file named "file_report.txt".
 void printFicheiro(int pipe[], int maxSize, char* output_dir) {
     printf("Printing file\n");
     FILE *file;
@@ -29,7 +30,6 @@ void printFicheiro(int pipe[], int maxSize, char* output_dir) {
         }
         fprintf(file, "%s", buffer);
     }
-    fprintf(file, "---------------------------\n");
+    fprintf(file, "-------------------------\n");
     fclose(file);
-
 }

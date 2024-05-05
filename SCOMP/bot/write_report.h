@@ -3,4 +3,4 @@
 
 void printFicheiro (int pipe[], int maxSize, char* output_file);
 
-#endif
+#endif 
