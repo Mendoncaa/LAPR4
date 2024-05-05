@@ -1,0 +1,49 @@
+@startuml
+
+title Customer Registration Process
+
+actor "User" as user
+participant "UI : RegisterCustomerUI" as UI
+participant "Controller : RegisterCustomerController" as controller
+participant "Service : AddUserController" as userService
+participant "Builder : CustomerBuilder" as builder
+participant "Repository : CustomerRepresentativeRepository" as customerRepo
+participant "CustomerRepresentative" as customerRep
+
+
+user -> UI : show()
+activate UI
+
+UI -> UI : getUserInput()
+
+UI -> controller : registerCustomer(userData, customerData, phoneNumber)
+activate controller
+
+controller -> userService : addUser(username, password, firstName, lastName, email, roles)
+activate userService
+userService -> userService : registerNewUser()
+return SystemUser
+deactivate userService
+
+controller -> builder : withSystemUser(SystemUser)
+activate builder
+builder -> builder : withCompany(Customer)
+builder -> builder : withPhoneNumber(PhoneNumber)
+builder -> builder : withCustomManager(SystemUser)
+builder -> customerRep : build()
+return customerRep
+deactivate builder
+
+controller -> customerRepo : save(customerRep)
+activate customerRepo
+customerRepo --> controller : CustomerRepresentative
+deactivate customerRepo
+
+controller --> UI : successMessage()
+deactivate controller
+
+UI -> user : displayResult()
+
+deactivate UI
+
+@enduml
