@@ -1,16 +1,30 @@
 @startuml
+title List All Users - UC2001
+
 actor Admin
+
 participant "ListUsersUI" as UI
 participant "ListUsersController" as LC
 participant "AuthorizationService" as Authz
 participant "UserManagementService" as UserSvc
 
-Admin -> UI: Request to view all users
-UI -> LC: Sends request to view all users
-LC -> Authz: Checks if the user is an ADMIN
+' Step 1: Admin requests to view all users
+Admin -> UI: doShow (Request to view all users)
+
+' Step 2: UI sends request to the controller
+UI -> LC: elements() (Request list of all users)
+
+' Step 3: Controller verifies authorization
+LC -> Authz: ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN)
 Authz --> LC: Authorization confirmed
-LC -> UserSvc: Requests list of all users
-UserSvc --> LC: Returns list of all users
-LC --> UI: Sends list of all users to UI
-UI --> Admin: Displays list of all users with current status
+
+' Step 4: Controller requests list of all users
+LC -> UserSvc: allUsers() (Request list of all users)
+UserSvc --> LC: allUsers() (Returns list of all users)
+
+' Step 5: Controller sends list of all users to UI
+LC -> UI: elements() (Sends list to UI)
+
+' Step 6: UI displays list of all users with current status
+UI --> Admin: elementPrinter() (Displays list of all users with current status)
 @enduml

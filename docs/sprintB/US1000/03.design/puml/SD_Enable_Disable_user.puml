@@ -1,25 +1,50 @@
 @startuml
+title Deactivate User - UC3001
+
 actor Admin
+
 participant "DeactivateUserUI" as UI
 participant "DeactivateUserController" as DC
 participant "AuthorizationService" as Authz
 participant "UserManagementService" as UserSvc
 
-Admin -> UI: Requests list of active users
-UI -> DC: Requests list of active users
-DC -> Authz: Checks if the user is an ADMIN
-Authz --> DC: Authorization confirmed
-DC -> UserSvc: Requests list of active users
-UserSvc --> DC: Returns list of active users
-DC --> UI: Sends list of active users
-UI --> Admin: Displays list of active users
+' Step 1: Admin requests list of active users
+Admin -> UI: Requests user list
 
-Admin -> UI: Selects a user to deactivate
-UI -> DC: Requests deactivation of the selected user
-DC -> Authz: Checks if the user is an ADMIN
+' Step 2: UI sends request to the controller
+UI -> DC: activeUsers() (Request list of users)
+
+' Step 3: Controller checks authorization
+DC -> Authz: ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN)
 Authz --> DC: Authorization confirmed
-DC -> UserSvc: Deactivates the user
-UserSvc --> DC: Confirms deactivation
-DC --> UI: Confirms deactivation
-UI --> Admin: Deactivation confirmation for the selected user
+
+' Step 4: Controller retrieves list of active users
+DC -> UserSvc: activeUsers() (Retrieve list of active users)
+UserSvc --> DC: activeUsers() (Returns list)
+
+' Step 5: Controller sends list of users to UI
+DC -> UI: activeUsers() (Sends list to UI)
+
+' Step 6: UI displays list of active users to Admin
+UI --> Admin: Show list of users (Displays list)
+
+' Step 7: Admin selects a user to deactivate
+Admin -> UI: Select user (doShow)
+
+' Step 8: UI sends deactivation request to the controller
+UI -> DC: deactivateUser(SystemUser) (Deactivate selected user)
+
+' Step 9: Controller verifies authorization
+DC -> Authz: ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN)
+Authz --> DC: Authorization confirmed
+
+' Step 10: Controller deactivates the user
+DC -> UserSvc: deactivateUser(SystemUser) (Perform deactivation)
+UserSvc --> DC: deactivateUser(SystemUser) (Confirm deactivation)
+
+' Step 11: Controller confirms successful deactivation
+DC -> UI: Deactivation confirmed (Confirm to UI)
+
+' Step 12: UI confirms deactivation to Admin
+UI --> Admin: Deactivation successful (doShow)
 @enduml
