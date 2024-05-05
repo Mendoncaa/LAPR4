@@ -1,0 +1,44 @@
+@startuml
+
+title CD - List Candidates
+
+
+
+class ListCandidatesUI {
+    -theController : ListCandidatesController
+
+    +headline(): String
+    +emptyMessage(): String
+    +elements(): Iterable<Candidate>
+    +elementPrinter(): Visitor<Candidate>
+    +elementName(): String
+    +listHeader(): String
+}
+
+class ListCandidatesController {
+    -candidateRepository : CandidateRepository
+
+    +allUsers(): Iterable<Candidate>
+}
+
+class CandidateRepository {
+    +findAll(): List<Candidate>
+    +findByName(CandidateName): List<Candidate>
+    +findByCandidateEmail(CandidateEmail): Optional<Candidate>
+}
+
+class Candidate {
+    -candidateEmail : CandidateEmail
+    -candidateState : CandidateState
+    -candidateName : CandidateName
+    -candidatePhone : CandidatePhone
+    -candidateUser : SystemUser
+
+    +identity(): CandidateEmail
+}
+
+ListCandidatesUI  *--  ListCandidatesController
+ListCandidatesController --> CandidateRepository
+CandidateRepository  --  Candidate
+
+@enduml

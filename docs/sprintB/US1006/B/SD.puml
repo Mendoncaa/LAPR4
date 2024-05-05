@@ -1,0 +1,29 @@
+@startuml
+
+title SD - List Candidates
+
+actor Recruiter
+participant "UI : ListCandidatesUI" as UI
+participant "Controller : ListCandidatesController" as controller
+participant "Repository : CandidateRepository" as repository
+
+Recruiter -> UI : show()
+activate UI
+
+UI -> controller : allUsers()
+activate controller
+
+controller -> repository : findAll()
+activate repository
+repository --> controller : List<Candidate>
+deactivate repository
+
+controller --> UI : List<Candidate>
+deactivate controller
+
+UI -> UI : displayCandidates(List<Candidate>)
+
+UI --> Recruiter : renderCandidates()
+deactivate UI
+
+@enduml
