@@ -58,7 +58,7 @@ public class RegisterCustomerUI extends AbstractUI {
             Address address = new Address(customerStreet, customerCity, costumerPostalCode);
             CustomerName name = new CustomerName(customerName);
 
-            String password = generateSecurePassword();
+            final String password = generateSecurePassword();
 
             theController.registerCustomer(username, password, firstName, lastName, email, code, number,
                     customerManager);
@@ -79,7 +79,7 @@ public class RegisterCustomerUI extends AbstractUI {
 
     
     private String generateSecurePassword() {
-        int length = 10; // Or any length based on security requirements
+        int length = 10; 
         String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#&*";
         SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder(length);
