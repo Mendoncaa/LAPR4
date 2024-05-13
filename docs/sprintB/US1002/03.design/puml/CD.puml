@@ -1,53 +1,60 @@
 @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
 
-title Job Opening Management System Class Diagram
 
 
-class ListJobOpeningsUI {
-    -theController: ListJobOpeningsController
-    +headline(): String
-    +emptyMessage(): String
-    +elements(): Iterable<JobOpening>
-    +elementPrinter(): Visitor<JobOpening>
-    +elementName(): String
-    +listHeader(): String
+class CreateJobOpeningUI {
+    + doShow(): boolean
+    + selectEnum(values: Enum<T>[], prompt: String): T
 }
 
-class ListJobOpeningsController {
-    +allJobOpenings(): Iterable<JobOpening>
+class CreateJobOpeningController {
+    - customerRepository: CustomerRepository
+    - jobOpeningRepository: JobOpeningRepository
+    + verifyIfCustomerExists(customerCode: String): boolean
+    + createJobOpening(customerCode: String, jobTitle: String, contractType: ContractType, mode: JobMode, descriptionText: String, street: String, doorNumber: int, floor: String, postalCode: String, numberOfVacancies: int): void
+}
+
+class CustomerRepository {
+    + findByRepresentatice(user: Username): List<Customer>
+    + findByCustomerCode(customerCode: CustomerCode): Optional<Customer>
+    + findBySystemUser(systemUser: SystemUser): List<Customer>
 }
 
 class JobOpeningRepository {
-    +findAllByState(JobState): List<JobOpening>
-    +findByJobReference(JobReference): Optional<JobOpening>
+    + findAllByState(jobState: JobState): List<JobOpening>
+    + findByJobReference(jobReference: JobReference): Optional<JobOpening>
+    + nextJobNumber(customerCode: String): int
 }
 
 class JobOpening {
-    -jobReference: JobReference
-    -jobTitle: JobTitle
-    -jobState: JobState
-    -contractType: ContractType
-    -mode: JobMode
-    -description: Description
-    -address: Address
-    -numberOfVacancies: NumberOfVacancies
-    -recruitmentProcess: RecruitmentProcess
-    -activeSince: JobActiveSince
-    +sameAs(Object): boolean
-    +compareTo(JobReference): int
-    +identity(): JobReference
-    +hasIdentity(JobReference): boolean
-    +{getters for all attributes}
-    +{setters for some attributes}
+    - jobReference: JobReference
+    - jobTitle: JobTitle
+    - jobState: JobState
+    - contractType: ContractType
+    - mode: JobMode
+    - description: Description
+    - address: Address
+    - numberOfVacancies: NumberOfVacancies
+    - recruitmentProcess: RecruitmentProcess
+    - requirementsSpecification: RequirementsSpecification
+    - interviewModel: InterviewModel
+    - activeSince: JobActiveSince
+    + JobOpening(jobReference: JobReference, jobTitle: JobTitle, jobState: JobState, contractType: ContractType, mode: JobMode, description: Description, address: Address, numberOfVacancies: NumberOfVacancies)
+    + sameAs(other: Object): boolean
+    + compareTo(other: JobReference): int
+    + identity(): JobReference
+    + hasIdentity(id: JobReference): boolean
 }
 
-ListJobOpeningsUI *-- ListJobOpeningsController
-ListJobOpeningsController *-- JobOpeningRepository
-JobOpeningRepository  <--  JobOpening
 
+CreateJobOpeningUI --> "1" CreateJobOpeningController
+CreateJobOpeningController --> "1" CustomerRepository
+CreateJobOpeningController --> "1" JobOpeningRepository
+CreateJobOpeningController --> "*" JobOpening
 
-
-
+note right of JobOpening : Aggregate Root in the domain model
 
 
 @enduml

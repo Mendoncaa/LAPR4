@@ -1,41 +1,51 @@
 @startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
-title SD - Register Job Opening
+actor "CustomManager" as CustomManager
+participant ":CreateJobOpeningUI" as CreateJobOpeningUI
+participant "theController: CreateJobOpeningController" as CreateJobOpeningController
+participant "customerRepository: CustomerRepository" as CustomerRepository
+participant "jobOpeningRepository: JobOpeningRepository" as JobOpeningRepository
+participant "JobOpening" as JobOpening
 
-actor Recruiter
-participant "UI : RegisterJobOpeningUI" as UI
-participant "Controller : RegisterJobOpeningController" as controller
-participant "JobOpeningService" as jobService
-participant "JobOpening" as jobOpening
-participant "JobOpeningRepository" as jobRepo
+activate CustomManager
+CustomManager -> CreateJobOpeningUI : doShow()
+activate CreateJobOpeningUI
 
-Recruiter -> UI : show()
-activate UI
+CreateJobOpeningUI -> CreateJobOpeningController : createJobOpening(customerCode, jobTitle, contractType...);
+activate CreateJobOpeningController
 
-UI -> controller : getJobOpeningData()
-activate controller
+loop until valid customer code
+    CreateJobOpeningUI -> CreateJobOpeningController : read customer code
+    CreateJobOpeningController -> CustomerRepository : verifyIfCustomerExists(customerCode)
+    activate CustomerRepository
+    CustomerRepository --> CreateJobOpeningController : return boolean
+    deactivate CustomerRepository
+end
 
-controller -> jobService : createJobOpening(data)
-activate jobService
+CreateJobOpeningUI -> CreateJobOpeningController : gather job opening details
+CreateJobOpeningController -> CreateJobOpeningController : validate inputs
 
-jobService -> jobOpening : new JobOpening(jobReference, jobTitle, jobState, contractType, mode, description, address, numberOfVacancies)
-activate jobOpening
-jobOpening --> jobService : jobOpening
-deactivate jobOpening
+CreateJobOpeningController -> JobOpeningRepository : nextJobNumber(customerCode)
+activate JobOpeningRepository
+JobOpeningRepository --> CreateJobOpeningController : job number
+deactivate JobOpeningRepository
 
-jobService -> jobRepo : save(jobOpening)
-activate jobRepo
-jobRepo --> jobService : jobOpening
-deactivate jobRepo
+CreateJobOpeningController -> JobOpening : new JobOpening(parameters)
+activate JobOpening
+JobOpening --> CreateJobOpeningController : job opening instance
+deactivate JobOpening
 
-jobService --> controller : jobOpening
-deactivate jobService
+CreateJobOpeningController -> JobOpeningRepository : save(JobOpening)
+activate JobOpeningRepository
+JobOpeningRepository --> CreateJobOpeningController : confirmation
+deactivate JobOpeningRepository
 
-controller --> UI : displaySuccess(jobOpening)
-deactivate controller
+CreateJobOpeningController --> CreateJobOpeningUI : display result
+deactivate CreateJobOpeningController
 
-UI -> Recruiter : showResult()
-
-deactivate UI
-
+CreateJobOpeningUI --> User : display result
+deactivate CreateJobOpeningUI
 @enduml

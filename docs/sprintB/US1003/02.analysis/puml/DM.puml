@@ -1,0 +1,41 @@
+package JobOpeningAgg #bbaabb {
+    class JobOpening<<Root>><<Entity>>
+    class JobReference<<Value Object>><<Id>>
+    class NrVacancies<<Value Object>>
+    class JobOpeningTitle<<Value Object>>
+    class ContractType<<Value Object>>
+    class Description<<Value Object>>
+    class Address<<Value Object>>
+    class JobMode<<Value Object>>
+    class JobState<<Enum>><<Value Object>>
+    class StartDate<<Value Object>>
+
+    class Phase<<Entity>>
+    class PhaseName<<Enum>><<Id>>
+    class JobActiveSinceDate<<Value Object>>
+    class EndDate<<Value Object>>
+    class Status <<Value Object>>
+    class RecruitmentProcess<<Entity>>
+
+
+    JobOpening "1" --> "1" JobReference
+    JobOpening "1" --> "1" NrVacancies
+    JobOpening "1" --> "1" JobOpeningTitle
+    JobOpening "1" --> "1" ContractType
+    JobOpening "1" --> "1" Description
+    JobOpening "1" --> "1" Address
+    JobOpening "1" --> "1" JobMode
+    JobOpening "1" --> "1" JobState
+    JobOpening "1" --> "1" JobActiveSinceDate
+    JobOpening "1" --> "0..1" RecruitmentProcess
+
+    JobOpening "1..*"--> "1" Costumer : Refers to
+
+    
+    Phase "1" --> "1" PhaseName
+    Phase "1" --> "1" StartDate
+    Phase "1" --> "1" EndDate
+    Phase "1" --> "1" Status
+
+    RecruitmentProcess "1"-->"4..5" Phase : Is separated into 
+}
