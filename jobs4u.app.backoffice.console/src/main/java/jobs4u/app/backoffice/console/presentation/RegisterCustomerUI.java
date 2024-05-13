@@ -15,6 +15,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.security.SecureRandom;
 import java.text.Normalizer;
 
 public class RegisterCustomerUI extends AbstractUI {
@@ -29,7 +30,7 @@ public class RegisterCustomerUI extends AbstractUI {
             SystemUser customerManager = theController.getLoggedInUser();
             final String username = Console.readNonEmptyLine("Enter Username: ", "Username cannot be empty");
             printSeparator();
-            final String password = Console.readNonEmptyLine("Enter Password: ", "Password cannot be empty");
+            // final String password = Console.readNonEmptyLine("Enter Password: ", "Password cannot be empty");
             printSeparator();
             String firstName = Console.readNonEmptyLine("Enter First Name: ", "First name cannot be empty");
 
@@ -57,6 +58,8 @@ public class RegisterCustomerUI extends AbstractUI {
             Address address = new Address(customerStreet, customerCity, costumerPostalCode);
             CustomerName name = new CustomerName(customerName);
 
+            String password = generateSecurePassword();
+
             theController.registerCustomer(username, password, firstName, lastName, email, code, number,
                     customerManager);
             System.out.println("\nCustomer registered with success!\n");
@@ -72,6 +75,18 @@ public class RegisterCustomerUI extends AbstractUI {
             }
             return false;
         }
+    }
+
+    
+    private String generateSecurePassword() {
+        int length = 10; // Or any length based on security requirements
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#&*";
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            password.append(allowedChars.charAt(random.nextInt(allowedChars.length())));
+        }
+        return password.toString();
     }
 
     private void printSeparator() {
