@@ -46,6 +46,6 @@ deactivate JobOpeningRepository
 CreateJobOpeningController --> CreateJobOpeningUI : display result
 deactivate CreateJobOpeningController
 
-CreateJobOpeningUI --> User : display result
+CreateJobOpeningUI --> CustomManager : display result
 deactivate CreateJobOpeningUI
 @enduml
