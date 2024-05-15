@@ -54,7 +54,7 @@ public class AddUserController {
     public SystemUser addUser(final String username, final String password, final String firstName,
             final String lastName,
             final String email, final Set<Role> roles, final Calendar createdOn) {
-        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR);
 
         return userSvc.registerNewUser(username, password, firstName, lastName, email, roles,
                 createdOn);

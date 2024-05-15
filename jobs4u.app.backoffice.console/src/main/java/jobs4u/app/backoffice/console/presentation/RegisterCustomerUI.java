@@ -30,7 +30,7 @@ public class RegisterCustomerUI extends AbstractUI {
             SystemUser customerManager = theController.getLoggedInUser();
             final String username = Console.readNonEmptyLine("Enter Username: ", "Username cannot be empty");
             printSeparator();
-            // final String password = Console.readNonEmptyLine("Enter Password: ", "Password cannot be empty");
+            final String password = Console.readNonEmptyLine("Enter Password: ", "Password cannot be empty");
             printSeparator();
             String firstName = Console.readNonEmptyLine("Enter First Name: ", "First name cannot be empty");
 
@@ -58,12 +58,15 @@ public class RegisterCustomerUI extends AbstractUI {
             Address address = new Address(customerStreet, customerCity, costumerPostalCode);
             CustomerName name = new CustomerName(customerName);
 
-            final String password = generateSecurePassword();
+            //final String password = generateSecurePassword();
 
-            theController.registerCustomer(username, password, firstName, lastName, email, code, number,
+            theController.registerCustomerRepresentative(username, password, firstName, lastName, email, code, number,
                     customerManager);
-            System.out.println("\nCustomer registered with success!\n");
+            System.out.println("\nCustomer Representative registered with success!\n");
             System.out.println(customerManager.toString());
+
+            theController.registerCustomer(code, address, name);
+            System.out.println("\nCustomer registered with success!\n");
 
             return false;
         } catch (IllegalArgumentException e) {

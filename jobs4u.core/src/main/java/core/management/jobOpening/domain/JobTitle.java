@@ -23,5 +23,10 @@ public class JobTitle implements ValueObject {
     public static JobTitle valueOf(String jobTitle) {
         return new JobTitle(jobTitle);
     }
+
+    @Override
+    public String toString() {
+        return jobTitle;
+    }
 }
 

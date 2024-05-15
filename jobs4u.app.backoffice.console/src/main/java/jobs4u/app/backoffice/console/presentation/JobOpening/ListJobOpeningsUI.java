@@ -39,6 +39,7 @@ public class ListJobOpeningsUI extends AbstractListUI<JobOpening> {
 
     @Override
     protected String listHeader() {
-        return String.format("%-10s %-20s %-15s", "ID", "Title", "Location");
+        return String.format("#  %-15s %-20s %-15s %-15s %-10s %-30s %-30s %-10s %-15s",
+                "Job Reference", "Job Title", "Job State", "Contract Type", "Mode", "Description", "Address", "Vacancies", "Active Since");
     }
 }

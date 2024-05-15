@@ -1,4 +1,8 @@
+@startuml
+
 actor Admin
 
 Admin -> System: 5. Requests to view all users
 System --> Admin: 5.1 Displays list of all users with current status
+
+@enduml

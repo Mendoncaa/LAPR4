@@ -2,7 +2,7 @@
 
 title Customer Registration Process
 
-actor "User" as user
+actor "CustomerManager" as user
 participant "UI : RegisterCustomerUI" as UI
 participant "Controller : RegisterCustomerController" as controller
 participant "Service : AddUserController" as userService
@@ -14,7 +14,7 @@ participant "CustomerRepresentative" as customerRep
 user -> UI : show()
 activate UI
 
-UI -> UI : getUserInput()
+UI -> UI : User Input
 
 UI -> controller : registerCustomer(userData, customerData, phoneNumber)
 activate controller

@@ -17,7 +17,7 @@ UI --> Operator: Displays form for candidate details (readLine)
 Operator -> UI: Enters candidate's details (username, password, first name, last name, email, phone)
 
 ' Step 3: UI sends candidate details to the controller
-UI -> AC: sendCandidateDetails (username, password, firstName, lastName, email, phone)
+UI -> AC: addUser(username, password, firstName, lastName, email, roleTypes)
 
 ' Step 4: Controller verifies authorization
 AC -> Authz: ensureAuthenticatedUserHasAnyOf (ExemploRoles)
@@ -27,8 +27,15 @@ Authz --> AC: Authorization confirmed
 AC -> UMS: registerNewUser (username, password, firstName, lastName, email, roles)
 UMS --> AC: SystemUser created
 
+AC --> UI: confirmUserCreation (SystemUser, username, password, firstName, lastName, email, roles)
+
 ' Step 6: Controller creates a new candidate
-AC -> CR: saveNewCandidate (candidate, phone, email, fullName)
+UI -> AC: addCandidate(candidate, phone, email, firstName, lastName)
+
+AC -> Authz: ensureAuthenticatedUserHasAnyOf (ExemploRoles)
+Authz --> AC: Authorization confirmed
+
+AC -> CR: save (new Candidate)
 
 ' Step 7: Candidate added to the repository
 CR --> AC: save (new Candidate)

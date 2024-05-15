@@ -1,10 +1,9 @@
 package core.management.costumer.application.controller;
 
-import core.management.costumer.domain.Customer;
-import core.management.costumer.domain.CustomerCode;
-import core.management.costumer.domain.CustomerRepresentative;
-import core.management.costumer.domain.PhoneNumber;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.costumer.domain.*;
 import core.management.costumer.builder.CustomerBuilder;
+import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.user.application.AddUserController;
 import core.management.user.domain.ExemploRoles;
@@ -23,6 +22,8 @@ public class RegisterCustomerController {
     private final AddUserController addUserController = new AddUserController();
 
     private final CustomerRepresentativeRepository customerRepresentativeRepository;
+
+    private final CustomerRepository customerRepository = PersistenceContext.repositories().customer();
    
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CustomerBuilder customerBuilder;
@@ -38,7 +39,7 @@ public class RegisterCustomerController {
         return authz.session().get().authenticatedUser();
     }
 
-    public CustomerRepresentative registerCustomer(String username, String pwd, String firstName, String lastName, String email, CustomerCode customerCode, PhoneNumber phoneNumber, SystemUser customerManager) {
+    public CustomerRepresentative registerCustomerRepresentative(String username, String pwd, String firstName, String lastName, String email, CustomerCode customerCode, PhoneNumber phoneNumber, SystemUser customerManager) {
         Set<Role> roles = Set.of(ExemploRoles.CUSTOMER);
         SystemUser systemUser = addUserController.addUser(username, pwd, firstName, lastName, email, roles);
 
@@ -54,5 +55,10 @@ public class RegisterCustomerController {
 
         CustomerRepresentative newCustomer = builder.build();
         return customerRepresentativeRepository.save(newCustomer);
+    }
+
+    public Customer registerCustomer(CustomerCode code, Address address, CustomerName name){
+        Customer customer = new Customer(code, address, name);
+        return customerRepository.save(customer);
     }
 }

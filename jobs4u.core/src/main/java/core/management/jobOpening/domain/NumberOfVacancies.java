@@ -19,4 +19,9 @@ public class NumberOfVacancies implements ValueObject {
     protected NumberOfVacancies() {
         this.number = -1;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
 }

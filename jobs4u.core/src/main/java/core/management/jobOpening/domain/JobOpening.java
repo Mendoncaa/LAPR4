@@ -30,7 +30,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(nullable = false)
     private JobState jobState;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ContractType contractType;
 
@@ -51,15 +51,15 @@ public class JobOpening implements AggregateRoot<JobReference> {
     private NumberOfVacancies numberOfVacancies;
 
     @Setter
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "recruitmentProcessId")
     private RecruitmentProcess recruitmentProcess;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "requirementsSpecificationsId")
     private RequirementsSpecification requirementsSpecification;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "interviewModelId")
     private InterviewModel interviewModel;
 

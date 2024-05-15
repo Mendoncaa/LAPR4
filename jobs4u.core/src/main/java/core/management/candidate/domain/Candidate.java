@@ -15,7 +15,7 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
     // Getters for all fields
     @EmbeddedId
     @Column(unique = true, nullable = false)
-    private CandidateEmail candidateEmail;
+    private CandidateEmail candidateEmail; //mudar para so email pois n tem regras especificas
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -38,7 +38,7 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.candidateEmail = candidateEmail;
-        this.candidateState = candidateState;
+        this.candidateState = candidateState; //nao receber candidate state, ser criado aqui
         this.candidateName = candidateName;
         this.candidatePhone = candidatePhone;
         this.candidateUser = candidateUser;

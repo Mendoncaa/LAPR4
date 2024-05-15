@@ -2,7 +2,9 @@ package core.management.costumer.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public class Address implements ValueObject {
     private final String street;
     private final String city;
@@ -12,6 +14,12 @@ public class Address implements ValueObject {
         this.street = street;
         this.city = city;
         this.postalCode = postalCode;
+    }
+
+    public Address() {
+        street = "";
+        city = "";
+        postalCode = "";
     }
 
     public static Address valueOf(String street, String city, String postalCode) {

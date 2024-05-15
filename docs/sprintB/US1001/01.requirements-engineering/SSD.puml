@@ -1,17 +1,17 @@
 @startuml
 title SSD - Customer Registration Process
 
-actor "User" as user
+actor "CustomerManager" as CustomerManager
 
-user -> ":System": Requests to register as a customer
-":System" --> user: Displays registration form
+CustomerManager -> ":System": Requests to register as a customer
+":System" --> CustomerManager: Displays registration form
 
-user -> ":System": Submits filled form with personal and customer details
-":System" --> user: Validates input data
-":System" --> user: Asks for confirmation to proceed
-user -> ":System": Confirms registration details
+CustomerManager -> ":System": Submits filled form with personal and customer details
+":System" --> CustomerManager: Validates input data
+":System" --> CustomerManager: Asks for confirmation to proceed
+CustomerManager -> ":System": Confirms registration details
 
-":System" --> user: Registers the customer
-":System" --> user: Displays success or error message based on the outcome
+":System" --> CustomerManager: Registers the customer
+":System" --> CustomerManager: Displays success or error message based on the outcome
 
 @enduml

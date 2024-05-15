@@ -64,8 +64,14 @@ class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReferen
 
 	@Override
 	public int nextJobNumber(String customerCode) {
-		final Map<String, Object> params = new HashMap<>();
-		params.put("customerCode", customerCode);
-		return match("e.customerCode=:customerCode", params).size() + 1;
+		int count = 1;
+		System.out.println("chegou aqui");
+		List<JobOpening> list = createQuery("SELECT e FROM JobOpening e", JobOpening.class).getResultList();
+		for(JobOpening job : list) {
+			if(job.getJobReference().getCustomerCode().equals(customerCode)) {
+				count++;
+			}
+		}
+		return count;
 	}
 }

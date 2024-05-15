@@ -147,6 +147,11 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(ADMIN_CANDIDATE_OPTION, candidatesMenu);
+			final var requirementsSpecificationMenu = buildRequirementsSpecMenu();
+			mainMenu.addSubMenu(6, requirementsSpecificationMenu);
+			final var interviewModelMenu = buildInterviewModelMenu();
+			mainMenu.addSubMenu(7, interviewModelMenu);
+
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
 			final var customersMenu = buildCustomersMenu();
@@ -159,6 +164,7 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(5, requirementsSpecificationMenu);
 			final var interviewModelMenu = buildInterviewModelMenu();
 			mainMenu.addSubMenu(6, interviewModelMenu);
+
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
 			final var candidatesMenu = buildCandidatesMenu();
