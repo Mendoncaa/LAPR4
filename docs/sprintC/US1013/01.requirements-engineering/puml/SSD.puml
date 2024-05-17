@@ -1,0 +1,15 @@
+@startuml
+
+title System Sequence Diagram (SSD) - Place an Order
+
+actor "Customer" as U
+participant ":System" as S
+
+U -> S : Requests to place an order
+S -> U : Asks for order details
+U --> S : Provides order details
+
+S -> U : Order placed successfully
+S -> U : Error message (if order placement fails)
+
+@enduml

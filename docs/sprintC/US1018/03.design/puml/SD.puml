@@ -1,0 +1,19 @@
+@startuml SequenceDiagram
+actor Customer
+boundary UI
+control OrderController
+entity OrderService
+entity OrderRepository
+entity PaymentService
+
+Customer -> UI: placeOrder()
+UI -> OrderController: placeOrder()
+OrderController -> OrderService: createOrder()
+OrderService -> OrderRepository: saveOrder()
+OrderRepository --> OrderService: orderSaved()
+OrderService -> PaymentService: processPayment()
+PaymentService --> OrderService: paymentConfirmed()
+OrderService --> OrderController: orderCreated()
+OrderController --> UI: orderConfirmation()
+UI --> Customer: displayConfirmation()
+@enduml

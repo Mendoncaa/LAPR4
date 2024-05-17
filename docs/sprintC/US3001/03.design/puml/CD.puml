@@ -1,0 +1,49 @@
+@startuml ClassDiagram
+package Controller {
+    class OrderController {
+        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
+    }
+}
+
+package Service {
+    class OrderService {
+        +createOrder(orderDetails: OrderDetails): Order
+        +processPayment(order: Order): PaymentConfirmation
+    }
+}
+
+package Repository {
+    class OrderRepository {
+        +saveOrder(order: Order): void
+    }
+}
+
+package Model {
+    class Order {
+        +id: int
+        +orderDate: Date
+        +addItem(item: OrderItem): void
+    }
+
+    class OrderItem {
+        +quantity: int
+        +price: float
+    }
+
+    class Payment {
+        +amount: float
+        +paymentDate: Date
+    }
+
+    class User {
+        +id: int
+        +username: String
+        +email: String
+    }
+}
+
+OrderController --> OrderService
+OrderService --> OrderRepository
+OrderService --> Order
+Order --> OrderItem
+@enduml

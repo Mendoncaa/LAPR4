@@ -1,0 +1,27 @@
+@startuml DomainModel
+class User {
+    +id: int
+    +username: String
+    +email: String
+}
+
+class Product {
+    +id: int
+    +name: String
+    +price: float
+}
+
+class Order {
+    +id: int
+    +orderDate: Date
+}
+
+class OrderItem {
+    +quantity: int
+    +price: float
+}
+
+User "1" -- "0..*" Order : places
+Order "1" -- "1..*" OrderItem : contains
+OrderItem "0..*" -- "1" Product : includes
+@enduml
