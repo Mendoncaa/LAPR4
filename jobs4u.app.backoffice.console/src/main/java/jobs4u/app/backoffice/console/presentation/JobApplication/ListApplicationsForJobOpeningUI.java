@@ -42,9 +42,12 @@ public class ListApplicationsForJobOpeningUI extends AbstractUI {
                     System.out.println("No applications found for the selected job opening.");
                     return false;
                 }
-                System.out.println("Applications for the selected job opening:");
+                System.out.println("-------------------------------------------------");
+                System.out.printf("#   %-15s %-20s %-10s\n", "Job Reference", "Candidate Name", "Status");
+                int count = 1;
+
                 for (jobApplication application : applications) {
-                    System.out.println(application.toString());
+                    System.out.printf("%-3s %-15s %-20s %-10s\n",count, application.getJobOpening().getJobReference().toString(), application.getCandidate().getCandidateName().toString(), application.getStatus());
                 }
             } catch (IntegrityViolationException | ConcurrencyException ex) {
                 LOGGER.error("Error performing the operation", ex);

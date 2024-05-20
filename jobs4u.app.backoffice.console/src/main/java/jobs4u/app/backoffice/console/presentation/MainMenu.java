@@ -226,7 +226,7 @@ public class MainMenu extends AbstractUI {
 
 		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new RegisterApplicationAction());
 
-		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
 			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
 		}
 

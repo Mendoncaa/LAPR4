@@ -77,8 +77,7 @@ public class AddCandidateController {
         CandidateEmail candidateEmail = new CandidateEmail(email);
         CandidateName candidateName = new CandidateName(firstName, lastName);
         CandidatePhone candidatePhone = new CandidatePhone(phone);
-        CandidateState candidateState = CandidateState.ENABLED;
 
-        candidateRepository.save(new Candidate(candidateEmail, candidateState, candidateName, candidatePhone, candidate));
+        candidateRepository.save(new Candidate(candidateEmail, candidateName, candidatePhone, candidate));
     }
 }

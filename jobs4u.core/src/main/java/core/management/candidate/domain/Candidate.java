@@ -33,12 +33,12 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
     @JoinColumn(name = "system_user_id")
     private SystemUser candidateUser;
 
-    public Candidate(CandidateEmail candidateEmail, CandidateState candidateState, CandidateName candidateName, CandidatePhone candidatePhone, SystemUser candidateUser) {
-        if (candidateEmail == null || candidateState == null || candidateName == null || candidatePhone == null || candidateUser == null) {
+    public Candidate(CandidateEmail candidateEmail, CandidateName candidateName, CandidatePhone candidatePhone, SystemUser candidateUser) {
+        if (candidateEmail == null || candidateName == null || candidatePhone == null || candidateUser == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.candidateEmail = candidateEmail;
-        this.candidateState = candidateState; //nao receber candidate state, ser criado aqui
+        this.candidateState = CandidateState.ENABLED; //nao receber candidate state, ser criado aqui
         this.candidateName = candidateName;
         this.candidatePhone = candidatePhone;
         this.candidateUser = candidateUser;

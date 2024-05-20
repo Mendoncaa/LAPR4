@@ -34,21 +34,27 @@ public class ApplicationService {
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final UserManagementService userSvc = AuthzRegistry.userService();
 
-    public void processApplicationFiles(String directoryPath) throws IOException {
-        List<File> files = Files.list(Paths.get(directoryPath))
+    public void processApplicationFiles(String reference, String path, String applicationId) throws IOException {
+        Path jobOpeningPath = Paths.get(path, reference);
+        Path selectedApplicationPath = jobOpeningPath.resolve(applicationId);
+        List<File> files = Files.list(selectedApplicationPath)
                                 .map(Path::toFile)
                                 .collect(Collectors.toList());
 
+        String[] parts = reference.split("-");
+        JobReference jobReference = new JobReference(parts[0], Integer.parseInt(parts[1]));
+
         for (File file : files) {
             String fileName = file.getName();
-            String[] parts = fileName.split("-");
-            JobReference jobReference = new JobReference(parts[0]);
-            JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobReference)
-                .orElseThrow(() -> new IllegalArgumentException("No job opening found for the given job reference: " + jobReference));
-            Candidate candidate = extractCandidate(file);
+            if(fileName.endsWith("candidate-data.txt")){
+                JobOpening jobOpening = jobOpeningRepository.findByJobReference(jobReference)
+                        .orElseThrow(() -> new IllegalArgumentException("No job opening found for the given job reference: " + jobReference));
+                Candidate candidate = extractCandidate(file);
 
-            jobApplication application = new jobApplication(candidate, jobOpening);
-            applicationRepository.save(application);
+                jobApplication application = new jobApplication(candidate, jobOpening);
+                applicationRepository.save(application);
+            }
+
         }
     }
 
@@ -62,13 +68,11 @@ public class ApplicationService {
         CandidateEmail email = new CandidateEmail(lines[1].trim());
         CandidateName name = new CandidateName(lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim());
         CandidatePhone phone = new CandidatePhone(lines[3].trim());
-        CandidateState state = CandidateState.ENABLED;
         Set<Role> roles = Set.of(ExemploRoles.CANDIDATE);
 
         SystemUser candidate = userSvc.registerNewUser("candidate" + lines[2].split(" ")[0].trim(), "Password1", lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim(), lines[1].trim(), roles, CurrentTimeCalendars.now());
         
-        return candidateRepository.findByCandidateEmail(email)
-            .orElseGet(() -> candidateRepository.save(new Candidate(email, state, name, phone, candidate)));
+        return candidateRepository.save(new Candidate(email, name, phone, candidate));
     }
     
 }
