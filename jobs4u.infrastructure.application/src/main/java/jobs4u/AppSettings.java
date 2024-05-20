@@ -43,6 +43,7 @@ public class AppSettings {
 	private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
 	private static final String SCHEMA_GENERATION_KEY = "jakarta.persistence.schema-generation.database.action";
 	private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
+	private static final String PATH_TO_FILE_REPORT = "file.report";
 
 	private final Properties applicationProperties = new Properties();
 
@@ -70,6 +71,7 @@ public class AppSettings {
 		this.applicationProperties.setProperty(UI_MENU_LAYOUT_KEY, "horizontal");
 		this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "jobs4u_pu");
 		this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
+		this.applicationProperties.setProperty(PATH_TO_FILE_REPORT, "SCOMP/File_Report");
 	}
 
 	public Boolean isMenuLayoutHorizontal() {
@@ -82,6 +84,10 @@ public class AppSettings {
 
 	public String getRepositoryFactory() {
 		return this.applicationProperties.getProperty(REPOSITORY_FACTORY_KEY);
+	}
+
+	public String getPathToFileReport() {
+		return this.applicationProperties.getProperty(PATH_TO_FILE_REPORT);
 	}
 
 	public Integer getHighCaloriesDishLimit() {

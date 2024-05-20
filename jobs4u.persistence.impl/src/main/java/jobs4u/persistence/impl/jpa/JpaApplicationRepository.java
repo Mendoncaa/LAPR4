@@ -20,10 +20,10 @@
  */
 package jobs4u.persistence.impl.jpa;
 
+import core.management.candidate.domain.Candidate;
+import core.management.jobApplication.domain.jobApplication;
+import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
-import core.management.jobOpening.domain.JobReference;
-import core.management.jobOpening.domain.JobState;
-import core.management.jobOpening.repository.JobOpeningRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
@@ -31,46 +31,40 @@ import jobs4u.Application;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
-		implements JobOpeningRepository {
+class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long, Long>
+		implements ApplicationRepository {
 
-	public JpaJobOpeningRepository(final TransactionalContext autoTx) {
+	public JpaApplicationRepository(final TransactionalContext autoTx) {
 		super(autoTx, "username");
 	}
 
-	public JpaJobOpeningRepository(final String puname) {
+	public JpaApplicationRepository(final String puname) {
 		super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
 	}
 
 	@Override
-	public List<JobOpening> findAllByState(JobState jobState) {
+	public List<jobApplication> findAllByStatus(String status) {
 		final Map<String, Object> params = new HashMap<>();
-		params.put("jobState", jobState);
-		return match("e.jobState=:jobState", params);
+		params.put("status", status);
+		return (List<jobApplication>) match("e.status=:status", params);
 	}
 
 	@Override
-	public Optional<JobOpening> findByJobReference(final JobReference number) {
+	public List<jobApplication> findApplicationsByJobOpening(final JobOpening jobOpening) {
 		final Map<String, Object> params = new HashMap<>();
-		params.put("number", number);
-		return matchOne("e.jobReference=:number", params);
+		params.put("jobOpening", jobOpening);
+		return (List<jobApplication>) match("e.jobOpening=:jobOpening", params);
 	}
 
 	@Override
-	public int nextJobNumber(String customerCode) {
-		int count = 1;
-		List<JobOpening> list = createQuery("SELECT e FROM JobOpening e", JobOpening.class).getResultList();
-		for(JobOpening job : list) {
-			if(job.getJobReference().getCustomerCode().equals(customerCode)) {
-				count++;
-			}
-		}
-		return count;
+	public List<jobApplication> findApplicationsByCandidate(final Candidate candidate) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("candidate", candidate);
+		return (List<jobApplication>) match("e.candidate=:candidate", params);
 	}
 }

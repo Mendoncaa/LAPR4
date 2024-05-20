@@ -1,45 +1,65 @@
-/*package jobs4u.app.backoffice.console.presentation.JobApplication;
+package jobs4u.app.backoffice.console.presentation.JobApplication;
 
 import core.management.jobApplication.application.controller.ListApplicationsForJobOpeningController;
+import core.management.jobApplication.domain.jobApplication;
+import core.management.jobOpening.controller.ListJobOpeningsController;
+import core.management.jobOpening.domain.JobOpening;
+import core.utentemanagement.domain.SignupRequest;
+import eapli.framework.domain.repositories.ConcurrencyException;
+import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractListUI;
+import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
 import eapli.framework.visitor.Visitor;
-import jobs4u.Application;
+import jobs4u.app.backoffice.console.presentation.JobOpening.JobOpeningPrinter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ListApplicationsForJobOpeningUI extends AbstractListUI<Application> {
+import java.util.List;
+
+public class ListApplicationsForJobOpeningUI extends AbstractUI {
 
     private final ListApplicationsForJobOpeningController theController = new ListApplicationsForJobOpeningController();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListApplicationsForJobOpeningUI.class);
+    private final ListJobOpeningsController jobOpeningsController = new ListJobOpeningsController();
+
+    @Override
+    protected boolean doShow() {
+        List<JobOpening> JobOpenings = (List<JobOpening>) this.jobOpeningsController.allJobOpenings();
+        if (JobOpenings.isEmpty()) {
+            System.out.println("No job openings found.");
+            return false;
+        }
+        final SelectWidget<JobOpening> selector = new SelectWidget<>("Select JobOpening",
+                this.jobOpeningsController.allJobOpenings(), new JobOpeningPrinter());
+        selector.show();
+        final JobOpening jobOpening = selector.selectedElement();
+        if (jobOpening != null) {
+            try {
+                List<jobApplication> applications = (List<jobApplication>) theController.applicationsForJob(jobOpening);
+                if (applications.isEmpty()) {
+                    System.out.println("No applications found for the selected job opening.");
+                    return false;
+                }
+                System.out.println("Applications for the selected job opening:");
+                for (jobApplication application : applications) {
+                    System.out.println(application.toString());
+                }
+            } catch (IntegrityViolationException | ConcurrencyException ex) {
+                LOGGER.error("Error performing the operation", ex);
+                System.out.println(
+                        "Unfortunatelly there was an unexpected error in the application. Please try again and if the problem persists, contact your system admnistrator.");
+            }
+        }
+        return false;
+    }
 
     @Override
     public String headline() {
         return "List Applications for Job Opening";
     }
 
-    @Override
-    protected String emptyMessage() {
-        return "No applications found.";
-    }
-
-    @Override
-    protected Iterable<Application> elements() {
-        String jobReference = Console.readLine("Enter Job Reference ID to list applications:");
-        return theController.applicationsForJob(jobReference);
-    }
-
-    @Override
-    protected Visitor<Application> elementPrinter() {
-        return new ApplicationPrinter();
-    }
-
-    @Override
-    protected String elementName() {
-        return "Application";
-    }
-
-    @Override
-    protected String listHeader() {
-        return String.format("%-10s %-20s %-15s", "App ID", "Applicant Name", "Status");
-    }
 }
-*/
+
 

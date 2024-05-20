@@ -1,12 +1,13 @@
 package core.management.jobApplication.application.service;
 
+import core.infrastructure.persistence.PersistenceContext;
 import core.management.candidate.domain.Candidate;
 import core.management.candidate.domain.CandidateEmail;
 import core.management.candidate.domain.CandidateName;
 import core.management.candidate.domain.CandidatePhone;
 import core.management.candidate.domain.CandidateState;
 import core.management.candidate.repository.CandidateRepository;
-import core.management.jobApplication.domain.Application;
+import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
@@ -28,18 +29,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ApplicationService {
-    private final ApplicationRepository applicationRepository;
-    private final CandidateRepository candidateRepository;
-    private final JobOpeningRepository jobOpeningRepository;
+    private final ApplicationRepository applicationRepository = PersistenceContext.repositories().application();
+    private final CandidateRepository candidateRepository = PersistenceContext.repositories().candidate();
+    private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
     private final UserManagementService userSvc = AuthzRegistry.userService();
-
-    public ApplicationService(ApplicationRepository applicationRepository,
-                              CandidateRepository candidateRepository,
-                              JobOpeningRepository jobOpeningRepository) {
-        this.applicationRepository = applicationRepository;
-        this.candidateRepository = candidateRepository;
-        this.jobOpeningRepository = jobOpeningRepository;
-    }
 
     public void processApplicationFiles(String directoryPath) throws IOException {
         List<File> files = Files.list(Paths.get(directoryPath))
@@ -54,7 +47,7 @@ public class ApplicationService {
                 .orElseThrow(() -> new IllegalArgumentException("No job opening found for the given job reference: " + jobReference));
             Candidate candidate = extractCandidate(file);
 
-            Application application = new Application(candidate, jobOpening);
+            jobApplication application = new jobApplication(candidate, jobOpening);
             applicationRepository.save(application);
         }
     }

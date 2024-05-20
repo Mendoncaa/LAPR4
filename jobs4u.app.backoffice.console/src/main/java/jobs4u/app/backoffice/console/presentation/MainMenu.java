@@ -27,6 +27,8 @@ import eapli.framework.presentation.console.ShowMessageAction;
 import jobs4u.Application;
 import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
+import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
+import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
@@ -77,7 +79,7 @@ public class MainMenu extends AbstractUI {
 	// JOB OPENING
 	private static final int CREATE_JOBOPENING_OPTION = 1;
 	private static final int LIST_JOBOPENINGS_OPTION = 2;
-	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 3;
+	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 2;
 	private static final int SETUP_JOBOPENING_PHASES_OPTION = 4;
 
 	// JOB APPLICATION
@@ -151,6 +153,8 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(6, requirementsSpecificationMenu);
 			final var interviewModelMenu = buildInterviewModelMenu();
 			mainMenu.addSubMenu(7, interviewModelMenu);
+			final var applicationsMenu = buildJobApplicationMenu();
+			mainMenu.addSubMenu(8, applicationsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
@@ -164,11 +168,15 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(5, requirementsSpecificationMenu);
 			final var interviewModelMenu = buildInterviewModelMenu();
 			mainMenu.addSubMenu(6, interviewModelMenu);
+			final var applicationsMenu = buildJobApplicationMenu();
+			mainMenu.addSubMenu(7, applicationsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(OP_CANDIDATE_OPTION, candidatesMenu);
+			final var applicationsMenu = buildJobApplicationMenu();
+			mainMenu.addSubMenu(3, applicationsMenu);
 		}
 
 		if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -207,7 +215,6 @@ public class MainMenu extends AbstractUI {
 
 		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new CreateJobOpeningAction());
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
-		menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ShowMessageAction("Not implemented yet")); //new ListApplicationsForJobOpeningAction());
 		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
@@ -217,7 +224,12 @@ public class MainMenu extends AbstractUI {
 	private Menu buildJobApplicationMenu() {
 		final var menu = new Menu("JobApplication >");
 
-		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new AddUserAction());
+		menu.addItem(REGISTER_JOBAPPLICATION_OPTION, "Register Job Application", new RegisterApplicationAction());
+
+		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
+			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
+		}
+
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

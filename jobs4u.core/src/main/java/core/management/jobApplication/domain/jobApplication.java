@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "applications") // Define o nome da tabela explicitamente
-public class Application implements AggregateRoot<Long> {
+public class jobApplication implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,8 +20,8 @@ public class Application implements AggregateRoot<Long> {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "job_opening_id1", nullable = false),
-            @JoinColumn(name = "job_opening_id2", nullable = false)
+            @JoinColumn(name = "job_reference_customerCode", nullable = false),
+            @JoinColumn(name = "job_reference_jobNumber", nullable = false)
     })
     private JobOpening jobOpening;
 
@@ -29,14 +29,14 @@ public class Application implements AggregateRoot<Long> {
     private String status; // O status da aplicação
 
     // Construtor com argumentos essenciais
-    public Application(Candidate candidate, JobOpening jobOpening) {
+    public jobApplication(Candidate candidate, JobOpening jobOpening) {
         this.candidate = candidate;
         this.jobOpening = jobOpening;
         this.status = "Pending"; // O status inicial é sempre "Pendente"
     }
 
     // Construtor protegido para JPA
-    protected Application() {
+    protected jobApplication() {
     }
 
     public void approve() {
@@ -50,7 +50,7 @@ public class Application implements AggregateRoot<Long> {
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
-        if (!(other instanceof Application that)) return false;
+        if (!(other instanceof jobApplication that)) return false;
         return this.id != null && this.id.equals(that.id);
     }
 

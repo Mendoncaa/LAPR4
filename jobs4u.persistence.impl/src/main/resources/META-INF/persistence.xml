@@ -18,7 +18,7 @@
     <class>core.management.costumer.domain.Customer</class>
     <class>core.management.costumer.domain.CustomerRepresentative</class>
     <class>core.management.candidate.domain.Candidate</class>
-    <class>core.management.jobApplication.domain.Application</class>
+    <class>core.management.jobApplication.domain.jobApplication</class>
     <class>core.management.plugins.interviewModel.domain.InterviewModel</class>
     <class>core.management.plugins.requirementsSpecifications.domain.RequirementsSpecification</class>
 

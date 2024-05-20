@@ -1,30 +1,29 @@
-package jobs4u.app.backoffice.console.presentation;
+package jobs4u.app.backoffice.console.presentation.JobApplication;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import core.management.jobApplication.application.controller.RegisterApplicationController;
 import core.management.jobOpening.controller.ListJobOpeningsController;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.io.util.Console;
+import jobs4u.Application;
 
 public class RegisterApplicationUI extends AbstractUI {
 
-    private final RegisterApplicationController theController;
-    private final ListJobOpeningsController jobOpeningController;
-
-    public RegisterApplicationUI(RegisterApplicationController theController, ListJobOpeningsController jobOpeningController) {
-        this.theController = theController;
-        this.jobOpeningController = jobOpeningController;
-    }
+    private final RegisterApplicationController theController = new RegisterApplicationController();
+    private final ListJobOpeningsController jobOpeningController = new ListJobOpeningsController();
 
     @Override
     protected boolean doShow() {
@@ -35,7 +34,7 @@ public class RegisterApplicationUI extends AbstractUI {
         jobOpenings.forEach(job -> System.out.println(job.getJobReference().toString()));
 
         String selectedJobRef = Console.readLine("Enter the Job Reference from the above list:");
-        Path jobOpeningPath = Paths.get("SCOMP/File_Report", selectedJobRef);
+        Path jobOpeningPath = Paths.get("SCOMP/File_Report/" + selectedJobRef + "/1/1-candidate-data.txt");
 
         if (!Files.exists(jobOpeningPath) || !Files.isDirectory(jobOpeningPath)) {
             System.out.println("Invalid Job Reference or no applications found for the selected reference.");
