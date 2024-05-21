@@ -1,15 +1,23 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Place an Order
+title System Sequence Diagram (SSD) - Get an Ordered List of Candidates
 
-actor "Customer" as U
+actor "Customer Manager" as CM
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
+activate CM
 
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
+CM -> S : Requests an ordered list of candidates by interview points
+activate S
+S --> CM : Asks for the job opening identifier
+deactivate S
+
+
+CM -> S : Provides the job opening identifier
+activate S
+
+S --> CM : Returns the ordered list of candidates
+deactivate S
+
 
 @enduml
