@@ -9,11 +9,11 @@ activate CM
 
 CM -> S : Requests an ordered list of candidates by interview points
 activate S
-S --> CM : Asks for the job opening identifier
+S --> CM : Asks for the job reference
 deactivate S
 
 
-CM -> S : Provides the job opening identifier
+CM -> S : Provides the job reference
 activate S
 
 S --> CM : Returns the ordered list of candidates

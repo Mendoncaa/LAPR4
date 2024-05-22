@@ -1,27 +1,40 @@
-@startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
+@startuml
+'https://plantuml.com/class-diagram
+
+hide field
+hide methods
+
+title Domain Driven Design
+skinparam linetype wavy
+
+package CandidateAgg #aababb {
+    class Candidate<<Root>><<Entity>>
+    class Email<<Value Object>><<Id>>
+    class Name<<Value Object>>
 }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
+package ApplicationAgg #aaaabb {
+    class Application<<Root>><<Entity>>
+    class Interview<<Value Object>>
+    class InterviewGrade<<Value Object>>
+
+    Application "1" --> "0..1" Interview
+    Interview "1" --> "0..1" InterviewGrade
+    Application "1..*" --> "1" Candidate : Is submitted by
 }
 
-class Order {
-    +id: int
-    +orderDate: Date
+package JobOpeningAgg #bbaabb {
+    class JobOpening<<Root>><<Entity>>
+
+    Application "0..*" --> "1" JobOpening : Refers to
 }
 
-class OrderItem {
-    +quantity: int
-    +price: float
+package RankingAgg #abbabb {
+    class Rank<<Root>><<Entity>>
+    class RankID<<Value Object>><<Id>>
+
+    Rank "1"-->"1" JobOpening : Refers to
+    Rank "1"-->"*" Candidate : Is ordered by
 }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
 @enduml
