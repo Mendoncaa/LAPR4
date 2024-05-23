@@ -1,15 +1,12 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Place an Order
+title System Sequence Diagram (SSD) - List all my applications
 
-actor "Customer" as U
+actor "Candidate" as U
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
-
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
+U -> S : Requests to list all my applications
+S -> U : Receive the list of applications and their state
+S -> U : Error message (if something fails)
 
 @enduml
