@@ -1,15 +1,15 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Place an Order
+title System Sequence Diagram (SSD) - Open or Close Job Opening Phases
 
-actor "Customer" as U
+actor "Customer Manager" as CM
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
+CM -> S : Request to open/close phase
+S -> CM : Asks for details
+CM --> S : Provides details
 
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
+S -> CM : Phase changed successfully
+S -> CM : Error message (if phase change fails)
 
 @enduml

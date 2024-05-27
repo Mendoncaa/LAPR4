@@ -59,7 +59,7 @@ package JobOpeningAgg #bbaabb {
     class PhaseName<<Enum>><<Id>>
     class JobActiveSinceDate<<Value Object>>
     class EndDate<<Value Object>>
-    class Status <<Value Object>>
+    class Status <<Enum>>
     class RecruitmentProcess<<Entity>>
 
 
