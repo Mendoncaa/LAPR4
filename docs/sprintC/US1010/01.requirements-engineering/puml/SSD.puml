@@ -6,8 +6,12 @@ actor "Customer Manager" as CM
 participant ":System" as S
 
 CM -> S : Request to open/close phase
+
 S -> CM : Asks for details
-CM --> S : Provides details
+CM -> S : Provides details
+
+S -> CM : Asks for option
+CM -> S : Chooses an option
 
 S -> CM : Phase changed successfully
 S -> CM : Error message (if phase change fails)
