@@ -156,43 +156,15 @@ package ApplicationAgg #aaaabb {
 package RankingAgg #abbabb {
     class Rank<<Root>><<Entity>>
     class RankID<<Value Object>><<Id>>
+    class RankValue<<Value Object>>
 
     Rank "1" --> "1" RankID
+    Rank "1" --> "1" RankValue
 
     Rank "1"-->"1" JobOpening : Refers to
     Rank "1"-->"*" Candidate : Is ordered by
 }
 
-
-
 JobOpening "1"-->"0..1" RequirementsSpecification
 JobOpening "1"-->"0..1" InterviewModel
-
-
-
-
-/'
-
-class InterviewEvaluate<<Service>>
-
-InterviewEvaluate ..> InterviewModel
-InterviewEvaluate ..> Application : Generates Interview Evaluation
-
-
-
-class RequirementsEvaluate<<Service>>
-
-
-RequirementsEvaluate ..> Application: Generates Requirements Evaluation
-RequirementsEvaluate ..> RequirementsSpecification
-RequirementsEvaluate ..> JobOpening : Refers to
-
-class NotificationService<<Service>>
-
-NotificationService ..> Candidate : Notifies
-NotificationService ..> Costumer : Notifies
-NotificationService ..> Application : Gets verification result
-NotificationService ..> JobOpening : Gets job opening state
-'/
-
 @enduml
