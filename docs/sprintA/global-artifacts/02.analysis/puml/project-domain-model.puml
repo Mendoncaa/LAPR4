@@ -118,7 +118,6 @@ package ApplicationAgg #aaaabb {
     class FilePath<<Value Object>>
     class File<<Value Object>>
     class FileType<<Enum>>
-    class RequirementsAnswers<<Value Object>>
 
     class RejectionJustification<<Value Object>>
     class InterviewDateTime<<Value Object>>
@@ -126,18 +125,16 @@ package ApplicationAgg #aaaabb {
     class ApplicationState<<Entity>>
     class ApplicationStateName<<Enum>><<ID>>
 
-    class RequirementsEvaluation<<Value Object>>
+    class RequirementsEvaluation<<Enum>>
 
     class Interview<<Value Object>>
     class InterviewGrade<<Value Object>>
-    class InterviewAnswers<<Value Object>>
 
     Application "1" --> "1" ApplicationID
     Application "1" --> "1" ApplicationState
     ApplicationState "1" --> "1" ApplicationStateName
     ApplicationState "1" --> "0..1" RejectionJustification
     Application "1" --> "0..1" Interview
-    Application "1" --> "0..1" RequirementsAnswers
     Application "1" --> "*" File
 
     Application "1" --> "1" RequirementsEvaluation
@@ -147,7 +144,6 @@ package ApplicationAgg #aaaabb {
 
     
 
-    Interview "1" --> "0..1" InterviewAnswers
     Interview "1" --> "0..1" InterviewGrade
     Interview "1" --> "1" InterviewDateTime
 
