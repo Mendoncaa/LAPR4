@@ -8,6 +8,7 @@ package JobOpeningAgg {
     class RecruitmentProcess {
         +id: int
         +status: RecruitmentProcessStatus
+        +phases: List<Phase>
     }
 
     class Phase {
