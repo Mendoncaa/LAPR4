@@ -1,49 +1,100 @@
 @startuml ClassDiagram
+
 package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
+    class PhasesController {
+        - validatorService: PhaseValidatorService
+        - jobRepository: JobOpeningRepository
+        - recruitmentProcess: RecruitmentProcess
+        + validateJobReference(jobReference: JobReference): boolean
+        + validatePhaseTransition(): Iterable<String>
     }
 }
 
 package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
+    class PhaseValidatorService {
+        - applicationRepository: ApplicationRepository
+        - rankRepository: RankRepository
+        + validatePhaseTransition(): Iterable<String>
+        - validatePhaseTransitionForward(): boolean
+        - validatePhaseTransitionBackward(): boolean
     }
 }
 
 package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
+    class JobOpeningRepository {
+        + findJobOpeningByJobReference(jobReference: JobReference): JobOpening
+    }
+
+    class ApplicationRepository {
+        + countApplicationByJobReference(jobReference: JobReference): int
+        + countApplicationScreeningByJobReference(jobReference: JobReference): int
+        + countApplicationInterviewsByJobReference(jobReference: JobReference): int
+        + countApplicationResultByJobReference(jobReference: JobReference): int
+    }
+
+    class RankRepository {
+        + countRankByJobReference(jobReference: JobReference): int
     }
 }
 
 package Model {
-    class Order {
+    class JobReference {
+        +id: String
+    }
+
+    class RecruitmentProcess {
         +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
+        +status: RecruitmentProcessStatus
+        +phases: List<Phase>
+        + nextPhase(): void
+        + previousPhase(): void
     }
 
-    class OrderItem {
-        +quantity: int
-        +price: float
+    class Phase {
+        +name: PhaseName
+        +startDate: StartDate
+        +endDate: EndDate
+        +status: PhaseStatus
     }
 
-    class Payment {
-        +amount: float
-        +paymentDate: Date
+    enum PhaseName {
+        APPLICATION,
+        SCREENING,
+        INTERVIEWS,
+        ANALYSIS,
+        RESULT
     }
 
-    class User {
-        +id: int
-        +username: String
-        +email: String
+    class StartDate {
+        +date: Date
+    }
+
+    class EndDate {
+        +date: Date
+    }
+
+    enum PhaseStatus {
+        Open,
+        Closed
+    }
+
+    enum RecruitmentProcessStatus {
+        Uninitiated,
+        InProcess,
+        Finished
     }
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+PhasesController --> PhaseValidatorService
+PhasesController --> JobOpeningRepository
+PhaseValidatorService --> ApplicationRepository
+PhaseValidatorService --> RecruitmentProcess
+PhaseValidatorService --> RankRepository
+RecruitmentProcess --> Phase : "has"
+Phase --> PhaseName
+Phase --> StartDate
+Phase --> EndDate
+Phase --> PhaseStatus
+RecruitmentProcess --> RecruitmentProcessStatus
+
 @enduml
