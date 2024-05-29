@@ -6,17 +6,25 @@ entity PhaseValidatorService
 entity RecruitmentProcess
 entity JobOpeningRepository
 entity ApplicationRepository
+entity RankRepository
 
 CustomerManager -> PhasesUI: Insert JobReference
 PhasesUI -> PhasesController: Submit JobReference
 PhasesController -> JobOpeningRepository: Validate JobReference
 JobOpeningRepository --> PhasesController: JobReference validation result
 PhasesController -> PhaseValidatorService: Validate phase transition
-PhaseValidatorService -> ApplicationRepository: Check applications status
-ApplicationRepository --> PhaseValidatorService: Applications status
+
+alt Phase is for application check
+    PhaseValidatorService -> ApplicationRepository: Check applications status
+    ApplicationRepository --> PhaseValidatorService: Applications status
+else Phase is for rank check
+    PhaseValidatorService -> RankRepository: Check rank status
+    RankRepository --> PhaseValidatorService: Rank status
+end
+
 PhaseValidatorService --> PhasesController: Validation result
 PhasesController --> PhasesUI: Display transition options
-CustomerManager -> PhasesUI: Select action (open/close phase)
+CustomerManager -> PhasesUI: Select action
 PhasesUI -> PhasesController: Submit action
 PhasesController -> RecruitmentProcess: Update phase status
 RecruitmentProcess -> JobOpeningRepository: Save changes

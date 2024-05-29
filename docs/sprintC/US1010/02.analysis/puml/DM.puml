@@ -17,8 +17,12 @@ package JobOpeningAgg {
         +status: PhaseStatus
     }
 
-    class PhaseName {
-        +name: String
+    enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
     }
 
     class StartDate {
@@ -57,6 +61,7 @@ package JobApplicationAgg {
     }
 
     enum RequirementsEvaluation {
+        Pending
         Accepted
         Rejected
     }
@@ -79,5 +84,32 @@ package JobApplicationAgg {
     JobApplication --> JobOpening : Refers to
     Interview --> InterviewDateTime
     Interview --> InterviewGrade
+}
+
+package RankAgg {
+    class Rank {
+        +id: RankID
+        +rankValue: RankValue
+    }
+
+    class RankID {
+        +id: int
+    }
+
+    class RankValue {
+        +value: int
+    }
+
+    Rank --> RankID
+    Rank --> RankValue
+    Rank --> JobOpening : "Is assigned to"
+}
+
+package CandidateAgg {
+    class Candidate {
+        +id: CandidateEmail
+    }
+
+    Rank --> Candidate : "Is ranked by"
 }
 @enduml
