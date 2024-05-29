@@ -1,16 +1,83 @@
-@startuml
-package JobOpeningAgg #bbaabb {
-    class RecruitmentProcess<<Entity>>
-    class Phase<<Entity>>
-    class PhaseName<<Enum>><<Id>>
-    class StartDate<<Value Object>>
-    class EndDate<<Value Object>>
-    class Status <<Enum>>
+@startuml DomainModel
+package JobOpeningAgg {
 
-    RecruitmentProcess "1" --> "4..5" Phase : Is separated into
-    Phase "1" --> "1" PhaseName
-    Phase "1" --> "1" StartDate
-    Phase "1" --> "1" EndDate
-    Phase "1" --> "1" Status
+    class JobOpening {
+        +id: JobReference
+        +recruitmentProcess: RecruitmentProcess
+    }
+    class RecruitmentProcess {
+        +id: int
+        +status: RecruitmentProcessStatus
+    }
+
+    class Phase {
+        +id: PhaseName
+        +startDate: StartDate
+        +endDate: EndDate
+        +status: PhaseStatus
+    }
+
+    class PhaseName {
+        +name: String
+    }
+
+    class StartDate {
+        +date: Date
+    }
+
+    class EndDate {
+        +date: Date
+    }
+
+    enum PhaseStatus {
+        Open
+        Closed
+    }
+
+    enum RecruitmentProcessStatus {
+        Uninitiated
+        In Process
+        Finished
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> RecruitmentProcessStatus
+    RecruitmentProcess --> Phase : "Is separated into"
+    Phase --> PhaseName
+    Phase --> StartDate
+    Phase --> EndDate
+    Phase --> PhaseStatus
+}
+
+package JobApplicationAgg {
+    class JobApplication {
+        +id: ApplicationID
+        +RequirementsEvaluation: RequirementsEvaluation
+        +Interview: Interview
+    }
+
+    enum RequirementsEvaluation {
+        Accepted
+        Rejected
+    }
+
+    class Interview {
+        +InterviewDateTime: Date
+        +InterviewGrade: int
+    }
+
+    class InterviewDateTime {
+        +date: Date
+    }
+
+    class InterviewGrade {
+        +grade: int
+    }
+
+    JobApplication --> RequirementsEvaluation
+    JobApplication --> Interview
+    JobApplication --> JobOpening : Refers to
+    Interview --> InterviewDateTime
+    Interview --> InterviewGrade
 }
 @enduml

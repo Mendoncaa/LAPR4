@@ -1,19 +1,27 @@
-@startuml SequenceDiagram
-actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+@startuml
+actor CustomerManager
+boundary PhasesUI
+control PhasesController
+entity PhaseValidatorService
+entity RecruitmentProcess
+entity JobOpeningRepository
+entity ApplicationRepository
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+CustomerManager -> PhasesUI: Insert JobReference
+PhasesUI -> PhasesController: Submit JobReference
+PhasesController -> JobOpeningRepository: Validate JobReference
+JobOpeningRepository --> PhasesController: JobReference validation result
+PhasesController -> PhaseValidatorService: Validate phase transition
+PhaseValidatorService -> ApplicationRepository: Check applications status
+ApplicationRepository --> PhaseValidatorService: Applications status
+PhaseValidatorService --> PhasesController: Validation result
+PhasesController --> PhasesUI: Display transition options
+CustomerManager -> PhasesUI: Select action (open/close phase)
+PhasesUI -> PhasesController: Submit action
+PhasesController -> RecruitmentProcess: Update phase status
+RecruitmentProcess -> JobOpeningRepository: Save changes
+JobOpeningRepository --> RecruitmentProcess: Changes saved
+RecruitmentProcess --> PhasesController: Status updated
+PhasesController --> PhasesUI: Display confirmation or error
+PhasesUI --> CustomerManager: Show confirmation or error
 @enduml
