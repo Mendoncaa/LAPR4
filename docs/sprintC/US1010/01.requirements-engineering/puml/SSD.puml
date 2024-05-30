@@ -5,7 +5,7 @@ title System Sequence Diagram (SSD) - Open or Close Job Opening Phases
 actor "Customer Manager" as CM
 participant ":System" as S
 
-CM -> S : Request to open/close phase
+CM -> S : Request to transition phase
 
 S -> CM : Asks for details
 CM -> S : Provides details
