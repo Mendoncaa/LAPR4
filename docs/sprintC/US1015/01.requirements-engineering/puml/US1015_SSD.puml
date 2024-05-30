@@ -1,0 +1,13 @@
+@startuml
+
+title System Sequence Diagram (SSD) - Execute Verification Process for Job Opening Applications
+
+actor "Customer Manager" as CM
+participant ":System" as S
+
+CM -> S : Initiates verification process for job opening
+S --> CM : Validates candidate files against job requirements
+CM -> S : Confirms validation results
+S --> CM : Updates candidate status (Accepted/Rejected) and verification process completed
+
+@enduml
