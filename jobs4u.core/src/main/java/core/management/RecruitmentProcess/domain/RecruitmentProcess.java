@@ -1,17 +1,20 @@
 package core.management.RecruitmentProcess.domain;
 
+import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class RecruitmentProcess {
+public class RecruitmentProcess implements ValueObject{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private RecruitmentProcessStatus status;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruitmentProcessId")
     private List<Phase> phases;
 
     public RecruitmentProcess() {

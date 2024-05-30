@@ -1,11 +1,12 @@
 package core.management.RecruitmentProcess.domain;
 
+import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
-public class Phase {
+public class Phase implements ValueObject {
 
     @EmbeddedId
     private PhaseName name;

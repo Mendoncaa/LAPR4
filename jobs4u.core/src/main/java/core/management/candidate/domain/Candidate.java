@@ -1,5 +1,6 @@
 package core.management.candidate.domain;
 
+import core.management.rank.domain.Rank;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
@@ -32,6 +33,11 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
     @OneToOne
     @JoinColumn(name = "system_user_id")
     private SystemUser candidateUser;
+
+    @ManyToOne
+    @JoinColumn(name = "rank_id", referencedColumnName = "id")
+    private Rank rank;
+
 
     public Candidate(CandidateEmail candidateEmail, CandidateName candidateName, CandidatePhone candidatePhone, SystemUser candidateUser) {
         if (candidateEmail == null || candidateName == null || candidatePhone == null || candidateUser == null) {
