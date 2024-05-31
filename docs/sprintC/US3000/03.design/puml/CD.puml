@@ -1,49 +1,47 @@
 @startuml ClassDiagram
-package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
+package UI {
+    class ListMyApplicationsUI {
+        -controller: ListMyApplicationsController
+        +doShow(): void
+        +headline(): String
     }
 }
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
+package Controller {
+    class ListMyApplicationsController {
+        -applicationRepository: ApplicationRepository
+        -jobOpeningRepository: JobOpeningRepository
+        +getAllMyApplications(candidate: Candidate): List<jobApplication>
+        +getNumberOfApplications(jobOpening: JobOpening): int
     }
 }
 
 package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
+    class ApplicationRepository {
+        +findApplicationsByCandidate(candidate: Candidate): List<jobApplication>
+        +findApplicationsByJobOpening(jobOpening: JobOpening): List<jobApplication>
     }
 }
 
 package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
+    class jobApplication {
+        +id: Long
+        +candidate: Candidate
+        +jobOpening: JobOpening
     }
 
-    class OrderItem {
-        +quantity: int
-        +price: float
+    class Candidate {
+        +id: EmailAddress
     }
 
-    class Payment {
-        +amount: float
-        +paymentDate: Date
-    }
-
-    class User {
-        +id: int
-        +username: String
-        +email: String
+    class JobOpening {
+        +id: JobReference
     }
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+ListMyApplicationsUI --> ListMyApplicationsController
+ListMyApplicationsController --> ApplicationRepository
+ApplicationRepository --> jobApplication
+jobApplication --> Candidate
+jobApplication --> JobOpening
 @enduml
