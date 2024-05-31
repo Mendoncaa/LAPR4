@@ -18,36 +18,38 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.persistence.impl.inmemory;
+package jobs4u.app.candidate.console;
 
-import core.management.candidate.domain.Candidate;
-import core.management.candidate.repository.CandidateRepository;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-
-import java.util.List;
-import java.util.Optional;
+import jobs4u.app.candidate.console.presentation.FrontMenu;
+import core.infrastructure.persistence.PersistenceContext;
+import core.management.user.domain.ExemploPasswordPolicy;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 
 /**
- *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ * Utente App.
  */
-public class InMemoryCandidateRepository
-        extends InMemoryDomainRepository<Candidate, EmailAddress>
-        implements CandidateRepository {
+@SuppressWarnings("squid:S106")
+public final class CandidateApp {
 
-    static {
-        InMemoryInitializer.init();
-    }
+	/**
+	 * Empty constructor is private to avoid instantiation of this class.
+	 */
+	private CandidateApp() {
+	}
 
-    @Override
-    public List<Candidate> findByName(Name user) {
-        return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
-    }
+	public static void main(final String[] args) {
+		System.out.println("=====================================");
+		System.out.println("Candidate App");
+		System.out.println("(C) 2016 - 2024");
+		System.out.println("=====================================");
 
-    @Override
-    public Optional<Candidate> findByCandidateEmail(final EmailAddress email) {
-        return matchOne(e -> e.identity().equals(email));
-    }
+		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ExemploPasswordPolicy(),
+				new PlainTextEncoder());
+
+		new FrontMenu().show();
+
+		// exiting the application, closing all threads
+		System.exit(0);
+	}
 }

@@ -18,36 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.persistence.impl.inmemory;
+package jobs4u.app.candidate.console.presentation.myuser;
 
-import core.management.candidate.domain.Candidate;
-import core.management.candidate.repository.CandidateRepository;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-
-import java.util.List;
-import java.util.Optional;
+import eapli.framework.actions.Action;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ * @author Jorge Santos ajs@isep.ipp.pt
  */
-public class InMemoryCandidateRepository
-        extends InMemoryDomainRepository<Candidate, EmailAddress>
-        implements CandidateRepository {
-
-    static {
-        InMemoryInitializer.init();
-    }
+public class SignupRequestAction implements Action {
 
     @Override
-    public List<Candidate> findByName(Name user) {
-        return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
-    }
-
-    @Override
-    public Optional<Candidate> findByCandidateEmail(final EmailAddress email) {
-        return matchOne(e -> e.identity().equals(email));
+    public boolean execute() {
+        return new SignupRequestUI().show();
     }
 }

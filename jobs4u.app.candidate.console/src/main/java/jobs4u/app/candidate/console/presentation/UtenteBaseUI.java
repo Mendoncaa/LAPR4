@@ -18,36 +18,32 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.persistence.impl.inmemory;
+package jobs4u.app.candidate.console.presentation;
 
-import core.management.candidate.domain.Candidate;
-import core.management.candidate.repository.CandidateRepository;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-
-import java.util.List;
-import java.util.Optional;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.presentation.console.AbstractUI;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ * @author mcn
  */
-public class InMemoryCandidateRepository
-        extends InMemoryDomainRepository<Candidate, EmailAddress>
-        implements CandidateRepository {
+@SuppressWarnings("squid:S106")
+public abstract class UtenteBaseUI extends AbstractUI {
 
-    static {
-        InMemoryInitializer.init();
-    }
+	private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    @Override
-    public List<Candidate> findByName(Name user) {
-        return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
-    }
+	@Override
+	public String headline() {
 
-    @Override
-    public Optional<Candidate> findByCandidateEmail(final EmailAddress email) {
-        return matchOne(e -> e.identity().equals(email));
-    }
+		return authz.session().map(s -> "MyUtente [ @" + s.authenticatedUser().identity() + " ] ")
+				.orElse("MyUtente [ ==Anonymous== ]");
+	}
+
+	@Override
+	protected void drawFormTitle(final String title) {
+		final var titleBorder = BORDER.substring(0, 2) + " " + title;
+		System.out.println(titleBorder);
+		drawFormBorder();
+	}
 }

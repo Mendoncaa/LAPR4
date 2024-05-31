@@ -18,36 +18,48 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package jobs4u.persistence.impl.inmemory;
+package jobs4u.app.candidate.console.presentation.myuser;
 
-import core.management.candidate.domain.Candidate;
-import core.management.candidate.repository.CandidateRepository;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
-import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
-
-import java.util.List;
-import java.util.Optional;
+import eapli.framework.io.util.Console;
 
 /**
+ * TODO move to console.common to allow reuse from both backoffice and UtenteApp
  *
- * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
+ * widget for reading user data Jorge Santos ajs@isp.ipp.pt
  */
-public class InMemoryCandidateRepository
-        extends InMemoryDomainRepository<Candidate, EmailAddress>
-        implements CandidateRepository {
+class UserDataWidget {
 
-    static {
-        InMemoryInitializer.init();
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+
+    public void show() {
+        this.username = Console.readLine("Username");
+        this.password = Console.readLine("Password");
+        this.firstName = Console.readLine("First Name");
+        this.lastName = Console.readLine("Last Name");
+        this.email = Console.readLine("E-Mail");
     }
 
-    @Override
-    public List<Candidate> findByName(Name user) {
-        return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
+    public String username() {
+        return this.username;
     }
 
-    @Override
-    public Optional<Candidate> findByCandidateEmail(final EmailAddress email) {
-        return matchOne(e -> e.identity().equals(email));
+    public String password() {
+        return this.password;
+    }
+
+    public String firstName() {
+        return this.firstName;
+    }
+
+    public String lastName() {
+        return this.lastName;
+    }
+
+    public String email() {
+        return this.email;
     }
 }
