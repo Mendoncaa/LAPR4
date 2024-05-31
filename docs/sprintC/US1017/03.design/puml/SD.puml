@@ -1,19 +1,46 @@
-@startuml SequenceDiagram
-actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+@startuml
+title US1017 - Upload Candidate Requirements
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+actor "Operator" as O
+participant "UploadCandidateRequirementsUI" as UI
+participant "UploadCandidateRequirementsController" as C
+participant "CandidateRequirementsService" as S
+participant "ApplicationRepository" as FR
+participant "RequirementsEvaluator" as V
+
+O -> UI : request to upload a candidate requirements file
+activate UI
+
+UI -> O : request candidate requirements file
+deactivate UI
+
+O -> UI : provide candidate requirements file
+activate UI
+
+UI -> C : uploadCandidateRequirementsFile(filePath)
+activate C
+
+C -> V : validateSyntax(file)
+activate V
+
+
+    V -> C : fileIsValid()
+    deactivate V
+    C -> S : storeFilePath(filePath)
+    activate S
+
+    S -> FR : saveFilePath(filePath)
+    activate FR
+
+    FR -> S : filePathSaved()
+    deactivate FR
+
+    S -> C : filePathStored()
+    deactivate S
+
+    C -> UI : confirmUploadSuccess()
+    deactivate C
+    UI -> O : upload successful
+deactivate UI
+
 @enduml
