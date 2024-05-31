@@ -20,17 +20,21 @@
  */
 package jobs4u.app.candidate.console;
 
-import jobs4u.app.candidate.console.presentation.FrontMenu;
+import eapli.framework.infrastructure.pubsub.EventDispatcher;
 import core.infrastructure.persistence.PersistenceContext;
 import core.management.user.domain.ExemploPasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import jobs4u.app.candidate.console.presentation.MainMenu;
+import jobs4u.app.common.console.BaseApp;
+import jobs4u.app.common.console.presentation.authz.LoginUI;
+import jobs4u.infrastructure.authz.AuthenticationCredentialHandler;
 
 /**
  * Utente App.
  */
 @SuppressWarnings("squid:S106")
-public final class CandidateApp {
+public final class CandidateApp extends BaseApp {
 
 	/**
 	 * Empty constructor is private to avoid instantiation of this class.
@@ -39,17 +43,37 @@ public final class CandidateApp {
 	}
 
 	public static void main(final String[] args) {
-		System.out.println("=====================================");
-		System.out.println("Candidate App");
-		System.out.println("(C) 2016 - 2024");
-		System.out.println("=====================================");
-
 		AuthzRegistry.configure(PersistenceContext.repositories().users(), new ExemploPasswordPolicy(),
 				new PlainTextEncoder());
 
-		new FrontMenu().show();
+		new CandidateApp().run(args);
 
 		// exiting the application, closing all threads
 		System.exit(0);
+	}
+
+	@Override
+	protected void doMain(final String[] args) {
+		// login and go to main menu
+		if (new LoginUI(new AuthenticationCredentialHandler()).show()) {
+			// go to main menu
+			final var menu = new MainMenu();
+			menu.mainLoop();
+		}
+	}
+
+	@Override
+	protected String appTitle() {
+		return "Candidate App";
+	}
+
+	@Override
+	protected String appGoodbye() {
+		return "Candidate App";
+	}
+
+	@Override
+	protected void doSetupEventHandlers(EventDispatcher dispatcher) {
+		// TODO Auto-generated method stub
 	}
 }
