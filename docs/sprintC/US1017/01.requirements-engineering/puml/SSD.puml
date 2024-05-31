@@ -1,15 +1,21 @@
 @startuml
+title US1017 - Upload Candidate Requirements
 
-title System Sequence Diagram (SSD) - Place an Order
-
-actor "Customer" as U
+actor "Operator" as O
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
+O -> S : requests to upload a candidate requirements file
+activate S
 
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
+S -> O : requests candidate requirements file
+deactivate S
+
+O -> S : uploads candidate requirements file
+activate S
+
+S -> O : validate syntax and confirms the upload was successful
+
+
+deactivate S
 
 @enduml
