@@ -10,10 +10,10 @@
         <version>1.4.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>other.console</artifactId>
+    <artifactId>customer.console</artifactId>
     <packaging>jar</packaging>
 
-    <name>jobs4u.app.other.console</name>
+    <name>jobs4u.app.customer.console</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

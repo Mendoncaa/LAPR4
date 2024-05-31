@@ -36,10 +36,6 @@ public class Candidate implements AggregateRoot<EmailAddress> {
     @JoinColumn(name = "system_user_id")
     private SystemUser candidateUser;
 
-    @ManyToOne
-    @JoinColumn(name = "rank_id", referencedColumnName = "id")
-    private Rank rank;
-
 
     public Candidate(EmailAddress candidateEmail, Name candidateName, PhoneNumber candidatePhone, SystemUser candidateUser) {
         if (candidateEmail == null || candidateName == null || candidatePhone == null || candidateUser == null) {
