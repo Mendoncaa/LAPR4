@@ -5,8 +5,8 @@ package Controller {
         - validatorService: PhaseValidatorService
         - jobRepository: JobOpeningRepository
         - recruitmentProcess: RecruitmentProcess
-        + validateJobReference(jobReference: JobReference): boolean
-        + validatePhaseTransition(): Iterable<String>
+        + validateJobReference(jobReference: JobReference): Iterable <String>
+        - validatePhaseTransition(): Iterable<String>
     }
 }
 
@@ -14,6 +14,8 @@ package Service {
     class PhaseValidatorService {
         - applicationRepository: ApplicationRepository
         - rankRepository: RankRepository
+        - recruitmentProcess: RecruitmentProcess
+        - jobReference: JobReference
         + validatePhaseTransition(): Iterable<String>
         - validatePhaseTransitionForward(): boolean
         - validatePhaseTransitionBackward(): boolean
@@ -33,11 +35,12 @@ package Repository {
     }
 
     class RankRepository {
-        + countRankByJobReference(jobReference: JobReference): int
+        + findRankByJobReference(jobReference: JobReference): Rank
     }
 }
 
 package Model {
+
     class JobReference {
         +id: String
     }
@@ -85,8 +88,17 @@ package Model {
     }
 }
 
+package UI {
+    class PhasesUI {
+        - controller: PhasesController
+        + doShow(): void
+        + headline(): String
+    }
+}
+
 PhasesController --> PhaseValidatorService
 PhasesController --> JobOpeningRepository
+PhasesController --> JobReference
 PhaseValidatorService --> ApplicationRepository
 PhaseValidatorService --> RecruitmentProcess
 PhaseValidatorService --> RankRepository
@@ -96,5 +108,7 @@ Phase --> StartDate
 Phase --> EndDate
 Phase --> PhaseStatus
 RecruitmentProcess --> RecruitmentProcessStatus
+
+PhasesUI --> PhasesController
 
 @enduml
