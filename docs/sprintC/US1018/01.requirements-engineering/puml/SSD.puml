@@ -1,15 +1,20 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Place an Order
+title System Sequence Diagram (SSD) - Execute Verification Process for Job Opening Applications
 
-actor "Customer" as U
+actor "Customer Manager" as CM
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
+CM -> S : Asks to execute the process that evaluates the interviews for a job opening
+S -> S : Log Verification Process
+S --> CM : Request data
+CM -> S : Submits Job Reference and candidate Interviews File
+S -> S : Validate Job Reference
+S -> S : Validate Candidate Interviews Files
+S -> S : Evaluate Candidate Interviews
+S --> CM : Return validation results indicating a numeric grade for interview
 
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
+CM -> S : Confirms validation results
+S --> CM : Updates candidate grade and verification process completed
 
 @enduml
