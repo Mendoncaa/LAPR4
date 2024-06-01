@@ -18,11 +18,14 @@ public class Rank implements AggregateRoot<Long>
     @Embedded
     private RankValue rankValue;
 
-    @OneToOne(mappedBy = "rank")
-    @JoinColumn(name = "job_opening_id", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumns({
+            @JoinColumn(name = "rank_job_reference_customerCode", nullable = false),
+            @JoinColumn(name = "rank_job_reference_jobNumber", nullable = false)
+    })
     private JobOpening jobOpening;
 
-    @OneToMany(mappedBy = "rank")
+    @OneToMany
     private List<Candidate> candidates;
 
     public Rank() {}

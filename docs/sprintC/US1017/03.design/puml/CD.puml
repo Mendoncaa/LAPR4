@@ -1,49 +1,38 @@
-@startuml ClassDiagram
-package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
-    }
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classBorderColor black
+
+
+class UploadCandidateRequirementsUI {
+    + requestToUploadFile(): void
+    + requestCandidateRequirementsFile(): void
+    + provideCandidateRequirementsFile(file: File): void
+    + displayUploadSuccess(): void
+    + displayUploadError(): void
 }
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
-    }
+class UploadCandidateRequirementsController {
+    + uploadCandidateRequirementsFile(filePath: String): void
+    + confirmUploadSuccess(): void
 }
 
-package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
-    }
+class CandidateRequirementsService {
+    + storeFilePath(filePath: String): void
 }
 
-package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
-    }
-
-    class OrderItem {
-        +quantity: int
-        +price: float
-    }
-
-    class Payment {
-        +amount: float
-        +paymentDate: Date
-    }
-
-    class User {
-        +id: int
-        +username: String
-        +email: String
-    }
+class ApplicationRepository {
+    + saveFilePath(filePath: String): void
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+class RequirementsEvaluator {
+    + validateSyntax(file: File): boolean
+}
+
+
+
+UploadCandidateRequirementsUI --> UploadCandidateRequirementsController : interacts with
+UploadCandidateRequirementsController --> CandidateRequirementsService : coordinates
+CandidateRequirementsService --> ApplicationRepository : stores file path
+UploadCandidateRequirementsController --> RequirementsEvaluator : validates syntax
+UploadCandidateRequirementsController --> UploadCandidateRequirementsUI : confirms upload success
 @enduml

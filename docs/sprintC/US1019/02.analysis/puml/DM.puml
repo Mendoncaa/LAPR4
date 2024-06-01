@@ -1,40 +1,58 @@
 @startuml
-'https://plantuml.com/class-diagram
-
 hide field
 hide methods
 
-title Domain Driven Design
-skinparam linetype wavy
+title US1017 - Upload Candidate Requirements\nDomain Model Excerpt
+skinparam linetype ortho
 
 package CandidateAgg #aababb {
-    class Candidate<<Root>><<Entity>>
+    class Candidate<<Root>><<Entity>> {
+        Email email
+        Name name
+        PhoneNumber phoneNumber
+        CandidateState state
+    }
     class Email<<Value Object>><<Id>>
     class Name<<Value Object>>
+    class PhoneNumber<<Value Object>>
+    class CandidateState<<Value Object>>
+    Candidate "1" --> "1" Email
+    Candidate "1" --> "1" Name
+    Candidate "1" --> "1" PhoneNumber
+    Candidate "1" --> "1" CandidateState
 }
 
 package ApplicationAgg #aaaabb {
-    class Application<<Root>><<Entity>>
-    class Interview<<Value Object>>
-    class InterviewGrade<<Value Object>>
+    class Application<<Root>><<Entity>> {
+        ApplicationID id
+        ApplicationState state
+        RequirementsEvaluation evaluation
+        File candidateRequirementsFile
+    }
+    class ApplicationID<<Value Object>><<Id>>
+    class ApplicationState<<Entity>> {
+        ApplicationStateName name
+        RejectionJustification justification
+    }
+    class ApplicationStateName<<Enum>><<ID>>
+    class RejectionJustification<<Value Object>>
+    class RequirementsEvaluation<<Enum>>
+    class File<<Value Object>> {
+        FilePath path
+        FileType type
+    }
+    class FilePath<<Value Object>>
+    class FileType<<Enum>>
 
-    Application "1" --> "0..1" Interview
-    Interview "1" --> "0..1" InterviewGrade
+    Application "1" --> "1" ApplicationID
+    Application "1" --> "1" ApplicationState
+    ApplicationState "1" --> "1" ApplicationStateName
+    ApplicationState "1" --> "0..1" RejectionJustification
+    Application "1" --> "1" RequirementsEvaluation
+    Application "1" --> "1" File
+    File "1" --> "1" FilePath
+    File "1" --> "1" FileType
     Application "1..*" --> "1" Candidate : Is submitted by
-}
-
-package JobOpeningAgg #bbaabb {
-    class JobOpening<<Root>><<Entity>>
-
-    Application "0..*" --> "1" JobOpening : Refers to
-}
-
-package RankingAgg #abbabb {
-    class Rank<<Root>><<Entity>>
-    class RankID<<Value Object>><<Id>>
-
-    Rank "1"-->"1" JobOpening : Refers to
-    Rank "1"-->"*" Candidate : Is ordered by
 }
 
 @enduml

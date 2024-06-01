@@ -1,9 +1,11 @@
 package core.management.candidate.domain;
 
+import core.management.costumer.domain.PhoneNumber;
 import core.management.rank.domain.Rank;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -11,12 +13,12 @@ import lombok.Getter;
 @Entity
 @Table(name = "CANDIDATE") // Explicit table name definition
 @Access(AccessType.FIELD) // Explicitly setting field access for consistency
-public class Candidate implements AggregateRoot<CandidateEmail> {
+public class Candidate implements AggregateRoot<EmailAddress> {
 
     // Getters for all fields
     @EmbeddedId
     @Column(unique = true, nullable = false)
-    private CandidateEmail candidateEmail; //mudar para so email pois n tem regras especificas
+    private EmailAddress candidateEmail; //mudar para so email pois n tem regras especificas
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -24,22 +26,18 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
 
     @Embedded
     @Column(nullable = false)
-    private CandidateName candidateName;
+    private Name candidateName;
 
     @Embedded
     @Column(nullable = false)
-    private CandidatePhone candidatePhone;
+    private PhoneNumber candidatePhone;
 
     @OneToOne
     @JoinColumn(name = "system_user_id")
     private SystemUser candidateUser;
 
-    @ManyToOne
-    @JoinColumn(name = "rank_id", referencedColumnName = "id")
-    private Rank rank;
 
-
-    public Candidate(CandidateEmail candidateEmail, CandidateName candidateName, CandidatePhone candidatePhone, SystemUser candidateUser) {
+    public Candidate(EmailAddress candidateEmail, Name candidateName, PhoneNumber candidatePhone, SystemUser candidateUser) {
         if (candidateEmail == null || candidateName == null || candidatePhone == null || candidateUser == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
@@ -62,7 +60,7 @@ public class Candidate implements AggregateRoot<CandidateEmail> {
     }
 
     @Override
-    public CandidateEmail identity() {
+    public EmailAddress identity() {
         return this.candidateEmail;
     }
 

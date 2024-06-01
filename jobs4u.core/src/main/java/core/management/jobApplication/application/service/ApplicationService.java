@@ -2,19 +2,18 @@ package core.management.jobApplication.application.service;
 
 import core.infrastructure.persistence.PersistenceContext;
 import core.management.candidate.domain.Candidate;
-import core.management.candidate.domain.CandidateEmail;
-import core.management.candidate.domain.CandidateName;
-import core.management.candidate.domain.CandidatePhone;
-import core.management.candidate.domain.CandidateState;
 import core.management.candidate.repository.CandidateRepository;
+import core.management.costumer.domain.PhoneNumber;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import core.management.user.domain.ExemploRoles;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
@@ -65,9 +64,9 @@ public class ApplicationService {
             throw new IllegalArgumentException("The file format is incorrect or missing information.");
         }
 
-        CandidateEmail email = new CandidateEmail(lines[1].trim());
-        CandidateName name = new CandidateName(lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim());
-        CandidatePhone phone = new CandidatePhone(lines[3].trim());
+        EmailAddress email = EmailAddress.valueOf(lines[1].trim());
+        Name name = Name.valueOf(lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim());
+        PhoneNumber phone = new PhoneNumber(lines[3].trim());
         Set<Role> roles = Set.of(ExemploRoles.CANDIDATE);
 
         SystemUser candidate = userSvc.registerNewUser("candidate" + lines[2].split(" ")[0].trim(), "Password1", lines[2].split(" ")[0].trim(), lines[2].split(" ")[1].trim(), lines[1].trim(), roles, CurrentTimeCalendars.now());

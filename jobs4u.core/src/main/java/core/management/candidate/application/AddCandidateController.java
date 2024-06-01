@@ -23,11 +23,14 @@ package core.management.candidate.application;
 import core.infrastructure.persistence.PersistenceContext;
 import core.management.candidate.domain.*;
 import core.management.candidate.repository.CandidateRepository;
+import core.management.costumer.domain.PhoneNumber;
 import core.management.user.domain.ExemploRoles;
 import eapli.framework.application.UseCaseController;
+import eapli.framework.general.domain.model.EmailAddress;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.CurrentTimeCalendars;
@@ -74,9 +77,9 @@ public class AddCandidateController {
 
         authz.ensureAuthenticatedUserHasAnyOf(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER, ExemploRoles.OPERATOR);
 
-        CandidateEmail candidateEmail = new CandidateEmail(email);
-        CandidateName candidateName = new CandidateName(firstName, lastName);
-        CandidatePhone candidatePhone = new CandidatePhone(phone);
+        EmailAddress candidateEmail = EmailAddress.valueOf(email);
+        Name candidateName = Name.valueOf(firstName, lastName);
+        PhoneNumber candidatePhone = new PhoneNumber(phone);
 
         candidateRepository.save(new Candidate(candidateEmail, candidateName, candidatePhone, candidate));
     }

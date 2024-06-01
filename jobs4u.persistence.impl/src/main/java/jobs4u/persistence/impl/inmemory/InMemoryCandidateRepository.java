@@ -21,9 +21,9 @@
 package jobs4u.persistence.impl.inmemory;
 
 import core.management.candidate.domain.Candidate;
-import core.management.candidate.domain.CandidateEmail;
-import core.management.candidate.domain.CandidateName;
 import core.management.candidate.repository.CandidateRepository;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.Optional;
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
 public class InMemoryCandidateRepository
-        extends InMemoryDomainRepository<Candidate, CandidateEmail>
+        extends InMemoryDomainRepository<Candidate, EmailAddress>
         implements CandidateRepository {
 
     static {
@@ -42,12 +42,12 @@ public class InMemoryCandidateRepository
     }
 
     @Override
-    public List<Candidate> findByName(CandidateName user) {
+    public List<Candidate> findByName(Name user) {
         return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
     }
 
     @Override
-    public Optional<Candidate> findByCandidateEmail(final CandidateEmail email) {
+    public Optional<Candidate> findByCandidateEmail(final EmailAddress email) {
         return matchOne(e -> e.identity().equals(email));
     }
 }
