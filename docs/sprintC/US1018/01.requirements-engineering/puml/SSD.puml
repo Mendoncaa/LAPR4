@@ -1,6 +1,6 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Execute Verification Process for Job Opening Applications
+title US1018 - Execute the Process that Evaluates (Grades) the Interviews for a Job Opening
 
 actor "Customer Manager" as CM
 participant ":System" as S
