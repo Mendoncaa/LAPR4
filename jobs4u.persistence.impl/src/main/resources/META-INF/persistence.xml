@@ -20,6 +20,7 @@
     <class>core.management.candidate.domain.Candidate</class>
     <class>core.management.jobApplication.domain.jobApplication</class>
     <class>core.management.Plugin.domain.Plugin</class>
+    <class>core.management.rank.domain.Rank</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/eapliexemplo"/>-->
