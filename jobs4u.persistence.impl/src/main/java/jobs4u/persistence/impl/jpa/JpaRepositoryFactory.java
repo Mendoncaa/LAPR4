@@ -20,13 +20,12 @@
  */
 package jobs4u.persistence.impl.jpa;
 
+import core.management.Plugin.repository.PluginRepository;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
-import core.management.plugins.interviewModel.Repository.InterviewModelRepository;
-import core.management.plugins.requirementsSpecifications.Repository.RequirementsSpecificationRepository;
 import jobs4u.Application;
 import core.infrastructure.persistence.RepositoryFactory;
 import core.utentemanagement.repositories.SignupRequestRepository;
@@ -92,7 +91,7 @@ public class JpaRepositoryFactory implements RepositoryFactory {
         return new JpaCustomerRepository(Application.settings().getPersistenceUnitName());
     }
 
-    
+
 
     @Override
     public CustomerRepresentativeRepository customerRepresentative() {
@@ -110,26 +109,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public RequirementsSpecificationRepository requirementsSpecifications(TransactionalContext autoTx) {
-        return null;
-    }
-
-    @Override
-    public RequirementsSpecificationRepository requirementsSpecifications() {
-        return null;
-    }
-
-    @Override
-    public InterviewModelRepository interviewModel(TransactionalContext autoTx) {
-        return null;
-    }
-
-    @Override
-    public InterviewModelRepository interviewModel() {
-        return null;
-    }
-
-    @Override
     public ApplicationRepository application(TransactionalContext autoTx) {
         return new JpaApplicationRepository(autoTx);
     }
@@ -137,6 +116,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public ApplicationRepository application() {
         return new JpaApplicationRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public PluginRepository plugin(TransactionalContext autoTx) {
+        return new JpaPluginRepository(autoTx);
+    }
+
+    @Override
+    public PluginRepository plugin() {
+        return new JpaPluginRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

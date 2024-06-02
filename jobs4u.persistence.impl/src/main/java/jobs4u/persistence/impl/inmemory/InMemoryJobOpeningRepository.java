@@ -30,10 +30,7 @@ import core.utentemanagement.repositories.UtenteRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  *
@@ -61,5 +58,14 @@ public class InMemoryJobOpeningRepository
     public int nextJobNumber(String customerCode) {
         List<JobOpening> list = (List<JobOpening>) match(e -> e.getJobReference().getCustomerCode().equals(customerCode));
         return list.size() + 1;
+    }
+
+    @Override
+    public List<JobReference> findAllJobReferences() {
+        List<JobReference> list = new ArrayList<>();
+        for(JobOpening jb : findAll()){
+            list.add(jb.getJobReference());
+        }
+        return list;
     }
 }

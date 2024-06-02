@@ -2,9 +2,9 @@ package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecifica
 
 import eapli.framework.actions.Action;
 
-public class SelectRequirementsSpecificationAction implements Action {
+public class SelectRequirementsAction implements Action {
     @Override
     public boolean execute() {
-        return new SelectRequirementsSpecificationUI().show();
+        return new SelectRequirementsUI().show();
     }
 }

@@ -20,63 +20,33 @@
  */
 package jobs4u.persistence.impl.jpa;
 
-import core.management.jobOpening.domain.JobOpening;
-import core.management.jobOpening.domain.JobReference;
-import core.management.jobOpening.domain.JobState;
-import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.Plugin.domain.Plugin;
+import core.management.Plugin.repository.PluginRepository;
+import core.management.candidate.domain.Candidate;
+import core.management.candidate.repository.CandidateRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.general.domain.model.EmailAddress;
+import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReference, JobReference>
-		implements JobOpeningRepository {
+class JpaPluginRepository extends JpaAutoTxRepository<Plugin, String, String>
+		implements PluginRepository {
 
-	public JpaJobOpeningRepository(final TransactionalContext autoTx) {
+	public JpaPluginRepository(final TransactionalContext autoTx) {
 		super(autoTx, "username");
 	}
 
-	public JpaJobOpeningRepository(final String puname) {
+	public JpaPluginRepository(final String puname) {
 		super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
-	}
-
-	@Override
-	public List<JobOpening> findAllByState(JobState jobState) {
-		final Map<String, Object> params = new HashMap<>();
-		params.put("jobState", jobState);
-		return match("e.jobState=:jobState", params);
-	}
-
-	@Override
-	public Optional<JobOpening> findByJobReference(final JobReference number) {
-		final Map<String, Object> params = new HashMap<>();
-		params.put("number", number);
-		return matchOne("e.jobReference=:number", params);
-	}
-
-	@Override
-	public int nextJobNumber(String customerCode) {
-		int count = 1;
-		List<JobOpening> list = createQuery("SELECT e FROM JobOpening e", JobOpening.class).getResultList();
-		for(JobOpening job : list) {
-			if(job.getJobReference().getCustomerCode().equals(customerCode)) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	@Override
-	public List<JobReference> findAllJobReferences() {
-		List<JobReference> list = new ArrayList<>();
-		for(JobOpening jb : findAll()){
-			list.add(jb.getJobReference());
-		}
-		return list;
 	}
 }

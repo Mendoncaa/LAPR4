@@ -1,8 +1,7 @@
 package core.management.jobOpening.domain;
 
+import core.management.Plugin.domain.Plugin;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
-import core.management.plugins.interviewModel.domain.InterviewModel;
-import core.management.plugins.requirementsSpecifications.domain.RequirementsSpecification;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import jakarta.persistence.*;
@@ -55,11 +54,11 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "requirementsSpecificationsId")
-    private RequirementsSpecification requirementsSpecification;
+    private Plugin requirementsSpecification;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "interviewModelId")
-    private InterviewModel interviewModel;
+    private Plugin interviewModel;
 
     @Embedded
     @Column(nullable = false)

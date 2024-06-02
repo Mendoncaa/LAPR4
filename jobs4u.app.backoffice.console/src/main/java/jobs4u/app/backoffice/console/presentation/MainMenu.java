@@ -32,8 +32,10 @@ import jobs4u.app.backoffice.console.presentation.JobOpening.*;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.SelectInterviewModelAction;
-import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.SelectRequirementsSpecificationAction;
+import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.SelectInterviewAction;
+import jobs4u.app.backoffice.console.presentation.plugins.RegisterPluginAction;
+import jobs4u.app.backoffice.console.presentation.plugins.RegisterPluginUI;
+import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.SelectRequirementsAction;
 import jobs4u.app.backoffice.console.presentation.utente.AcceptRefuseSignupRequestAction;
 import jobs4u.app.common.console.presentation.authz.MyUserMenu;
 import core.management.user.domain.ExemploRoles;
@@ -68,7 +70,6 @@ public class MainMenu extends AbstractUI {
 
 	// CUSTOMERS
 	private static final int ADD_CUSTOMER_OPTION = 1;
-	private static final int LIST_CUSTOMERS_OPTION = 2;
 
 	// CANDIDATES
 	private static final int REGISTER_CANDIDATE_OPTION = 1;
@@ -93,6 +94,7 @@ public class MainMenu extends AbstractUI {
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
 	private static final int ADMIN_JOBOPENING_OPTION = 4;
 	private static final int ADMIN_CANDIDATE_OPTION = 5;
+	private static final int ADMIN_PLUGIN_OPTION = 6;
 	private static final int OP_CANDIDATE_OPTION = 2;
 
 
@@ -147,12 +149,10 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(ADMIN_CANDIDATE_OPTION, candidatesMenu);
-			final var requirementsSpecificationMenu = buildRequirementsSpecMenu();
-			mainMenu.addSubMenu(6, requirementsSpecificationMenu);
-			final var interviewModelMenu = buildInterviewModelMenu();
-			mainMenu.addSubMenu(7, interviewModelMenu);
+			final var pluginsMenu = buildPluginMenu();
+			mainMenu.addSubMenu(ADMIN_PLUGIN_OPTION, pluginsMenu);
 			final var applicationsMenu = buildJobApplicationMenu();
-			mainMenu.addSubMenu(8, applicationsMenu);
+			mainMenu.addSubMenu(7, applicationsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
@@ -162,12 +162,8 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
-			final var requirementsSpecificationMenu = buildRequirementsSpecMenu();
-			mainMenu.addSubMenu(5, requirementsSpecificationMenu);
-			final var interviewModelMenu = buildInterviewModelMenu();
-			mainMenu.addSubMenu(6, interviewModelMenu);
-			final var applicationsMenu = buildJobApplicationMenu();
-			mainMenu.addSubMenu(7, applicationsMenu);
+			final var pluginsMenu = buildPluginMenu();
+			mainMenu.addSubMenu(5, pluginsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
@@ -243,19 +239,12 @@ public class MainMenu extends AbstractUI {
 		return menu;
 	}
 
-	private Menu buildRequirementsSpecMenu() {
-		final var menu = new Menu("Requirements Specification >");
+	private Menu buildPluginMenu() {
+		final var menu = new Menu("Plugins >");
 
-		menu.addItem(1, "Select Requirements Specification", new SelectRequirementsSpecificationAction());
-		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-
-		return menu;
-	}
-
-	private Menu buildInterviewModelMenu() {
-		final var menu = new Menu("Interview Model >");
-
-		menu.addItem(1, "Select Interview Model", new SelectInterviewModelAction());
+		menu.addItem(1, "Register a Plugin", new RegisterPluginAction());
+		menu.addItem(2, "Select Requirement Specification for a JobOpening", new SelectRequirementsAction());
+		menu.addItem(3, "Select Interview Model for a JobOpening", new SelectInterviewAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

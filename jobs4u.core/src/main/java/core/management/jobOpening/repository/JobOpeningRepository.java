@@ -22,6 +22,8 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
 
     Optional<JobOpening> findByJobReference(JobReference jobReference);
 
+    List<JobReference> findAllJobReferences();
+
     int nextJobNumber(String customerCode);
 
 }

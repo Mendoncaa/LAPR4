@@ -19,9 +19,7 @@
     <class>core.management.costumer.domain.CustomerRepresentative</class>
     <class>core.management.candidate.domain.Candidate</class>
     <class>core.management.jobApplication.domain.jobApplication</class>
-    <class>core.management.plugins.interviewModel.domain.InterviewModel</class>
-    <class>core.management.plugins.requirementsSpecifications.domain.RequirementsSpecification</class>
-    <class>core.management.rank.domain.Rank</class>
+    <class>core.management.Plugin.domain.Plugin</class>
 
     <properties>
       <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/eapliexemplo"/>-->
