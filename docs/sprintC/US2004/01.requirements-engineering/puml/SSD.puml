@@ -1,15 +1,14 @@
 @startuml
+actor Operator
+participant "System" as S
 
-title System Sequence Diagram (SSD) - Place an Order
-
-actor "Customer" as U
-participant ":System" as S
-
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
-
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
-
+Operator -> S: Asks to upload a text file with the requirements of a candidate for its verification.
+S -> Operator: Requests the file
+Operator -> S: Upload text file with requirements
+S -> S: Validate file
+alt if the file is valid
+    S -> Operator: Return success message
+else if the file is not valid
+    S -> Operator: Return validation error message
+end
 @enduml
