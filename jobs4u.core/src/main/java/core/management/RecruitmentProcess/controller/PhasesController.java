@@ -40,7 +40,8 @@ public class PhasesController {
     }
 
     public void processTransition(String chosenOption) {
-        RecruitmentProcess recruitmentProcess = phaseValidatorService.getRecruitmentProcess();
+        //RecruitmentProcess recruitmentProcess = phaseValidatorService.getRecruitmentProcess();
+        RecruitmentProcess recruitmentProcess = new RecruitmentProcess();
         if ("Forward".equals(chosenOption)) {
             recruitmentProcess.nextPhase();
         } else if ("Backward".equals(chosenOption)) {
