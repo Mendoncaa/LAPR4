@@ -24,6 +24,7 @@ import core.management.candidate.domain.Candidate;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
+import core.management.jobOpening.domain.JobReference;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
@@ -31,6 +32,7 @@ import jobs4u.Application;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  *
@@ -66,5 +68,30 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 		final Map<String, Object> params = new HashMap<>();
 		params.put("candidate", candidate);
 		return (List<jobApplication>) match("e.candidate=:candidate", params);
+	}
+
+	@Override
+	public Optional<List<jobApplication>> findbyJobReference(JobReference jobReference) {
+		return Optional.empty();
+	}
+
+	@Override
+	public int countApplicationsByJobReference(String jobReference) {
+		return 0;
+	}
+
+	@Override
+	public int countScreeningByJobReference(String jobReference) {
+		return 0;
+	}
+
+	@Override
+	public int countInterviewsByJobReference(String jobReference) {
+		return 0;
+	}
+
+	@Override
+	public int countResultsByJobReference(String jobReference) {
+		return 0;
 	}
 }

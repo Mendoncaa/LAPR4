@@ -26,6 +26,7 @@ import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.repository.RankRepository;
 import core.utentemanagement.repositories.UtenteRepository;
 import core.utentemanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -166,4 +167,19 @@ public interface RepositoryFactory {
      * @return
      */
     PluginRepository plugin();
+
+    /**
+     *
+     * @param autoTx
+     *            the transactional context to enroll
+     * @return
+     */
+    RankRepository rank(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    RankRepository rank();
 }

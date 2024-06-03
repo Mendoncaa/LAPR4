@@ -2,9 +2,12 @@ package core.management.RecruitmentProcess.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 public class RecruitmentProcess implements ValueObject{
     @Id
@@ -31,6 +34,14 @@ public class RecruitmentProcess implements ValueObject{
 
     public List<Phase> Phases() {
         return this.phases;
+    }
+
+    public void nextPhase() {
+        // Logic for moving to the next phase
+    }
+
+    public void previousPhase() {
+        // Logic for moving to the previous phase
     }
 }
 

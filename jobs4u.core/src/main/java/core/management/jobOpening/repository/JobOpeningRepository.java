@@ -1,11 +1,6 @@
 package core.management.jobOpening.repository;
 
-import core.utentemanagement.domain.MecanographicNumber;
-import core.utentemanagement.domain.Utente;
 import eapli.framework.domain.repositories.DomainRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import core.management.jobOpening.domain.JobState;

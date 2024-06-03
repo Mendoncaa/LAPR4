@@ -4,19 +4,21 @@ import core.management.candidate.domain.Candidate;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
 
-
+@Getter
 @Entity
-public class Rank implements AggregateRoot<Long>
-{
+@Table(name = "RANK") // Explicit table name definition
+@Access(AccessType.FIELD) // Explicitly setting field access for consistency
+public class Rank implements AggregateRoot<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private RankValue rankValue;
+    @OneToMany
+    private List<RankValue> rankValues;
 
     @OneToOne
     @JoinColumns({
@@ -30,8 +32,8 @@ public class Rank implements AggregateRoot<Long>
 
     public Rank() {}
 
-    public Rank(RankValue rankValue, JobOpening jobOpening, List<Candidate> candidates) {
-        this.rankValue = rankValue;
+    public Rank(List<RankValue> rankValues, JobOpening jobOpening, List<Candidate> candidates) {
+        this.rankValues = rankValues;
         this.jobOpening = jobOpening;
         this.candidates = candidates;
     }

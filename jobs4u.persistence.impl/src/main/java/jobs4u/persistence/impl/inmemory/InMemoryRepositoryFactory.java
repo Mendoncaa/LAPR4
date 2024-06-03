@@ -26,6 +26,7 @@ import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.repository.RankRepository;
 import jobs4u.infrastructure.bootstrapers.ExemploBootstrapper;
 import core.infrastructure.persistence.RepositoryFactory;
 import core.utentemanagement.repositories.UtenteRepository;
@@ -133,6 +134,15 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
         return null;
     }
 
+    @Override
+    public RankRepository rank(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public RankRepository rank() {
+        return null;
+    }
 
     @Override
     public TransactionalContext newTransactionalContext() {

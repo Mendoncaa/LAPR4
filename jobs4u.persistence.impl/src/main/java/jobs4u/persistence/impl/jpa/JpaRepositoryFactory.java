@@ -26,6 +26,7 @@ import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.repository.RankRepository;
 import jobs4u.Application;
 import core.infrastructure.persistence.RepositoryFactory;
 import core.utentemanagement.repositories.SignupRequestRepository;
@@ -126,6 +127,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     @Override
     public PluginRepository plugin() {
         return new JpaPluginRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public RankRepository rank(TransactionalContext autoTx) {
+        return new JpaRankRepository(autoTx);
+    }
+
+    @Override
+    public RankRepository rank() {
+        return new JpaRankRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override
