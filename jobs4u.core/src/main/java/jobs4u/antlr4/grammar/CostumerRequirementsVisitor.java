@@ -11,11 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CostumerRequirementsVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CostumerRequirementsParser#requirements}.
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRequirements(CostumerRequirementsParser.RequirementsContext ctx);
+	T visitStart(CostumerRequirementsParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeader(CostumerRequirementsParser.HeaderContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CostumerRequirementsParser#requirement}.
 	 * @param ctx the parse tree
@@ -23,9 +29,33 @@ public interface CostumerRequirementsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRequirement(CostumerRequirementsParser.RequirementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CostumerRequirementsParser#text}.
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitText(CostumerRequirementsParser.TextContext ctx);
+	T visitReqType(CostumerRequirementsParser.ReqTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#trueFalseReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrueFalseReq(CostumerRequirementsParser.TrueFalseReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShortAReq(CostumerRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntReq(CostumerRequirementsParser.IntReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CostumerRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChoiceReq(CostumerRequirementsParser.ChoiceReqContext ctx);
 }

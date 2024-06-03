@@ -8,15 +8,25 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CostumerRequirementsListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CostumerRequirementsParser#requirements}.
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void enterRequirements(CostumerRequirementsParser.RequirementsContext ctx);
+	void enterStart(CostumerRequirementsParser.StartContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CostumerRequirementsParser#requirements}.
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void exitRequirements(CostumerRequirementsParser.RequirementsContext ctx);
+	void exitStart(CostumerRequirementsParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeader(CostumerRequirementsParser.HeaderContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeader(CostumerRequirementsParser.HeaderContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CostumerRequirementsParser#requirement}.
 	 * @param ctx the parse tree
@@ -28,13 +38,53 @@ public interface CostumerRequirementsListener extends ParseTreeListener {
 	 */
 	void exitRequirement(CostumerRequirementsParser.RequirementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CostumerRequirementsParser#text}.
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void enterText(CostumerRequirementsParser.TextContext ctx);
+	void enterReqType(CostumerRequirementsParser.ReqTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CostumerRequirementsParser#text}.
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void exitText(CostumerRequirementsParser.TextContext ctx);
+	void exitReqType(CostumerRequirementsParser.ReqTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#trueFalseReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrueFalseReq(CostumerRequirementsParser.TrueFalseReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#trueFalseReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrueFalseReq(CostumerRequirementsParser.TrueFalseReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterShortAReq(CostumerRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitShortAReq(CostumerRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntReq(CostumerRequirementsParser.IntReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntReq(CostumerRequirementsParser.IntReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CostumerRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterChoiceReq(CostumerRequirementsParser.ChoiceReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CostumerRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitChoiceReq(CostumerRequirementsParser.ChoiceReqContext ctx);
 }

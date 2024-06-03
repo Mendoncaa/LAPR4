@@ -1,14 +1,31 @@
 grammar CandidateRequirements;
 
-requirements: requirement+ EOF;
 
-requirement: 'R:' text answer;
+start: header requirement+ EOF;
 
-answer: NUMBER;
 
-text: TEXT;
-NUMBER: [0-9]+('.'[0-9]+)?;
+header:  text=STRING;
 
-TEXT: ~[\r\n?]+;
+
+requirement: id=INTEGER 'RQ: ' requirementContent=STRING reqType;
+
+
+reqType: trueFalseReq
+                | shortAReq
+                | intReq
+                | choiceReq;
+
+
+trueFalseReq: '[TrueOrFalse] ' id=INTEGER 'RA: ' answer=BOOLEAN;
+shortAReq: '[ShortAnswer] ' id=INTEGER 'RA: ' answer=STRING;
+intReq: '[Integer] ' id=INTEGER 'RA: ' answer=INTEGER;
+choiceReq: '[Choice] ' id=INTEGER 'RA: ' answer=STRING;
+
+
+STRING: '"' (~["\\] | '\\' .)* '"';
+BOOLEAN: 'true' | 'false';
+INTEGER: ('0' | [1-9][0-9]*);
+REAL: [0-9]+ '.' [0-9]+;
+
 
 WS: [ \t\r\n]+ -> skip;

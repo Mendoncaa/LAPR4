@@ -17,13 +17,25 @@ public class CandidateRequirementsBaseListener implements CandidateRequirementsL
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRequirements(CandidateRequirementsParser.RequirementsContext ctx) { }
+	@Override public void enterStart(CandidateRequirementsParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRequirements(CandidateRequirementsParser.RequirementsContext ctx) { }
+	@Override public void exitStart(CandidateRequirementsParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHeader(CandidateRequirementsParser.HeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHeader(CandidateRequirementsParser.HeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -41,25 +53,61 @@ public class CandidateRequirementsBaseListener implements CandidateRequirementsL
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAnswer(CandidateRequirementsParser.AnswerContext ctx) { }
+	@Override public void enterReqType(CandidateRequirementsParser.ReqTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAnswer(CandidateRequirementsParser.AnswerContext ctx) { }
+	@Override public void exitReqType(CandidateRequirementsParser.ReqTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterText(CandidateRequirementsParser.TextContext ctx) { }
+	@Override public void enterTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitText(CandidateRequirementsParser.TextContext ctx) { }
+	@Override public void exitTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterShortAReq(CandidateRequirementsParser.ShortAReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShortAReq(CandidateRequirementsParser.ShortAReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntReq(CandidateRequirementsParser.IntReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntReq(CandidateRequirementsParser.IntReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

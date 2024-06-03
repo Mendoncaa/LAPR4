@@ -11,11 +11,17 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CandidateRequirementsVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link CandidateRequirementsParser#requirements}.
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRequirements(CandidateRequirementsParser.RequirementsContext ctx);
+	T visitStart(CandidateRequirementsParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeader(CandidateRequirementsParser.HeaderContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CandidateRequirementsParser#requirement}.
 	 * @param ctx the parse tree
@@ -23,15 +29,33 @@ public interface CandidateRequirementsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRequirement(CandidateRequirementsParser.RequirementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CandidateRequirementsParser#answer}.
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAnswer(CandidateRequirementsParser.AnswerContext ctx);
+	T visitReqType(CandidateRequirementsParser.ReqTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CandidateRequirementsParser#text}.
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#trueFalseReq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitText(CandidateRequirementsParser.TextContext ctx);
+	T visitTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShortAReq(CandidateRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIntReq(CandidateRequirementsParser.IntReqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CandidateRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx);
 }

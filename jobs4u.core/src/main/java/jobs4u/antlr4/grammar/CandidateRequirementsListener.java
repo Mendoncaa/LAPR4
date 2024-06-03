@@ -8,15 +8,25 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CandidateRequirementsListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link CandidateRequirementsParser#requirements}.
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void enterRequirements(CandidateRequirementsParser.RequirementsContext ctx);
+	void enterStart(CandidateRequirementsParser.StartContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CandidateRequirementsParser#requirements}.
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void exitRequirements(CandidateRequirementsParser.RequirementsContext ctx);
+	void exitStart(CandidateRequirementsParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeader(CandidateRequirementsParser.HeaderContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#header}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeader(CandidateRequirementsParser.HeaderContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CandidateRequirementsParser#requirement}.
 	 * @param ctx the parse tree
@@ -28,23 +38,53 @@ public interface CandidateRequirementsListener extends ParseTreeListener {
 	 */
 	void exitRequirement(CandidateRequirementsParser.RequirementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CandidateRequirementsParser#answer}.
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void enterAnswer(CandidateRequirementsParser.AnswerContext ctx);
+	void enterReqType(CandidateRequirementsParser.ReqTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CandidateRequirementsParser#answer}.
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void exitAnswer(CandidateRequirementsParser.AnswerContext ctx);
+	void exitReqType(CandidateRequirementsParser.ReqTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CandidateRequirementsParser#text}.
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#trueFalseReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterText(CandidateRequirementsParser.TextContext ctx);
+	void enterTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CandidateRequirementsParser#text}.
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#trueFalseReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitText(CandidateRequirementsParser.TextContext ctx);
+	void exitTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterShortAReq(CandidateRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#shortAReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitShortAReq(CandidateRequirementsParser.ShortAReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntReq(CandidateRequirementsParser.IntReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#intReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntReq(CandidateRequirementsParser.IntReqContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CandidateRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 */
+	void enterChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CandidateRequirementsParser#choiceReq}.
+	 * @param ctx the parse tree
+	 */
+	void exitChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx);
 }

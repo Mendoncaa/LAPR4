@@ -1,0 +1,10 @@
+Q: Você tem experiência em Java? T/F W: 10 Choices: True, False
+Q: Descreva seu projeto mais recente Short W: 15
+Q: Qual linguagem você prefere? Single W: 10 Choices: Java, C#, PHP, JavaScript, TypeScript
+Q: Quais dessas tecnologias você conhece? Multiple W: 20 Choices: Spring, Hibernate, Docker, Kubernetes
+Q: Quantos anos de experiência você tem? Integer W: 15
+Q: Qual é a sua nota final do curso? Decimal W: 10
+Q: Qual é a sua data de nascimento? Date W: 5
+Q: Qual horário você prefere trabalhar? Time W: 5
+Q: Como você avalia suas habilidades em programação? Scale W: 10 Scale: 1-5
+EndInterview

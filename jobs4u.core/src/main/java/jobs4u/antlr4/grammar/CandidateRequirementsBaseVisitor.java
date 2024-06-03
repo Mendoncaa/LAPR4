@@ -18,7 +18,14 @@ public class CandidateRequirementsBaseVisitor<T> extends AbstractParseTreeVisito
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRequirements(CandidateRequirementsParser.RequirementsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStart(CandidateRequirementsParser.StartContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHeader(CandidateRequirementsParser.HeaderContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -32,12 +39,33 @@ public class CandidateRequirementsBaseVisitor<T> extends AbstractParseTreeVisito
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAnswer(CandidateRequirementsParser.AnswerContext ctx) { return visitChildren(ctx); }
+	@Override public T visitReqType(CandidateRequirementsParser.ReqTypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitText(CandidateRequirementsParser.TextContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTrueFalseReq(CandidateRequirementsParser.TrueFalseReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitShortAReq(CandidateRequirementsParser.ShortAReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIntReq(CandidateRequirementsParser.IntReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitChoiceReq(CandidateRequirementsParser.ChoiceReqContext ctx) { return visitChildren(ctx); }
 }

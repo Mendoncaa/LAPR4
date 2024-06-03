@@ -18,7 +18,14 @@ public class CostumerRequirementsBaseVisitor<T> extends AbstractParseTreeVisitor
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRequirements(CostumerRequirementsParser.RequirementsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStart(CostumerRequirementsParser.StartContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHeader(CostumerRequirementsParser.HeaderContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -32,5 +39,33 @@ public class CostumerRequirementsBaseVisitor<T> extends AbstractParseTreeVisitor
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitText(CostumerRequirementsParser.TextContext ctx) { return visitChildren(ctx); }
+	@Override public T visitReqType(CostumerRequirementsParser.ReqTypeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTrueFalseReq(CostumerRequirementsParser.TrueFalseReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitShortAReq(CostumerRequirementsParser.ShortAReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIntReq(CostumerRequirementsParser.IntReqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitChoiceReq(CostumerRequirementsParser.ChoiceReqContext ctx) { return visitChildren(ctx); }
 }
