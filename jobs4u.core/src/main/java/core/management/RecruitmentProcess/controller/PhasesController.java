@@ -7,16 +7,26 @@ import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
 import eapli.framework.application.UseCaseController;
+import eapli.framework.infrastructure.authz.application.AuthorizationService;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Transactional
 @UseCaseController
 @Component
 public class PhasesController {
 
+    @Autowired
     private JobOpeningRepository jobOpeningRepository;
+
+    @Autowired
     private PhaseValidatorService phaseValidatorService;
+
+    @Autowired
+    private AuthorizationService authz;
 
     public PhasesController() {
         jobOpeningRepository = PersistenceContext.repositories().jobOpenings();

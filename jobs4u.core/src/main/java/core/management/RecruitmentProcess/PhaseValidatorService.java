@@ -6,13 +6,15 @@ import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobReference;
 import core.management.rank.domain.Rank;
 import core.management.rank.repository.RankRepository;
-import lombok.Getter;
+import eapli.framework.domain.services.DomainService;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@DomainService
+@Component
 public class PhaseValidatorService {
 
-    @Getter
     private RecruitmentProcess recruitmentProcess;
     private ApplicationRepository applicationRepository;
     private RankRepository rankRepository;
