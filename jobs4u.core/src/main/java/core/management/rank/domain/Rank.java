@@ -17,7 +17,7 @@ public class Rank implements AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @ElementCollection
     private List<RankValue> rankValues;
 
     @OneToOne
