@@ -49,10 +49,10 @@ class JpaCandidateRepository extends JpaAutoTxRepository<Candidate, EmailAddress
 	}
 
 	@Override
-	public List<Candidate> findByName(Name user) {
+	public Optional<Candidate> findByName(Name user) {
 		final Map<String, Object> params = new HashMap<>();
 		params.put("user", user);
-		return match("e.candidateName=:user", params);
+		return matchOne("e.candidateName=:user", params);
 	}
 
 	@Override

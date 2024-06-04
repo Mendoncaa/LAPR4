@@ -1,5 +1,6 @@
 package core.management.jobOpening.repository;
 
+import core.management.rank.domain.Rank;
 import eapli.framework.domain.repositories.DomainRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +21,7 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
     List<JobReference> findAllJobReferences();
 
     int nextJobNumber(String customerCode);
+
+    Rank findRankByJobReference(JobReference jobReference);
 
 }

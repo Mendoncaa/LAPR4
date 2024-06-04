@@ -24,6 +24,7 @@ import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.domain.JobState;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.domain.Rank;
 import core.utentemanagement.domain.MecanographicNumber;
 import core.utentemanagement.domain.Utente;
 import core.utentemanagement.repositories.UtenteRepository;
@@ -67,5 +68,10 @@ public class InMemoryJobOpeningRepository
             list.add(jb.getJobReference());
         }
         return list;
+    }
+
+    @Override
+    public Rank findRankByJobReference(JobReference jobReference) {
+        return findByJobReference(jobReference).get().getRank();
     }
 }

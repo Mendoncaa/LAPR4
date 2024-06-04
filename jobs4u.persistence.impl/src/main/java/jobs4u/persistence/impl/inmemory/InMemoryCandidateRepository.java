@@ -42,8 +42,8 @@ public class InMemoryCandidateRepository
     }
 
     @Override
-    public List<Candidate> findByName(Name user) {
-        return (List<Candidate>) match(e -> e.getCandidateName().equals(user));
+    public Optional<Candidate> findByName(Name user) {
+        return matchOne(e -> e.getCandidateName().equals(user));
     }
 
     @Override

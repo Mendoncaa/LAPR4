@@ -17,25 +17,13 @@ public class Rank implements AggregateRoot<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    private List<RankValue> rankValues;
-
-    @OneToOne
-    @JoinColumns({
-            @JoinColumn(name = "rank_job_reference_customerCode", nullable = false),
-            @JoinColumn(name = "rank_job_reference_jobNumber", nullable = false)
-    })
-    private JobOpening jobOpening;
-
-    @OneToMany
-    private List<Candidate> candidates;
+    @ElementCollection
+    private List<RankPosition> rankPosition;
 
     public Rank() {}
 
-    public Rank(List<RankValue> rankValues, JobOpening jobOpening, List<Candidate> candidates) {
-        this.rankValues = rankValues;
-        this.jobOpening = jobOpening;
-        this.candidates = candidates;
+    public Rank(List<RankPosition> rankPosition) {
+        this.rankPosition = rankPosition;
     }
 
     @Override

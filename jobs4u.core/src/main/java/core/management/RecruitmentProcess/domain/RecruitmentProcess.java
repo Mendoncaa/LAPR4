@@ -3,11 +3,13 @@ package core.management.RecruitmentProcess.domain;
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 public class RecruitmentProcess implements ValueObject{
     @Id
@@ -19,6 +21,8 @@ public class RecruitmentProcess implements ValueObject{
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Phase> phases;
+
+    //TODO: FALAR COM O DIOGO SOBRE ESTA LISTA POIS FAZ MAIS SENTIDO SER SO UM ENUM PQ SE FOR UMA LISTA EU NAO SEI EM QUE FASE ELE ESTAA NO MOMENTO
 
     public RecruitmentProcess() {
         this.phases = new ArrayList<>();
