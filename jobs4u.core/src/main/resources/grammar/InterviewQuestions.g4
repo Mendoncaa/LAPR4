@@ -1,40 +1,60 @@
 grammar InterviewQuestions;
 
+start: header interviewModel footer EOF;
+
+//HEADER
+header:  interviewName=STRING jobOpeningReference=STRING ;
+
+//INTERVIEW
+interviewModel: interview+ ;
+
+interview: questions questionAnswers questionPoints;
+
+//questions
 questions: question+ ;
-question: true_false | short | single_choice | multiple_choice | int_q | real_q | date_q | time_q | scale_q ;
 
-true_false: 'TRUE_FALSE' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-           'ITS_VALIDATION' 'IS_DEFINED' 'AS' ('TRUE'|'FALSE') 'AWARDING' questionPoints=Decimal ;
+question: 'Question' id=INTEGER ':' questionType;
 
-short: 'SHORT_TEXT' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-       'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=String 'OF' 'TYPE' ('literal' | 'regex') 'AWARDING' questionPoints=Decimal ;
+questionType: trueOrFalseQuestion
+                |singleChoiceQuestion
+                |shortAnswerQuestion
+                |multipleChoiceQuestion
+                |integerQuestion
+                |decimalQuestion
+                |dateQuestion
+                |timeQuestion
+                |scaleQuestion
+                ;
 
-single_choice: 'SINGLE_CHOICE' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-               'ITS_VALIDATION' 'IS_DEFINED' 'AS' correctChoice=String 'FROM' choices=String+ 'AWARDING' questionPoints=Decimal ;
+trueOrFalseQuestion: STRING '( True or False ) with answer' answer=BOOLEAN;
+singleChoiceQuestion: STRING '( Single Choice ) within options' STRING 'with answer' answer=correctAnswer;
+shortAnswerQuestion: STRING '( Short Answer ) with answer' answer=correctAnswer;
+multipleChoiceQuestion: STRING '( Multiple Choice ) within options' STRING 'with answer' answer=correctAnswer;
+integerQuestion: STRING '( Integer ) with answer' answer=INTEGER;
+decimalQuestion: STRING '( Decimal ) with answer' answer=REAL;
+dateQuestion: STRING '( Date ) with answer' answer=correctAnswer;
+timeQuestion: STRING '( Time ) with answer' answer=correctAnswer;
+scaleQuestion: STRING '( Scale ) within range' INTEGER 'to' INTEGER 'with answer' answer=correctAnswer;
 
-multiple_choice: 'MULTIPLE_CHOICE' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-                 'ITS_VALIDATION' 'IS_DEFINED' 'AS' correctChoices=c_choices 'FROM' choices=String+ 'AWARDING' questionPoints=Decimal ;
+correctAnswer: BOOLEAN | INTEGER | REAL | STRING;
+//answers
+questionAnswers: ('Answer' id=INTEGER ':' answer=correctAnswer)+ ;
 
-c_choices: choice (COMA_TOKEN choice)* ;
-choice: '(' String COMA_TOKEN Decimal ')' ;
+//points
+questionPoints: 'Awarding :' points=INTEGER 'points';
 
-int_q: 'INTEGER_NUMBER' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-       'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=Decimal 'AWARDING' questionPoints=Decimal ;
+//FOOTER
+footer: 'Footer' score_definition '.';
 
-real_q: 'REAL_NUMBER' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-        'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=Real 'AWARDING' questionPoints=Decimal ;
+score_definition: 'Passing results must score' passingScore=INTEGER outstandingClause?;
 
-date_q: 'DATE' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-             'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=String 'OF' 'TYPE' format=String 'AWARDING' questionPoints=Decimal ;
+outstandingClause: ', Outstanding results must' outstandingResults=INTEGER;
 
-time_q: 'TIME' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-             'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=String 'OF' 'TYPE' format=String 'AWARDING' questionPoints=Decimal ;
+//Syntax tokens, sugar for the language
+STRING: '"' (~["\\] | '\\' .)* '"';
+BOOLEAN: 'true' | 'false';
+INTEGER: ('0'|[1-9][0-9]*);
+REAL: INTEGER ('.'|',') ([0-9]+[1-9]|'0');
 
-scale_q: 'SCALE' 'QUESTION' 'WITH' 'ID' questionId=String 'BEING' questionPrompt=String 'WITH' 'DIFFICULTY' 'OF' questionDifficulty=Decimal 'END_STATEMENT'
-                     'ITS_VALIDATION' 'IS_DEFINED' 'AS' questionCorrection=Decimal 'BETWEEN' lowerBound=Decimal 'AND' higherBound=Decimal 'AWARDING' questionPoints=Decimal ;
 
-String: '"' ~'"'+ '"' ;
-Decimal: '0'|[1-9][0-9]* ;
-Real: Decimal ('.'|',') ('0' | [0-9]*[1-9]) ;
-COMA_TOKEN: ',' ;
-WS: [ \t\n\r]+ -> skip ;
+WS: [ \t\r\n] -> skip;

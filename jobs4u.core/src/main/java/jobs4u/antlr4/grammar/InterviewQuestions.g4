@@ -1,53 +1,105 @@
 grammar InterviewQuestions;
 
-interview: question+ END;
+interviewMod: BEGIN_SECTION headerSec questionSec+ END_SECTION;
 
-question
-    : trueFalseQuestion
-    | shortTextQuestion
-    | singleChoiceQuestion
-    | multipleChoiceQuestion
-    | integerQuestion
-    | decimalQuestion
-    | dateQuestion
-    | timeQuestion
-    | numericScaleQuestion;
+headerSec: HEADER_BEGIN TEXT HEADER_END;
 
-trueFalseQuestion
-    : 'Q:' text 'T/F' 'W:' weight 'Choices:' 'True, False';
+questionSec: QUESTION_BEGIN questionValue (singleQ | choiceQ | multiChoiceQ | rangeQ) QUESTION_END;
 
-shortTextQuestion
-    : 'Q:' text 'Short' 'W:' weight;
+questionValue: VALUE_BEGIN values=(DECIMAL | INTEGER) VALUE_END;
 
-singleChoiceQuestion
-    : 'Q:' text 'Single' 'W:' weight 'Choices:' choice (',' choice)*;
+singleQ: SINGLE_QUESTION_BEGIN TEXT SINGLE_QUESTION_END answerSec;
 
-multipleChoiceQuestion
-    : 'Q:' text 'Multiple' 'W:' weight 'Choices:' choice (',' choice)*;
+answerSec: (trueFalseAnswer | shortTextAnswer | integerAnswer | decimalAnswer | dateAnswer | timeAnswer);
 
-integerQuestion
-    : 'Q:' text 'Integer' 'W:' weight;
+choiceQ: CHOICE_QUESTION_BEGIN TEXT choiceOption+ CHOICE_QUESTION_END choiceIntAnswer;
 
-decimalQuestion
-    : 'Q:' text 'Decimal' 'W:' weight;
+multiChoiceQ: MULTIPLE_CHOICE_QUESTION_BEGIN TEXT choiceOption+ MULTIPLE_CHOICE_QUESTION_END multiIntAnswer;
 
-dateQuestion
-    : 'Q:' text 'Date' 'W:' weight;
+rangeQ: RANGE_QUESTION_BEGIN TEXT RANGE_START_BEGIN finalRangeStart=INTEGER RANGE_START_END RANGE_END_BEGIN finalRangeEnd=INTEGER RANGE_END_END RANGE_QUESTION_END answerSec;
 
-timeQuestion
-    : 'Q:' text 'Time' 'W:' weight;
+integerAnswer: INTEGER_ANSWER_BEGIN INTEGER INTEGER_ANSWER_END;
 
-numericScaleQuestion
-    : 'Q:' text 'Scale' 'W:' weight 'Scale:' scale;
+choiceIntAnswer: INTEGER_ANSWER_BEGIN INTEGER INTEGER_ANSWER_END;
 
-text: TEXT;
-weight: NUMBER;
-choice: TEXT;
-scale: RANGE;
+multiIntAnswer: MULTIPLE_INTEGER_ANSWER_BEGIN INTEGER+ MULTIPLE_INTEGER_ANSWER_END;
 
-TEXT: ~[\r\n?]+;
-NUMBER: [0-9]+;
-RANGE: [0-9]+ '-' [0-9]+;
-END: 'EndInterview';
+decimalAnswer: DECIMAL_ANSWER_BEGIN decimalValue=(DECIMAL | INTEGER) DECIMAL_ANSWER_END;
 
-WS: [ \t\r\n]+ -> skip;
+dateAnswer: DATE_ANSWER_BEGIN DATE_FORMAT DATE_ANSWER_END;
+
+timeAnswer: TIME_ANSWER_BEGIN TIME_FORMAT TIME_ANSWER_END;
+
+choiceOption: CHOICE_OPTION_BEGIN questionValue TEXT CHOICE_OPTION_END;
+
+trueFalseAnswer: TRUE_FALSE_BEGIN BOOLEAN_VALUE TRUE_FALSE_END;
+
+shortTextAnswer: SHORT_TEXT_BEGIN TEXT SHORT_TEXT_END;
+
+BEGIN_SECTION: '<BEGIN_SECTION>';
+END_SECTION: '<END_SECTION>';
+
+HEADER_BEGIN: '<HEADER_BEGIN>';
+HEADER_END: '<HEADER_END>';
+
+QUESTION_BEGIN: '<QUESTION_BEGIN>';
+QUESTION_END: '<QUESTION_END>';
+
+SINGLE_QUESTION_BEGIN: '<SINGLE_QUESTION_BEGIN>';
+SINGLE_QUESTION_END: '<SINGLE_QUESTION_END>';
+
+CHOICE_QUESTION_BEGIN: '<CHOICE_QUESTION_BEGIN>';
+CHOICE_QUESTION_END: '<CHOICE_QUESTION_END>';
+
+MULTIPLE_CHOICE_QUESTION_BEGIN: '<MULTIPLE_CHOICE_QUESTION_BEGIN>';
+MULTIPLE_CHOICE_QUESTION_END: '<MULTIPLE_CHOICE_QUESTION_END>';
+
+TRUE_FALSE_BEGIN: '<TRUE_FALSE_BEGIN>';
+TRUE_FALSE_END: '<TRUE_FALSE_END>';
+
+SHORT_TEXT_BEGIN: '<SHORT_TEXT_BEGIN>';
+SHORT_TEXT_END: '<SHORT_TEXT_END>';
+
+CHOICE_OPTION_BEGIN: '<CHOICE_OPTION_BEGIN>';
+CHOICE_OPTION_END: '<CHOICE_OPTION_END>';
+
+INTEGER_ANSWER_BEGIN: '<INTEGER_ANSWER_BEGIN>';
+INTEGER_ANSWER_END: '<INTEGER_ANSWER_END>';
+
+MULTIPLE_INTEGER_ANSWER_BEGIN: '<MULTIPLE_INTEGER_ANSWER_BEGIN>';
+MULTIPLE_INTEGER_ANSWER_END: '<MULTIPLE_INTEGER_ANSWER_END>';
+
+DECIMAL_ANSWER_BEGIN: '<DECIMAL_ANSWER_BEGIN>';
+DECIMAL_ANSWER_END: '<DECIMAL_ANSWER_END>';
+
+DATE_ANSWER_BEGIN: '<DATE_ANSWER_BEGIN>';
+DATE_ANSWER_END: '<DATE_ANSWER_END>';
+
+TIME_ANSWER_BEGIN: '<TIME_ANSWER_BEGIN>';
+TIME_ANSWER_END: '<TIME_ANSWER_END>';
+
+RANGE_QUESTION_BEGIN: '<RANGE_QUESTION_BEGIN>';
+RANGE_QUESTION_END: '<RANGE_QUESTION_END>';
+
+RANGE_START_BEGIN: '<RANGE_START_BEGIN>';
+RANGE_START_END: '<RANGE_START_END>';
+
+RANGE_END_BEGIN: '<RANGE_END_BEGIN>';
+RANGE_END_END: '<RANGE_END_END>';
+
+VALUE_BEGIN: '<VALUE_BEGIN>';
+VALUE_END: '<VALUE_END>';
+
+WS  : [ \t\r\n]+ -> skip;
+
+BOOLEAN_VALUE: ('True' | 'False');
+
+DATE_FORMAT: [0-9][0-9] '/' [0-9][0-9] '/' [0-9][0-9][0-9][0-9];
+
+TIME_FORMAT: [0-9][0-9] ':' [0-9][0-9];
+
+INTEGER: [0-9]+;
+
+DECIMAL: [0-9]+ ('.' [0-9]+)?;
+
+TEXT: [a-zA-Z 0-9.]+;

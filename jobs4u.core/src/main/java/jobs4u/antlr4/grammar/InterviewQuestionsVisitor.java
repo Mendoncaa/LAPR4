@@ -1,4 +1,4 @@
-// Generated from C:/Users/David/Desktop/SEM4PI/sem4pi-23-24-2dj4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
+// Generated from /Users/mendonca/PROJETO_LAPR4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
 package jobs4u.antlr4.grammar;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,93 +11,111 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface InterviewQuestionsVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#interview}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#interviewMod}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterview(InterviewQuestionsParser.InterviewContext ctx);
+	T visitInterviewMod(InterviewQuestionsParser.InterviewModContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#question}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#headerSec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQuestion(InterviewQuestionsParser.QuestionContext ctx);
+	T visitHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#trueFalseQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#questionSec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTrueFalseQuestion(InterviewQuestionsParser.TrueFalseQuestionContext ctx);
+	T visitQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#shortTextQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#questionValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShortTextQuestion(InterviewQuestionsParser.ShortTextQuestionContext ctx);
+	T visitQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#singleChoiceQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#singleQ}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingleChoiceQuestion(InterviewQuestionsParser.SingleChoiceQuestionContext ctx);
+	T visitSingleQ(InterviewQuestionsParser.SingleQContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#multipleChoiceQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#answerSec}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultipleChoiceQuestion(InterviewQuestionsParser.MultipleChoiceQuestionContext ctx);
+	T visitAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#integerQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#choiceQ}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntegerQuestion(InterviewQuestionsParser.IntegerQuestionContext ctx);
+	T visitChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#decimalQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#multiChoiceQ}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDecimalQuestion(InterviewQuestionsParser.DecimalQuestionContext ctx);
+	T visitMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#dateQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#rangeQ}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDateQuestion(InterviewQuestionsParser.DateQuestionContext ctx);
+	T visitRangeQ(InterviewQuestionsParser.RangeQContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#timeQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#integerAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTimeQuestion(InterviewQuestionsParser.TimeQuestionContext ctx);
+	T visitIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#numericScaleQuestion}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#choiceIntAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumericScaleQuestion(InterviewQuestionsParser.NumericScaleQuestionContext ctx);
+	T visitChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#text}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#multiIntAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitText(InterviewQuestionsParser.TextContext ctx);
+	T visitMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#weight}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#decimalAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWeight(InterviewQuestionsParser.WeightContext ctx);
+	T visitDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#choice}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#dateAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitChoice(InterviewQuestionsParser.ChoiceContext ctx);
+	T visitDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link InterviewQuestionsParser#scale}.
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#timeAnswer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitScale(InterviewQuestionsParser.ScaleContext ctx);
+	T visitTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#choiceOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#trueFalseAnswer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterviewQuestionsParser#shortTextAnswer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx);
 }

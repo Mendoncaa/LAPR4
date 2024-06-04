@@ -1,6 +1,6 @@
 grammar InterviewAnswers;
 
-interview: questionAnswer+ END;
+intervdiew: questionAnswer+ END;
 
 questionAnswer
     : trueFalseAnswer

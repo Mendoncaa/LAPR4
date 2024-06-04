@@ -1,4 +1,4 @@
-// Generated from C:/Users/David/Desktop/SEM4PI/sem4pi-23-24-2dj4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
+// Generated from /Users/mendonca/PROJETO_LAPR4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
 package jobs4u.antlr4.grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -17,181 +17,217 @@ public class InterviewQuestionsBaseListener implements InterviewQuestionsListene
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterview(InterviewQuestionsParser.InterviewContext ctx) { }
+	@Override public void enterInterviewMod(InterviewQuestionsParser.InterviewModContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterview(InterviewQuestionsParser.InterviewContext ctx) { }
+	@Override public void exitInterviewMod(InterviewQuestionsParser.InterviewModContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQuestion(InterviewQuestionsParser.QuestionContext ctx) { }
+	@Override public void enterHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQuestion(InterviewQuestionsParser.QuestionContext ctx) { }
+	@Override public void exitHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrueFalseQuestion(InterviewQuestionsParser.TrueFalseQuestionContext ctx) { }
+	@Override public void enterQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrueFalseQuestion(InterviewQuestionsParser.TrueFalseQuestionContext ctx) { }
+	@Override public void exitQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShortTextQuestion(InterviewQuestionsParser.ShortTextQuestionContext ctx) { }
+	@Override public void enterQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShortTextQuestion(InterviewQuestionsParser.ShortTextQuestionContext ctx) { }
+	@Override public void exitQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSingleChoiceQuestion(InterviewQuestionsParser.SingleChoiceQuestionContext ctx) { }
+	@Override public void enterSingleQ(InterviewQuestionsParser.SingleQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSingleChoiceQuestion(InterviewQuestionsParser.SingleChoiceQuestionContext ctx) { }
+	@Override public void exitSingleQ(InterviewQuestionsParser.SingleQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultipleChoiceQuestion(InterviewQuestionsParser.MultipleChoiceQuestionContext ctx) { }
+	@Override public void enterAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultipleChoiceQuestion(InterviewQuestionsParser.MultipleChoiceQuestionContext ctx) { }
+	@Override public void exitAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerQuestion(InterviewQuestionsParser.IntegerQuestionContext ctx) { }
+	@Override public void enterChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerQuestion(InterviewQuestionsParser.IntegerQuestionContext ctx) { }
+	@Override public void exitChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDecimalQuestion(InterviewQuestionsParser.DecimalQuestionContext ctx) { }
+	@Override public void enterMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDecimalQuestion(InterviewQuestionsParser.DecimalQuestionContext ctx) { }
+	@Override public void exitMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDateQuestion(InterviewQuestionsParser.DateQuestionContext ctx) { }
+	@Override public void enterRangeQ(InterviewQuestionsParser.RangeQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDateQuestion(InterviewQuestionsParser.DateQuestionContext ctx) { }
+	@Override public void exitRangeQ(InterviewQuestionsParser.RangeQContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTimeQuestion(InterviewQuestionsParser.TimeQuestionContext ctx) { }
+	@Override public void enterIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTimeQuestion(InterviewQuestionsParser.TimeQuestionContext ctx) { }
+	@Override public void exitIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumericScaleQuestion(InterviewQuestionsParser.NumericScaleQuestionContext ctx) { }
+	@Override public void enterChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumericScaleQuestion(InterviewQuestionsParser.NumericScaleQuestionContext ctx) { }
+	@Override public void exitChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterText(InterviewQuestionsParser.TextContext ctx) { }
+	@Override public void enterMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitText(InterviewQuestionsParser.TextContext ctx) { }
+	@Override public void exitMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWeight(InterviewQuestionsParser.WeightContext ctx) { }
+	@Override public void enterDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWeight(InterviewQuestionsParser.WeightContext ctx) { }
+	@Override public void exitDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChoice(InterviewQuestionsParser.ChoiceContext ctx) { }
+	@Override public void enterDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChoice(InterviewQuestionsParser.ChoiceContext ctx) { }
+	@Override public void exitDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScale(InterviewQuestionsParser.ScaleContext ctx) { }
+	@Override public void enterTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScale(InterviewQuestionsParser.ScaleContext ctx) { }
+	@Override public void exitTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

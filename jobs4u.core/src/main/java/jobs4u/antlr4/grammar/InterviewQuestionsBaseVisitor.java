@@ -1,4 +1,4 @@
-// Generated from C:/Users/David/Desktop/SEM4PI/sem4pi-23-24-2dj4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
+// Generated from /Users/mendonca/PROJETO_LAPR4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
 package jobs4u.antlr4.grammar;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -18,103 +18,124 @@ public class InterviewQuestionsBaseVisitor<T> extends AbstractParseTreeVisitor<T
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterview(InterviewQuestionsParser.InterviewContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInterviewMod(InterviewQuestionsParser.InterviewModContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitQuestion(InterviewQuestionsParser.QuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTrueFalseQuestion(InterviewQuestionsParser.TrueFalseQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitShortTextQuestion(InterviewQuestionsParser.ShortTextQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSingleChoiceQuestion(InterviewQuestionsParser.SingleChoiceQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSingleQ(InterviewQuestionsParser.SingleQContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMultipleChoiceQuestion(InterviewQuestionsParser.MultipleChoiceQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntegerQuestion(InterviewQuestionsParser.IntegerQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDecimalQuestion(InterviewQuestionsParser.DecimalQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDateQuestion(InterviewQuestionsParser.DateQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRangeQ(InterviewQuestionsParser.RangeQContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTimeQuestion(InterviewQuestionsParser.TimeQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumericScaleQuestion(InterviewQuestionsParser.NumericScaleQuestionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitText(InterviewQuestionsParser.TextContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWeight(InterviewQuestionsParser.WeightContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitChoice(InterviewQuestionsParser.ChoiceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitScale(InterviewQuestionsParser.ScaleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx) { return visitChildren(ctx); }
 }
