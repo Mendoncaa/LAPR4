@@ -156,13 +156,15 @@ package ApplicationAgg #aaaabb {
 package RankingAgg #abbabb {
     class Rank<<Root>><<Entity>>
     class RankID<<Value Object>><<Id>>
-    class RankValue<<Value Object>>
+    class RankPosition<<Value Object>>
 
     Rank "1" --> "1" RankID
-    Rank "1" --> "1" RankValue
+    Rank "1" --> "1..*" RankPosition
 
-    Rank "1"-->"1" JobOpening : Refers to
-    Rank "1"-->"*" Candidate : Is ordered by
+    RankPosition "1" --> "1" Candidate
+
+    JobOpening "1"-->"0..1" Rank : Has
+
 }
 
 JobOpening "1"-->"0..1" RequirementsSpecification
