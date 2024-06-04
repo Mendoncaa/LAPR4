@@ -1,23 +1,16 @@
 @startuml
 
-title System Sequence Diagram (SSD) - Get an Ordered List of Candidates
+title System Sequence Diagram (SSD) - Ordered List of Candidates
 
 actor "Customer Manager" as CM
 participant ":System" as S
 
-activate CM
+CM -> S : Request ordered list of candidates for Job Opening
 
-CM -> S : Requests an ordered list of candidates by interview points
-activate S
-S --> CM : Asks for the job reference
-deactivate S
+S --> CM : Ask for Job Reference
+CM -> S : Provide Job Reference
 
-
-CM -> S : Provides the job reference
-activate S
-
-S --> CM : Returns the ordered list of candidates
-deactivate S
+S --> CM : Provide list of candidates with interview grades and confirms operation success
 
 
 @enduml

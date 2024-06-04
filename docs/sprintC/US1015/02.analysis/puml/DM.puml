@@ -1,27 +1,93 @@
 @startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
+package JobOpeningAgg {
+
+    class JobOpening {
+        +id: JobReference
+        +title: JobOpeningTitle
+        +requirements: RequirementsSpecification
+    }
+
+    class Phase {
+        +id: PhaseName
+    }
+
+    enum PhaseName {
+        SCREENING
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> Phase
+    Phase --> PhaseName: "Is in phase"
 }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
+package ApplicationAgg {
+    class Application {
+        +id: ApplicationID
+        +interview: Interview
+        +status: ApplicationStatus
+    }
+
+
+    enum ApplicationStateName {
+        Pending
+        Accepted
+        Rejected
+    }
+
+
+    Application --> JobOpening : Refers to
+
+    Application --> ApplicationStateName
 }
 
-class Order {
-    +id: int
-    +orderDate: Date
+package RequirementsSpecificationAgg {
+
+    class RequirementsSpecification {
+        +id: RequirementsSpecificationID
+        +skills: List<Skill>
+        +experience: Experience
+    }
+
+    class Description {
+        +name: String
+    }
+
+    class JarFile {
+        +years: Int
+    }
+    class SpecName {
+        +name: String
+    }
+
+    JobOpening --> RequirementsSpecification : Has
+    RequirementsSpecification --> Description
+    RequirementsSpecification --> JarFile
+    RequirementsSpecification --> SpecName
+
 }
 
-class OrderItem {
-    +quantity: int
-    +price: float
+package CandidateAgg {
+    class Candidate {
+        +email: CandidateEmail
+        +name: CandidateName
+    }
+
+    class CandidateEmail {
+        +email: String
+    }
+
+    class CandidateName {
+        +firstName: String
+        +lastName: String
+    }
+
+    Application --> Candidate : Is submitted by
+    Candidate --> CandidateEmail
+    Candidate --> CandidateName
+
 }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
+
+
+
 @enduml
