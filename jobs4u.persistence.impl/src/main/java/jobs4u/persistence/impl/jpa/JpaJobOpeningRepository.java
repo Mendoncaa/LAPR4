@@ -24,6 +24,7 @@ import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.domain.JobState;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.domain.Rank;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
@@ -78,5 +79,11 @@ class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReferen
 			list.add(jb.getJobReference());
 		}
 		return list;
+	}
+
+	@Override
+	public Rank findRankByJobReference(JobReference jobReference) {
+		JobOpening job = findByJobReference(jobReference).get();
+		return job.getRank();
 	}
 }

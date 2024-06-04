@@ -27,6 +27,9 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
@@ -39,10 +42,5 @@ class JpaRankRepository extends JpaAutoTxRepository<Rank, Long, Long> implements
 
     public JpaRankRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
-    }
-
-    @Override
-    public Rank findByJobReference(JobReference jobReference) {
-        return null;
     }
 }

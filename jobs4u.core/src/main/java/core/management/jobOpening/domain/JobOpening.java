@@ -2,6 +2,7 @@ package core.management.jobOpening.domain;
 
 import core.management.Plugin.domain.Plugin;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
+import core.management.rank.domain.Rank;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import jakarta.persistence.*;
@@ -60,6 +61,10 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "interviewModelId")
     private Plugin interviewModel;
+
+    @OneToOne
+    @JoinColumn(name = "rank_id")
+    private Rank rank;
 
     @Embedded
     @Column(nullable = false)

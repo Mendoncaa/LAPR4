@@ -17,10 +17,20 @@ public class ListMyApplicationsUI extends AbstractUI {
 
     private final ListApplicationsForJobOpeningController theController = new ListApplicationsForJobOpeningController();
     private static final Logger LOGGER = LoggerFactory.getLogger(ListMyApplicationsUI.class);
-    private final ListJobOpeningsController jobOpeningsController = new ListJobOpeningsController();
 
     @Override
     protected boolean doShow() {
+
+        List<jobApplication> applications = theController.listAllMyApplications();
+
+        if (applications.isEmpty()) {
+            System.out.println("No applications found.");
+        } else {
+            System.out.println("My Applications:");
+            for (jobApplication application : applications) {
+                System.out.println(application.getJobOpening().getJobReference().toString() + " - " + application.getStatus() + " (" + theController.getNumberOfApplicants(application.getJobOpening()) + " applicant(s) for this Job Opening)");
+            }
+        }
 
         return false;
     }

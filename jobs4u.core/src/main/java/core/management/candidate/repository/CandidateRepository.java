@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CandidateRepository extends DomainRepository<EmailAddress, Candidate> {
 
-    List<Candidate> findByName(Name user);
+    Optional<Candidate> findByName(Name user);
 
     Optional<Candidate> findByCandidateEmail(EmailAddress email);
 
