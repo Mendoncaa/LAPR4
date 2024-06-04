@@ -1,58 +1,63 @@
-@startuml
-hide field
-hide methods
+@startuml DomainModel
+package JobOpeningAgg {
 
-title US1017 - Upload Candidate Requirements\nDomain Model Excerpt
-skinparam linetype ortho
-
-package CandidateAgg #aababb {
-    class Candidate<<Root>><<Entity>> {
-        Email email
-        Name name
-        PhoneNumber phoneNumber
-        CandidateState state
+    class JobOpening {
+        +id: JobReference
+        +title: JobOpeningTitle
     }
-    class Email<<Value Object>><<Id>>
-    class Name<<Value Object>>
-    class PhoneNumber<<Value Object>>
-    class CandidateState<<Value Object>>
-    Candidate "1" --> "1" Email
-    Candidate "1" --> "1" Name
-    Candidate "1" --> "1" PhoneNumber
-    Candidate "1" --> "1" CandidateState
+
+    class Phase {
+        +id: PhaseName
+    }
+
+    enum PhaseName {
+        ANALYSIS
+    }
+
+    JobOpening --> Phase : "Is in phase"
+    Phase --> PhaseName
 }
 
-package ApplicationAgg #aaaabb {
-    class Application<<Root>><<Entity>> {
-        ApplicationID id
-        ApplicationState state
-        RequirementsEvaluation evaluation
-        File candidateRequirementsFile
+package ApplicationAgg {
+    class Application {
+        +id: ApplicationID
+        +interview: Interview
     }
-    class ApplicationID<<Value Object>><<Id>>
-    class ApplicationState<<Entity>> {
-        ApplicationStateName name
-        RejectionJustification justification
-    }
-    class ApplicationStateName<<Enum>><<ID>>
-    class RejectionJustification<<Value Object>>
-    class RequirementsEvaluation<<Enum>>
-    class File<<Value Object>> {
-        FilePath path
-        FileType type
-    }
-    class FilePath<<Value Object>>
-    class FileType<<Enum>>
 
-    Application "1" --> "1" ApplicationID
-    Application "1" --> "1" ApplicationState
-    ApplicationState "1" --> "1" ApplicationStateName
-    ApplicationState "1" --> "0..1" RejectionJustification
-    Application "1" --> "1" RequirementsEvaluation
-    Application "1" --> "1" File
-    File "1" --> "1" FilePath
-    File "1" --> "1" FileType
-    Application "1..*" --> "1" Candidate : Is submitted by
+    class Interview {
+        +grade: InterviewGrade
+        +justification: String
+    }
+
+
+    class InterviewGrade {
+        +grade: int
+    }
+
+    Application --> Interview
+    Application --> JobOpening : Refers to
+    Interview --> InterviewGrade
 }
+
+package CandidateAgg {
+    class Candidate {
+        +email: CandidateEmail
+        +name: CandidateName
+    }
+
+    class CandidateEmail {
+        +email: String
+    }
+
+    class CandidateName {
+        +firstName: String
+        +lastName: String
+    }
+
+    Application --> Candidate : Is submitted by
+    Candidate --> CandidateEmail
+    Candidate --> CandidateName
+}
+
 
 @enduml
