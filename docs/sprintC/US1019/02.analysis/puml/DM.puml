@@ -14,8 +14,9 @@ package JobOpeningAgg {
         ANALYSIS
     }
 
-    JobOpening --> Phase : "Is in phase"
-    Phase --> PhaseName
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> Phase
+    Phase --> PhaseName: "Is in phase"
 }
 
 package ApplicationAgg {
