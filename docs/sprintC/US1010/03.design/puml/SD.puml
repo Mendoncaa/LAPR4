@@ -1,4 +1,4 @@
-@startuml
+@startuml SequenceDiagram
 actor CustomerManager
 boundary PhasesUI
 control PhasesController
@@ -11,10 +11,11 @@ database RankRepository
 
 -> PhasesUI: doShow()
 activate PhasesUI
-PhasesUI -> PhasesController : create
+PhasesUI -> PhasesController : create()
 activate PhasesController
 PhasesController -> PersistenceContext : repositories().jobOpening()
 activate PersistenceContext
+PersistenceContext -> JobOpeningRepository : create()
 PersistenceContext --> PhasesController : jobOpeningRepository : JobOpeningRepository
 deactivate PersistenceContext
 PhasesController --> PhasesUI : controller : PhasesController
@@ -31,43 +32,50 @@ PhasesController -> PhaseValidatorService : create(recruitmentProcess : Recruitm
 activate PhaseValidatorService
 PhaseValidatorService -> PersistenceContext : repositories().application()
 activate PersistenceContext
+PersistenceContext -> ApplicationRepository : create()
 PersistenceContext --> PhaseValidatorService : applicationRepository : ApplicationRepository
 deactivate PersistenceContext
 PhaseValidatorService -> PersistenceContext : repositories().rank()
 activate PersistenceContext
+PersistenceContext -> RankRepository : create()
 PersistenceContext --> PhaseValidatorService : rankRepository : RankRepository
 deactivate PersistenceContext
 PhaseValidatorService --> PhasesController: phaseValidatorService : PhaseValidatorService
 deactivate PhaseValidatorService
-PhasesController -> PhaseValidatorService: validatePhaseTransition()
-note right
-The method/methods called will
-depend on the current phase of
-the recruitment process.
-end note
+PhasesController -> PhaseValidatorService:
+activate PhaseValidatorService
+alt PhaseName == "Analysis"
 PhaseValidatorService -> RankRepository : findRankByJobReference(jobReference : JobReference)
 activate RankRepository
 RankRepository --> PhaseValidatorService: rank : Rank
 deactivate RankRepository
-PhaseValidatorService -> ApplicationRepository : countApplicatiosByJobReference(jobReference : JobReference)
+else PhaseName != "Analysis"
+PhaseValidatorService -> ApplicationRepository : countApplicationsByJobReference(jobReference : JobReference)
 activate ApplicationRepository
 ApplicationRepository --> PhaseValidatorService: numberOfApplications : int
 deactivate ApplicationRepository
-PhaseValidatorService -> ApplicationRepository : countApplicationScreeningByJobReference(jobReference : JobReference)
-activate ApplicationRepository
-ApplicationRepository --> PhaseValidatorService: numberOfApplicationsScreening : int
-deactivate ApplicationRepository
-PhaseValidatorService -> ApplicationRepository : countApplicationInterviewsByJobReference(jobReference : JobReference)
-activate ApplicationRepository
-ApplicationRepository --> PhaseValidatorService: numberOfApplicationsInterviews : int
-deactivate ApplicationRepository
-PhaseValidatorService -> ApplicationRepository : countApplicationResultByJobReference(jobReference : JobReference)
-activate ApplicationRepository
-ApplicationRepository --> PhaseValidatorService: numberOfApplicationsResults : int
-deactivate ApplicationRepository
+    alt PhaseName == "Screening"
+    PhaseValidatorService -> ApplicationRepository : countScreeningByJobReference(jobReference : JobReference)
+    activate ApplicationRepository
+    ApplicationRepository --> PhaseValidatorService: numberOfApplicationsScreening : int
+    deactivate ApplicationRepository
+    else PhaseName == "Interviews"
+    PhaseValidatorService -> ApplicationRepository : countInterviewsByJobReference(jobReference : JobReference)
+    activate ApplicationRepository
+    ApplicationRepository --> PhaseValidatorService: numberOfApplicationsInterviews : int
+    deactivate ApplicationRepository
+    else PhaseName == "Result"
+    PhaseValidatorService -> ApplicationRepository : countResultByJobReference(jobReference : JobReference)
+    activate ApplicationRepository
+    ApplicationRepository --> PhaseValidatorService: numberOfApplicationsResults : int
+    deactivate ApplicationRepository
+
+    end
+end
 PhaseValidatorService -> PhaseValidatorService : validatePhaseTransitionForward()
 PhaseValidatorService -> PhaseValidatorService : validatePhaseTransitionBackward()
 PhaseValidatorService --> PhasesController: options : Iterable<String>
+deactivate PhaseValidatorService
 PhasesController --> PhasesUI: options : Iterable<String>
 deactivate PhasesController
 PhasesUI --> CustomerManager: Show options
@@ -80,7 +88,6 @@ else chosenOption == "Backward"
 PhasesController -> RecruitmentProcess: previousPhase()
 end
 PhasesController -> JobOpeningRepository : save(recruitmentProcess : RecruitmentProcess)
-
 PhasesController --> PhasesUI: Display confirmation or error
 deactivate PhasesController
 PhasesUI --> CustomerManager: Show confirmation or error

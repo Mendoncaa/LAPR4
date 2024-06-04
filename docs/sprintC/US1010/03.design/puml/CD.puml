@@ -24,14 +24,14 @@ package Service {
 
 package Repository {
     class JobOpeningRepository {
-        + findJobOpeningByJobReference(jobReference: JobReference): JobOpening
+        + findByJobReference(jobReference: JobReference): JobOpening
     }
 
     class ApplicationRepository {
         + countApplicationByJobReference(jobReference: JobReference): int
-        + countApplicationScreeningByJobReference(jobReference: JobReference): int
-        + countApplicationInterviewsByJobReference(jobReference: JobReference): int
-        + countApplicationResultByJobReference(jobReference: JobReference): int
+        + countScreeningByJobReference(jobReference: JobReference): int
+        + countInterviewsByJobReference(jobReference: JobReference): int
+        + countResultByJobReference(jobReference: JobReference): int
     }
 
     class RankRepository {
@@ -41,66 +41,70 @@ package Repository {
 
 package Model {
 
-    class JobReference {
-        +id: String
-    }
+    package JobOpeningAgg {
 
-    class RecruitmentProcess {
-        +id: int
-        +status: RecruitmentProcessStatus
-        +phases: List<Phase>
-        + nextPhase(): void
-        + previousPhase(): void
-    }
+        class JobReference {
+            + customerCode: String
+            + jobNumber: int
+        }
 
-    class Phase {
-        +name: PhaseName
-        +startDate: StartDate
-        +endDate: EndDate
-        +status: PhaseStatus
-    }
+        class RecruitmentProcess {
+            +id: int
+            +status: RecruitmentProcessStatus
+            +phases: List<Phase>
+            + nextPhase(): void
+            + previousPhase(): void
+        }
 
-    enum PhaseName {
-        APPLICATION,
-        SCREENING,
-        INTERVIEWS,
-        ANALYSIS,
-        RESULT
-    }
+        class Phase {
+            +name: PhaseName
+            +startDate: StartDate
+            +endDate: EndDate
+            +status: PhaseStatus
+        }
 
-    class StartDate {
-        +date: Date
-    }
+        enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+        }
 
-    class EndDate {
-        +date: Date
-    }
+        class StartDate {
+            +date: Date
+        }
 
-    enum PhaseStatus {
-        Open,
-        Closed
-    }
+        class EndDate {
+            +date: Date
+        }
 
-    enum RecruitmentProcessStatus {
-        Uninitiated,
-        InProcess,
-        Finished
+        enum PhaseStatus {
+            Open,
+            Closed
+        }
+
+        enum RecruitmentProcessStatus {
+            Uninitiated,
+            InProcess,
+            Finished
+        }
     }
 }
 
 package UI {
     class PhasesUI {
         - controller: PhasesController
-        + doShow(): void
+        + doShow(): boolean
         + headline(): String
     }
 }
 
 PhasesController --> PhaseValidatorService
 PhasesController --> JobOpeningRepository
-PhasesController --> JobReference
+PhasesController ..> JobReference
 PhaseValidatorService --> ApplicationRepository
-PhaseValidatorService --> RecruitmentProcess
+PhaseValidatorService ..> RecruitmentProcess
 PhaseValidatorService --> RankRepository
 RecruitmentProcess --> Phase : "has"
 Phase --> PhaseName

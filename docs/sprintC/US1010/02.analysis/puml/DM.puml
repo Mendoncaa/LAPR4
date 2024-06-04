@@ -90,27 +90,32 @@ package JobApplicationAgg {
 package RankAgg {
     class Rank {
         +id: RankID
-        +rankValue: RankValue
+        +rankPosition: RankPosition
     }
 
     class RankID {
         +id: int
     }
 
-    class RankValue {
+    class RankPosition {
         +value: int
     }
 
     Rank --> RankID
-    Rank --> RankValue
-    Rank --> JobOpening : "Is assigned to"
+    Rank --> RankPosition
+    JobOpening --> Rank : "has"
 }
 
 package CandidateAgg {
     class Candidate {
-        +id: CandidateEmail
+        + candidateEmail : EmailAddress
     }
 
-    Rank --> Candidate : "Is ranked by"
+    class EmailAddress{
+        + email : String
+    }
+
+    Candidate --> EmailAddress
+    RankPosition --> Candidate : "Is ranked by"
 }
 @enduml
