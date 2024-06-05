@@ -26,6 +26,7 @@ package jobs4u.app.backoffice.console.presentation;
 import jobs4u.Application;
 import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
+import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicationDataAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
@@ -79,6 +80,7 @@ public class MainMenu extends AbstractUI {
 	private static final int CREATE_JOBOPENING_OPTION = 1;
 	private static final int LIST_JOBOPENINGS_OPTION = 2;
 	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 2;
+	private static final int DISPLAY_APPLICATION_DATA = 3;
 	private static final int SETUP_JOBOPENING_PHASES_OPTION = 4;
 
 	// JOB APPLICATION
@@ -222,6 +224,7 @@ public class MainMenu extends AbstractUI {
 
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
 			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
+			menu.addItem(DISPLAY_APPLICATION_DATA,"Display Application Data", new DisplayApplicationDataAction());
 		}
 
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

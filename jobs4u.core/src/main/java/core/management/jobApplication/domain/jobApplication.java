@@ -41,6 +41,18 @@ public class jobApplication implements AggregateRoot<Long> {
     protected jobApplication() {
     }
 
+    public Candidate candidate() {
+        return this.candidate;
+    }
+
+    public JobOpening jobOpening() {
+        return this.jobOpening;
+    }
+
+    public String status() {
+        return this.status;
+    }
+
     public void approve() {
         this.status = "Approved";
     }
