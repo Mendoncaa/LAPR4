@@ -2,11 +2,11 @@
 
 package Controller {
     class PhasesController {
-        - validatorService: PhaseValidatorService
-        - jobRepository: JobOpeningRepository
-        - recruitmentProcess: RecruitmentProcess
-        + validateJobReference(jobReference: JobReference): Iterable <String>
-        - validatePhaseTransition(): Iterable<String>
+        - phaseValidatorService: PhaseValidatorService
+        - jobOpeningRepository: JobOpeningRepository
+        - authz: AuthorizationService
+        + validateJobReference(jobReference: JobReference): Iterable<String>
+        + processTransition(chosenOption: String, jobReference: String): boolean
     }
 }
 
@@ -15,27 +15,28 @@ package Service {
         - applicationRepository: ApplicationRepository
         - rankRepository: RankRepository
         - recruitmentProcess: RecruitmentProcess
-        - jobReference: JobReference
-        + validatePhaseTransition(): Iterable<String>
-        - validatePhaseTransitionForward(): boolean
-        - validatePhaseTransitionBackward(): boolean
+        + validatePhaseTransition(jobReference: String): Iterable<String>
+        - getSpecificPhaseCount(currentPhase: PhaseName, jobReference: JobReference): int
+        - validatePhaseTransitionForward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
+        - validatePhaseTransitionBackward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
     }
 }
 
 package Repository {
     class JobOpeningRepository {
-        + findByJobReference(jobReference: JobReference): JobOpening
+        + findByJobReference(jobReference: JobReference): Optional<JobOpening>
+        + save(jobOpening: JobOpening): void
     }
 
     class ApplicationRepository {
-        + countApplicationByJobReference(jobReference: JobReference): int
+        + countApplicationsByJobReference(jobReference: JobReference): int
         + countScreeningByJobReference(jobReference: JobReference): int
         + countInterviewsByJobReference(jobReference: JobReference): int
-        + countResultByJobReference(jobReference: JobReference): int
+        + countResultsByJobReference(jobReference: JobReference): int
     }
 
     class RankRepository {
-        + findRankByJobReference(jobReference: JobReference): Rank
+        + findByJobReference(jobReference: JobReference): Rank
     }
 }
 
@@ -49,18 +50,24 @@ package Model {
         }
 
         class RecruitmentProcess {
-            +id: int
-            +status: RecruitmentProcessStatus
-            +phases: List<Phase>
-            + nextPhase(): void
-            + previousPhase(): void
+            + id: Long
+            + status: RecruitmentProcessStatus
+            + phases: List<Phase>
+            + addPhase(phase: Phase): void
+            + removePhase(phase: Phase): void
+            ~ nextPhase(): boolean
+            ~ previousPhase(): boolean
+            + currentPhase(): Phase
+            - openPhaseByName(phaseName: PhaseName): boolean
         }
 
         class Phase {
-            +name: PhaseName
-            +startDate: StartDate
-            +endDate: EndDate
-            +status: PhaseStatus
+            + name: PhaseName
+            + startDate: StartDate
+            + endDate: EndDate
+            + status: PhaseStatus
+            + open(): void
+            + close(): void
         }
 
         enum PhaseName {
@@ -72,22 +79,22 @@ package Model {
         }
 
         class StartDate {
-            +date: Date
+            + date: Date
         }
 
         class EndDate {
-            +date: Date
+            + date: Date
         }
 
         enum PhaseStatus {
-            Open,
-            Closed
+            OPEN,
+            CLOSED
         }
 
         enum RecruitmentProcessStatus {
-            Uninitiated,
-            InProcess,
-            Finished
+            UNINITIATED,
+            IN_PROCESS,
+            FINISHED
         }
     }
 }
@@ -97,6 +104,10 @@ package UI {
         - controller: PhasesController
         + doShow(): boolean
         + headline(): String
+        - askForJobReference(): String
+        - showOptions(options: Iterable<String>, jobReference: String): void
+        - processTransition(chosenOption: String, jobReference: String): void
+        - showConfirmationOrError(message: String): void
     }
 }
 

@@ -83,11 +83,12 @@ public class MainMenu extends AbstractUI {
 	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 2;
 	private static final int DISPLAY_APPLICATION_DATA = 3;
 	private static final int SETUP_JOBOPENING_PHASES_OPTION = 4;
-	private static final int BRUNA = 12;
+	private static final int OPEN_OR_CLOSE_PHASES_OPTION = 5;
 
 	// JOB APPLICATION
 
 	private static final int REGISTER_JOBAPPLICATION_OPTION = 1;
+	private static final int BRUNA = 12;
 
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
@@ -214,6 +215,7 @@ public class MainMenu extends AbstractUI {
 		menu.addItem(CREATE_JOBOPENING_OPTION, "Create a Job Opening", new CreateJobOpeningAction());
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
 		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
+		menu.addItem(OPEN_OR_CLOSE_PHASES_OPTION, "Open or Close Phases", new PhasesAction());
 		menu.addItem(BRUNA, "BRUNAAAAA", new GenerateTemplateUI()::show);
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 

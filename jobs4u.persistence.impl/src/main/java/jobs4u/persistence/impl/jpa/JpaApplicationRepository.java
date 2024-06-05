@@ -76,22 +76,22 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 	}
 
 	@Override
-	public int countApplicationsByJobReference(String jobReference) {
+	public int countApplicationsByJobReference(JobReference jobReference) {
 		return 0;
 	}
 
 	@Override
-	public int countScreeningByJobReference(String jobReference) {
+	public int countScreeningByJobReference(JobReference jobReference) {
 		return 0;
 	}
 
 	@Override
-	public int countInterviewsByJobReference(String jobReference) {
+	public int countInterviewsByJobReference(JobReference jobReference) {
 		return 0;
 	}
 
 	@Override
-	public int countResultsByJobReference(String jobReference) {
+	public int countResultsByJobReference(JobReference jobReference) {
 		return 0;
 	}
 }

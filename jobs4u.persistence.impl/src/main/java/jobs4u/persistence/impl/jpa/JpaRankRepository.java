@@ -43,4 +43,11 @@ class JpaRankRepository extends JpaAutoTxRepository<Rank, Long, Long> implements
     public JpaRankRepository(final String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
     }
+
+    @Override
+    public Rank findByJobReference(final JobReference jobRef) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("jobRef", jobRef);
+        return matchOne("e.jobReference=:jobRef", params).get();
+    }
 }

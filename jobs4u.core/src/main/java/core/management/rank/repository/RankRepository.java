@@ -7,4 +7,5 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 public interface RankRepository extends DomainRepository<Long, Rank> {
 
+    Rank findByJobReference(JobReference jobReference);
 }

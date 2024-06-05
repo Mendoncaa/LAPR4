@@ -2,43 +2,83 @@ package jobs4u.app.backoffice.console.presentation.JobOpening;
 
 import core.management.RecruitmentProcess.controller.PhasesController;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.SelectWidget;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 @Component
 @Transactional
 public class PhasesUI extends AbstractUI {
 
-    @Autowired
-    private PhasesController controller;
+    private PhasesController controller = new PhasesController();
 
     @Override
     protected boolean doShow() {
-        controller = new PhasesController();
+        // Step 1: Ask for Job Reference
+        String jobReference = askForJobReference();
+
+        // Step 2: Validate Job Reference
+        Iterable<String> options = controller.validateJobReference(jobReference);
+        if (options == null) {
+            showConfirmationOrError("Invalid Job Reference!");
+            return false;
+        }
+        if (!options.iterator().hasNext()) {
+            showConfirmationOrError("No options available!");
+            return false;
+        }
+
+        // Step 3: Retrieve and Display Options
+        showOptions(options, jobReference);
+
+
         return true;
     }
 
-    public void askForJobReference() {
-        // Simulating user input for JobReference
-        String jobReference = "JOB_REF_123";
-        controller.validateJobReference(jobReference);
+    private String askForJobReference() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter the Job Reference: ");
+        return scanner.nextLine();
     }
 
-    public void showOptions(Iterable<String> options) {
-        // Simulating user selection
-        System.out.println("Options: " + options);
-        String chosenOption = "Forward"; // Assuming the user chooses "Forward"
-        processTransition(chosenOption);
+    public void showOptions(Iterable<String> options, String jobReference) {
+        // Convert Iterable to List
+        List<String> optionsList = new ArrayList<>();
+        options.forEach(optionsList::add);
+
+        // Display the options to the user
+        SelectWidget<String> selector = new SelectWidget<>("Available Options", optionsList);
+        selector.show();
+
+        // Get the selected option
+        String chosenOption = selector.selectedElement();
+
+        if (chosenOption != null) {
+            // Process the chosen option
+            processTransition(chosenOption, jobReference);
+        } else {
+            showConfirmationOrError("No option selected!");
+        }
     }
 
-    public void processTransition(String chosenOption) {
-        controller.processTransition(chosenOption);
+    public void processTransition(String chosenOption, String jobReference) {
+        boolean success = controller.processTransition(chosenOption, jobReference);
+        if (success) {
+            showConfirmationOrError("Phase transition successful!");
+        } else {
+            showConfirmationOrError("Phase transition failed!");
+        }
     }
 
     public void showConfirmationOrError(String message) {
         System.out.println(message);
     }
+
     @Override
     public String headline() {
         return "Open or Close Phases";
