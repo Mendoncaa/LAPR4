@@ -79,6 +79,7 @@ public class AppSettings {
 	}
 
 	public String getPersistenceUnitName() {
+
 		return this.applicationProperties.getProperty(PERSISTENCE_UNIT_KEY);
 	}
 

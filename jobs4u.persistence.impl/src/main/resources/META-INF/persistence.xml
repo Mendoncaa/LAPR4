@@ -37,4 +37,43 @@
 
     </properties>
   </persistence-unit>
+
+  <persistence-unit name="server">
+    <!--
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    -->
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+    <class>core.utentemanagement.domain.Utente</class>
+    <class>core.utentemanagement.domain.SignupRequest</class>
+    <class>core.management.jobOpening.domain.JobOpening</class>
+    <class>core.management.RecruitmentProcess.domain.RecruitmentProcess</class>
+    <class>core.management.RecruitmentProcess.domain.Phase</class>
+    <class>core.management.costumer.domain.Customer</class>
+    <class>core.management.costumer.domain.CustomerRepresentative</class>
+    <class>core.management.candidate.domain.Candidate</class>
+    <class>core.management.jobApplication.domain.jobApplication</class>
+    <class>core.management.Plugin.domain.Plugin</class>
+    <class>core.management.rank.domain.Rank</class>
+    <class>core.management.rank.domain.RankPosition</class>
+
+    <properties>
+      <!--<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/eapliexemplo"/>-->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:11313/jobs4u"/>
+
+      <property name="jakarta.persistence.jdbc.user" value="admin"/>
+      <property name="jakarta.persistence.jdbc.password" value="sa"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <!-- <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+      <!-- <property name="eclipselink.logging.level" value="FINE"/> -->
+      <!-- <property name = "hibernate.show_sql" value = "true" /> -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+    </properties>
+  </persistence-unit>
+
 </persistence>
