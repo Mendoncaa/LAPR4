@@ -1,15 +1,19 @@
 @startuml
+actor CustomerManager as CM
+participant System
 
-title System Sequence Diagram (SSD) - Place an Order
+CM -> System : Requests to rank the candidates for a job opening
+System --> CM : Returns the list of job openings and asks to select one
+CM -> System : Selects a job opening
 
-actor "Customer" as U
-participant ":System" as S
-
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
-
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
-
+alt in Analysis
+    System --> CM : Returns the options candidates ranked\nand candidates not ranked
+    CM -> System : Selects one of the options
+    loop for each candidate
+        System --> CM : Returns candidate
+        CM -> System : Ranks the candidate
+    end
+else not in Analysis
+    System --> CM : Returns the message "The job opening is not in the Analysis phase"
+end
 @enduml
