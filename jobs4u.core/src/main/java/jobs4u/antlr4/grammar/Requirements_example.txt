@@ -1,0 +1,5 @@
+"Job Application Requirements"
+1RQ: "Qual é a sua linguagem de programação preferida (Java, Python, C) ?" [Choice] 1RA: "Java"
+2RQ: "Quantos anos de experiência você tem em programação?" [Integer] 2RA: 5
+3RQ: "Você tem certificação em Java?" [TrueOrFalse] 3RA: true
+4RQ: "Descreva brevemente a sua experiência com a linguagem de programação Python." [ShortAnswer] 4RA: "Tenho trabalhado com Python por 3 anos, principalmente em análise de dados e desenvolvimento web."

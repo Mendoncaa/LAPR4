@@ -1,0 +1,150 @@
+<BEGIN_SECTION>
+    <HEADER_BEGIN>
+        Interview for Java
+    <HEADER_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            10
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            Java is an OOP language.
+        <SINGLE_QUESTION_END>
+        <TRUE_FALSE_BEGIN>
+            True
+        <TRUE_FALSE_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            20
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            Who is the creator of Java
+        <SINGLE_QUESTION_END>
+        <SHORT_TEXT_BEGIN>
+            James Gosling.
+        <SHORT_TEXT_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            30
+        <VALUE_END>
+        <CHOICE_QUESTION_BEGIN>
+            What is the name of Java
+            <CHOICE_OPTION_BEGIN>
+                <VALUE_BEGIN>
+                    1
+                <VALUE_END>
+                1. Java
+            <CHOICE_OPTION_END>
+            <CHOICE_OPTION_BEGIN>
+                <VALUE_BEGIN>
+                    0
+                <VALUE_END>
+                2. C
+            <CHOICE_OPTION_END>
+        <CHOICE_QUESTION_END>
+        <INTEGER_ANSWER_BEGIN>
+            1
+        <INTEGER_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            30
+        <VALUE_END>
+        <MULTIPLE_CHOICE_QUESTION_BEGIN>
+            Select OOP languages
+            <CHOICE_OPTION_BEGIN>
+                <VALUE_BEGIN>
+                    0.5
+                <VALUE_END>
+                1. Java
+            <CHOICE_OPTION_END>
+            <CHOICE_OPTION_BEGIN>
+                <VALUE_BEGIN>
+                    0.5
+                <VALUE_END>
+                2. Kotlin
+            <CHOICE_OPTION_END>
+            <CHOICE_OPTION_BEGIN>
+                <VALUE_BEGIN>
+                    0
+                <VALUE_END>
+                3. C
+            <CHOICE_OPTION_END>
+        <MULTIPLE_CHOICE_QUESTION_END>
+        <MULTIPLE_INTEGER_ANSWER_BEGIN>
+            1
+            2
+        <MULTIPLE_INTEGER_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            10
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            One plus one
+        <SINGLE_QUESTION_END>
+        <INTEGER_ANSWER_BEGIN>
+            2
+        <INTEGER_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            30
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            Value of PI
+        <SINGLE_QUESTION_END>
+        <DECIMAL_ANSWER_BEGIN>
+            3.14
+        <DECIMAL_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            10
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            Date of birth
+        <SINGLE_QUESTION_END>
+        <DATE_ANSWER_BEGIN>
+            15/02/1996
+        <DATE_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            20
+        <VALUE_END>
+        <SINGLE_QUESTION_BEGIN>
+            Time
+        <SINGLE_QUESTION_END>
+        <TIME_ANSWER_BEGIN>
+            16:20
+        <TIME_ANSWER_END>
+    <QUESTION_END>
+
+    <QUESTION_BEGIN>
+        <VALUE_BEGIN>
+            20
+        <VALUE_END>
+        <RANGE_QUESTION_BEGIN>
+            Number seven
+            <RANGE_START_BEGIN>
+                3
+            <RANGE_START_END>
+            <RANGE_END_BEGIN>
+                10
+            <RANGE_END_END>
+        <RANGE_QUESTION_END>
+        <INTEGER_ANSWER_BEGIN>
+            7
+        <INTEGER_ANSWER_END>
+    <QUESTION_END>
+<END_SECTION>
