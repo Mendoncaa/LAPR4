@@ -1,0 +1,35 @@
+@startuml
+
+    class DisplayApplicationDataController {
+        - applicationRepository: ApplicationRepository
+        + allApplications(): Iterable<jobApplication>
+    }
+
+
+
+    class ApplicationRepository {
+        + findAll(): Iterable<jobApplication>
+        + fetchApplicationData(selectedApplication: jobApplication): jobApplication
+    }
+
+
+    class jobApplication {
+        + identity(): String
+        + candidate(): String
+        + jobOpening(): JobOpening
+        + status(): String
+    }
+
+
+
+    class DisplayApplicationDataUI {
+        - theController: DisplayApplicationDataController
+        + doShow(): boolean
+        + headline(): String
+    }
+
+
+DisplayApplicationDataController ..> ApplicationRepository
+DisplayApplicationDataController --> jobApplication
+DisplayApplicationDataUI --> DisplayApplicationDataController
+@enduml
