@@ -1,49 +1,146 @@
 @startuml ClassDiagram
+
+package UI{
+    class ListOrderedApplicationUI{
+        - controller : ListOrderedApplicationController
+        + doShow() : boolean
+        + headline() : String
+    }
+}
 package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
+    class ListOrderedApplicationController {
+        - jobRepository: JobOpeningRepository
+        - orderApplicationService : OrderApplicationService
+        + validateJobReference(jobReference : JobReference) : List<Application>
     }
 }
 
 package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
+    class OrderApplicationService {
+        - applicationRepository: ApplicationRepository
+        + orderedListOfApplications() : List<Application>
+        - validateCurrentPhase() : boolean
+        - orderApplicationsByIntervewGrade(applications : Iterable<Application>) : List<Application>
     }
 }
 
 package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
+    class JobOpeningRepository {
+        + findByJobReference(jobReference : JobReference) : JobOpening
+    }
+    class ApplicationRepository {
+        + findAll() : Iterable<Application>
     }
 }
 
 package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
+
+    package CandidateAgg {
+
+        class Candidate {
+            + candidateEmail: EmailAddress
+            + candidateName: Name
+            + candidatePhone : PhoneNumber
+            + state : CandidateState
+        }
+
+        class Name {
+            + customerName : String
+        }
+        class EmailAddress {
+            + email : String
+        }
     }
 
-    class OrderItem {
-        +quantity: int
-        +price: float
+    package JobOpeningAgg {
+
+        class JobReference {
+            + customerCode: String
+            + jobNumber: int
+        }
+
+        class RecruitmentProcess {
+            +id: int
+            +status: RecruitmentProcessStatus
+            +phases: List<Phase>
+            + nextPhase(): void
+            + previousPhase(): void
+        }
+
+        class Phase {
+            +name: PhaseName
+            +startDate: StartDate
+            +endDate: EndDate
+            +status: PhaseStatus
+        }
+
+        enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+        }
+
+        class StartDate {
+            +date: Date
+        }
+
+        class EndDate {
+            +date: Date
+        }
+
+        enum PhaseStatus {
+            Open,
+            Closed
+        }
+
+        enum RecruitmentProcessStatus {
+            Uninitiated,
+            InProcess,
+            Finished
+        }
     }
 
-    class Payment {
-        +amount: float
-        +paymentDate: Date
+    package ApplicationAgg {
+
+       class Application{
+            + interview : Interview
+       }
+
+       class Interview{
+          + dateTime : InterviewDateTime
+          + grade : InterviewGrade
+       }
+
+       class InterviewDateTime{
+          + date : Date
+       }
+
+       class InterviewGrade{
+          + grade : int
+       }
     }
 
-    class User {
-        +id: int
-        +username: String
-        +email: String
-    }
+    Candidate --> Name
+    Candidate --> EmailAddress
+    RecruitmentProcess --> Phase : "has"
+    Phase --> PhaseName
+    Phase --> StartDate
+    Phase --> EndDate
+    Phase --> PhaseStatus
+    RecruitmentProcess --> RecruitmentProcessStatus
+    Application --> Interview
+    Interview --> InterviewDateTime
+    Interview --> InterviewGrade
 }
-
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+ListOrderedApplicationUI --> ListOrderedApplicationController
+ListOrderedApplicationController --> OrderApplicationService
+OrderApplicationService --> ApplicationRepository
+OrderApplicationService ..> RecruitmentProcess
+ListOrderedApplicationUI ..> Candidate
+ListOrderedApplicationController ..> JobReference
+ListOrderedApplicationController --> JobOpeningRepository
+OrderApplicationService ..> Application
+}
 @enduml
