@@ -1,19 +1,52 @@
 @startuml SequenceDiagram
-actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+actor CustomerManager
+boundary ListOrderedApplicationUI
+control ListOrderedApplicationController
+entity OrderApplicationService
+participant PersistenceContext
+database JobOpeningRepository
+database ApplicationRepository
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+-> ListOrderedApplicationUI : doShow()
+activate ListOrderedApplicationUI
+ListOrderedApplicationUI -> ListOrderedApplicationController : create()
+activate ListOrderedApplicationController
+ListOrderedApplicationController -> PersistenceContext : repositories().jobOpening()
+activate PersistenceContext
+PersistenceContext -> JobOpeningRepository : create()
+PersistenceContext --> ListOrderedApplicationController : jobOpeningRepository : JobOpeningRepository
+deactivate PersistenceContext
+ListOrderedApplicationController --> ListOrderedApplicationUI : controller : ListOrderedApplicationController
+deactivate ListOrderedApplicationController
+ListOrderedApplicationUI --> CustomerManager : Ask for JobReference
+CustomerManager --> ListOrderedApplicationUI : Insert JobReference
+ListOrderedApplicationUI -> ListOrderedApplicationController : validateJobReference(jobReference : JobReference)
+activate ListOrderedApplicationController
+ListOrderedApplicationController -> JobOpeningRepository : findByJobReference(jobReference : JobReference)
+activate JobOpeningRepository
+JobOpeningRepository --> ListOrderedApplicationController : jobOpening : JobOpening
+deactivate JobOpeningRepository
+ListOrderedApplicationController -> OrderApplicationService : create(recruitmentProcess : RecruitmentProcess)
+activate OrderApplicationService
+OrderApplicationService -> PersistenceContext : repositories().application()
+activate PersistenceContext
+PersistenceContext -> ApplicationRepository : create()
+PersistenceContext --> OrderApplicationService : applicationRepository : ApplicationRepository
+deactivate PersistenceContext
+OrderApplicationService --> ListOrderedApplicationController : orderApplicationService : OrderApplicationService
+deactivate OrderApplicationService
+ListOrderedApplicationController -> OrderApplicationService : orderedListofApplications()
+activate OrderApplicationService
+OrderApplicationService -> OrderApplicationService : validateCurrentPhase()
+OrderApplicationService -> ApplicationRepository : findAll()
+activate ApplicationRepository
+ApplicationRepository --> OrderApplicationService : allApplications : Iterable<Application>
+deactivate ApplicationRepository
+OrderApplicationService -> OrderApplicationService : orderApplicationsByInterviewGrade(applications : Iterable<Application>)
+OrderApplicationService --> ListOrderedApplicationController : orderedApplications : List<Application>
+deactivate OrderApplicationService
+ListOrderedApplicationController --> ListOrderedApplicationUI : orderedApplications : List<Application>
+deactivate ListOrderedApplicationController
+ListOrderedApplicationUI --> CustomerManager : Show ordered list of Candidates
+deactivate ListOrderedApplicationUI
 @enduml
