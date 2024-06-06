@@ -73,5 +73,13 @@ public class ApplicationService {
         
         return candidateRepository.save(new Candidate(email, name, phone, candidate));
     }
-    
+
+    public Iterable findAll() {
+        return applicationRepository.findAll();
+    }
+
+    public void uploadRequirementsResponses(jobApplication application, String responses) {
+        application.updateResponses(responses);
+        applicationRepository.save(application);
+    }
 }

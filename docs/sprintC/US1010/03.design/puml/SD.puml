@@ -42,10 +42,10 @@ PersistenceContext --> PhaseValidatorService : rankRepository : RankRepository
 deactivate PersistenceContext
 PhaseValidatorService --> PhasesController: phaseValidatorService : PhaseValidatorService
 deactivate PhaseValidatorService
-PhasesController -> PhaseValidatorService:
+PhasesController -> PhaseValidatorService: validatePhaseTransition()
 activate PhaseValidatorService
 alt PhaseName == "Analysis"
-PhaseValidatorService -> RankRepository : findRankByJobReference(jobReference : JobReference)
+PhaseValidatorService -> RankRepository : findByJobReference(jobReference : JobReference)
 activate RankRepository
 RankRepository --> PhaseValidatorService: rank : Rank
 deactivate RankRepository

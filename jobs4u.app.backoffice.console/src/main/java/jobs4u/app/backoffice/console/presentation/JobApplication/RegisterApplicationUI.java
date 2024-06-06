@@ -25,7 +25,7 @@ public class RegisterApplicationUI extends AbstractUI {
         jobOpenings.forEach(job -> System.out.println(job.getJobReference().toString()));
 
         String selectedJobRef = Console.readLine("Enter the Job Reference from the above list:");
-        String path = Console.readLine("Enter the path to the folder containing the candidate applications:");
+        String path = "jobs4u.app.backoffice.console/src/main/resources/SCOMP/File_Report";
         if(!theController.existsPathJobOpening(selectedJobRef, path)) {
             System.out.println("No Candidate Applications found for the selected Job Reference.");
             return false;

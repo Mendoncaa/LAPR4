@@ -155,11 +155,11 @@ package ApplicationAgg #aaaabb {
 
 package RankingAgg #abbabb {
     class Rank<<Root>><<Entity>>
-    class RankID<<Value Object>><<Id>>
     class RankPosition<<Value Object>>
+    class RankStatus<<Enum>>
 
-    Rank "1" --> "1" RankID
     Rank "1" --> "1..*" RankPosition
+    Rank "1" --> "1" RankStatus
 
     RankPosition "1" --> "1" Candidate
 

@@ -1,27 +1,66 @@
-@startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
+@startuml
+hide field
+hide methods
+
+title Simplified Domain Model for Upload Requirements
+
+package JobOpeningAgg #bbaabb {
+    class JobOpening<<Root>><<Entity>>
+    class JobReference<<Value Object>><<Id>>
+    class JobOpeningTitle<<Value Object>>
+    class ContractType<<Value Object>>
+    class Description<<Value Object>>
+    class Address<<Value Object>>
+    class JobMode<<Value Object>>
 }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
+package ApplicationAgg #aaaabb {
+    class Application<<Root>><<Entity>>
+    class ApplicationID<<Value Object>><<Id>>
+    class FilePath<<Value Object>>
+    class File<<Value Object>>
+    class FileType<<Enum>>
+
+    class ApplicationState<<Entity>>
+    class ApplicationStateName<<Enum>><<ID>>
+
+    Application "1" --> "1" ApplicationID
+    Application "1" --> "1" ApplicationState
+    ApplicationState "1" --> "1" ApplicationStateName
+    Application "1" --> "*" File
+    File "1" --> "1" FilePath
+    File "1" --> "1" FileType
+
+    Application "0..*" --> "1" JobOpening : Refers to
+    Application "1..*" --> "1" Candidate : Is submitted by
 }
 
-class Order {
-    +id: int
-    +orderDate: Date
+package CandidateAgg #aababb {
+    class Candidate<<Root>><<Entity>>
+    class Email<<Value Object>><<Id>>
+    class Name<<Value Object>>
+    class PhoneNumber<<Value Object>>
+
+    Candidate "1" --> "1" Email
+    Candidate "1" --> "1" Name
+    Candidate "1" --> "1" PhoneNumber
+
+    Candidate "1..*" --> "0..*" Application : Submits
 }
 
-class OrderItem {
-    +quantity: int
-    +price: float
+package RequirementsSpecificationAgg #bbbbaa {
+    class RequirementsSpecification<<Root>><<Entity>>
+    class JarFile<<Value Object>>
+    class SpecName<<Value Object>><<Id>>
+    class Description<<Value Object>>
+
+    RequirementsSpecification "1" --> "1" JarFile
+    RequirementsSpecification "1" --> "1" SpecName
+    RequirementsSpecification "1" --> "1" Description
 }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
+JobOpening "1"-->"0..1" RequirementsSpecification
 @enduml
+
+
+

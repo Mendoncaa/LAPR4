@@ -2,6 +2,7 @@ package core.management.RecruitmentProcess.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 public class Phase implements ValueObject {
 
     @EmbeddedId
+    @Getter
     private PhaseName name;
 
     @Embedded
@@ -18,18 +20,31 @@ public class Phase implements ValueObject {
     private EndDate endDate;
 
     @Embedded
-    private Status status;
+    @Getter
+    private PhaseStatus phaseStatus;
 
     @ManyToOne
     private RecruitmentProcess recruitmentProcess;
 
-    public Phase(PhaseName name, LocalDate startDate, LocalDate endDate, Status status) {
+    public Phase(PhaseName name, LocalDate startDate, LocalDate endDate, PhaseStatus phaseStatus) {
         this.name = name;
         this.startDate = new StartDate(startDate);
         this.endDate = new EndDate(endDate);
-        this.status = status;
+        this.phaseStatus = phaseStatus;
     }
 
     public Phase() {
+    }
+    public Phase(PhaseName name) {
+        this.name = name;
+        this.phaseStatus = PhaseStatus.CLOSED;
+    }
+
+    public void open() {
+        this.phaseStatus = PhaseStatus.OPEN;
+    }
+
+    public void close() {
+        this.phaseStatus = PhaseStatus.CLOSED;
     }
 }

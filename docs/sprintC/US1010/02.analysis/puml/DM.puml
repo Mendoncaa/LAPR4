@@ -89,20 +89,22 @@ package JobApplicationAgg {
 
 package RankAgg {
     class Rank {
-        +id: RankID
+        +id: Long
         +rankPosition: RankPosition
+        +rankStatus: RankStatus
     }
 
-    class RankID {
-        +id: int
+    enum RankStatus {
+        Started
+        Finished
     }
 
     class RankPosition {
         +value: int
     }
 
-    Rank --> RankID
     Rank --> RankPosition
+    Rank --> RankStatus
     JobOpening --> Rank : "has"
 }
 

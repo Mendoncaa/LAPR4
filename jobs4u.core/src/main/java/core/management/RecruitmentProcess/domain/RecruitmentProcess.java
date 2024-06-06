@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class RecruitmentProcess implements ValueObject{
+public class RecruitmentProcess implements ValueObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +22,9 @@ public class RecruitmentProcess implements ValueObject{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Phase> phases;
 
-    //TODO: FALAR COM O DIOGO SOBRE ESTA LISTA POIS FAZ MAIS SENTIDO SER SO UM ENUM PQ SE FOR UMA LISTA EU NAO SEI EM QUE FASE ELE ESTAA NO MOMENTO
-
     public RecruitmentProcess() {
         this.phases = new ArrayList<>();
+        this.status = RecruitmentProcessStatus.UNINITIATED;
     }
 
     public void addPhase(Phase phase) {
@@ -36,17 +35,108 @@ public class RecruitmentProcess implements ValueObject{
         this.phases.remove(phase);
     }
 
-    public List<Phase> Phases() {
-        return this.phases;
+    public boolean nextPhase() {
+        Phase currentPhase = currentPhase();
+        if (currentPhase == null) {
+            if (status == RecruitmentProcessStatus.UNINITIATED) {
+                for (Phase phase : phases) {
+                    if (phase.getName() == PhaseName.APPLICATION) {
+                        phase.open();
+                        break;
+                    }
+                }
+                this.status = RecruitmentProcessStatus.IN_PROCESS;
+                return true;
+            }
+            return false;
+        }
+
+        int index = phases.indexOf(currentPhase);
+
+        switch (currentPhase.getName()) {
+            case APPLICATION:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.SCREENING);
+                break;
+            case SCREENING:
+                phases.get(index).close();
+                if (!openPhaseByName(PhaseName.INTERVIEWS)) {
+                    openPhaseByName(PhaseName.ANALYSIS);
+                }
+                break;
+            case INTERVIEWS:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.ANALYSIS);
+                break;
+            case ANALYSIS:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.RESULT);
+                break;
+            case RESULT:
+                phases.get(index).close();
+                this.status = RecruitmentProcessStatus.FINISHED;
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
-    public void nextPhase() {
-        // Logic for moving to the next phase
+    public boolean previousPhase() {
+        Phase currentPhase = currentPhase();
+        if (currentPhase == null) {
+            return false;
+        }
+
+        int index = phases.indexOf(currentPhase);
+
+        switch (currentPhase.getName()) {
+            case APPLICATION:
+                return false; // Can't move back from the first phase
+            case SCREENING:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.APPLICATION);
+                break;
+            case INTERVIEWS:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.SCREENING);
+                break;
+            case ANALYSIS:
+                phases.get(index).close();
+                if (!openPhaseByName(PhaseName.INTERVIEWS)) {
+                    openPhaseByName(PhaseName.SCREENING);
+                }
+                break;
+            case RESULT:
+                phases.get(index).close();
+                openPhaseByName(PhaseName.ANALYSIS);
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 
-    public void previousPhase() {
-        // Logic for moving to the previous phase
+    private boolean openPhaseByName(PhaseName phaseName) {
+        for (Phase phase : phases) {
+            if (phase.getName() == phaseName) {
+                phase.open();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Phase currentPhase() {
+        if (this.status != RecruitmentProcessStatus.IN_PROCESS) {
+            return null; // Recruitment process is not in progress
+        }
+
+        for (Phase phase : phases) {
+            if (phase.getPhaseStatus() == PhaseStatus.OPEN) {
+                return phase;
+            }
+        }
+        return null; // No phase is currently open
     }
 }
-
-

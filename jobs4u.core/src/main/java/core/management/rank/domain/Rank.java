@@ -20,10 +20,14 @@ public class Rank implements AggregateRoot<Long> {
     @ElementCollection
     private List<RankPosition> rankPosition;
 
+    @Enumerated
+    private RankStatus rankStatus;
+
     public Rank() {}
 
     public Rank(List<RankPosition> rankPosition) {
         this.rankPosition = rankPosition;
+        this.rankStatus = RankStatus.NOT_Ranked;
     }
 
     @Override

@@ -2,13 +2,12 @@
 actor Operator
 participant "System" as S
 
-Operator -> S: Asks to upload a text file with the requirements of a candidate for its verification.
-S -> Operator: Requests the file
-Operator -> S: Upload text file with requirements
-S -> S: Validate file
-alt if the file is valid
-    S -> Operator: Return success message
-else if the file is not valid
-    S -> Operator: Return validation error message
-end
+Operator -> S: Asks to import candidate response
+S -> Operator: Asks to select an aplication
+Operator -> S: Select an aplication
+S -> Operator: Request file
+Operator -> S: Upload text file with requeriments
+S -> Operator: Return success message
+
+
 @enduml
