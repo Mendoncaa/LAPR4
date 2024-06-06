@@ -1,7 +1,7 @@
 package core.management.RecruitmentProcess.controller;
 
 import core.infrastructure.persistence.PersistenceContext;
-import core.management.RecruitmentProcess.PhaseValidatorService;
+import core.management.RecruitmentProcess.service.PhaseValidatorService;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
@@ -10,12 +10,11 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.Role;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Transactional
 @UseCaseController
 @Component
 public class PhasesController {
@@ -26,48 +25,60 @@ public class PhasesController {
 
     private AuthorizationService authz;
 
+    private JobOpening jobOpeningChosen;
+
     public PhasesController() {
         jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
         authz = AuthzRegistry.authorizationService();
     }
 
-    public Iterable<String> validateJobReference(String jobReference) {
+    @Transactional
+    public Iterable<String> validateJobReference(String jobReference) throws Exception {
         Optional<JobOpening> jobOpening;
         try {
             jobOpening = jobOpeningRepository.findByJobReference(new JobReference(jobReference));
             if (jobOpening.isEmpty()) {
-                return null;
+                throw new Exception("Invalid Job Reference!");
             }
-        }catch (IllegalArgumentException e){
-            return null;
+        }catch (Exception e){
+            throw new Exception("Invalid Job Reference!");
         }
-
-        RecruitmentProcess recruitmentProcess = jobOpening.get().getRecruitmentProcess();
+        jobOpeningChosen = jobOpening.get();
+        RecruitmentProcess recruitmentProcess = jobOpeningChosen.getRecruitmentProcess();
         phaseValidatorService = new PhaseValidatorService(recruitmentProcess);
-        return phaseValidatorService.validatePhaseTransition(jobReference);
+        return phaseValidatorService.validatePhaseTransition(jobOpeningChosen.identity());
     }
 
-    public boolean processTransition(String chosenOption, String jobReference) {
-        Optional<JobOpening> jobOpeningOpt = jobOpeningRepository.findByJobReference(new JobReference(jobReference));
-        if (jobOpeningOpt.isEmpty()) {
-            return false;
-        }
+    @Transactional
+    public boolean processTransition(String chosenOption) throws Exception {
 
-        JobOpening jobOpening = jobOpeningOpt.get();
-        RecruitmentProcess recruitmentProcess = jobOpening.getRecruitmentProcess();
+        RecruitmentProcess recruitmentProcess = jobOpeningChosen.getRecruitmentProcess();
 
         if ("Forward".equalsIgnoreCase(chosenOption)) {
-            recruitmentProcess.nextPhase();
+            if (!recruitmentProcess.nextPhase()) {
+                throw new Exception("Error processing transition to next phase!");
+            }
         } else if ("Backward".equalsIgnoreCase(chosenOption)) {
-            recruitmentProcess.previousPhase();
+            if (!recruitmentProcess.previousPhase()) {
+                throw new Exception("Error processing transition to previous phase!");
+            }
         } else {
             return false;
         }
+        try {
+            authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"), Role.valueOf("ADMIN"));
+        }catch (Exception e){
+            throw new Exception("User does not have permission to perform this operation");
+        }
 
-        authz.ensureAuthenticatedUserHasAnyOf(Role.valueOf("CUSTOMER_MANAGER"), Role.valueOf("ADMIN"));
+        try {
+            jobOpeningChosen.setRecruitmentProcess(recruitmentProcess);
+            jobOpeningRepository.save(jobOpeningChosen);
+        }
+        catch (Exception e){
+            throw new Exception("Error persisting changes");
+        }
 
-        jobOpening.setRecruitmentProcess(recruitmentProcess);
-        jobOpeningRepository.save(jobOpening);
         return true;
     }
 }

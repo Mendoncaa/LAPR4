@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-@Transactional
 public class PhasesUI extends AbstractUI {
 
     private PhasesController controller = new PhasesController();
@@ -23,19 +22,20 @@ public class PhasesUI extends AbstractUI {
         String jobReference = askForJobReference();
 
         // Step 2: Validate Job Reference
-        Iterable<String> options = controller.validateJobReference(jobReference);
-        if (options == null) {
-            showConfirmationOrError("Invalid Job Reference!");
+        Iterable<String> options;
+        try {
+            options = controller.validateJobReference(jobReference);
+        } catch (Exception e) {
+            showConfirmationOrError(e.getMessage());
             return false;
         }
         if (!options.iterator().hasNext()) {
-            showConfirmationOrError("No options available!");
+            showConfirmationOrError("No options available for this Job Reference!");
             return false;
         }
 
         // Step 3: Retrieve and Display Options
         showOptions(options, jobReference);
-
 
         return true;
     }
@@ -60,14 +60,18 @@ public class PhasesUI extends AbstractUI {
 
         if (chosenOption != null) {
             // Process the chosen option
-            processTransition(chosenOption, jobReference);
+            try {
+                processTransition(chosenOption);
+            } catch (Exception e) {
+                showConfirmationOrError(e.getMessage());
+            }
         } else {
             showConfirmationOrError("No option selected!");
         }
     }
 
-    public void processTransition(String chosenOption, String jobReference) {
-        boolean success = controller.processTransition(chosenOption, jobReference);
+    public void processTransition(String chosenOption) throws Exception {
+        boolean success = controller.processTransition(chosenOption);
         if (success) {
             showConfirmationOrError("Phase transition successful!");
         } else {

@@ -55,33 +55,37 @@ public class RecruitmentProcess implements ValueObject {
 
         switch (currentPhase.getName()) {
             case APPLICATION:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.SCREENING);
-                break;
-            case SCREENING:
-                phases.get(index).close();
-                if (!openPhaseByName(PhaseName.INTERVIEWS)) {
-                    openPhaseByName(PhaseName.ANALYSIS);
+                if (openPhaseByName(PhaseName.SCREENING)) {
+                    phases.get(index).close();
+                    return true;
                 }
-                break;
+                return false;
+            case SCREENING:
+                if (openPhaseByName(PhaseName.INTERVIEWS) || openPhaseByName(PhaseName.ANALYSIS)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
             case INTERVIEWS:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.ANALYSIS);
-                break;
+                if (openPhaseByName(PhaseName.ANALYSIS)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
             case ANALYSIS:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.RESULT);
-                break;
+                if (openPhaseByName(PhaseName.RESULT)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
             case RESULT:
                 phases.get(index).close();
                 this.status = RecruitmentProcessStatus.FINISHED;
-                break;
+                return true;
             default:
                 return false;
         }
-        return true;
     }
-
     public boolean previousPhase() {
         Phase currentPhase = currentPhase();
         if (currentPhase == null) {
@@ -94,27 +98,32 @@ public class RecruitmentProcess implements ValueObject {
             case APPLICATION:
                 return false; // Can't move back from the first phase
             case SCREENING:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.APPLICATION);
-                break;
-            case INTERVIEWS:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.SCREENING);
-                break;
-            case ANALYSIS:
-                phases.get(index).close();
-                if (!openPhaseByName(PhaseName.INTERVIEWS)) {
-                    openPhaseByName(PhaseName.SCREENING);
+                if (openPhaseByName(PhaseName.APPLICATION)) {
+                    phases.get(index).close();
+                    return true;
                 }
-                break;
+                return false;
+            case INTERVIEWS:
+                if (openPhaseByName(PhaseName.SCREENING)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
+            case ANALYSIS:
+                if (openPhaseByName(PhaseName.INTERVIEWS)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
             case RESULT:
-                phases.get(index).close();
-                openPhaseByName(PhaseName.ANALYSIS);
-                break;
+                if (openPhaseByName(PhaseName.ANALYSIS)) {
+                    phases.get(index).close();
+                    return true;
+                }
+                return false;
             default:
                 return false;
         }
-        return true;
     }
 
     private boolean openPhaseByName(PhaseName phaseName) {
