@@ -11,9 +11,6 @@ import lombok.Setter;
 @Setter
 public class RankPosition implements ValueObject {
 
-    @Id
-    private int id;
-
     private int position;
 
     @OneToOne
