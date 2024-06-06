@@ -23,6 +23,18 @@
  */
 package jobs4u.infrastructure.bootstrapers;
 
+import core.management.costumer.builder.CustomerBuilder;
+import core.management.costumer.domain.*;
+import core.management.costumer.domain.Address;
+import core.management.costumer.repository.CustomerRepository;
+import core.management.costumer.repository.CustomerRepresentativeRepository;
+import core.management.jobOpening.domain.*;
+import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.domain.Rank;
+import core.management.rank.domain.RankPosition;
+import eapli.framework.general.domain.model.Description;
+import eapli.framework.io.util.Console;
+import jakarta.persistence.RollbackException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +52,9 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.strings.util.Strings;
 import eapli.framework.validations.Invariants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Bootstrapping data app
  *
@@ -55,10 +70,15 @@ public class ExemploBootstrapper implements Action {
 	private static final String OPERATOR = "operator";
 	private static final String CUSTOMER_MANAGER_PWD = "managerA1";
 	private static final String CUSTOMER_MANAGER = "manager";
+	private static final String CUSTOMER = "customer1";
+	private static final String CUSTOMER_PWD = "customerA1";
 
 	private final AuthorizationService authz = AuthzRegistry.authorizationService();
 	private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
 	private final UserRepository userRepository = PersistenceContext.repositories().users();
+	private final CustomerRepresentativeRepository customerRepresentativeRepository = PersistenceContext.repositories().customerRepresentative();
+	private final CustomerRepository customerRepository = PersistenceContext.repositories().customer();
+	private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
 	@Override
 	public boolean execute() {
@@ -68,6 +88,8 @@ public class ExemploBootstrapper implements Action {
 		registerAdmin();
 		registerOperator();
 		registerCustomerManager();
+		registerCustomer();
+		registerJobOpening();
 		authenticateForBootstrapping();
 
 		// execute all bootstrapping
@@ -125,6 +147,7 @@ public class ExemploBootstrapper implements Action {
 			return false;
 		}
 	}
+	SystemUser manager;
 
 	private boolean registerCustomerManager() {
 		final var userBuilder = UserBuilderHelper.builder();
@@ -132,7 +155,8 @@ public class ExemploBootstrapper implements Action {
 				.withEmail("customer_manager@email.org").withRoles(ExemploRoles.CUSTOMER_MANAGER);
 		final var newUser = userBuilder.build();
 
-		SystemUser manager;
+
+
 		try {
 			manager = userRepository.save(newUser);
 			assert manager != null;
@@ -141,6 +165,85 @@ public class ExemploBootstrapper implements Action {
 			// ignoring exception. assuming it is just a primary key violation
 			// due to the tentative of inserting a duplicated user
 			LOGGER.warn("Assuming {} already exists (activate trace log for details)", newUser.username());
+			LOGGER.trace("Assuming existing record", e);
+			return false;
+		}
+	}
+
+	private boolean registerCustomer() {
+		final var userBuilder = UserBuilderHelper.builder();
+		userBuilder.withUsername(CUSTOMER).withPassword(CUSTOMER_PWD).withName("Customer", "One")
+				.withEmail("customer1@email.org").withRoles(ExemploRoles.CUSTOMER);
+		final var newUser = userBuilder.build();
+
+		final var userBuilder2 = UserBuilderHelper.builder();
+		userBuilder2.withUsername(CUSTOMER_MANAGER).withPassword(CUSTOMER_MANAGER_PWD).withName("Customer", "Manager")
+				.withEmail("customer_manager@email.org").withRoles(ExemploRoles.CUSTOMER_MANAGER);
+		final var newUser2 = userBuilder2.build();
+
+		PhoneNumber number = new PhoneNumber("912321222");
+
+		CustomerCode code = new CustomerCode("TST");
+
+		Address address = new Address("rua teste", "porto", "1000-100");
+		CustomerName name = new CustomerName("TESTE Lda");
+
+		Customer customer = new Customer(code, address, name);
+
+
+		SystemUser customer1;
+		CustomerRepresentative customerRepresentative;
+		Customer customer2;
+		try {
+			customer1 = userRepository.save(newUser);
+			assert customer1 != null;
+			CustomerBuilder builder = new CustomerBuilder();
+			builder.withSystemUser(customer1)
+					.withCompany(code)
+					.withPhoneNumber(number)
+					.withCustomManager(manager);
+
+			CustomerRepresentative newCustomer = builder.build();
+			customerRepresentative = customerRepresentativeRepository.save(newCustomer);
+			assert customerRepresentative != null;
+			customer2 = customerRepository.save(customer);
+			assert customer2 != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException | RollbackException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", newUser.username());
+			LOGGER.trace("Assuming existing record", e);
+			Throwable cause = e.getCause();
+			while (cause != null) {
+				System.out.println(cause.getMessage());
+				cause = cause.getCause();
+			}
+			return false;
+		}
+	}
+
+	private boolean registerJobOpening() {
+		JobReference ref = new JobReference("TST", 1);
+		JobTitle title = JobTitle.valueOf("Titulo");
+		Description desc = Description.valueOf("descricao");
+		core.management.jobOpening.domain.Address addr = core.management.jobOpening.domain.Address.valueOf("rua teste2", 0, "0", "1000-100");
+		NumberOfVacancies vacancies = new NumberOfVacancies(5);
+		List<RankPosition> rankPositions = new ArrayList<>();
+		Rank rank = new Rank(rankPositions);
+
+		JobOpening jobOpening = new JobOpening(ref, title, JobState.CLOSED, ContractType.FULL_TIME, JobMode.HYBRID, desc, addr, vacancies, rank);
+
+		JobOpening jobOpening1;
+
+		try {
+			jobOpening1 = jobOpeningRepository.save(jobOpening);
+			assert jobOpening1 != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", jobOpening.getJobReference().toString());
 			LOGGER.trace("Assuming existing record", e);
 			return false;
 		}

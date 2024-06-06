@@ -62,7 +62,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @JoinColumn(name = "interviewModelId")
     private Plugin interviewModel;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "rank_id")
     private Rank rank;
 
@@ -70,8 +70,8 @@ public class JobOpening implements AggregateRoot<JobReference> {
     @Column(nullable = false)
     private JobActiveSince activeSince;
 
-    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies) {
-        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null) {
+    public JobOpening(JobReference jobReference, JobTitle jobTitle, JobState jobState, ContractType contractType, JobMode mode, Description description, Address address, NumberOfVacancies numberOfVacancies, Rank rank) {
+        if (jobReference == null || jobTitle == null || jobState == null || contractType == null || mode == null || description == null || address == null || numberOfVacancies == null || rank == null) {
             throw new IllegalArgumentException("None of the fields can be null");
         }
         this.jobReference = jobReference;
@@ -83,6 +83,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.address = address;
         this.numberOfVacancies = numberOfVacancies;
         this.activeSince = new JobActiveSince(LocalDate.now());
+        this.rank = rank;
     }
 
     protected JobOpening() {
