@@ -7,6 +7,8 @@ import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "applications") // Define o nome da tabela explicitamente
@@ -30,11 +32,13 @@ public class jobApplication implements AggregateRoot<Long> {
     @Column(nullable = false)
     private String status; // O status da aplicação
 
+    private String responses;
     // Construtor com argumentos essenciais
     public jobApplication(Candidate candidate, JobOpening jobOpening) {
         this.candidate = candidate;
         this.jobOpening = jobOpening;
         this.status = "Pending"; // O status inicial é sempre "Pendente"
+        this.responses = null;
     }
 
     // Construtor protegido para JPA
@@ -59,6 +63,10 @@ public class jobApplication implements AggregateRoot<Long> {
 
     public void reject() {
         this.status = "Rejected";
+    }
+
+    public void updateResponses(String responses) {
+        this.responses = responses;
     }
 
     @Override
