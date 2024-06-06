@@ -1,49 +1,37 @@
-@startuml ClassDiagram
-package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
-    }
-}
+@startuml
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
-    }
-}
 
-package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
-    }
-}
-
-package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
+    class UploadRequirementsController {
+        + getApplications(): Iterable<jobApplication>
+        + uploadTextFile(application: jobApplication, path: String)
+        - extractAfterSecondColon(line: String): String
+        - readFileLines(filePath: String): List<String>
     }
 
-    class OrderItem {
-        +quantity: int
-        +price: float
+
+
+    class UploadRequirementsUI {
+        - controller: UploadRequirementsController
+        + doShow(): boolean
+        + headline(): String
+        - listHeader(): String
     }
 
-    class Payment {
-        +amount: float
-        +paymentDate: Date
+
+
+    class ApplicationService {
+        + findAll(): Iterable
+        + uploadRequirementsResponses(application: jobApplication, responses: String)
     }
 
-    class User {
-        +id: int
-        +username: String
-        +email: String
-    }
-}
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+
+    class jobApplication
+
+
+UploadRequirementsUI --> UploadRequirementsController
+UploadRequirementsController --> ApplicationService
+UploadRequirementsController --> jobApplication
+
+
 @enduml

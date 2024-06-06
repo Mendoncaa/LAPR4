@@ -1,19 +1,54 @@
-@startuml SequenceDiagram
-actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+@startuml
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+actor Operator
+
+participant "UploadRequirementsUI" as UI
+participant "UploadRequirementsController" as Controller
+participant "ApplicationService" as AppService
+participant "jobApplication" as Application
+
+Operator -> UI : Asks to import candidate response
+activate UI
+
+UI -> Controller : getApplications()
+activate Controller
+
+Controller -> AppService : findAll()
+activate AppService
+
+AppService --> Controller : Iterable<jobApplication>
+deactivate AppService
+
+Controller --> UI : Iterable<jobApplication>
+deactivate Controller
+
+UI -> Operator : Asks to select an application
+Operator -> UI : Select an application
+
+UI -> Operator : Request file
+Operator -> UI : Upload text file with requirements
+
+UI -> Controller : uploadTextFile(jobApplication, String)
+activate Controller
+
+Controller -> AppService : uploadRequirementsResponses(jobApplication, String)
+activate AppService
+
+AppService -> Application : updateResponses(String)
+activate Application
+
+Application -> AppService : "Update Successful"
+deactivate Application
+
+AppService --> Controller : "Update Successful"
+deactivate AppService
+
+Controller --> UI : "Update Successful"
+deactivate Controller
+
+UI -> Operator : Return success message
+
+deactivate UI
+
 @enduml
+
