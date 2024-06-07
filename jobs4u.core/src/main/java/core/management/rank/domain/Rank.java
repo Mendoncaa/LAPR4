@@ -1,15 +1,15 @@
 package core.management.rank.domain;
 
-import core.management.candidate.domain.Candidate;
-import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Entity
+@Setter
 @Table(name = "RANK") // Explicit table name definition
 @Access(AccessType.FIELD) // Explicitly setting field access for consistency
 public class Rank implements AggregateRoot<Long> {
@@ -27,7 +27,7 @@ public class Rank implements AggregateRoot<Long> {
 
     public Rank(List<RankPosition> rankPosition) {
         this.rankPosition = rankPosition;
-        this.rankStatus = RankStatus.NOT_Ranked;
+        this.rankStatus = RankStatus.Unstarted;
     }
 
     @Override

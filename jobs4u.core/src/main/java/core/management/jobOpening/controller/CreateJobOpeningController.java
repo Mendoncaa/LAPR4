@@ -6,6 +6,9 @@ import core.management.costumer.domain.CustomerCode;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.jobOpening.domain.*;
 import core.management.jobOpening.repository.JobOpeningRepository;
+import core.management.rank.domain.Rank;
+import core.management.rank.domain.RankPosition;
+import core.management.rank.repository.RankRepository;
 import core.management.user.domain.ExemploRoles;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -13,6 +16,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +37,10 @@ public class CreateJobOpeningController {
         Description desc = Description.valueOf(description);
         Address addr = Address.valueOf(street, doorNumber, floor, postalCode);
         NumberOfVacancies vacancies = new NumberOfVacancies(numberOfVacancies);
+        List<RankPosition> rankPositions = new ArrayList<>();
+        Rank rank = new Rank(rankPositions);
 
-        jobOpeningRepository.save(new JobOpening(ref, title, JobState.CLOSED, contractType, jobMode, desc, addr, vacancies));
+        jobOpeningRepository.save(new JobOpening(ref, title, JobState.CLOSED, contractType, jobMode, desc, addr, vacancies, rank));
 
     }
     public List<Customer> findCustomerByCustomerManager()

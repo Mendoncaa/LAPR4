@@ -22,10 +22,7 @@ public class RankPosition implements ValueObject {
     }
 
     public RankPosition(int position, Candidate candidate) {
-        if (position <= 0) {
-            throw new IllegalArgumentException("Rank Position must be greater than zero");
-        }
-        else if (candidate == null){
+        if (candidate == null){
             throw new IllegalArgumentException("Candidate must be provided");
         }
         this.position = position;

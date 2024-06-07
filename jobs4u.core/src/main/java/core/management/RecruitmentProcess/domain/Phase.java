@@ -23,9 +23,6 @@ public class Phase implements ValueObject {
     @Getter
     private PhaseStatus phaseStatus;
 
-    @ManyToOne
-    private RecruitmentProcess recruitmentProcess;
-
     public Phase(PhaseName name, LocalDate startDate, LocalDate endDate, PhaseStatus phaseStatus) {
         this.name = name;
         this.startDate = new StartDate(startDate);

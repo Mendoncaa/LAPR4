@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 public enum RankStatus implements ValueObject {
 
-    NOT_Ranked,
-    Ranked;
+    Unstarted,
+    Started,
+    Finishef;
 
 }
