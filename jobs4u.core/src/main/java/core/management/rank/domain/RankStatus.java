@@ -6,8 +6,14 @@ import lombok.Getter;
 @Getter
 public enum RankStatus implements ValueObject {
 
-    Unstarted,
-    Started,
-    Finishef;
+    UNSTARTED ("Unstarted"),
+    STARTED ("Started"),
+    FINISHED ("Finished");
+
+    private final String state;
+
+    RankStatus(String state) {
+        this.state = state;
+    }
 
 }
