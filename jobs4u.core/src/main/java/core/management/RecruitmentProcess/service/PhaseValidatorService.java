@@ -6,6 +6,7 @@ import core.management.RecruitmentProcess.domain.RecruitmentProcess;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobReference;
 import core.management.rank.domain.Rank;
+import core.management.rank.domain.RankStatus;
 import core.management.rank.repository.RankRepository;
 import eapli.framework.application.ApplicationService;
 import org.springframework.stereotype.Component;
@@ -36,11 +37,11 @@ public class PhaseValidatorService {
             switch (currentPhase) {
                 case ANALYSIS:
                     Rank rank = rankRepository.findByJobReference(jobRef);
-                    // TODO: Check if the rank is valid correctly after RankStatus enum update
-                    if (rank == null) {
-                        options.add("Backward");
-                    } else {
+                    if (rank.getRankStatus() == RankStatus.FINISHED) {
                         options.add("Forward");
+                    }
+                    else if (rank.getRankStatus() == RankStatus.UNSTARTED) {
+                        options.add("Backward");
                     }
                     break;
                 default:
