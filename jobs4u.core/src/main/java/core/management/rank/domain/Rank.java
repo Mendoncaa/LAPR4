@@ -27,7 +27,7 @@ public class Rank implements AggregateRoot<Long> {
 
     public Rank(List<RankPosition> rankPosition) {
         this.rankPosition = rankPosition;
-        this.rankStatus = RankStatus.Unstarted;
+        this.rankStatus = RankStatus.UNSTARTED;
     }
 
     @Override
