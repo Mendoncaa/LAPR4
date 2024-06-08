@@ -17,11 +17,11 @@ public class RegisterRequirementSpecificationController {
 
     // Endpoint para carregar um plugin registrado
 
-    public Object loadPlugin(String pluginName) throws Exception {
-        Optional<RequirementSpecification> plugin = pluginService.findPluginByName(pluginName);
-        if (plugin.isPresent()) {
-            return pluginService.loadPlugin(plugin.get());
-        }
-        throw new IllegalArgumentException("Invalid plugin ID");
-    }//TODO: Preciso de carregar um plugin no sistema?
+//    public Object loadPlugin(String pluginName) throws Exception {
+//        Optional<RequirementSpecification> plugin = pluginService.findPluginByName(pluginName);
+//        if (plugin.isPresent()) {
+//            return pluginService.loadPlugin(plugin.get());
+//        }
+//        throw new IllegalArgumentException("Invalid plugin ID");
+//    }//TODO: Preciso de carregar um plugin no sistema?
 }

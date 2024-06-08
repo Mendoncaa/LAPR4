@@ -1,19 +1,69 @@
 @startuml SequenceDiagram
 actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+boundary RankCandidatesUI
+control RankController
+participant PersistenceContext
+database ApplicationRepository
+database JobOpeningRepository
+database RankRepository
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+-> RankCandidatesUI: doShow()
+activate RankCandidatesUI
+RankCandidatesUI -> RankController: create
+activate RankController
+RankController -> PersistenceContext : repositories().jobOpenings()
+activate PersistenceContext
+PersistenceContext -> JobOpeningRepository : create
+activate JobOpeningRepository
+JobOpeningRepository --> PersistenceContext : jobOpeningRepository : JobOpeningRepository
+deactivate JobOpeningRepository
+PersistenceContext --> RankController : jobOpeningRepository
+deactivate PersistenceContext
+RankController -> PersistenceContext : repositories().application()
+activate PersistenceContext
+PersistenceContext -> ApplicationRepository : create
+activate ApplicationRepository
+ApplicationRepository --> PersistenceContext : applicationRepository : ApplicationRepository
+deactivate ApplicationRepository
+PersistenceContext --> RankController : applicationRepository
+deactivate PersistenceContext
+RankController -> PersistenceContext : repositories().rank()
+activate PersistenceContext
+PersistenceContext -> RankRepository : create
+activate RankRepository
+RankRepository --> PersistenceContext : rankRepository : RankRepository
+deactivate RankRepository
+PersistenceContext --> RankController : rankRepository : RankRepository
+deactivate PersistenceContext
+RankController --> RankCandidatesUI : theController : RankController
+deactivate RankController
+RankCandidatesUI -> RankController: getJobOpeningsInAnalysis()
+activate RankController
+RankController -> JobOpeningRepository : findAll()
+activate JobOpeningRepository
+JobOpeningRepository --> RankController : allJobOpenings : List<JobOpening>
+deactivate JobOpeningRepository
+RankController --> RankCandidatesUI: jobOpenings : List<JobOpening>
+deactivate RankController
+RankCandidatesUI --> Customer : Display jobOpenings in Analysis
+Customer --> RankCandidatesUI : Selects jobOpening
+RankCandidatesUI -> RankController: generateRankPosition(jobOpening : JobOpening)
+activate RankController
+RankController -> ApplicationRepository : findCandidatesByJobOpening(jobOpening : JobOpening)
+activate ApplicationRepository
+ApplicationRepository --> RankController : candidates : List<Application>
+deactivate ApplicationRepository
+RankController --> RankCandidatesUI : rankPositions : List<RankPosition>
+deactivate RankController
+loop while choice != 0
+RankCandidatesUI --> Customer : Display candidates to rank
+Customer --> RankCandidatesUI : Selects candidate
+end
+RankCandidatesUI -> RankController: updateRank(jobOpening : JobOpening, rankPositions : List<RankPosition>)
+activate RankController
+RankController -> RankRepository : save(rank : Rank)
+RankController --> RankCandidatesUI : Display confirmation or error
+deactivate RankController
+RankCandidatesUI --> Customer : Display confirmation or error
+deactivate RankCandidatesUI
 @enduml

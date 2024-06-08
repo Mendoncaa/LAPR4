@@ -2,7 +2,6 @@ package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecifica
 
 import core.management.RequirementSpecification.application.controller.UploadRequirementsController;
 import core.management.jobApplication.domain.jobApplication;
-import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.app.backoffice.console.presentation.authz.SystemUserPrinter;

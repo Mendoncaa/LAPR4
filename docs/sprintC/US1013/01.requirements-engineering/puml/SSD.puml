@@ -6,12 +6,7 @@ CM -> System : Requests to rank the candidates for a job opening
 System --> CM : Returns the list of job openings and asks to select one
 CM -> System : Selects a job opening
 
-alt in Analysis
-    System --> CM : Returns the candidates for the selected job opening
-    CM -> System : Rank the candidates
-    System --> CM : Returns the message "The candidates have been ranked"
-
-else not in Analysis
-    System --> CM : Returns the message "The job opening is not in the Analysis phase"
-end
+System --> CM : Returns the candidates for the selected job opening
+CM -> System : Rank the candidates
+System --> CM : Display confirmation or error message
 @enduml

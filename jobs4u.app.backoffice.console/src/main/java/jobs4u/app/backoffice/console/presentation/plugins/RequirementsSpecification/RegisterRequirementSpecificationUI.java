@@ -11,7 +11,7 @@ public class RegisterRequirementSpecificationUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final String name = Console.readLine("Plugin Name:");
-        final String jarPath = Console.readLine("Jar Path:");
+        final String jarPath = Console.readLine("Template Path:");
 
         try {
             registerRequirementSpecificationController.registerRequirementSpecification(name, jarPath);

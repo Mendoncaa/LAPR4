@@ -16,24 +16,24 @@ public class RegisterRequirementSpecificationService {
     private final RequirementSpecificationRepository requirementSpecificationRepository = PersistenceContext.repositories().requirementSpecification();
 
     // Método para registrar um novo plugin
-    public void registerPlugin(String name, String jarPath) throws Exception {
-        Path path = Paths.get(jarPath);
+    public void registerPlugin(String name, String templatePath) throws Exception {
+        Path path = Paths.get(templatePath);
         if (!Files.exists(path)) {
-            throw new IllegalArgumentException("The specified .jar file does not exist.");
+            throw new IllegalArgumentException("The specified .txt file does not exist.");
         }
 
-        RequirementSpecification plugin = new RequirementSpecification(name, jarPath);
+        RequirementSpecification plugin = new RequirementSpecification(name, templatePath);
         requirementSpecificationRepository.save(plugin);
     }
 
     // Método para carregar um plugin registrado
-    public Object loadPlugin(RequirementSpecification plugin) throws Exception {
-        URL[] urls = { new URL("file://" + plugin.getJarPath()) };
-        try (URLClassLoader classLoader = new URLClassLoader(urls)) {
-            Class<?> clazz = classLoader.loadClass("MainPlugin");
-            return clazz.getDeclaredConstructor().newInstance();
-        }
-    }
+//    public Object loadPlugin(RequirementSpecification plugin) throws Exception {
+//        URL[] urls = { new URL("file://" + plugin.getTemplatePath()) };
+//        try (URLClassLoader classLoader = new URLClassLoader(urls)) {
+//            Class<?> clazz = classLoader.loadClass("MainPlugin");
+//            return clazz.getDeclaredConstructor().newInstance();
+//        }
+//    }
 
     public Optional<RequirementSpecification> findPluginByName(String pluginName) {
         return requirementSpecificationRepository.ofIdentity(pluginName);

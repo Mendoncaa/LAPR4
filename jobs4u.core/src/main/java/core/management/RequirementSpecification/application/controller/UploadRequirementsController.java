@@ -1,7 +1,6 @@
 package core.management.RequirementSpecification.application.controller;
 
 import core.management.jobApplication.application.service.ApplicationService;
-import core.management.jobApplication.application.service.JobOpeningService;
 import core.management.jobApplication.domain.jobApplication;
 import jobs4u.antlr4.grammar.CostumerRequirementsLexer;
 import jobs4u.antlr4.grammar.CostumerRequirementsParser;

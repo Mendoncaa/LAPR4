@@ -17,11 +17,11 @@ public class RegisterInterviewModelController {
 
     // Endpoint para carregar um plugin registrado
 
-    public Object loadPlugin(String pluginName) throws Exception {
-        Optional<InterviewModel> plugin = interviewModelServiceService.findPluginByName(pluginName);
-        if (plugin.isPresent()) {
-            return interviewModelServiceService.loadPlugin(plugin.get());
-        }
-        throw new IllegalArgumentException("Invalid plugin ID");
-    }
+//    public Object loadPlugin(String pluginName) throws Exception {
+//        Optional<InterviewModel> plugin = interviewModelServiceService.findPluginByName(pluginName);
+//        if (plugin.isPresent()) {
+//            return interviewModelServiceService.loadPlugin(plugin.get());
+//        }
+//        throw new IllegalArgumentException("Invalid plugin ID");
+//    }
 }

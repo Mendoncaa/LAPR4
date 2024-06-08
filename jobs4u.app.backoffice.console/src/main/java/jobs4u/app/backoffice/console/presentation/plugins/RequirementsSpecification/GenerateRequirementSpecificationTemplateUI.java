@@ -1,22 +1,18 @@
-package jobs4u.app.backoffice.console.presentation.authz;
+package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification;
 
 
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import jobs4u.app.backoffice.console.presentation.JobApplication.GenerateTemplateController;
+import jobs4u.antlr4.grammar.GenerateRequirementSpecificationTemplateController;
+import jobs4u.app.backoffice.console.presentation.authz.SystemUserPrinter;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenerateTemplateUI extends AbstractUI {
+public class GenerateRequirementSpecificationTemplateUI extends AbstractUI {
 
-    GenerateTemplateController controller = new GenerateTemplateController();
+    GenerateRequirementSpecificationTemplateController controller = new GenerateRequirementSpecificationTemplateController();
 
     protected boolean doShow() {
         Iterable<JobOpening> openings = controller.getJobOpenings();
@@ -44,15 +40,17 @@ public class GenerateTemplateUI extends AbstractUI {
                     break;
                 } else if (option > 0 && option <= listJobOpenings.size()) {
                     JobOpening jobOpening = listJobOpenings.get(option - 1);
-                    String requirements = String.valueOf(jobOpening.getRequirementsSpecification());
-                    // requirements estão sempre a nulo na jobOpening
-                    requirements = "req1";
+                    if(jobOpening.getRequirementsSpecification() == null){
+                        System.out.println("Requirements for the selected job opening are not available. Please select another job opening.");
+                        return false;
+                    }
+
+                    String requirements = String.valueOf(jobOpening.getRequirementsSpecification().getTemplatePath());
 
                     if (requirements == null || requirements.trim().isEmpty()) {
                         System.out.println("Requirements for the selected job opening are not available. Please select another job opening.");
                     } else {
-                        String sourcePath = "jobs4u.core/src/main/resources/requirements/" + requirements;
-                        controller.template(sourcePath, jobOpening);
+                        controller.template(requirements, jobOpening);
                         break; // Exit the loop after successful processing
                     }
                 } else {
