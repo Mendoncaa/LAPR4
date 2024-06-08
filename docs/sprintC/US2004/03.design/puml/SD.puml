@@ -1,7 +1,6 @@
 @startuml
 
 actor Operator
-
 participant "UploadRequirementsUI" as UI
 participant "UploadRequirementsController" as Controller
 participant "ApplicationService" as AppService
@@ -31,24 +30,29 @@ Operator -> UI : Upload text file with requirements
 UI -> Controller : uploadTextFile(jobApplication, String)
 activate Controller
 
-Controller -> AppService : uploadRequirementsResponses(jobApplication, String)
-activate AppService
+Controller -> Controller: passGrammar(String)
 
-AppService -> Application : updateResponses(String)
-activate Application
+alt File Verification
+    alt if file is valid
+        Controller -> AppService : uploadRequirementsResponses(jobApplication, String)
+        activate AppService
+        AppService -> Application : updateResponses(String)
+        activate Application
 
-Application -> AppService : "Update Successful"
-deactivate Application
+        Application -> AppService : "Update Successful"
+        deactivate Application
 
-AppService --> Controller : "Update Successful"
-deactivate AppService
+        AppService --> Controller : "Update Successful"
+        deactivate AppService
 
-Controller --> UI : "Update Successful"
-deactivate Controller
+        Controller --> UI : "Update Successful"
+        deactivate Controller
 
-UI -> Operator : Return success message
-
+        UI -> Operator : Return success message
+    else if file is invalid
+        Controller --> UI: Return error message
+        deactivate Controller
+end
 deactivate UI
 
 @enduml
-

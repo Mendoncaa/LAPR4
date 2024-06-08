@@ -2,12 +2,18 @@
 actor Operator
 participant "System" as S
 
-Operator -> S: Asks to import candidate response
-S -> Operator: Asks to select an aplication
-Operator -> S: Select an aplication
+Operator -> S: Asks to upload a text file with the requirements
+S -> Operator: Asks to select an application
+Operator -> S: Select an application
 S -> Operator: Request file
-Operator -> S: Upload text file with requeriments
-S -> Operator: Return success message
+Operator -> S: Upload text file with requirements
+S -> S: evaluate/verify the file
 
+    alt if file is valid
+        S -> S: Register file upload
+        S -> Operator: Return success message
+    else if file is invalid
+        S -> Operator: Return error message
+    end
 
 @enduml
