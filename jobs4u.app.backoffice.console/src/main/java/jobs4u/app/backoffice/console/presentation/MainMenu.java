@@ -170,6 +170,8 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
 			final var pluginsMenu = buildPluginMenu();
 			mainMenu.addSubMenu(5, pluginsMenu);
+			final var applicationsMenu = buildJobApplicationMenu();
+			mainMenu.addSubMenu(6, applicationsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){

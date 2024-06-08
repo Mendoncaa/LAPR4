@@ -4,6 +4,11 @@ import core.management.jobApplication.application.service.ApplicationService;
 import core.management.jobApplication.application.service.JobOpeningService;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobOpening.domain.JobOpening;
+import jobs4u.antlr4.grammar.CostumerRequirementsLexer;
+import jobs4u.antlr4.grammar.CostumerRequirementsParser;
+import jobs4u.antlr4.grammar.RequirementsValidatorVisitor;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,8 +25,12 @@ public class UploadRequirementsController {
     }
 
     public void uploadTextFile(jobApplication application, String path) {
+            if(passGrammar(path)){
+                applicationService.uploadRequirementsResponses(application, path);
+            }else{
+                System.out.println("Error. File didn't match grammar.");
+            }
 
-        applicationService.uploadRequirementsResponses(application, path);
     }
 
     private String extractAfterSecondColon(String line) {
@@ -50,4 +59,61 @@ public class UploadRequirementsController {
         }
         return lines;
     }
+    public boolean passGrammar(String path) {
+        if (path == null) {
+            System.out.println("File not found");
+            return false;
+        }
+
+        try {
+            CharStream input = CharStreams.fromFileName(path);
+            CostumerRequirementsLexer lexer = new CostumerRequirementsLexer(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            CostumerRequirementsParser parser = new CostumerRequirementsParser(tokens);
+            CustomErrorListener errorListener = new CustomErrorListener();
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            ParseTree tree = parser.start();
+            if(errorListener.hasErrors()){
+                System.err.println("grammar not successufuly passed");
+                return  false;
+            }else{
+                System.out.println("File matches grammar. Uploading file.");
+
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return false;
+        } catch (RuntimeException e) {
+            System.out.println("File does not match grammar: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error verifying grammar: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    private static class CustomErrorListener extends BaseErrorListener {
+        private boolean hasErrors = false;
+
+        @Override
+        public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
+                                String msg, RecognitionException e) {
+            hasErrors = true;
+            System.err.println("Syntax error at line " + line + ":" + charPositionInLine + " - " + msg);
+        }
+
+        /**
+         * Has errors boolean.
+         *
+         * @return the boolean
+         */
+        public boolean hasErrors() {
+            return hasErrors;
 }
+}
+}
+
+
+
