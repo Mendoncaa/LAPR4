@@ -35,7 +35,7 @@ public class PhasesUI extends AbstractUI {
         }
 
         // Step 3: Retrieve and Display Options
-        showOptions(options, jobReference);
+        showOptions(options);
 
         return true;
     }
@@ -46,7 +46,7 @@ public class PhasesUI extends AbstractUI {
         return scanner.nextLine();
     }
 
-    public void showOptions(Iterable<String> options, String jobReference) {
+    public void showOptions(Iterable<String> options) {
         // Convert Iterable to List
         List<String> optionsList = new ArrayList<>();
         options.forEach(optionsList::add);

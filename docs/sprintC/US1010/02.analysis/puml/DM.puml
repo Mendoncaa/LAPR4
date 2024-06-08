@@ -5,6 +5,12 @@ package JobOpeningAgg {
         +id: JobReference
         +recruitmentProcess: RecruitmentProcess
     }
+
+    class JobReference {
+        + customerCode: String
+        + jobNumber: int
+    }
+
     class RecruitmentProcess {
         +id: int
         +status: RecruitmentProcessStatus
@@ -46,6 +52,7 @@ package JobOpeningAgg {
     }
 
     JobOpening --> RecruitmentProcess
+    JobOpening --> JobReference
     RecruitmentProcess --> RecruitmentProcessStatus
     RecruitmentProcess --> Phase : "Is separated into"
     Phase --> PhaseName
@@ -68,12 +75,7 @@ package JobApplicationAgg {
     }
 
     class Interview {
-        +InterviewDateTime: Date
         +InterviewGrade: int
-    }
-
-    class InterviewDateTime {
-        +date: Date
     }
 
     class InterviewGrade {
@@ -83,14 +85,12 @@ package JobApplicationAgg {
     JobApplication --> RequirementsEvaluation
     JobApplication --> Interview
     JobApplication --> JobOpening : Refers to
-    Interview --> InterviewDateTime
     Interview --> InterviewGrade
 }
 
 package RankAgg {
     class Rank {
         +id: Long
-        +rankPosition: RankPosition
         +rankStatus: RankStatus
     }
 
@@ -99,25 +99,8 @@ package RankAgg {
         Finished
     }
 
-    class RankPosition {
-        +value: int
-    }
-
-    Rank --> RankPosition
     Rank --> RankStatus
     JobOpening --> Rank : "has"
 }
 
-package CandidateAgg {
-    class Candidate {
-        + candidateEmail : EmailAddress
-    }
-
-    class EmailAddress{
-        + email : String
-    }
-
-    Candidate --> EmailAddress
-    RankPosition --> Candidate : "Is ranked by"
-}
 @enduml

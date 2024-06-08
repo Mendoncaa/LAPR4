@@ -1,6 +1,7 @@
 package core.management.RecruitmentProcess.service;
 
 import core.infrastructure.persistence.PersistenceContext;
+import core.management.RecruitmentProcess.domain.Phase;
 import core.management.RecruitmentProcess.domain.PhaseName;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
 import core.management.jobApplication.domain.jobApplication;
@@ -33,33 +34,36 @@ public class PhaseValidatorService {
     @Transactional
     public Iterable<String> validatePhaseTransition(JobReference jobRef) throws Exception {
 
-        PhaseName currentPhase = recruitmentProcess.currentPhase().getName();
+        Phase currentPhase = recruitmentProcess.currentPhase();
+        if (currentPhase == null) {
+            return new ArrayList<>();
+        }
+        PhaseName currentPhaseName = currentPhase.getName();
         List<String> options = new ArrayList<>();
         try {
-            switch (currentPhase) {
-                case ANALYSIS:
-                    Rank rank = rankRepository.findByJobReference(jobRef);
-                    if (rank.getRankStatus() == RankStatus.FINISHED) {
-                        options.add("Forward");
-                    }
-                    else if (rank.getRankStatus() == RankStatus.UNSTARTED) {
-                        options.add("Backward");
-                    }
-                    break;
-                default:
-                    List<jobApplication> jobApplications = applicationRepository.findByJobReference(jobRef);
-                    int specificPhaseCount = getSpecificPhaseCount(currentPhase, jobApplications);
+            if (currentPhaseName == PhaseName.ANALYSIS) {
+                Rank rank = rankRepository.findByJobReference(jobRef);
+                if (rank.getRankStatus() == RankStatus.FINISHED) {
+                    options.add("Forward");
+                }
+                else if (rank.getRankStatus() == RankStatus.UNSTARTED) {
+                    options.add("Backward");
+                }
+            }
+            else
+            {
+                List<jobApplication> jobApplications = applicationRepository.findByJobReference(jobRef);
+                int specificPhaseCount = getSpecificPhaseCount(currentPhaseName, jobApplications);
 
-                    boolean canMoveForward = validatePhaseTransitionForward(currentPhase, jobApplications.size(), specificPhaseCount);
-                    boolean canMoveBackward = validatePhaseTransitionBackward(currentPhase, specificPhaseCount);
+                boolean canMoveForward = validatePhaseTransitionForward(currentPhaseName, jobApplications.size(), specificPhaseCount);
+                boolean canMoveBackward = validatePhaseTransitionBackward(currentPhaseName, specificPhaseCount);
 
-                    if (canMoveForward) {
-                        options.add("Forward");
-                    }
-                    if (canMoveBackward) {
-                        options.add("Backward");
-                    }
-                    break;
+                if (canMoveForward) {
+                    options.add("Forward");
+                }
+                if (canMoveBackward) {
+                    options.add("Backward");
+                }
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -68,15 +72,15 @@ public class PhaseValidatorService {
         return options;
     }
 
-    private int getSpecificPhaseCount(PhaseName currentPhase, List<jobApplication> applicationList) throws Exception {
+    private int getSpecificPhaseCount(PhaseName currentPhase, List<jobApplication> jobApplications) throws Exception {
         try {
             switch (currentPhase) {
                 case SCREENING:
-                    return countScreening(applicationList);
+                    return countScreening(jobApplications);
                 case INTERVIEWS:
-                    return countInterviews(applicationList);
+                    return countInterviews(jobApplications);
                 case RESULT:
-                    return countResults(applicationList);
+                    return countResults(jobApplications);
                 default:
                     return 0;
             }
@@ -86,25 +90,25 @@ public class PhaseValidatorService {
         }
     }
 
-    private int countScreening(List<jobApplication> applcationList) {
+    private int countScreening(List<jobApplication> jobApplications) {
         int count = 0;
-        for (jobApplication application : applcationList) {
+        for (jobApplication application : jobApplications) {
 
         }
         return count;
     }
 
-    private int countInterviews(List<jobApplication> applcationList) {
+    private int countInterviews(List<jobApplication> jobApplications) {
         int count = 0;
-        for (jobApplication application : applcationList) {
+        for (jobApplication application : jobApplications) {
 
         }
         return count;
     }
 
-    private int countResults(List<jobApplication> applcationList) {
+    private int countResults(List<jobApplication> jobApplications) {
         int count = 0;
-        for (jobApplication application : applcationList) {
+        for (jobApplication application : jobApplications) {
 
         }
         return count;

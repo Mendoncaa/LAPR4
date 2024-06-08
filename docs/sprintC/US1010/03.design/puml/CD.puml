@@ -2,41 +2,45 @@
 
 package Controller {
     class PhasesController {
-        - phaseValidatorService: PhaseValidatorService
-        - jobOpeningRepository: JobOpeningRepository
-        - authz: AuthorizationService
-        + validateJobReference(jobReference: JobReference): Iterable<String>
-        + processTransition(chosenOption: String, jobReference: String): boolean
+            - jobOpeningRepository: JobOpeningRepository
+            - phaseValidatorService: PhaseValidatorService
+            - authz: AuthorizationService
+            - jobOpeningChosen: JobOpening
+            + validateJobReference(jobReference: String): Iterable<String>
+            + processTransition(chosenOption: String): boolean
     }
 }
 
 package Service {
     class PhaseValidatorService {
+        - recruitmentProcess: RecruitmentProcess
         - applicationRepository: ApplicationRepository
         - rankRepository: RankRepository
-        - recruitmentProcess: RecruitmentProcess
-        + validatePhaseTransition(jobReference: String): Iterable<String>
-        - getSpecificPhaseCount(currentPhase: PhaseName, jobReference: JobReference): int
-        - validatePhaseTransitionForward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
-        - validatePhaseTransitionBackward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
+        + validatePhaseTransition(jobRef: JobReference): Iterable<String>
+        - getSpecificPhaseCount(currentPhase: PhaseName, jobApplications: List<jobApplication>): int
+        - countScreening(jobApplications: List<jobApplication>): int
+        - countInterviews(jobApplications: List<jobApplication>): int
+        - countResults(jobApplications: List<jobApplication>): int
+        + validatePhaseTransitionForward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
+        + validatePhaseTransitionBackward(currentPhase: PhaseName, specificPhaseCount: int): boolean
+    }
+    class AuthorizationService {
+            + ensureAuthenticatedUserHasAnyOf(roles: Role): void
     }
 }
 
 package Repository {
-    class JobOpeningRepository {
-        + findByJobReference(jobReference: JobReference): Optional<JobOpening>
-        + save(jobOpening: JobOpening): void
+    class ApplicationRepository {
+        + findByJobReference(jobReference: JobReference): List<jobApplication>
     }
 
-    class ApplicationRepository {
-        + countApplicationsByJobReference(jobReference: JobReference): int
-        + countScreeningByJobReference(jobReference: JobReference): int
-        + countInterviewsByJobReference(jobReference: JobReference): int
-        + countResultsByJobReference(jobReference: JobReference): int
+    class JobOpeningRepository {
+            + findByJobReference(jobReference: JobReference): Optional<JobOpening>
+            + save(jobOpening: JobOpening): JobOpening
     }
 
     class RankRepository {
-        + findByJobReference(jobReference: JobReference): Rank
+            + findByJobReference(jobReference: JobReference): Rank
     }
 }
 
@@ -55,8 +59,8 @@ package Model {
             + phases: List<Phase>
             + addPhase(phase: Phase): void
             + removePhase(phase: Phase): void
-            ~ nextPhase(): boolean
-            ~ previousPhase(): boolean
+            + nextPhase(): boolean
+            + previousPhase(): boolean
             + currentPhase(): Phase
             - openPhaseByName(phaseName: PhaseName): boolean
         }
@@ -97,6 +101,50 @@ package Model {
             FINISHED
         }
     }
+    package JobApplicationAgg {
+        class JobApplication {
+            +id: ApplicationID
+            +RequirementsEvaluation: RequirementsEvaluation
+            +Interview: Interview
+        }
+
+        enum RequirementsEvaluation {
+            Pending
+            Accepted
+            Rejected
+        }
+
+        class Interview {
+            +InterviewDateTime: Date
+            +InterviewGrade: int
+        }
+
+        class InterviewDateTime {
+            +date: Date
+        }
+
+        class InterviewGrade {
+            +grade: int
+        }
+
+        JobApplication --> RequirementsEvaluation
+        JobApplication --> Interview
+        Interview --> InterviewDateTime
+        Interview --> InterviewGrade
+    }
+    package RankAgg {
+        class Rank {
+            +id: Long
+            +rankStatus: RankStatus
+        }
+
+        enum RankStatus {
+            Started
+            Finished
+        }
+
+        Rank --> RankStatus
+    }
 }
 
 package UI {
@@ -105,18 +153,21 @@ package UI {
         + doShow(): boolean
         + headline(): String
         - askForJobReference(): String
-        - showOptions(options: Iterable<String>, jobReference: String): void
-        - processTransition(chosenOption: String, jobReference: String): void
+        - showOptions(options: Iterable<String>): void
+        - processTransition(chosenOption: String): void
         - showConfirmationOrError(message: String): void
     }
 }
 
 PhasesController --> PhaseValidatorService
+PhasesController --> AuthorizationService
 PhasesController --> JobOpeningRepository
 PhasesController ..> JobReference
 PhaseValidatorService --> ApplicationRepository
 PhaseValidatorService ..> RecruitmentProcess
 PhaseValidatorService --> RankRepository
+PhaseValidatorService ..> Rank
+PhaseValidatorService ..> JobApplication
 RecruitmentProcess --> Phase : "has"
 Phase --> PhaseName
 Phase --> StartDate
