@@ -30,7 +30,7 @@ import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicat
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
-import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
+//import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.GenerateTemplateUI;
@@ -271,7 +271,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildRankMenu(){
 		final var menu = new Menu("Rank >");
 
-		menu.addItem(1, "Rank Candidates by JobOpening", new RankCandidatesAction());
+		//menu.addItem(1, "Rank Candidates by JobOpening", new RankCandidatesAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
