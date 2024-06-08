@@ -20,7 +20,8 @@
  */
 package jobs4u.persistence.impl.inmemory;
 
-import core.management.Plugin.repository.PluginRepository;
+import core.management.InterviewModel.repository.InterviewModelRepository;
+import core.management.RequirementSpecification.repository.RequirementSpecificationRepository;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
@@ -125,12 +126,22 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public PluginRepository plugin(TransactionalContext autoTx) {
+    public InterviewModelRepository interviewModel(TransactionalContext autoTx) {
         return null;
     }
 
     @Override
-    public PluginRepository plugin() {
+    public InterviewModelRepository interviewModel() {
+        return null;
+    }
+
+    @Override
+    public RequirementSpecificationRepository requirementSpecification(TransactionalContext autoTx) {
+        return null;
+    }
+
+    @Override
+    public RequirementSpecificationRepository requirementSpecification() {
         return null;
     }
 

@@ -1,4 +1,4 @@
-package core.management.Plugin.domain;
+package core.management.InterviewModel.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import jakarta.persistence.*;
@@ -12,7 +12,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Plugin implements AggregateRoot<String> {
+public class InterviewModel implements AggregateRoot<String> {
 
     @Id
     @Column(nullable = false, unique = true)
@@ -21,21 +21,17 @@ public class Plugin implements AggregateRoot<String> {
     @Column(nullable = false)
     private String jarPath;
 
-    @Enumerated(EnumType.STRING)
-    private PluginType type;
 
-
-    public Plugin(String name, String jarPath, PluginType type) {
+    public InterviewModel(String name, String jarPath) {
         this.name = name;
         this.jarPath = jarPath;
-        this.type = type;
     }
 
     @Override
     public boolean sameAs(Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        Plugin plugin = (Plugin) other;
+        InterviewModel plugin = (InterviewModel) other;
         return name.equals(plugin.name);
     }
 
@@ -46,6 +42,6 @@ public class Plugin implements AggregateRoot<String> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, jarPath, type);
+        return Objects.hash(name, jarPath);
     }
 }

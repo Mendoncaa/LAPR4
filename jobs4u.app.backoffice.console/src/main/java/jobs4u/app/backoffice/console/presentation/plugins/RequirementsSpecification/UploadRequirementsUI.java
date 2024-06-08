@@ -1,6 +1,6 @@
 package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification;
 
-import core.management.Plugin.application.controller.UploadRequirementsController;
+import core.management.RequirementSpecification.application.controller.UploadRequirementsController;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.io.util.Console;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadRequirementsUI extends AbstractUI {
-    private UploadRequirementsController controller = new UploadRequirementsController();
+    private final UploadRequirementsController controller = new UploadRequirementsController();
 
     @Override
     protected boolean doShow() {

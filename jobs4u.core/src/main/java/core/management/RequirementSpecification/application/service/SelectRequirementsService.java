@@ -1,8 +1,8 @@
-package core.management.Plugin.application.service;
+package core.management.RequirementSpecification.application.service;
 
 import core.infrastructure.persistence.PersistenceContext;
-import core.management.Plugin.domain.Plugin;
-import core.management.Plugin.repository.PluginRepository;
+import core.management.RequirementSpecification.domain.RequirementSpecification;
+import core.management.RequirementSpecification.repository.RequirementSpecificationRepository;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
@@ -14,15 +14,15 @@ public class SelectRequirementsService {
 
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
-    private final PluginRepository pluginRepository = PersistenceContext.repositories().plugin();
+    private final RequirementSpecificationRepository requirementSpecificationRepository = PersistenceContext.repositories().requirementSpecification();
 
     public void selectRequirementSpecification(JobReference jobReference, String pluginName) {
         Optional<JobOpening> jobOpeningOpt = jobOpeningRepository.findByJobReference(jobReference);
-        Optional<Plugin> pluginOpt = pluginRepository.ofIdentity(pluginName);
+        Optional<RequirementSpecification> pluginOpt = requirementSpecificationRepository.ofIdentity(pluginName);
 
         if (jobOpeningOpt.isPresent() && pluginOpt.isPresent()) {
             JobOpening jobOpening = jobOpeningOpt.get();
-            Plugin plugin = pluginOpt.get();
+            RequirementSpecification plugin = pluginOpt.get();
             jobOpening.setRequirementsSpecification(plugin);
             jobOpeningRepository.save(jobOpening);
         } else {
@@ -30,8 +30,8 @@ public class SelectRequirementsService {
         }
     }
 
-    public List<Plugin> allPlugins() {
-        return (List<Plugin>) pluginRepository.findAll();
+    public List<RequirementSpecification> allPlugins() {
+        return (List<RequirementSpecification>) requirementSpecificationRepository.findAll();
     }
 }
 

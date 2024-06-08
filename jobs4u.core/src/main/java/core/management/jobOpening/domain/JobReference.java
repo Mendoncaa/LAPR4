@@ -33,16 +33,12 @@ public class JobReference implements ValueObject, Serializable, Comparable<JobRe
             throw new IllegalArgumentException("Job reference cannot be null or empty");
         }
         // Extract the parts
-        String[] parts = jobReference.split("(?<=\\D)(?=\\d)");
+        String[] parts = jobReference.split("-");
         if (parts.length != 2) {
             throw new IllegalArgumentException("Invalid job reference format.");
         }
         this.customerCode = parts[0];
-        try {
-            this.jobNumber = Integer.parseInt(parts[1]);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid number format in job reference.");
-        }
+        this.jobNumber = Integer.parseInt(parts[1].replaceFirst("^0+", ""));
     }
 
     @Override

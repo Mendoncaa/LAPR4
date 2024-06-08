@@ -1,9 +1,8 @@
-package core.management.Plugin.application.service;
+package core.management.InterviewModel.application.service;
 
 import core.infrastructure.persistence.PersistenceContext;
-import core.management.Plugin.domain.Plugin;
-import core.management.Plugin.domain.PluginType;
-import core.management.Plugin.repository.PluginRepository;
+import core.management.InterviewModel.domain.InterviewModel;
+import core.management.InterviewModel.repository.InterviewModelRepository;
 
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -12,23 +11,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-public class RegisterPluginService {
+public class RegisterInterviewModelService {
 
-    private final PluginRepository pluginRepository = PersistenceContext.repositories().plugin();
+    private final InterviewModelRepository interviewModelRepositoryRepository = PersistenceContext.repositories().interviewModel();
 
     // Método para registrar um novo plugin
-    public Plugin registerPlugin(String name, String jarPath, PluginType type) throws Exception {
+    public void registerPlugin(String name, String jarPath) throws Exception {
         Path path = Paths.get(jarPath);
         if (!Files.exists(path)) {
             throw new IllegalArgumentException("The specified .jar file does not exist.");
         }
 
-        Plugin plugin = new Plugin(name, jarPath, type);
-        return pluginRepository.save(plugin);
+        InterviewModel plugin = new InterviewModel(name, jarPath);
+        interviewModelRepositoryRepository.save(plugin);
     }
 
     // Método para carregar um plugin registrado
-    public Object loadPlugin(Plugin plugin) throws Exception {
+    public Object loadPlugin(InterviewModel plugin) throws Exception {
         URL[] urls = { new URL("file://" + plugin.getJarPath()) };
         try (URLClassLoader classLoader = new URLClassLoader(urls)) {
             Class<?> clazz = classLoader.loadClass("MainPlugin");
@@ -36,7 +35,7 @@ public class RegisterPluginService {
         }
     }
 
-    public Optional<Plugin> findPluginByName(String pluginName) {
-        return pluginRepository.ofIdentity(pluginName);
+    public Optional<InterviewModel> findPluginByName(String pluginName) {
+        return interviewModelRepositoryRepository.ofIdentity(pluginName);
     }
 }

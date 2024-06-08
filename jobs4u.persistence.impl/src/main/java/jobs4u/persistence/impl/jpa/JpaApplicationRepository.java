@@ -29,10 +29,7 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  *
@@ -73,6 +70,25 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 	@Override
 	public Optional<List<jobApplication>> findbyJobReference(JobReference jobReference) {
 		return Optional.empty();
+	}
+
+	@Override
+	public List<Candidate> findCandidatesByJobOpening(JobOpening jobOpening) {
+		List<jobApplication> applications = findApplicationsByJobOpening(jobOpening);
+		List<Candidate> candidates = new ArrayList<>();
+		for (jobApplication application : applications) {
+			boolean exists = false;
+			for (Candidate candidate : candidates) {
+				if(candidate.equals(application.getCandidate())) {
+					exists = true;
+					break;
+				}
+			}
+			if(!exists) {
+				candidates.add(application.getCandidate());
+			}
+		}
+		return candidates;
 	}
 
 	@Override

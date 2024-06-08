@@ -20,33 +20,26 @@
  */
 package jobs4u.persistence.impl.jpa;
 
-import core.management.Plugin.domain.Plugin;
-import core.management.Plugin.repository.PluginRepository;
-import core.management.candidate.domain.Candidate;
-import core.management.candidate.repository.CandidateRepository;
+import core.management.InterviewModel.domain.InterviewModel;
+import core.management.InterviewModel.repository.InterviewModelRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.general.domain.model.EmailAddress;
-import eapli.framework.infrastructure.authz.domain.model.Name;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 import jobs4u.Application;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-class JpaPluginRepository extends JpaAutoTxRepository<Plugin, String, String>
-		implements PluginRepository {
+class JpaInterviewModelRepository extends JpaAutoTxRepository<InterviewModel, String, String>
+		implements InterviewModelRepository {
 
-	public JpaPluginRepository(final TransactionalContext autoTx) {
-		super(autoTx, "username");
+	public JpaInterviewModelRepository(final TransactionalContext autoTx) {
+		super(autoTx, "name");
 	}
 
-	public JpaPluginRepository(final String puname) {
-		super(puname, Application.settings().getExtendedPersistenceProperties(), "username");
+	public JpaInterviewModelRepository(final String puname) {
+		super(puname, Application.settings().getExtendedPersistenceProperties(), "name");
 	}
+
+
 }
