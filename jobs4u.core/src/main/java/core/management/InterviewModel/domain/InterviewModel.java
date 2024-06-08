@@ -19,12 +19,12 @@ public class InterviewModel implements AggregateRoot<String> {
     private String name;
 
     @Column(nullable = false)
-    private String jarPath;
+    private String templatePath;
 
 
-    public InterviewModel(String name, String jarPath) {
+    public InterviewModel(String name, String templatePath) {
         this.name = name;
-        this.jarPath = jarPath;
+        this.templatePath = templatePath;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class InterviewModel implements AggregateRoot<String> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, jarPath);
+        return Objects.hash(name, templatePath);
     }
 }
