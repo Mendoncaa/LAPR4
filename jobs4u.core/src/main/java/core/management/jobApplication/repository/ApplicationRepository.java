@@ -18,15 +18,7 @@ public interface ApplicationRepository extends DomainRepository<Long, jobApplica
 
     List<jobApplication> findApplicationsByCandidate(Candidate candidate);
 
-    Optional<List<jobApplication>> findbyJobReference(JobReference jobReference);
+    List<jobApplication> findByJobReference(JobReference jobReference);
 
     List<Candidate> findCandidatesByJobOpening(JobOpening jobOpening);
-
-    int countApplicationsByJobReference(JobReference jobReference);
-
-    int countScreeningByJobReference(JobReference jobReference);
-
-    int countInterviewsByJobReference(JobReference jobReference);
-
-    int countResultsByJobReference(JobReference jobReference);
 }

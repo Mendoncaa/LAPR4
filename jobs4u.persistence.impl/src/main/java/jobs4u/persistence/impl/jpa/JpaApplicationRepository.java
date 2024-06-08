@@ -68,10 +68,11 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 	}
 
 	@Override
-	public Optional<List<jobApplication>> findbyJobReference(JobReference jobReference) {
-		return Optional.empty();
-	}
-
+	public List<jobApplication> findByJobReference(JobReference jobReference) {
+		final Map<String, Object> params = new HashMap<>();
+		params.put("jobReference", jobReference);
+		return (List<jobApplication>) match("e.jobReference=:jobReference", params);
+    }
 	@Override
 	public List<Candidate> findCandidatesByJobOpening(JobOpening jobOpening) {
 		List<jobApplication> applications = findApplicationsByJobOpening(jobOpening);
@@ -91,23 +92,4 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 		return candidates;
 	}
 
-	@Override
-	public int countApplicationsByJobReference(JobReference jobReference) {
-		return 0;
-	}
-
-	@Override
-	public int countScreeningByJobReference(JobReference jobReference) {
-		return 0;
-	}
-
-	@Override
-	public int countInterviewsByJobReference(JobReference jobReference) {
-		return 0;
-	}
-
-	@Override
-	public int countResultsByJobReference(JobReference jobReference) {
-		return 0;
-	}
 }
