@@ -1,0 +1,13 @@
+@startuml
+
+title System Sequence Diagram (SSD) - Execute Verification Process of Requirements
+
+actor "Customer Manager" as CM
+participant ":System" as S
+
+CM -> S : Requests to verify candidate files
+S -> CM : Asks for JobReference
+CM -> S : Provides JobReference
+S -> CM : Requirements verification results
+
+@enduml

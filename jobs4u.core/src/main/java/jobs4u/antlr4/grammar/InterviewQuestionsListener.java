@@ -8,183 +8,163 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface InterviewQuestionsListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#interviewMod}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void enterInterviewMod(InterviewQuestionsParser.InterviewModContext ctx);
+	void enterStart(InterviewQuestionsParser.StartContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#interviewMod}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#start}.
 	 * @param ctx the parse tree
 	 */
-	void exitInterviewMod(InterviewQuestionsParser.InterviewModContext ctx);
+	void exitStart(InterviewQuestionsParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#headerSec}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#header}.
 	 * @param ctx the parse tree
 	 */
-	void enterHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx);
+	void enterHeader(InterviewQuestionsParser.HeaderContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#headerSec}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#header}.
 	 * @param ctx the parse tree
 	 */
-	void exitHeaderSec(InterviewQuestionsParser.HeaderSecContext ctx);
+	void exitHeader(InterviewQuestionsParser.HeaderContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#questionSec}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#requirement}.
 	 * @param ctx the parse tree
 	 */
-	void enterQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx);
+	void enterRequirement(InterviewQuestionsParser.RequirementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#questionSec}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#requirement}.
 	 * @param ctx the parse tree
 	 */
-	void exitQuestionSec(InterviewQuestionsParser.QuestionSecContext ctx);
+	void exitRequirement(InterviewQuestionsParser.RequirementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#questionValue}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void enterQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx);
+	void enterReqType(InterviewQuestionsParser.ReqTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#questionValue}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#reqType}.
 	 * @param ctx the parse tree
 	 */
-	void exitQuestionValue(InterviewQuestionsParser.QuestionValueContext ctx);
+	void exitReqType(InterviewQuestionsParser.ReqTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#singleQ}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#trueFalseReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingleQ(InterviewQuestionsParser.SingleQContext ctx);
+	void enterTrueFalseReq(InterviewQuestionsParser.TrueFalseReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#singleQ}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#trueFalseReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingleQ(InterviewQuestionsParser.SingleQContext ctx);
+	void exitTrueFalseReq(InterviewQuestionsParser.TrueFalseReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#answerSec}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#shortAReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx);
+	void enterShortAReq(InterviewQuestionsParser.ShortAReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#answerSec}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#shortAReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitAnswerSec(InterviewQuestionsParser.AnswerSecContext ctx);
+	void exitShortAReq(InterviewQuestionsParser.ShortAReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#choiceQ}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#intReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx);
+	void enterIntReq(InterviewQuestionsParser.IntReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#choiceQ}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#intReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitChoiceQ(InterviewQuestionsParser.ChoiceQContext ctx);
+	void exitIntReq(InterviewQuestionsParser.IntReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#multiChoiceQ}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#multiChoiceReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx);
+	void enterMultiChoiceReq(InterviewQuestionsParser.MultiChoiceReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#multiChoiceQ}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#multiChoiceReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiChoiceQ(InterviewQuestionsParser.MultiChoiceQContext ctx);
+	void exitMultiChoiceReq(InterviewQuestionsParser.MultiChoiceReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#rangeQ}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#choiceReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterRangeQ(InterviewQuestionsParser.RangeQContext ctx);
+	void enterChoiceReq(InterviewQuestionsParser.ChoiceReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#rangeQ}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#choiceReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitRangeQ(InterviewQuestionsParser.RangeQContext ctx);
+	void exitChoiceReq(InterviewQuestionsParser.ChoiceReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#integerAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#dateReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx);
+	void enterDateReq(InterviewQuestionsParser.DateReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#integerAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#dateReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntegerAnswer(InterviewQuestionsParser.IntegerAnswerContext ctx);
+	void exitDateReq(InterviewQuestionsParser.DateReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#choiceIntAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#timeReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx);
+	void enterTimeReq(InterviewQuestionsParser.TimeReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#choiceIntAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#timeReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitChoiceIntAnswer(InterviewQuestionsParser.ChoiceIntAnswerContext ctx);
+	void exitTimeReq(InterviewQuestionsParser.TimeReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#multiIntAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#decimalReq}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx);
+	void enterDecimalReq(InterviewQuestionsParser.DecimalReqContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#multiIntAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#decimalReq}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiIntAnswer(InterviewQuestionsParser.MultiIntAnswerContext ctx);
+	void exitDecimalReq(InterviewQuestionsParser.DecimalReqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#decimalAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#answer1}.
 	 * @param ctx the parse tree
 	 */
-	void enterDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx);
+	void enterAnswer1(InterviewQuestionsParser.Answer1Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#decimalAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#answer1}.
 	 * @param ctx the parse tree
 	 */
-	void exitDecimalAnswer(InterviewQuestionsParser.DecimalAnswerContext ctx);
+	void exitAnswer1(InterviewQuestionsParser.Answer1Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#dateAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#answer2}.
 	 * @param ctx the parse tree
 	 */
-	void enterDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx);
+	void enterAnswer2(InterviewQuestionsParser.Answer2Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#dateAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#answer2}.
 	 * @param ctx the parse tree
 	 */
-	void exitDateAnswer(InterviewQuestionsParser.DateAnswerContext ctx);
+	void exitAnswer2(InterviewQuestionsParser.Answer2Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#timeAnswer}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#answer3}.
 	 * @param ctx the parse tree
 	 */
-	void enterTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx);
+	void enterAnswer3(InterviewQuestionsParser.Answer3Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#timeAnswer}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#answer3}.
 	 * @param ctx the parse tree
 	 */
-	void exitTimeAnswer(InterviewQuestionsParser.TimeAnswerContext ctx);
+	void exitAnswer3(InterviewQuestionsParser.Answer3Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#choiceOption}.
+	 * Enter a parse tree produced by {@link InterviewQuestionsParser#answer4}.
 	 * @param ctx the parse tree
 	 */
-	void enterChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx);
+	void enterAnswer4(InterviewQuestionsParser.Answer4Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#choiceOption}.
+	 * Exit a parse tree produced by {@link InterviewQuestionsParser#answer4}.
 	 * @param ctx the parse tree
 	 */
-	void exitChoiceOption(InterviewQuestionsParser.ChoiceOptionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#trueFalseAnswer}.
-	 * @param ctx the parse tree
-	 */
-	void enterTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#trueFalseAnswer}.
-	 * @param ctx the parse tree
-	 */
-	void exitTrueFalseAnswer(InterviewQuestionsParser.TrueFalseAnswerContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link InterviewQuestionsParser#shortTextAnswer}.
-	 * @param ctx the parse tree
-	 */
-	void enterShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InterviewQuestionsParser#shortTextAnswer}.
-	 * @param ctx the parse tree
-	 */
-	void exitShortTextAnswer(InterviewQuestionsParser.ShortTextAnswerContext ctx);
+	void exitAnswer4(InterviewQuestionsParser.Answer4Context ctx);
 }

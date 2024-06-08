@@ -1,13 +1,17 @@
 // Generated from /Users/mendonca/PROJETO_LAPR4/jobs4u.core/src/main/java/jobs4u/antlr4/grammar/InterviewQuestions.g4 by ANTLR 4.13.1
 package jobs4u.antlr4.grammar;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
+
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class InterviewQuestionsParser extends Parser {
@@ -17,63 +21,36 @@ public class InterviewQuestionsParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		BEGIN_SECTION=1, END_SECTION=2, HEADER_BEGIN=3, HEADER_END=4, QUESTION_BEGIN=5, 
-		QUESTION_END=6, SINGLE_QUESTION_BEGIN=7, SINGLE_QUESTION_END=8, CHOICE_QUESTION_BEGIN=9, 
-		CHOICE_QUESTION_END=10, MULTIPLE_CHOICE_QUESTION_BEGIN=11, MULTIPLE_CHOICE_QUESTION_END=12, 
-		TRUE_FALSE_BEGIN=13, TRUE_FALSE_END=14, SHORT_TEXT_BEGIN=15, SHORT_TEXT_END=16, 
-		CHOICE_OPTION_BEGIN=17, CHOICE_OPTION_END=18, INTEGER_ANSWER_BEGIN=19, 
-		INTEGER_ANSWER_END=20, MULTIPLE_INTEGER_ANSWER_BEGIN=21, MULTIPLE_INTEGER_ANSWER_END=22, 
-		DECIMAL_ANSWER_BEGIN=23, DECIMAL_ANSWER_END=24, DATE_ANSWER_BEGIN=25, 
-		DATE_ANSWER_END=26, TIME_ANSWER_BEGIN=27, TIME_ANSWER_END=28, RANGE_QUESTION_BEGIN=29, 
-		RANGE_QUESTION_END=30, RANGE_START_BEGIN=31, RANGE_START_END=32, RANGE_END_BEGIN=33, 
-		RANGE_END_END=34, VALUE_BEGIN=35, VALUE_END=36, WS=37, BOOLEAN_VALUE=38, 
-		DATE_FORMAT=39, TIME_FORMAT=40, INTEGER=41, DECIMAL=42, TEXT=43;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
+		T__9=10, T__10=11, T__11=12, STRING=13, BOOLEAN=14, INTEGER=15, DATE_FORMAT=16, 
+		TIME_FORMAT=17, DECIMAL_VALUE=18, WS=19;
 	public static final int
-		RULE_interviewMod = 0, RULE_headerSec = 1, RULE_questionSec = 2, RULE_questionValue = 3, 
-		RULE_singleQ = 4, RULE_answerSec = 5, RULE_choiceQ = 6, RULE_multiChoiceQ = 7, 
-		RULE_rangeQ = 8, RULE_integerAnswer = 9, RULE_choiceIntAnswer = 10, RULE_multiIntAnswer = 11, 
-		RULE_decimalAnswer = 12, RULE_dateAnswer = 13, RULE_timeAnswer = 14, RULE_choiceOption = 15, 
-		RULE_trueFalseAnswer = 16, RULE_shortTextAnswer = 17;
+		RULE_start = 0, RULE_header = 1, RULE_requirement = 2, RULE_reqType = 3, 
+		RULE_trueFalseReq = 4, RULE_shortAReq = 5, RULE_intReq = 6, RULE_multiChoiceReq = 7, 
+		RULE_choiceReq = 8, RULE_dateReq = 9, RULE_timeReq = 10, RULE_decimalReq = 11, 
+		RULE_answer1 = 12, RULE_answer2 = 13, RULE_answer3 = 14, RULE_answer4 = 15;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"interviewMod", "headerSec", "questionSec", "questionValue", "singleQ", 
-			"answerSec", "choiceQ", "multiChoiceQ", "rangeQ", "integerAnswer", "choiceIntAnswer", 
-			"multiIntAnswer", "decimalAnswer", "dateAnswer", "timeAnswer", "choiceOption", 
-			"trueFalseAnswer", "shortTextAnswer"
+			"start", "header", "requirement", "reqType", "trueFalseReq", "shortAReq", 
+			"intReq", "multiChoiceReq", "choiceReq", "dateReq", "timeReq", "decimalReq", 
+			"answer1", "answer2", "answer3", "answer4"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'<BEGIN_SECTION>'", "'<END_SECTION>'", "'<HEADER_BEGIN>'", "'<HEADER_END>'", 
-			"'<QUESTION_BEGIN>'", "'<QUESTION_END>'", "'<SINGLE_QUESTION_BEGIN>'", 
-			"'<SINGLE_QUESTION_END>'", "'<CHOICE_QUESTION_BEGIN>'", "'<CHOICE_QUESTION_END>'", 
-			"'<MULTIPLE_CHOICE_QUESTION_BEGIN>'", "'<MULTIPLE_CHOICE_QUESTION_END>'", 
-			"'<TRUE_FALSE_BEGIN>'", "'<TRUE_FALSE_END>'", "'<SHORT_TEXT_BEGIN>'", 
-			"'<SHORT_TEXT_END>'", "'<CHOICE_OPTION_BEGIN>'", "'<CHOICE_OPTION_END>'", 
-			"'<INTEGER_ANSWER_BEGIN>'", "'<INTEGER_ANSWER_END>'", "'<MULTIPLE_INTEGER_ANSWER_BEGIN>'", 
-			"'<MULTIPLE_INTEGER_ANSWER_END>'", "'<DECIMAL_ANSWER_BEGIN>'", "'<DECIMAL_ANSWER_END>'", 
-			"'<DATE_ANSWER_BEGIN>'", "'<DATE_ANSWER_END>'", "'<TIME_ANSWER_BEGIN>'", 
-			"'<TIME_ANSWER_END>'", "'<RANGE_QUESTION_BEGIN>'", "'<RANGE_QUESTION_END>'", 
-			"'<RANGE_START_BEGIN>'", "'<RANGE_START_END>'", "'<RANGE_END_BEGIN>'", 
-			"'<RANGE_END_END>'", "'<VALUE_BEGIN>'", "'<VALUE_END>'"
+			null, "'RQ: '", "'[TrueOrFalse] '", "'[value: '", "'] '", "'RA: '", "'[ShortAnswer] '", 
+			"'[Integer] '", "'[MultiChoice] '", "'[Choice] '", "'[Date] '", "'[Time] '", 
+			"'[Decimal] '"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "BEGIN_SECTION", "END_SECTION", "HEADER_BEGIN", "HEADER_END", "QUESTION_BEGIN", 
-			"QUESTION_END", "SINGLE_QUESTION_BEGIN", "SINGLE_QUESTION_END", "CHOICE_QUESTION_BEGIN", 
-			"CHOICE_QUESTION_END", "MULTIPLE_CHOICE_QUESTION_BEGIN", "MULTIPLE_CHOICE_QUESTION_END", 
-			"TRUE_FALSE_BEGIN", "TRUE_FALSE_END", "SHORT_TEXT_BEGIN", "SHORT_TEXT_END", 
-			"CHOICE_OPTION_BEGIN", "CHOICE_OPTION_END", "INTEGER_ANSWER_BEGIN", "INTEGER_ANSWER_END", 
-			"MULTIPLE_INTEGER_ANSWER_BEGIN", "MULTIPLE_INTEGER_ANSWER_END", "DECIMAL_ANSWER_BEGIN", 
-			"DECIMAL_ANSWER_END", "DATE_ANSWER_BEGIN", "DATE_ANSWER_END", "TIME_ANSWER_BEGIN", 
-			"TIME_ANSWER_END", "RANGE_QUESTION_BEGIN", "RANGE_QUESTION_END", "RANGE_START_BEGIN", 
-			"RANGE_START_END", "RANGE_END_BEGIN", "RANGE_END_END", "VALUE_BEGIN", 
-			"VALUE_END", "WS", "BOOLEAN_VALUE", "DATE_FORMAT", "TIME_FORMAT", "INTEGER", 
-			"DECIMAL", "TEXT"
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, "STRING", "BOOLEAN", "INTEGER", "DATE_FORMAT", "TIME_FORMAT", "DECIMAL_VALUE", 
+			"WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -128,810 +105,61 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class InterviewModContext extends ParserRuleContext {
-		public TerminalNode BEGIN_SECTION() { return getToken(InterviewQuestionsParser.BEGIN_SECTION, 0); }
-		public HeaderSecContext headerSec() {
-			return getRuleContext(HeaderSecContext.class,0);
+	public static class StartContext extends ParserRuleContext {
+		public HeaderContext header() {
+			return getRuleContext(HeaderContext.class,0);
 		}
-		public TerminalNode END_SECTION() { return getToken(InterviewQuestionsParser.END_SECTION, 0); }
-		public List<QuestionSecContext> questionSec() {
-			return getRuleContexts(QuestionSecContext.class);
+		public TerminalNode EOF() { return getToken(InterviewQuestionsParser.EOF, 0); }
+		public List<RequirementContext> requirement() {
+			return getRuleContexts(RequirementContext.class);
 		}
-		public QuestionSecContext questionSec(int i) {
-			return getRuleContext(QuestionSecContext.class,i);
+		public RequirementContext requirement(int i) {
+			return getRuleContext(RequirementContext.class,i);
 		}
-		public InterviewModContext(ParserRuleContext parent, int invokingState) {
+		public StartContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_interviewMod; }
+		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterInterviewMod(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterStart(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitInterviewMod(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitStart(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitInterviewMod(this);
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitStart(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final InterviewModContext interviewMod() throws RecognitionException {
-		InterviewModContext _localctx = new InterviewModContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_interviewMod);
+	public final StartContext start() throws RecognitionException {
+		StartContext _localctx = new StartContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_start);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
-			match(BEGIN_SECTION);
-			setState(37);
-			headerSec();
-			setState(39); 
+			setState(32);
+			header();
+			setState(34); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(38);
-				questionSec();
+				setState(33);
+				requirement();
 				}
 				}
-				setState(41); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==QUESTION_BEGIN );
-			setState(43);
-			match(END_SECTION);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class HeaderSecContext extends ParserRuleContext {
-		public TerminalNode HEADER_BEGIN() { return getToken(InterviewQuestionsParser.HEADER_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode HEADER_END() { return getToken(InterviewQuestionsParser.HEADER_END, 0); }
-		public HeaderSecContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_headerSec; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterHeaderSec(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitHeaderSec(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitHeaderSec(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final HeaderSecContext headerSec() throws RecognitionException {
-		HeaderSecContext _localctx = new HeaderSecContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_headerSec);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(45);
-			match(HEADER_BEGIN);
-			setState(46);
-			match(TEXT);
-			setState(47);
-			match(HEADER_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class QuestionSecContext extends ParserRuleContext {
-		public TerminalNode QUESTION_BEGIN() { return getToken(InterviewQuestionsParser.QUESTION_BEGIN, 0); }
-		public QuestionValueContext questionValue() {
-			return getRuleContext(QuestionValueContext.class,0);
-		}
-		public TerminalNode QUESTION_END() { return getToken(InterviewQuestionsParser.QUESTION_END, 0); }
-		public SingleQContext singleQ() {
-			return getRuleContext(SingleQContext.class,0);
-		}
-		public ChoiceQContext choiceQ() {
-			return getRuleContext(ChoiceQContext.class,0);
-		}
-		public MultiChoiceQContext multiChoiceQ() {
-			return getRuleContext(MultiChoiceQContext.class,0);
-		}
-		public RangeQContext rangeQ() {
-			return getRuleContext(RangeQContext.class,0);
-		}
-		public QuestionSecContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_questionSec; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterQuestionSec(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitQuestionSec(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitQuestionSec(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final QuestionSecContext questionSec() throws RecognitionException {
-		QuestionSecContext _localctx = new QuestionSecContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_questionSec);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(49);
-			match(QUESTION_BEGIN);
-			setState(50);
-			questionValue();
-			setState(55);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case SINGLE_QUESTION_BEGIN:
-				{
-				setState(51);
-				singleQ();
-				}
-				break;
-			case CHOICE_QUESTION_BEGIN:
-				{
-				setState(52);
-				choiceQ();
-				}
-				break;
-			case MULTIPLE_CHOICE_QUESTION_BEGIN:
-				{
-				setState(53);
-				multiChoiceQ();
-				}
-				break;
-			case RANGE_QUESTION_BEGIN:
-				{
-				setState(54);
-				rangeQ();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-			setState(57);
-			match(QUESTION_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class QuestionValueContext extends ParserRuleContext {
-		public Token values;
-		public TerminalNode VALUE_BEGIN() { return getToken(InterviewQuestionsParser.VALUE_BEGIN, 0); }
-		public TerminalNode VALUE_END() { return getToken(InterviewQuestionsParser.VALUE_END, 0); }
-		public TerminalNode DECIMAL() { return getToken(InterviewQuestionsParser.DECIMAL, 0); }
-		public TerminalNode INTEGER() { return getToken(InterviewQuestionsParser.INTEGER, 0); }
-		public QuestionValueContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_questionValue; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterQuestionValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitQuestionValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitQuestionValue(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final QuestionValueContext questionValue() throws RecognitionException {
-		QuestionValueContext _localctx = new QuestionValueContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_questionValue);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(59);
-			match(VALUE_BEGIN);
-			setState(60);
-			((QuestionValueContext)_localctx).values = _input.LT(1);
-			_la = _input.LA(1);
-			if ( !(_la==INTEGER || _la==DECIMAL) ) {
-				((QuestionValueContext)_localctx).values = (Token)_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			setState(61);
-			match(VALUE_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class SingleQContext extends ParserRuleContext {
-		public TerminalNode SINGLE_QUESTION_BEGIN() { return getToken(InterviewQuestionsParser.SINGLE_QUESTION_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode SINGLE_QUESTION_END() { return getToken(InterviewQuestionsParser.SINGLE_QUESTION_END, 0); }
-		public AnswerSecContext answerSec() {
-			return getRuleContext(AnswerSecContext.class,0);
-		}
-		public SingleQContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_singleQ; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterSingleQ(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitSingleQ(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitSingleQ(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final SingleQContext singleQ() throws RecognitionException {
-		SingleQContext _localctx = new SingleQContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_singleQ);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(63);
-			match(SINGLE_QUESTION_BEGIN);
-			setState(64);
-			match(TEXT);
-			setState(65);
-			match(SINGLE_QUESTION_END);
-			setState(66);
-			answerSec();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class AnswerSecContext extends ParserRuleContext {
-		public TrueFalseAnswerContext trueFalseAnswer() {
-			return getRuleContext(TrueFalseAnswerContext.class,0);
-		}
-		public ShortTextAnswerContext shortTextAnswer() {
-			return getRuleContext(ShortTextAnswerContext.class,0);
-		}
-		public IntegerAnswerContext integerAnswer() {
-			return getRuleContext(IntegerAnswerContext.class,0);
-		}
-		public DecimalAnswerContext decimalAnswer() {
-			return getRuleContext(DecimalAnswerContext.class,0);
-		}
-		public DateAnswerContext dateAnswer() {
-			return getRuleContext(DateAnswerContext.class,0);
-		}
-		public TimeAnswerContext timeAnswer() {
-			return getRuleContext(TimeAnswerContext.class,0);
-		}
-		public AnswerSecContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_answerSec; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterAnswerSec(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitAnswerSec(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitAnswerSec(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final AnswerSecContext answerSec() throws RecognitionException {
-		AnswerSecContext _localctx = new AnswerSecContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_answerSec);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(74);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case TRUE_FALSE_BEGIN:
-				{
-				setState(68);
-				trueFalseAnswer();
-				}
-				break;
-			case SHORT_TEXT_BEGIN:
-				{
-				setState(69);
-				shortTextAnswer();
-				}
-				break;
-			case INTEGER_ANSWER_BEGIN:
-				{
-				setState(70);
-				integerAnswer();
-				}
-				break;
-			case DECIMAL_ANSWER_BEGIN:
-				{
-				setState(71);
-				decimalAnswer();
-				}
-				break;
-			case DATE_ANSWER_BEGIN:
-				{
-				setState(72);
-				dateAnswer();
-				}
-				break;
-			case TIME_ANSWER_BEGIN:
-				{
-				setState(73);
-				timeAnswer();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ChoiceQContext extends ParserRuleContext {
-		public TerminalNode CHOICE_QUESTION_BEGIN() { return getToken(InterviewQuestionsParser.CHOICE_QUESTION_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode CHOICE_QUESTION_END() { return getToken(InterviewQuestionsParser.CHOICE_QUESTION_END, 0); }
-		public ChoiceIntAnswerContext choiceIntAnswer() {
-			return getRuleContext(ChoiceIntAnswerContext.class,0);
-		}
-		public List<ChoiceOptionContext> choiceOption() {
-			return getRuleContexts(ChoiceOptionContext.class);
-		}
-		public ChoiceOptionContext choiceOption(int i) {
-			return getRuleContext(ChoiceOptionContext.class,i);
-		}
-		public ChoiceQContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_choiceQ; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterChoiceQ(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitChoiceQ(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitChoiceQ(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ChoiceQContext choiceQ() throws RecognitionException {
-		ChoiceQContext _localctx = new ChoiceQContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_choiceQ);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(76);
-			match(CHOICE_QUESTION_BEGIN);
-			setState(77);
-			match(TEXT);
-			setState(79); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(78);
-				choiceOption();
-				}
-				}
-				setState(81); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==CHOICE_OPTION_BEGIN );
-			setState(83);
-			match(CHOICE_QUESTION_END);
-			setState(84);
-			choiceIntAnswer();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class MultiChoiceQContext extends ParserRuleContext {
-		public TerminalNode MULTIPLE_CHOICE_QUESTION_BEGIN() { return getToken(InterviewQuestionsParser.MULTIPLE_CHOICE_QUESTION_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode MULTIPLE_CHOICE_QUESTION_END() { return getToken(InterviewQuestionsParser.MULTIPLE_CHOICE_QUESTION_END, 0); }
-		public MultiIntAnswerContext multiIntAnswer() {
-			return getRuleContext(MultiIntAnswerContext.class,0);
-		}
-		public List<ChoiceOptionContext> choiceOption() {
-			return getRuleContexts(ChoiceOptionContext.class);
-		}
-		public ChoiceOptionContext choiceOption(int i) {
-			return getRuleContext(ChoiceOptionContext.class,i);
-		}
-		public MultiChoiceQContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_multiChoiceQ; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterMultiChoiceQ(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitMultiChoiceQ(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitMultiChoiceQ(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final MultiChoiceQContext multiChoiceQ() throws RecognitionException {
-		MultiChoiceQContext _localctx = new MultiChoiceQContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_multiChoiceQ);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(86);
-			match(MULTIPLE_CHOICE_QUESTION_BEGIN);
-			setState(87);
-			match(TEXT);
-			setState(89); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(88);
-				choiceOption();
-				}
-				}
-				setState(91); 
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			} while ( _la==CHOICE_OPTION_BEGIN );
-			setState(93);
-			match(MULTIPLE_CHOICE_QUESTION_END);
-			setState(94);
-			multiIntAnswer();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class RangeQContext extends ParserRuleContext {
-		public Token finalRangeStart;
-		public Token finalRangeEnd;
-		public TerminalNode RANGE_QUESTION_BEGIN() { return getToken(InterviewQuestionsParser.RANGE_QUESTION_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode RANGE_START_BEGIN() { return getToken(InterviewQuestionsParser.RANGE_START_BEGIN, 0); }
-		public TerminalNode RANGE_START_END() { return getToken(InterviewQuestionsParser.RANGE_START_END, 0); }
-		public TerminalNode RANGE_END_BEGIN() { return getToken(InterviewQuestionsParser.RANGE_END_BEGIN, 0); }
-		public TerminalNode RANGE_END_END() { return getToken(InterviewQuestionsParser.RANGE_END_END, 0); }
-		public TerminalNode RANGE_QUESTION_END() { return getToken(InterviewQuestionsParser.RANGE_QUESTION_END, 0); }
-		public AnswerSecContext answerSec() {
-			return getRuleContext(AnswerSecContext.class,0);
-		}
-		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
-		public TerminalNode INTEGER(int i) {
-			return getToken(InterviewQuestionsParser.INTEGER, i);
-		}
-		public RangeQContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_rangeQ; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterRangeQ(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitRangeQ(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitRangeQ(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final RangeQContext rangeQ() throws RecognitionException {
-		RangeQContext _localctx = new RangeQContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_rangeQ);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(96);
-			match(RANGE_QUESTION_BEGIN);
-			setState(97);
-			match(TEXT);
-			setState(98);
-			match(RANGE_START_BEGIN);
-			setState(99);
-			((RangeQContext)_localctx).finalRangeStart = match(INTEGER);
-			setState(100);
-			match(RANGE_START_END);
-			setState(101);
-			match(RANGE_END_BEGIN);
-			setState(102);
-			((RangeQContext)_localctx).finalRangeEnd = match(INTEGER);
-			setState(103);
-			match(RANGE_END_END);
-			setState(104);
-			match(RANGE_QUESTION_END);
-			setState(105);
-			answerSec();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class IntegerAnswerContext extends ParserRuleContext {
-		public TerminalNode INTEGER_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.INTEGER_ANSWER_BEGIN, 0); }
-		public TerminalNode INTEGER() { return getToken(InterviewQuestionsParser.INTEGER, 0); }
-		public TerminalNode INTEGER_ANSWER_END() { return getToken(InterviewQuestionsParser.INTEGER_ANSWER_END, 0); }
-		public IntegerAnswerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_integerAnswer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterIntegerAnswer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitIntegerAnswer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitIntegerAnswer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final IntegerAnswerContext integerAnswer() throws RecognitionException {
-		IntegerAnswerContext _localctx = new IntegerAnswerContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_integerAnswer);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(107);
-			match(INTEGER_ANSWER_BEGIN);
-			setState(108);
-			match(INTEGER);
-			setState(109);
-			match(INTEGER_ANSWER_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ChoiceIntAnswerContext extends ParserRuleContext {
-		public TerminalNode INTEGER_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.INTEGER_ANSWER_BEGIN, 0); }
-		public TerminalNode INTEGER() { return getToken(InterviewQuestionsParser.INTEGER, 0); }
-		public TerminalNode INTEGER_ANSWER_END() { return getToken(InterviewQuestionsParser.INTEGER_ANSWER_END, 0); }
-		public ChoiceIntAnswerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_choiceIntAnswer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterChoiceIntAnswer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitChoiceIntAnswer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitChoiceIntAnswer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ChoiceIntAnswerContext choiceIntAnswer() throws RecognitionException {
-		ChoiceIntAnswerContext _localctx = new ChoiceIntAnswerContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_choiceIntAnswer);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(111);
-			match(INTEGER_ANSWER_BEGIN);
-			setState(112);
-			match(INTEGER);
-			setState(113);
-			match(INTEGER_ANSWER_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class MultiIntAnswerContext extends ParserRuleContext {
-		public TerminalNode MULTIPLE_INTEGER_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.MULTIPLE_INTEGER_ANSWER_BEGIN, 0); }
-		public TerminalNode MULTIPLE_INTEGER_ANSWER_END() { return getToken(InterviewQuestionsParser.MULTIPLE_INTEGER_ANSWER_END, 0); }
-		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
-		public TerminalNode INTEGER(int i) {
-			return getToken(InterviewQuestionsParser.INTEGER, i);
-		}
-		public MultiIntAnswerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_multiIntAnswer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterMultiIntAnswer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitMultiIntAnswer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitMultiIntAnswer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final MultiIntAnswerContext multiIntAnswer() throws RecognitionException {
-		MultiIntAnswerContext _localctx = new MultiIntAnswerContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_multiIntAnswer);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(115);
-			match(MULTIPLE_INTEGER_ANSWER_BEGIN);
-			setState(117); 
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			do {
-				{
-				{
-				setState(116);
-				match(INTEGER);
-				}
-				}
-				setState(119); 
+				setState(36); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==INTEGER );
-			setState(121);
-			match(MULTIPLE_INTEGER_ANSWER_END);
+			setState(38);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -946,53 +174,91 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class DecimalAnswerContext extends ParserRuleContext {
-		public Token decimalValue;
-		public TerminalNode DECIMAL_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.DECIMAL_ANSWER_BEGIN, 0); }
-		public TerminalNode DECIMAL_ANSWER_END() { return getToken(InterviewQuestionsParser.DECIMAL_ANSWER_END, 0); }
-		public TerminalNode DECIMAL() { return getToken(InterviewQuestionsParser.DECIMAL, 0); }
+	public static class HeaderContext extends ParserRuleContext {
+		public Token text;
+		public TerminalNode STRING() { return getToken(InterviewQuestionsParser.STRING, 0); }
+		public HeaderContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_header; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterHeader(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitHeader(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitHeader(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final HeaderContext header() throws RecognitionException {
+		HeaderContext _localctx = new HeaderContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_header);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(40);
+			((HeaderContext)_localctx).text = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class RequirementContext extends ParserRuleContext {
+		public Token id;
+		public Token requirementContent;
+		public ReqTypeContext reqType() {
+			return getRuleContext(ReqTypeContext.class,0);
+		}
 		public TerminalNode INTEGER() { return getToken(InterviewQuestionsParser.INTEGER, 0); }
-		public DecimalAnswerContext(ParserRuleContext parent, int invokingState) {
+		public TerminalNode STRING() { return getToken(InterviewQuestionsParser.STRING, 0); }
+		public RequirementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_decimalAnswer; }
+		@Override public int getRuleIndex() { return RULE_requirement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterDecimalAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterRequirement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitDecimalAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitRequirement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitDecimalAnswer(this);
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitRequirement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DecimalAnswerContext decimalAnswer() throws RecognitionException {
-		DecimalAnswerContext _localctx = new DecimalAnswerContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_decimalAnswer);
-		int _la;
+	public final RequirementContext requirement() throws RecognitionException {
+		RequirementContext _localctx = new RequirementContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_requirement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
-			match(DECIMAL_ANSWER_BEGIN);
-			setState(124);
-			((DecimalAnswerContext)_localctx).decimalValue = _input.LT(1);
-			_la = _input.LA(1);
-			if ( !(_la==INTEGER || _la==DECIMAL) ) {
-				((DecimalAnswerContext)_localctx).decimalValue = (Token)_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			setState(125);
-			match(DECIMAL_ANSWER_END);
+			setState(42);
+			((RequirementContext)_localctx).id = match(INTEGER);
+			setState(43);
+			match(T__0);
+			setState(44);
+			((RequirementContext)_localctx).requirementContent = match(STRING);
+			setState(45);
+			reqType();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1007,41 +273,522 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class DateAnswerContext extends ParserRuleContext {
-		public TerminalNode DATE_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.DATE_ANSWER_BEGIN, 0); }
+	public static class ReqTypeContext extends ParserRuleContext {
+		public TrueFalseReqContext trueFalseReq() {
+			return getRuleContext(TrueFalseReqContext.class,0);
+		}
+		public ShortAReqContext shortAReq() {
+			return getRuleContext(ShortAReqContext.class,0);
+		}
+		public IntReqContext intReq() {
+			return getRuleContext(IntReqContext.class,0);
+		}
+		public ChoiceReqContext choiceReq() {
+			return getRuleContext(ChoiceReqContext.class,0);
+		}
+		public MultiChoiceReqContext multiChoiceReq() {
+			return getRuleContext(MultiChoiceReqContext.class,0);
+		}
+		public DateReqContext dateReq() {
+			return getRuleContext(DateReqContext.class,0);
+		}
+		public TimeReqContext timeReq() {
+			return getRuleContext(TimeReqContext.class,0);
+		}
+		public DecimalReqContext decimalReq() {
+			return getRuleContext(DecimalReqContext.class,0);
+		}
+		public ReqTypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_reqType; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterReqType(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitReqType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitReqType(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ReqTypeContext reqType() throws RecognitionException {
+		ReqTypeContext _localctx = new ReqTypeContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_reqType);
+		try {
+			setState(55);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(47);
+				trueFalseReq();
+				}
+				break;
+			case T__5:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(48);
+				shortAReq();
+				}
+				break;
+			case T__6:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(49);
+				intReq();
+				}
+				break;
+			case T__8:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(50);
+				choiceReq();
+				}
+				break;
+			case T__7:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(51);
+				multiChoiceReq();
+				}
+				break;
+			case T__9:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(52);
+				dateReq();
+				}
+				break;
+			case T__10:
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(53);
+				timeReq();
+				}
+				break;
+			case T__11:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(54);
+				decimalReq();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class TrueFalseReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public TerminalNode BOOLEAN() { return getToken(InterviewQuestionsParser.BOOLEAN, 0); }
+		public TrueFalseReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_trueFalseReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterTrueFalseReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitTrueFalseReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitTrueFalseReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TrueFalseReqContext trueFalseReq() throws RecognitionException {
+		TrueFalseReqContext _localctx = new TrueFalseReqContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_trueFalseReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(57);
+			match(T__1);
+			setState(58);
+			match(T__2);
+			setState(59);
+			((TrueFalseReqContext)_localctx).value = match(INTEGER);
+			setState(60);
+			match(T__3);
+			setState(61);
+			((TrueFalseReqContext)_localctx).id = match(INTEGER);
+			setState(62);
+			match(T__4);
+			setState(63);
+			((TrueFalseReqContext)_localctx).answer = match(BOOLEAN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ShortAReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public TerminalNode STRING() { return getToken(InterviewQuestionsParser.STRING, 0); }
+		public ShortAReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_shortAReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterShortAReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitShortAReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitShortAReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ShortAReqContext shortAReq() throws RecognitionException {
+		ShortAReqContext _localctx = new ShortAReqContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_shortAReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(65);
+			match(T__5);
+			setState(66);
+			match(T__2);
+			setState(67);
+			((ShortAReqContext)_localctx).value = match(INTEGER);
+			setState(68);
+			match(T__3);
+			setState(69);
+			((ShortAReqContext)_localctx).id = match(INTEGER);
+			setState(70);
+			match(T__4);
+			setState(71);
+			((ShortAReqContext)_localctx).answer = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class IntReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public IntReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_intReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterIntReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitIntReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitIntReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final IntReqContext intReq() throws RecognitionException {
+		IntReqContext _localctx = new IntReqContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_intReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(73);
+			match(T__6);
+			setState(74);
+			match(T__2);
+			setState(75);
+			((IntReqContext)_localctx).value = match(INTEGER);
+			setState(76);
+			match(T__3);
+			setState(77);
+			((IntReqContext)_localctx).id = match(INTEGER);
+			setState(78);
+			match(T__4);
+			setState(79);
+			((IntReqContext)_localctx).answer = match(INTEGER);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class MultiChoiceReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public Answer1Context answer1() {
+			return getRuleContext(Answer1Context.class,0);
+		}
+		public Answer2Context answer2() {
+			return getRuleContext(Answer2Context.class,0);
+		}
+		public Answer3Context answer3() {
+			return getRuleContext(Answer3Context.class,0);
+		}
+		public Answer4Context answer4() {
+			return getRuleContext(Answer4Context.class,0);
+		}
+		public MultiChoiceReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_multiChoiceReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterMultiChoiceReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitMultiChoiceReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitMultiChoiceReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final MultiChoiceReqContext multiChoiceReq() throws RecognitionException {
+		MultiChoiceReqContext _localctx = new MultiChoiceReqContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_multiChoiceReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(81);
+			match(T__7);
+			setState(82);
+			match(T__2);
+			setState(83);
+			((MultiChoiceReqContext)_localctx).value = match(INTEGER);
+			setState(84);
+			match(T__3);
+			setState(85);
+			((MultiChoiceReqContext)_localctx).id = match(INTEGER);
+			setState(86);
+			match(T__4);
+			setState(91);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			case 1:
+				{
+				setState(87);
+				answer1();
+				}
+				break;
+			case 2:
+				{
+				setState(88);
+				answer2();
+				}
+				break;
+			case 3:
+				{
+				setState(89);
+				answer3();
+				}
+				break;
+			case 4:
+				{
+				setState(90);
+				answer4();
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ChoiceReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public TerminalNode STRING() { return getToken(InterviewQuestionsParser.STRING, 0); }
+		public ChoiceReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_choiceReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterChoiceReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitChoiceReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitChoiceReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ChoiceReqContext choiceReq() throws RecognitionException {
+		ChoiceReqContext _localctx = new ChoiceReqContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_choiceReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(93);
+			match(T__8);
+			setState(94);
+			match(T__2);
+			setState(95);
+			((ChoiceReqContext)_localctx).value = match(INTEGER);
+			setState(96);
+			match(T__3);
+			setState(97);
+			((ChoiceReqContext)_localctx).id = match(INTEGER);
+			setState(98);
+			match(T__4);
+			setState(99);
+			((ChoiceReqContext)_localctx).answer = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class DateReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
 		public TerminalNode DATE_FORMAT() { return getToken(InterviewQuestionsParser.DATE_FORMAT, 0); }
-		public TerminalNode DATE_ANSWER_END() { return getToken(InterviewQuestionsParser.DATE_ANSWER_END, 0); }
-		public DateAnswerContext(ParserRuleContext parent, int invokingState) {
+		public DateReqContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_dateAnswer; }
+		@Override public int getRuleIndex() { return RULE_dateReq; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterDateAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterDateReq(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitDateAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitDateReq(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitDateAnswer(this);
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitDateReq(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DateAnswerContext dateAnswer() throws RecognitionException {
-		DateAnswerContext _localctx = new DateAnswerContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_dateAnswer);
+	public final DateReqContext dateReq() throws RecognitionException {
+		DateReqContext _localctx = new DateReqContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_dateReq);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(127);
-			match(DATE_ANSWER_BEGIN);
-			setState(128);
-			match(DATE_FORMAT);
-			setState(129);
-			match(DATE_ANSWER_END);
+			setState(101);
+			match(T__9);
+			setState(102);
+			match(T__2);
+			setState(103);
+			((DateReqContext)_localctx).value = match(INTEGER);
+			setState(104);
+			match(T__3);
+			setState(105);
+			((DateReqContext)_localctx).id = match(INTEGER);
+			setState(106);
+			match(T__4);
+			setState(107);
+			((DateReqContext)_localctx).answer = match(DATE_FORMAT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1056,41 +803,218 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class TimeAnswerContext extends ParserRuleContext {
-		public TerminalNode TIME_ANSWER_BEGIN() { return getToken(InterviewQuestionsParser.TIME_ANSWER_BEGIN, 0); }
+	public static class TimeReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
 		public TerminalNode TIME_FORMAT() { return getToken(InterviewQuestionsParser.TIME_FORMAT, 0); }
-		public TerminalNode TIME_ANSWER_END() { return getToken(InterviewQuestionsParser.TIME_ANSWER_END, 0); }
-		public TimeAnswerContext(ParserRuleContext parent, int invokingState) {
+		public TimeReqContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_timeAnswer; }
+		@Override public int getRuleIndex() { return RULE_timeReq; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterTimeAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterTimeReq(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitTimeAnswer(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitTimeReq(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitTimeAnswer(this);
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitTimeReq(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final TimeAnswerContext timeAnswer() throws RecognitionException {
-		TimeAnswerContext _localctx = new TimeAnswerContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_timeAnswer);
+	public final TimeReqContext timeReq() throws RecognitionException {
+		TimeReqContext _localctx = new TimeReqContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_timeReq);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+			setState(109);
+			match(T__10);
+			setState(110);
+			match(T__2);
+			setState(111);
+			((TimeReqContext)_localctx).value = match(INTEGER);
+			setState(112);
+			match(T__3);
+			setState(113);
+			((TimeReqContext)_localctx).id = match(INTEGER);
+			setState(114);
+			match(T__4);
+			setState(115);
+			((TimeReqContext)_localctx).answer = match(TIME_FORMAT);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class DecimalReqContext extends ParserRuleContext {
+		public Token value;
+		public Token id;
+		public Token answer;
+		public List<TerminalNode> INTEGER() { return getTokens(InterviewQuestionsParser.INTEGER); }
+		public TerminalNode INTEGER(int i) {
+			return getToken(InterviewQuestionsParser.INTEGER, i);
+		}
+		public TerminalNode DECIMAL_VALUE() { return getToken(InterviewQuestionsParser.DECIMAL_VALUE, 0); }
+		public DecimalReqContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_decimalReq; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterDecimalReq(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitDecimalReq(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitDecimalReq(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DecimalReqContext decimalReq() throws RecognitionException {
+		DecimalReqContext _localctx = new DecimalReqContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_decimalReq);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(117);
+			match(T__11);
+			setState(118);
+			match(T__2);
+			setState(119);
+			((DecimalReqContext)_localctx).value = match(INTEGER);
+			setState(120);
+			match(T__3);
+			setState(121);
+			((DecimalReqContext)_localctx).id = match(INTEGER);
+			setState(122);
+			match(T__4);
+			setState(123);
+			((DecimalReqContext)_localctx).answer = match(DECIMAL_VALUE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Answer1Context extends ParserRuleContext {
+		public List<TerminalNode> STRING() { return getTokens(InterviewQuestionsParser.STRING); }
+		public TerminalNode STRING(int i) {
+			return getToken(InterviewQuestionsParser.STRING, i);
+		}
+		public Answer1Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_answer1; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterAnswer1(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitAnswer1(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitAnswer1(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Answer1Context answer1() throws RecognitionException {
+		Answer1Context _localctx = new Answer1Context(_ctx, getState());
+		enterRule(_localctx, 24, RULE_answer1);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(125);
+			match(STRING);
+			setState(126);
+			match(STRING);
+			setState(127);
+			match(STRING);
+			setState(128);
+			match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Answer2Context extends ParserRuleContext {
+		public List<TerminalNode> STRING() { return getTokens(InterviewQuestionsParser.STRING); }
+		public TerminalNode STRING(int i) {
+			return getToken(InterviewQuestionsParser.STRING, i);
+		}
+		public Answer2Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_answer2; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterAnswer2(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitAnswer2(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitAnswer2(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Answer2Context answer2() throws RecognitionException {
+		Answer2Context _localctx = new Answer2Context(_ctx, getState());
+		enterRule(_localctx, 26, RULE_answer2);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(130);
+			match(STRING);
 			setState(131);
-			match(TIME_ANSWER_BEGIN);
+			match(STRING);
 			setState(132);
-			match(TIME_FORMAT);
-			setState(133);
-			match(TIME_ANSWER_END);
+			match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1105,144 +1029,83 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class ChoiceOptionContext extends ParserRuleContext {
-		public TerminalNode CHOICE_OPTION_BEGIN() { return getToken(InterviewQuestionsParser.CHOICE_OPTION_BEGIN, 0); }
-		public QuestionValueContext questionValue() {
-			return getRuleContext(QuestionValueContext.class,0);
+	public static class Answer3Context extends ParserRuleContext {
+		public List<TerminalNode> STRING() { return getTokens(InterviewQuestionsParser.STRING); }
+		public TerminalNode STRING(int i) {
+			return getToken(InterviewQuestionsParser.STRING, i);
 		}
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode CHOICE_OPTION_END() { return getToken(InterviewQuestionsParser.CHOICE_OPTION_END, 0); }
-		public ChoiceOptionContext(ParserRuleContext parent, int invokingState) {
+		public Answer3Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_choiceOption; }
+		@Override public int getRuleIndex() { return RULE_answer3; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterChoiceOption(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterAnswer3(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitChoiceOption(this);
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitAnswer3(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitChoiceOption(this);
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitAnswer3(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ChoiceOptionContext choiceOption() throws RecognitionException {
-		ChoiceOptionContext _localctx = new ChoiceOptionContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_choiceOption);
+	public final Answer3Context answer3() throws RecognitionException {
+		Answer3Context _localctx = new Answer3Context(_ctx, getState());
+		enterRule(_localctx, 28, RULE_answer3);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+			setState(134);
+			match(STRING);
 			setState(135);
-			match(CHOICE_OPTION_BEGIN);
-			setState(136);
-			questionValue();
+			match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Answer4Context extends ParserRuleContext {
+		public TerminalNode STRING() { return getToken(InterviewQuestionsParser.STRING, 0); }
+		public Answer4Context(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_answer4; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).enterAnswer4(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof InterviewQuestionsListener) ((InterviewQuestionsListener)listener).exitAnswer4(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof InterviewQuestionsVisitor) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitAnswer4(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Answer4Context answer4() throws RecognitionException {
+		Answer4Context _localctx = new Answer4Context(_ctx, getState());
+		enterRule(_localctx, 30, RULE_answer4);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
 			setState(137);
-			match(TEXT);
-			setState(138);
-			match(CHOICE_OPTION_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class TrueFalseAnswerContext extends ParserRuleContext {
-		public TerminalNode TRUE_FALSE_BEGIN() { return getToken(InterviewQuestionsParser.TRUE_FALSE_BEGIN, 0); }
-		public TerminalNode BOOLEAN_VALUE() { return getToken(InterviewQuestionsParser.BOOLEAN_VALUE, 0); }
-		public TerminalNode TRUE_FALSE_END() { return getToken(InterviewQuestionsParser.TRUE_FALSE_END, 0); }
-		public TrueFalseAnswerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_trueFalseAnswer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterTrueFalseAnswer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitTrueFalseAnswer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitTrueFalseAnswer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final TrueFalseAnswerContext trueFalseAnswer() throws RecognitionException {
-		TrueFalseAnswerContext _localctx = new TrueFalseAnswerContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_trueFalseAnswer);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(140);
-			match(TRUE_FALSE_BEGIN);
-			setState(141);
-			match(BOOLEAN_VALUE);
-			setState(142);
-			match(TRUE_FALSE_END);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ShortTextAnswerContext extends ParserRuleContext {
-		public TerminalNode SHORT_TEXT_BEGIN() { return getToken(InterviewQuestionsParser.SHORT_TEXT_BEGIN, 0); }
-		public TerminalNode TEXT() { return getToken(InterviewQuestionsParser.TEXT, 0); }
-		public TerminalNode SHORT_TEXT_END() { return getToken(InterviewQuestionsParser.SHORT_TEXT_END, 0); }
-		public ShortTextAnswerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_shortTextAnswer; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).enterShortTextAnswer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof InterviewQuestionsListener ) ((InterviewQuestionsListener)listener).exitShortTextAnswer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof InterviewQuestionsVisitor ) return ((InterviewQuestionsVisitor<? extends T>)visitor).visitShortTextAnswer(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ShortTextAnswerContext shortTextAnswer() throws RecognitionException {
-		ShortTextAnswerContext _localctx = new ShortTextAnswerContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_shortTextAnswer);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(144);
-			match(SHORT_TEXT_BEGIN);
-			setState(145);
-			match(TEXT);
-			setState(146);
-			match(SHORT_TEXT_END);
+			match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1257,86 +1120,81 @@ public class InterviewQuestionsParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001+\u0095\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
-		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
-		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
-		"\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0001\u0000\u0001\u0000"+
-		"\u0001\u0000\u0004\u0000(\b\u0000\u000b\u0000\f\u0000)\u0001\u0000\u0001"+
-		"\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u00028\b"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
-		"\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001"+
-		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0003"+
-		"\u0005K\b\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0004\u0006P\b\u0006"+
-		"\u000b\u0006\f\u0006Q\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0004\u0007Z\b\u0007\u000b\u0007\f\u0007[\u0001"+
-		"\u0007\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b"+
-		"\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001"+
-		"\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0004"+
-		"\u000bv\b\u000b\u000b\u000b\f\u000bw\u0001\u000b\u0001\u000b\u0001\f\u0001"+
-		"\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0001\r\u0001\u000e\u0001\u000e"+
-		"\u0001\u000e\u0001\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f"+
-		"\u0001\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011"+
-		"\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0000\u0000\u0012\u0000"+
-		"\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c"+
-		"\u001e \"\u0000\u0001\u0001\u0000)*\u008e\u0000$\u0001\u0000\u0000\u0000"+
-		"\u0002-\u0001\u0000\u0000\u0000\u00041\u0001\u0000\u0000\u0000\u0006;"+
-		"\u0001\u0000\u0000\u0000\b?\u0001\u0000\u0000\u0000\nJ\u0001\u0000\u0000"+
-		"\u0000\fL\u0001\u0000\u0000\u0000\u000eV\u0001\u0000\u0000\u0000\u0010"+
-		"`\u0001\u0000\u0000\u0000\u0012k\u0001\u0000\u0000\u0000\u0014o\u0001"+
-		"\u0000\u0000\u0000\u0016s\u0001\u0000\u0000\u0000\u0018{\u0001\u0000\u0000"+
-		"\u0000\u001a\u007f\u0001\u0000\u0000\u0000\u001c\u0083\u0001\u0000\u0000"+
-		"\u0000\u001e\u0087\u0001\u0000\u0000\u0000 \u008c\u0001\u0000\u0000\u0000"+
-		"\"\u0090\u0001\u0000\u0000\u0000$%\u0005\u0001\u0000\u0000%\'\u0003\u0002"+
-		"\u0001\u0000&(\u0003\u0004\u0002\u0000\'&\u0001\u0000\u0000\u0000()\u0001"+
-		"\u0000\u0000\u0000)\'\u0001\u0000\u0000\u0000)*\u0001\u0000\u0000\u0000"+
-		"*+\u0001\u0000\u0000\u0000+,\u0005\u0002\u0000\u0000,\u0001\u0001\u0000"+
-		"\u0000\u0000-.\u0005\u0003\u0000\u0000./\u0005+\u0000\u0000/0\u0005\u0004"+
-		"\u0000\u00000\u0003\u0001\u0000\u0000\u000012\u0005\u0005\u0000\u0000"+
-		"27\u0003\u0006\u0003\u000038\u0003\b\u0004\u000048\u0003\f\u0006\u0000"+
-		"58\u0003\u000e\u0007\u000068\u0003\u0010\b\u000073\u0001\u0000\u0000\u0000"+
-		"74\u0001\u0000\u0000\u000075\u0001\u0000\u0000\u000076\u0001\u0000\u0000"+
-		"\u000089\u0001\u0000\u0000\u00009:\u0005\u0006\u0000\u0000:\u0005\u0001"+
-		"\u0000\u0000\u0000;<\u0005#\u0000\u0000<=\u0007\u0000\u0000\u0000=>\u0005"+
-		"$\u0000\u0000>\u0007\u0001\u0000\u0000\u0000?@\u0005\u0007\u0000\u0000"+
-		"@A\u0005+\u0000\u0000AB\u0005\b\u0000\u0000BC\u0003\n\u0005\u0000C\t\u0001"+
-		"\u0000\u0000\u0000DK\u0003 \u0010\u0000EK\u0003\"\u0011\u0000FK\u0003"+
-		"\u0012\t\u0000GK\u0003\u0018\f\u0000HK\u0003\u001a\r\u0000IK\u0003\u001c"+
-		"\u000e\u0000JD\u0001\u0000\u0000\u0000JE\u0001\u0000\u0000\u0000JF\u0001"+
-		"\u0000\u0000\u0000JG\u0001\u0000\u0000\u0000JH\u0001\u0000\u0000\u0000"+
-		"JI\u0001\u0000\u0000\u0000K\u000b\u0001\u0000\u0000\u0000LM\u0005\t\u0000"+
-		"\u0000MO\u0005+\u0000\u0000NP\u0003\u001e\u000f\u0000ON\u0001\u0000\u0000"+
-		"\u0000PQ\u0001\u0000\u0000\u0000QO\u0001\u0000\u0000\u0000QR\u0001\u0000"+
-		"\u0000\u0000RS\u0001\u0000\u0000\u0000ST\u0005\n\u0000\u0000TU\u0003\u0014"+
-		"\n\u0000U\r\u0001\u0000\u0000\u0000VW\u0005\u000b\u0000\u0000WY\u0005"+
-		"+\u0000\u0000XZ\u0003\u001e\u000f\u0000YX\u0001\u0000\u0000\u0000Z[\u0001"+
-		"\u0000\u0000\u0000[Y\u0001\u0000\u0000\u0000[\\\u0001\u0000\u0000\u0000"+
-		"\\]\u0001\u0000\u0000\u0000]^\u0005\f\u0000\u0000^_\u0003\u0016\u000b"+
-		"\u0000_\u000f\u0001\u0000\u0000\u0000`a\u0005\u001d\u0000\u0000ab\u0005"+
-		"+\u0000\u0000bc\u0005\u001f\u0000\u0000cd\u0005)\u0000\u0000de\u0005 "+
-		"\u0000\u0000ef\u0005!\u0000\u0000fg\u0005)\u0000\u0000gh\u0005\"\u0000"+
-		"\u0000hi\u0005\u001e\u0000\u0000ij\u0003\n\u0005\u0000j\u0011\u0001\u0000"+
-		"\u0000\u0000kl\u0005\u0013\u0000\u0000lm\u0005)\u0000\u0000mn\u0005\u0014"+
-		"\u0000\u0000n\u0013\u0001\u0000\u0000\u0000op\u0005\u0013\u0000\u0000"+
-		"pq\u0005)\u0000\u0000qr\u0005\u0014\u0000\u0000r\u0015\u0001\u0000\u0000"+
-		"\u0000su\u0005\u0015\u0000\u0000tv\u0005)\u0000\u0000ut\u0001\u0000\u0000"+
-		"\u0000vw\u0001\u0000\u0000\u0000wu\u0001\u0000\u0000\u0000wx\u0001\u0000"+
-		"\u0000\u0000xy\u0001\u0000\u0000\u0000yz\u0005\u0016\u0000\u0000z\u0017"+
-		"\u0001\u0000\u0000\u0000{|\u0005\u0017\u0000\u0000|}\u0007\u0000\u0000"+
-		"\u0000}~\u0005\u0018\u0000\u0000~\u0019\u0001\u0000\u0000\u0000\u007f"+
-		"\u0080\u0005\u0019\u0000\u0000\u0080\u0081\u0005\'\u0000\u0000\u0081\u0082"+
-		"\u0005\u001a\u0000\u0000\u0082\u001b\u0001\u0000\u0000\u0000\u0083\u0084"+
-		"\u0005\u001b\u0000\u0000\u0084\u0085\u0005(\u0000\u0000\u0085\u0086\u0005"+
-		"\u001c\u0000\u0000\u0086\u001d\u0001\u0000\u0000\u0000\u0087\u0088\u0005"+
-		"\u0011\u0000\u0000\u0088\u0089\u0003\u0006\u0003\u0000\u0089\u008a\u0005"+
-		"+\u0000\u0000\u008a\u008b\u0005\u0012\u0000\u0000\u008b\u001f\u0001\u0000"+
-		"\u0000\u0000\u008c\u008d\u0005\r\u0000\u0000\u008d\u008e\u0005&\u0000"+
-		"\u0000\u008e\u008f\u0005\u000e\u0000\u0000\u008f!\u0001\u0000\u0000\u0000"+
-		"\u0090\u0091\u0005\u000f\u0000\u0000\u0091\u0092\u0005+\u0000\u0000\u0092"+
-		"\u0093\u0005\u0010\u0000\u0000\u0093#\u0001\u0000\u0000\u0000\u0006)7"+
-		"JQ[w";
+		"\u0004\u0001\u0013\u008c\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
+		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
+		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
+		"\u0002\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007"+
+		"\u000f\u0001\u0000\u0001\u0000\u0004\u0000#\b\u0000\u000b\u0000\f\u0000"+
+		"$\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u0003"+
+		"8\b\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005"+
+		"\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006"+
+		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
+		"\u0001\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007"+
+		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0003\u0007"+
+		"\\\b\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001"+
+		"\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001"+
+		"\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\u000b"+
+		"\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b"+
+		"\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001"+
+		"\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000f\u0001\u000f"+
+		"\u0001\u000f\u0000\u0000\u0010\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010"+
+		"\u0012\u0014\u0016\u0018\u001a\u001c\u001e\u0000\u0000\u0086\u0000 \u0001"+
+		"\u0000\u0000\u0000\u0002(\u0001\u0000\u0000\u0000\u0004*\u0001\u0000\u0000"+
+		"\u0000\u00067\u0001\u0000\u0000\u0000\b9\u0001\u0000\u0000\u0000\nA\u0001"+
+		"\u0000\u0000\u0000\fI\u0001\u0000\u0000\u0000\u000eQ\u0001\u0000\u0000"+
+		"\u0000\u0010]\u0001\u0000\u0000\u0000\u0012e\u0001\u0000\u0000\u0000\u0014"+
+		"m\u0001\u0000\u0000\u0000\u0016u\u0001\u0000\u0000\u0000\u0018}\u0001"+
+		"\u0000\u0000\u0000\u001a\u0082\u0001\u0000\u0000\u0000\u001c\u0086\u0001"+
+		"\u0000\u0000\u0000\u001e\u0089\u0001\u0000\u0000\u0000 \"\u0003\u0002"+
+		"\u0001\u0000!#\u0003\u0004\u0002\u0000\"!\u0001\u0000\u0000\u0000#$\u0001"+
+		"\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000$%\u0001\u0000\u0000\u0000"+
+		"%&\u0001\u0000\u0000\u0000&\'\u0005\u0000\u0000\u0001\'\u0001\u0001\u0000"+
+		"\u0000\u0000()\u0005\r\u0000\u0000)\u0003\u0001\u0000\u0000\u0000*+\u0005"+
+		"\u000f\u0000\u0000+,\u0005\u0001\u0000\u0000,-\u0005\r\u0000\u0000-.\u0003"+
+		"\u0006\u0003\u0000.\u0005\u0001\u0000\u0000\u0000/8\u0003\b\u0004\u0000"+
+		"08\u0003\n\u0005\u000018\u0003\f\u0006\u000028\u0003\u0010\b\u000038\u0003"+
+		"\u000e\u0007\u000048\u0003\u0012\t\u000058\u0003\u0014\n\u000068\u0003"+
+		"\u0016\u000b\u00007/\u0001\u0000\u0000\u000070\u0001\u0000\u0000\u0000"+
+		"71\u0001\u0000\u0000\u000072\u0001\u0000\u0000\u000073\u0001\u0000\u0000"+
+		"\u000074\u0001\u0000\u0000\u000075\u0001\u0000\u0000\u000076\u0001\u0000"+
+		"\u0000\u00008\u0007\u0001\u0000\u0000\u00009:\u0005\u0002\u0000\u0000"+
+		":;\u0005\u0003\u0000\u0000;<\u0005\u000f\u0000\u0000<=\u0005\u0004\u0000"+
+		"\u0000=>\u0005\u000f\u0000\u0000>?\u0005\u0005\u0000\u0000?@\u0005\u000e"+
+		"\u0000\u0000@\t\u0001\u0000\u0000\u0000AB\u0005\u0006\u0000\u0000BC\u0005"+
+		"\u0003\u0000\u0000CD\u0005\u000f\u0000\u0000DE\u0005\u0004\u0000\u0000"+
+		"EF\u0005\u000f\u0000\u0000FG\u0005\u0005\u0000\u0000GH\u0005\r\u0000\u0000"+
+		"H\u000b\u0001\u0000\u0000\u0000IJ\u0005\u0007\u0000\u0000JK\u0005\u0003"+
+		"\u0000\u0000KL\u0005\u000f\u0000\u0000LM\u0005\u0004\u0000\u0000MN\u0005"+
+		"\u000f\u0000\u0000NO\u0005\u0005\u0000\u0000OP\u0005\u000f\u0000\u0000"+
+		"P\r\u0001\u0000\u0000\u0000QR\u0005\b\u0000\u0000RS\u0005\u0003\u0000"+
+		"\u0000ST\u0005\u000f\u0000\u0000TU\u0005\u0004\u0000\u0000UV\u0005\u000f"+
+		"\u0000\u0000V[\u0005\u0005\u0000\u0000W\\\u0003\u0018\f\u0000X\\\u0003"+
+		"\u001a\r\u0000Y\\\u0003\u001c\u000e\u0000Z\\\u0003\u001e\u000f\u0000["+
+		"W\u0001\u0000\u0000\u0000[X\u0001\u0000\u0000\u0000[Y\u0001\u0000\u0000"+
+		"\u0000[Z\u0001\u0000\u0000\u0000\\\u000f\u0001\u0000\u0000\u0000]^\u0005"+
+		"\t\u0000\u0000^_\u0005\u0003\u0000\u0000_`\u0005\u000f\u0000\u0000`a\u0005"+
+		"\u0004\u0000\u0000ab\u0005\u000f\u0000\u0000bc\u0005\u0005\u0000\u0000"+
+		"cd\u0005\r\u0000\u0000d\u0011\u0001\u0000\u0000\u0000ef\u0005\n\u0000"+
+		"\u0000fg\u0005\u0003\u0000\u0000gh\u0005\u000f\u0000\u0000hi\u0005\u0004"+
+		"\u0000\u0000ij\u0005\u000f\u0000\u0000jk\u0005\u0005\u0000\u0000kl\u0005"+
+		"\u0010\u0000\u0000l\u0013\u0001\u0000\u0000\u0000mn\u0005\u000b\u0000"+
+		"\u0000no\u0005\u0003\u0000\u0000op\u0005\u000f\u0000\u0000pq\u0005\u0004"+
+		"\u0000\u0000qr\u0005\u000f\u0000\u0000rs\u0005\u0005\u0000\u0000st\u0005"+
+		"\u0011\u0000\u0000t\u0015\u0001\u0000\u0000\u0000uv\u0005\f\u0000\u0000"+
+		"vw\u0005\u0003\u0000\u0000wx\u0005\u000f\u0000\u0000xy\u0005\u0004\u0000"+
+		"\u0000yz\u0005\u000f\u0000\u0000z{\u0005\u0005\u0000\u0000{|\u0005\u0012"+
+		"\u0000\u0000|\u0017\u0001\u0000\u0000\u0000}~\u0005\r\u0000\u0000~\u007f"+
+		"\u0005\r\u0000\u0000\u007f\u0080\u0005\r\u0000\u0000\u0080\u0081\u0005"+
+		"\r\u0000\u0000\u0081\u0019\u0001\u0000\u0000\u0000\u0082\u0083\u0005\r"+
+		"\u0000\u0000\u0083\u0084\u0005\r\u0000\u0000\u0084\u0085\u0005\r\u0000"+
+		"\u0000\u0085\u001b\u0001\u0000\u0000\u0000\u0086\u0087\u0005\r\u0000\u0000"+
+		"\u0087\u0088\u0005\r\u0000\u0000\u0088\u001d\u0001\u0000\u0000\u0000\u0089"+
+		"\u008a\u0005\r\u0000\u0000\u008a\u001f\u0001\u0000\u0000\u0000\u0003$"+
+		"7[";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

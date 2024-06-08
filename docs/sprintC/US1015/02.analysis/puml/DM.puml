@@ -1,51 +1,10 @@
 @startuml DomainModel
-package JobOpeningAgg {
-
-    class JobOpening {
-        +id: JobReference
-        +title: JobOpeningTitle
-        +requirements: RequirementsSpecification
-    }
-
-    class Phase {
-        +id: PhaseName
-    }
-
-    enum PhaseName {
-        SCREENING
-    }
-
-    JobOpening --> RecruitmentProcess
-    RecruitmentProcess --> Phase
-    Phase --> PhaseName: "Is in phase"
-}
-
-package ApplicationAgg {
-    class Application {
-        +id: ApplicationID
-        +interview: Interview
-        +status: ApplicationStatus
-    }
-
-
-    enum ApplicationStateName {
-        Pending
-        Accepted
-        Rejected
-    }
-
-
-    Application --> JobOpening : Refers to
-
-    Application --> ApplicationStateName
-}
-
 package RequirementsSpecificationAgg {
 
     class RequirementsSpecification {
-        +id: RequirementsSpecificationID
-        +skills: List<Skill>
-        +experience: Experience
+        +id: SpecName
+        +description: Description
+        +jarFile: JarFile
     }
 
     class Description {
@@ -53,41 +12,110 @@ package RequirementsSpecificationAgg {
     }
 
     class JarFile {
-        +years: Int
+        + jarFilePath: String
     }
     class SpecName {
         +name: String
     }
 
-    JobOpening --> RequirementsSpecification : Has
     RequirementsSpecification --> Description
     RequirementsSpecification --> JarFile
     RequirementsSpecification --> SpecName
 
 }
-
-package CandidateAgg {
-    class Candidate {
-        +email: CandidateEmail
-        +name: CandidateName
+package JobApplicationAgg {
+    class JobApplication {
+        +id: Long
+        +requirementsEvaluation: RequirementsEvaluation
+        +files: List<File>
     }
 
-    class CandidateEmail {
-        +email: String
+    class File
+    {
+        +id : long
+        +path : FilePath
+        +type : FileType
     }
 
-    class CandidateName {
-        +firstName: String
-        +lastName: String
+    class FilePath {
+        +path: String
     }
 
-    Application --> Candidate : Is submitted by
-    Candidate --> CandidateEmail
-    Candidate --> CandidateName
+    enum FileType
+    {
+        CandidateInterviewAnswers
+        CandidateRequirementsAnswers
+    }
 
+    class Requirements
+    {
+        +justification : RequirementsJustification
+        +evaluation : RequirementsEvaluation
+    }
+
+    class RequirementsJustification
+    {
+        +justification : String
+    }
+
+    enum RequirementsEvaluation {
+        Pending
+        Accepted
+        Rejected
+    }
+    JobApplication --> Requirements
+    JobApplication --> File
+
+    Requirements --> RequirementsJustification
+    Requirements --> RequirementsEvaluation
+
+    File --> FilePath
+    File --> FileType
+}
+package JobOpeningAgg {
+
+    class JobOpening {
+        +id: JobReference
+        +recruitmentProcess: RecruitmentProcess
+    }
+    class RecruitmentProcess {
+        +id: int
+        +status: RecruitmentProcessStatus
+        +phases: List<Phase>
+    }
+
+    class Phase {
+        +id: Long
+        +name: PhaseName
+        +status: PhaseStatus
+    }
+
+    enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+    }
+
+    enum PhaseStatus {
+        Open
+        Closed
+    }
+
+    enum RecruitmentProcessStatus {
+        Uninitiated
+        In Process
+        Finished
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> RecruitmentProcessStatus
+    RecruitmentProcess --> Phase : "Is separated into"
+    Phase --> PhaseName
+    Phase --> PhaseStatus
 }
 
-
-
-
+JobOpening --> RequirementsSpecification
+JobApplication --> JobOpening : Refers To
 @enduml
