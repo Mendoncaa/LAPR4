@@ -1,0 +1,9 @@
+"Job Application Requirements"
+1 RQ: "Qual é a sua linguagem de programação preferida (Java, Python, C) ?" [Choice] [value: 10] 1 RA: "Java"
+2 RQ: "Quantos anos de experiência você tem em programação?" [Integer] [value: 20] 2 RA: 4
+3 RQ: "Você tem certificação em Java?" [TrueOrFalse] [value: 30] 3 RA: true
+4 RQ: "Descreva brevemente a sua experiência com a linguagem de programação Python." [ShortAnswer] [value: 40] 4 RA: "Tenho trabalhado com Python por 3 anos, principalmente em análise de dados e desenvolvimento web."
+5 RQ: "Selecione as linguagens de programação que você conhece." [MultiChoice] [value: 50] 5 RA: "Java""Python"
+6 RQ: "Qual é a sua data de nascimento?" [Date] [value: 60] 6 RA: 15/02/1996
+7 RQ: "Qual é o horário em que você prefere trabalhar?" [Time] [value: 70] 7 RA: 09:00
+8 RQ: "Qual é o valor de PI?" [Decimal] [value: 80] 8 RA: 3.14

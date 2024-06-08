@@ -6,9 +6,11 @@ import eapli.framework.domain.model.AggregateRoot;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "applications") // Define o nome da tabela explicitamente
 public class jobApplication implements AggregateRoot<Long> {
 
