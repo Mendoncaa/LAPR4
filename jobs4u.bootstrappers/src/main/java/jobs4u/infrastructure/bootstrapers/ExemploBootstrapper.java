@@ -23,6 +23,7 @@
  */
 package jobs4u.infrastructure.bootstrapers;
 
+import core.management.RecruitmentProcess.domain.*;
 import core.management.costumer.builder.CustomerBuilder;
 import core.management.costumer.domain.*;
 import core.management.costumer.domain.Address;
@@ -52,6 +53,7 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.strings.util.Strings;
 import eapli.framework.validations.Invariants;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -233,6 +235,18 @@ public class ExemploBootstrapper implements Action {
 		Rank rank = new Rank(rankPositions);
 
 		JobOpening jobOpening = new JobOpening(ref, title, JobState.CLOSED, ContractType.FULL_TIME, JobMode.HYBRID, desc, addr, vacancies, rank);
+
+		List<Phase> phases = new ArrayList<>();
+		phases.add(new Phase(PhaseName.APPLICATION, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.SCREENING, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.INTERVIEWS, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.ANALYSIS, LocalDate.now(), LocalDate.now(), PhaseStatus.OPEN));
+		phases.add(new Phase(PhaseName.RESULT, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+
+		RecruitmentProcess recruitmentProcess = jobOpening.getRecruitmentProcess();
+		recruitmentProcess.setStatus(RecruitmentProcessStatus.IN_PROCESS);
+		recruitmentProcess.setPhases(phases);
+		jobOpening.setRecruitmentProcess(recruitmentProcess);
 
 		JobOpening jobOpening1;
 
