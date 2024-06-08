@@ -19,7 +19,7 @@ jobs:
         run: chmod 777 build.sh
 
       - name: Build Project
-        run: ./build.sh
+        run: ./scripts/build.sh
 
       - name: Pull latest changes
         run: git pull origin main
