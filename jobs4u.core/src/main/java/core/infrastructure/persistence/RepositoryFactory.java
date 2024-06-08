@@ -20,7 +20,10 @@
  */
 package core.infrastructure.persistence;
 
-import core.management.Plugin.repository.PluginRepository;
+import core.management.InterviewModel.domain.InterviewModel;
+import core.management.InterviewModel.repository.InterviewModelRepository;
+import core.management.RequirementSpecification.domain.RequirementSpecification;
+import core.management.RequirementSpecification.repository.RequirementSpecificationRepository;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
@@ -159,14 +162,29 @@ public interface RepositoryFactory {
      *            the transactional context to enroll
      * @return
      */
-    PluginRepository plugin(TransactionalContext autoTx);
+    InterviewModelRepository interviewModel(TransactionalContext autoTx);
 
     /**
      * repository will be created in auto transaction mode
      *
      * @return
      */
-    PluginRepository plugin();
+    InterviewModelRepository interviewModel();
+
+    /**
+     *
+     * @param autoTx
+     *            the transactional context to enroll
+     * @return
+     */
+    RequirementSpecificationRepository requirementSpecification(TransactionalContext autoTx);
+
+    /**
+     * repository will be created in auto transaction mode
+     *
+     * @return
+     */
+    RequirementSpecificationRepository requirementSpecification();
 
     /**
      *

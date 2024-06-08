@@ -20,7 +20,8 @@
  */
 package jobs4u.persistence.impl.jpa;
 
-import core.management.Plugin.repository.PluginRepository;
+import core.management.InterviewModel.repository.InterviewModelRepository;
+import core.management.RequirementSpecification.repository.RequirementSpecificationRepository;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.repository.CustomerRepository;
 import core.management.costumer.repository.CustomerRepresentativeRepository;
@@ -120,13 +121,23 @@ public class JpaRepositoryFactory implements RepositoryFactory {
     }
 
     @Override
-    public PluginRepository plugin(TransactionalContext autoTx) {
-        return new JpaPluginRepository(autoTx);
+    public InterviewModelRepository interviewModel(TransactionalContext autoTx) {
+        return new JpaInterviewModelRepository(autoTx);
     }
 
     @Override
-    public PluginRepository plugin() {
-        return new JpaPluginRepository(Application.settings().getPersistenceUnitName());
+    public InterviewModelRepository interviewModel() {
+        return new JpaInterviewModelRepository(Application.settings().getPersistenceUnitName());
+    }
+
+    @Override
+    public RequirementSpecificationRepository requirementSpecification(TransactionalContext autoTx) {
+        return new JpaRequirementSpecificationRepository(autoTx);
+    }
+
+    @Override
+    public RequirementSpecificationRepository requirementSpecification() {
+        return new JpaRequirementSpecificationRepository(Application.settings().getPersistenceUnitName());
     }
 
     @Override

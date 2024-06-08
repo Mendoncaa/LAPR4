@@ -1,24 +1,20 @@
-package jobs4u.app.backoffice.console.presentation.plugins;
+package jobs4u.app.backoffice.console.presentation.plugins.InterviewModel;
 
-import core.management.Plugin.application.Utils.PluginUtils;
-import core.management.Plugin.application.controller.RegisterPluginController;
-import core.management.Plugin.domain.PluginType;
+import core.management.InterviewModel.application.controller.RegisterInterviewModelController;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-public class RegisterPluginUI extends AbstractUI {
+public class RegisterInterviewModelUI extends AbstractUI {
 
-    private final RegisterPluginController registerPluginController = new RegisterPluginController();
+    private final RegisterInterviewModelController registerInterviewModelController = new RegisterInterviewModelController();
 
     @Override
     protected boolean doShow() {
         final String name = Console.readLine("Plugin Name:");
         final String jarPath = Console.readLine("Jar Path:");
 
-        PluginType pluginType = PluginUtils.selectPluginType();
-
         try {
-            registerPluginController.registerPlugin(name, jarPath, pluginType);
+            registerInterviewModelController.registerInterviewModel(name, jarPath);
             System.out.println("Plugin registered successfully.");
         } catch (Exception e){
             System.err.println("Failed to register plugin.");

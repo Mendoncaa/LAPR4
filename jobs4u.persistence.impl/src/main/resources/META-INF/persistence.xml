@@ -19,7 +19,8 @@
     <class>core.management.costumer.domain.CustomerRepresentative</class>
     <class>core.management.candidate.domain.Candidate</class>
     <class>core.management.jobApplication.domain.jobApplication</class>
-    <class>core.management.Plugin.domain.Plugin</class>
+    <class>core.management.InterviewModel.domain.InterviewModel</class>
+    <class>core.management.RequirementSpecification.domain.RequirementSpecification</class>
     <class>core.management.rank.domain.Rank</class>
     <class>core.management.rank.domain.RankPosition</class>
 
@@ -57,7 +58,8 @@
     <class>core.management.costumer.domain.CustomerRepresentative</class>
     <class>core.management.candidate.domain.Candidate</class>
     <class>core.management.jobApplication.domain.jobApplication</class>
-    <class>core.management.Plugin.domain.Plugin</class>
+    <class>core.management.InterviewModel.domain.InterviewModel</class>
+    <class>core.management.RequirementSpecification.domain.RequirementSpecification</class>
     <class>core.management.rank.domain.Rank</class>
     <class>core.management.rank.domain.RankPosition</class>
 

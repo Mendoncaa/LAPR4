@@ -1,12 +1,10 @@
-package core.management.Plugin.application.controller;
+package core.management.RequirementSpecification.application.controller;
 
 import core.management.jobApplication.application.service.ApplicationService;
 import core.management.jobApplication.application.service.JobOpeningService;
 import core.management.jobApplication.domain.jobApplication;
-import core.management.jobOpening.domain.JobOpening;
 import jobs4u.antlr4.grammar.CostumerRequirementsLexer;
 import jobs4u.antlr4.grammar.CostumerRequirementsParser;
-import jobs4u.antlr4.grammar.RequirementsValidatorVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadRequirementsController {
-    JobOpeningService jobOpeningService = new JobOpeningService();
     ApplicationService applicationService = new ApplicationService();
 
     public Iterable<jobApplication> getApplications() {

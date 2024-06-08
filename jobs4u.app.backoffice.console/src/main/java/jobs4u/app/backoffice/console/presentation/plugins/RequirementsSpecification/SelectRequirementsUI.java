@@ -1,7 +1,7 @@
 package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification;
 
-import core.management.Plugin.application.controller.SelectRequirementsController;
-import core.management.Plugin.domain.Plugin;
+import core.management.RequirementSpecification.application.controller.SelectRequirementsController;
+import core.management.RequirementSpecification.domain.RequirementSpecification;
 import core.management.jobOpening.controller.ListJobOpeningsController;
 import core.management.jobOpening.domain.JobReference;
 import eapli.framework.presentation.console.AbstractUI;
@@ -27,19 +27,20 @@ public class SelectRequirementsUI extends AbstractUI {
         };
 
         System.out.println("Enter Job Reference:");
-        String jobReferenceStr = scanner.nextLine();
+        JobReference jobReference = jobReferences.get(scanner.nextInt() - 1);
 
         System.out.println("Available Plugins:");
-        List<Plugin> plugins = selectRequirementsController.allPlugins();
-        for (Plugin plugin : plugins) {
+        count = 1;
+        List<RequirementSpecification> plugins = selectRequirementsController.allPlugins();
+        for (RequirementSpecification plugin : plugins) {
             System.out.println(count + ") " + plugin.getName());
             count++;
         };
 
         System.out.println("Enter Plugin Name:");
-        String pluginName = scanner.nextLine();
+        String pluginName = plugins.get(scanner.nextInt() - 1).getName();
 
-        selectRequirementsController.selectRequirementSpecification(jobReferenceStr, pluginName);
+        selectRequirementsController.selectRequirementSpecification(jobReference, pluginName);
 
         System.out.println("Requirement Specification selected successfully.");
 

@@ -38,7 +38,7 @@ public class SetUpRecruitmentProcessController {
             return false;
         }
 
-        RecruitmentProcess recruitmentProcess = new RecruitmentProcess();
+        RecruitmentProcess recruitmentProcess = jobOpening.getRecruitmentProcess();
         recruitmentProcess.addPhase(new Phase(PhaseName.APPLICATION, applicationStart, applicationEnd, PhaseStatus.CLOSED));
         recruitmentProcess.addPhase(new Phase(PhaseName.SCREENING, screeningStart, screeningEnd, PhaseStatus.CLOSED));
         if (includeInterviews) {

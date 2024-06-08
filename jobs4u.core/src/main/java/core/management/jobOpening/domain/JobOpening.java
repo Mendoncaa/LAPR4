@@ -1,7 +1,8 @@
 package core.management.jobOpening.domain;
 
-import core.management.Plugin.domain.Plugin;
+import core.management.InterviewModel.domain.InterviewModel;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
+import core.management.RequirementSpecification.domain.RequirementSpecification;
 import core.management.rank.domain.Rank;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
@@ -56,11 +57,11 @@ public class JobOpening implements AggregateRoot<JobReference> {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "requirementsSpecificationsId")
-    private Plugin requirementsSpecification;
+    private RequirementSpecification requirementsSpecification;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "interviewModelId")
-    private Plugin interviewModel;
+    private InterviewModel interviewModel;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "rank_id")
@@ -84,6 +85,7 @@ public class JobOpening implements AggregateRoot<JobReference> {
         this.numberOfVacancies = numberOfVacancies;
         this.activeSince = new JobActiveSince(LocalDate.now());
         this.rank = rank;
+        this.recruitmentProcess = new RecruitmentProcess();
     }
 
     protected JobOpening() {

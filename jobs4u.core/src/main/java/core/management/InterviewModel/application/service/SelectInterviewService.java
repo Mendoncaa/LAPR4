@@ -1,9 +1,9 @@
-package core.management.Plugin.application.service;
+package core.management.InterviewModel.application.service;
 
 
 import core.infrastructure.persistence.PersistenceContext;
-import core.management.Plugin.domain.Plugin;
-import core.management.Plugin.repository.PluginRepository;
+import core.management.InterviewModel.domain.InterviewModel;
+import core.management.InterviewModel.repository.InterviewModelRepository;
 import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.jobOpening.repository.JobOpeningRepository;
@@ -16,15 +16,15 @@ public class SelectInterviewService {
 
     private final JobOpeningRepository jobOpeningRepository = PersistenceContext.repositories().jobOpenings();
 
-    private final PluginRepository pluginRepository = PersistenceContext.repositories().plugin();
+    private final InterviewModelRepository interviewModelRepository = PersistenceContext.repositories().interviewModel();
 
     public void selectInterviewModel(JobReference jobReference, String pluginName) {
         Optional<JobOpening> jobOpeningOpt = jobOpeningRepository.findByJobReference(jobReference);
-        Optional<Plugin> pluginOpt = pluginRepository.ofIdentity(pluginName);
+        Optional<InterviewModel> pluginOpt = interviewModelRepository.ofIdentity(pluginName);
 
         if (jobOpeningOpt.isPresent() && pluginOpt.isPresent()) {
             JobOpening jobOpening = jobOpeningOpt.get();
-            Plugin plugin = pluginOpt.get();
+            InterviewModel plugin = pluginOpt.get();
             jobOpening.setInterviewModel(plugin);
             jobOpeningRepository.save(jobOpening);
         } else {
@@ -32,7 +32,7 @@ public class SelectInterviewService {
         }
     }
 
-    public List<Plugin> allPlugins() {
-        return (List<Plugin>) pluginRepository.findAll();
+    public List<InterviewModel> allPlugins() {
+        return (List<InterviewModel>) interviewModelRepository.findAll();
     }
 }
