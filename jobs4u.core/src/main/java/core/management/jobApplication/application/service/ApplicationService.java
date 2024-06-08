@@ -74,7 +74,7 @@ public class ApplicationService {
         return candidateRepository.save(new Candidate(email, name, phone, candidate));
     }
 
-    public Iterable findAll() {
+    public Iterable<jobApplication> findAll() {
         return applicationRepository.findAll();
     }
 

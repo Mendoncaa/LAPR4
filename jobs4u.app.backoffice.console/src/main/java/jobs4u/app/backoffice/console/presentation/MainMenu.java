@@ -30,13 +30,14 @@ import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicat
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
+import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.authz.GenerateTemplateUI;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
+import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.RegisterInterviewModelAction;
 import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.SelectInterviewAction;
-import jobs4u.app.backoffice.console.presentation.plugins.RegisterPluginAction;
-import jobs4u.app.backoffice.console.presentation.plugins.RegisterPluginUI;
+import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.RegisterRequirementSpecificationAction;
 import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.SelectRequirementsAction;
 import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.UploadRequirementsAction;
 import jobs4u.app.backoffice.console.presentation.utente.AcceptRefuseSignupRequestAction;
@@ -83,8 +84,8 @@ public class MainMenu extends AbstractUI {
 	private static final int LIST_JOBOPENINGS_OPTION = 2;
 	private static final int LIST_APPLICATIONS_FOR_JOBOPENING_OPTION = 2;
 	private static final int DISPLAY_APPLICATION_DATA = 3;
-	private static final int SETUP_JOBOPENING_PHASES_OPTION = 4;
-	private static final int OPEN_OR_CLOSE_PHASES_OPTION = 5;
+	private static final int SETUP_JOBOPENING_PHASES_OPTION = 3;
+	private static final int OPEN_OR_CLOSE_PHASES_OPTION = 4;
 
 	// JOB APPLICATION
 
@@ -100,7 +101,7 @@ public class MainMenu extends AbstractUI {
 	private static final int ADMIN_COSTUMERS_OPTION = 3;
 	private static final int ADMIN_JOBOPENING_OPTION = 4;
 	private static final int ADMIN_CANDIDATE_OPTION = 5;
-	private static final int ADMIN_PLUGIN_OPTION = 6;
+	private static final int ADMIN_PLUGIN_OPTION = 7;
 	private static final int OP_CANDIDATE_OPTION = 2;
 
 
@@ -155,10 +156,12 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(ADMIN_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(ADMIN_CANDIDATE_OPTION, candidatesMenu);
+			final var rankingMenu = buildRankMenu();
+			mainMenu.addSubMenu(6, rankingMenu);
 			final var pluginsMenu = buildPluginMenu();
 			mainMenu.addSubMenu(ADMIN_PLUGIN_OPTION, pluginsMenu);
 			final var applicationsMenu = buildJobApplicationMenu();
-			mainMenu.addSubMenu(7, applicationsMenu);
+			mainMenu.addSubMenu(8, applicationsMenu);
 
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.CUSTOMER_MANAGER)){
@@ -168,8 +171,10 @@ public class MainMenu extends AbstractUI {
 			mainMenu.addSubMenu(CM_JOBOPENING_OPTION, jobOpeningMenu);
 			final var candidatesMenu = buildCandidatesMenu();
 			mainMenu.addSubMenu(CM_CANDIDATE_OPTION, candidatesMenu);
+			final var rankingMenu = buildRankMenu();
+			mainMenu.addSubMenu(5, rankingMenu);
 			final var pluginsMenu = buildPluginMenu();
-			mainMenu.addSubMenu(5, pluginsMenu);
+			mainMenu.addSubMenu(6, pluginsMenu);
 			final var applicationsMenu = buildJobApplicationMenu();
 			mainMenu.addSubMenu(6, applicationsMenu);
 
@@ -219,8 +224,8 @@ public class MainMenu extends AbstractUI {
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
 		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
 		menu.addItem(OPEN_OR_CLOSE_PHASES_OPTION, "Open or Close Phases", new PhasesAction());
-		menu.addItem(BRUNA, "Exportar template", new GenerateTemplateUI()::show);
-		menu.addItem(13, "Importar Respostas Candidato", new UploadRequirementsAction());
+		menu.addItem(5, "Exportar template", new GenerateTemplateUI()::show);
+		menu.addItem(6, "Importar Respostas Candidato", new UploadRequirementsAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
@@ -254,9 +259,19 @@ public class MainMenu extends AbstractUI {
 	private Menu buildPluginMenu() {
 		final var menu = new Menu("Plugins >");
 
-		menu.addItem(1, "Register a Plugin", new RegisterPluginAction());
-		menu.addItem(2, "Select Requirement Specification for a JobOpening", new SelectRequirementsAction());
-		menu.addItem(3, "Select Interview Model for a JobOpening", new SelectInterviewAction());
+		menu.addItem(1, "Register an Interview Model", new RegisterInterviewModelAction());
+		menu.addItem(2, "Register a Requirement Specification", new RegisterRequirementSpecificationAction());
+		menu.addItem(3, "Select Requirement Specification for a JobOpening", new SelectRequirementsAction());
+		menu.addItem(4, "Select Interview Model for a JobOpening", new SelectInterviewAction());
+		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+		return menu;
+	}
+
+	private Menu buildRankMenu(){
+		final var menu = new Menu("Rank >");
+
+		menu.addItem(1, "Rank Candidates by JobOpening", new RankCandidatesAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
