@@ -1,49 +1,146 @@
+plantuml
 @startuml ClassDiagram
+
 package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
+    class RankController {
+            - jobOpeningRepository: JobOpeningRepository
+            - jobApplicationRepository: ApplicationRepository
+            - rankRepository: RankRepository
+            + getJobOpeningsInAnalysis(): List<JobOpening>
+            + generateRankPosition(jobOpening: JobOpening): List<RankPosition>
+            + updateRank(jobOpening: JobOpening, rankPositions: List<RankPosition>): void
     }
 }
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
+package UI {
+    class RankCandidatesUI {
+        - controller: RankController
+        + doShow(): boolean
+        + headline(): String
     }
 }
 
 package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
+    class ApplicationRepository {
+        + findCandidatesByJobOpening(jobOpening: JobOpening): List<Candidate>
+    }
+
+    class JobOpeningRepository {
+            + findAll(): List<JobOpening>
+    }
+
+    class RankRepository {
+        + save(rank: Rank): Rank
     }
 }
 
 package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
+    package JobOpeningAgg {
+        class JobOpening {
+            + id: JobReference
+            + recruitmentProcess: RecruitmentProcess
+            + rank: Rank
+        }
+
+        class RecruitmentProcess {
+            + id: Long
+            + status: RecruitmentProcessStatus
+            + phases: List<Phase>
+            + addPhase(phase: Phase): void
+            + removePhase(phase: Phase): void
+            + nextPhase(): boolean
+            + previousPhase(): boolean
+            + currentPhase(): Phase
+            - openPhaseByName(phaseName: PhaseName): boolean
+        }
+
+        class Phase {
+            + name: PhaseName
+            + startDate: StartDate
+            + endDate: EndDate
+            + status: PhaseStatus
+            + open(): void
+            + close(): void
+        }
+
+        enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+        }
+
+        class StartDate {
+            + date: Date
+        }
+
+        class EndDate {
+            + date: Date
+        }
+
+        enum PhaseStatus {
+            OPEN,
+            CLOSED
+        }
+
+        enum RecruitmentProcessStatus {
+            UNINITIATED,
+            IN_PROCESS,
+            FINISHED
+        }
+
+        JobOpening --> RecruitmentProcess
+        RecruitmentProcess --> RecruitmentProcessStatus
+        RecruitmentProcess --> Phase : "has"
+        Phase --> PhaseName
+        Phase --> StartDate
+        Phase --> EndDate
+        Phase --> PhaseStatus
     }
 
-    class OrderItem {
-        +quantity: int
-        +price: float
+    package RankAgg {
+        class Rank {
+            + id: Long
+            + rankPosition: List<RankPosition>
+            + rankStatus: RankStatus
+        }
+
+        class RankPosition {
+            + value: int
+            + candidate: Candidate
+        }
+
+        enum RankStatus {
+            UNSTARTED,
+            STARTED,
+            FINISHED
+        }
+
+        Rank --> RankPosition
+        Rank --> RankStatus
+        JobOpening --> Rank : "has"
     }
 
-    class Payment {
-        +amount: float
-        +paymentDate: Date
-    }
+    package CandidateAgg {
+        class Candidate {
+            + candidateEmail: EmailAddress
+        }
 
-    class User {
-        +id: int
-        +username: String
-        +email: String
+        class EmailAddress {
+            + email: String
+        }
+
+        Candidate --> EmailAddress
+        RankPosition --> Candidate : "is ranked by"
     }
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+RankController --> JobOpeningRepository
+RankController --> ApplicationRepository
+RankController --> RankRepository
+RankController ..> JobOpening
+RankController ..> Rank
+RankCandidatesUI --> RankController
+
 @enduml
