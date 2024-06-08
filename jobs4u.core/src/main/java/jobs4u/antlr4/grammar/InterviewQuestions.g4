@@ -1,105 +1,52 @@
 grammar InterviewQuestions;
 
-interviewMod: BEGIN_SECTION headerSec questionSec+ END_SECTION;
 
-headerSec: HEADER_BEGIN TEXT HEADER_END;
+start: header requirement+ EOF;
 
-questionSec: QUESTION_BEGIN questionValue (singleQ | choiceQ | multiChoiceQ | rangeQ) QUESTION_END;
 
-questionValue: VALUE_BEGIN values=(DECIMAL | INTEGER) VALUE_END;
+header:  text=STRING;
 
-singleQ: SINGLE_QUESTION_BEGIN TEXT SINGLE_QUESTION_END answerSec;
 
-answerSec: (trueFalseAnswer | shortTextAnswer | integerAnswer | decimalAnswer | dateAnswer | timeAnswer);
+requirement: id=INTEGER 'RQ: ' requirementContent=STRING reqType;
 
-choiceQ: CHOICE_QUESTION_BEGIN TEXT choiceOption+ CHOICE_QUESTION_END choiceIntAnswer;
 
-multiChoiceQ: MULTIPLE_CHOICE_QUESTION_BEGIN TEXT choiceOption+ MULTIPLE_CHOICE_QUESTION_END multiIntAnswer;
 
-rangeQ: RANGE_QUESTION_BEGIN TEXT RANGE_START_BEGIN finalRangeStart=INTEGER RANGE_START_END RANGE_END_BEGIN finalRangeEnd=INTEGER RANGE_END_END RANGE_QUESTION_END answerSec;
 
-integerAnswer: INTEGER_ANSWER_BEGIN INTEGER INTEGER_ANSWER_END;
+reqType: trueFalseReq
+                | shortAReq
+                | intReq
+                | choiceReq
+                | multiChoiceReq
+                | dateReq
+                | timeReq
+                | decimalReq;
 
-choiceIntAnswer: INTEGER_ANSWER_BEGIN INTEGER INTEGER_ANSWER_END;
 
-multiIntAnswer: MULTIPLE_INTEGER_ANSWER_BEGIN INTEGER+ MULTIPLE_INTEGER_ANSWER_END;
 
-decimalAnswer: DECIMAL_ANSWER_BEGIN decimalValue=(DECIMAL | INTEGER) DECIMAL_ANSWER_END;
+trueFalseReq: '[TrueOrFalse] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=BOOLEAN;
+shortAReq: '[ShortAnswer] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=STRING;
+intReq: '[Integer] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=INTEGER;
+multiChoiceReq: '[MultiChoice] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' (answer1 | answer2 | answer3| answer4);
+choiceReq: '[Choice] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=STRING;
+dateReq: '[Date] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=DATE_FORMAT;
+timeReq: '[Time] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=TIME_FORMAT;
+decimalReq: '[Decimal] ' '[value: 'value=INTEGER'] ' id=INTEGER 'RA: ' answer=DECIMAL_VALUE;
 
-dateAnswer: DATE_ANSWER_BEGIN DATE_FORMAT DATE_ANSWER_END;
+answer1: STRING STRING STRING STRING;
+answer2: STRING STRING STRING;
+answer3: STRING STRING;
+answer4: STRING;
 
-timeAnswer: TIME_ANSWER_BEGIN TIME_FORMAT TIME_ANSWER_END;
 
-choiceOption: CHOICE_OPTION_BEGIN questionValue TEXT CHOICE_OPTION_END;
-
-trueFalseAnswer: TRUE_FALSE_BEGIN BOOLEAN_VALUE TRUE_FALSE_END;
-
-shortTextAnswer: SHORT_TEXT_BEGIN TEXT SHORT_TEXT_END;
-
-BEGIN_SECTION: '<BEGIN_SECTION>';
-END_SECTION: '<END_SECTION>';
-
-HEADER_BEGIN: '<HEADER_BEGIN>';
-HEADER_END: '<HEADER_END>';
-
-QUESTION_BEGIN: '<QUESTION_BEGIN>';
-QUESTION_END: '<QUESTION_END>';
-
-SINGLE_QUESTION_BEGIN: '<SINGLE_QUESTION_BEGIN>';
-SINGLE_QUESTION_END: '<SINGLE_QUESTION_END>';
-
-CHOICE_QUESTION_BEGIN: '<CHOICE_QUESTION_BEGIN>';
-CHOICE_QUESTION_END: '<CHOICE_QUESTION_END>';
-
-MULTIPLE_CHOICE_QUESTION_BEGIN: '<MULTIPLE_CHOICE_QUESTION_BEGIN>';
-MULTIPLE_CHOICE_QUESTION_END: '<MULTIPLE_CHOICE_QUESTION_END>';
-
-TRUE_FALSE_BEGIN: '<TRUE_FALSE_BEGIN>';
-TRUE_FALSE_END: '<TRUE_FALSE_END>';
-
-SHORT_TEXT_BEGIN: '<SHORT_TEXT_BEGIN>';
-SHORT_TEXT_END: '<SHORT_TEXT_END>';
-
-CHOICE_OPTION_BEGIN: '<CHOICE_OPTION_BEGIN>';
-CHOICE_OPTION_END: '<CHOICE_OPTION_END>';
-
-INTEGER_ANSWER_BEGIN: '<INTEGER_ANSWER_BEGIN>';
-INTEGER_ANSWER_END: '<INTEGER_ANSWER_END>';
-
-MULTIPLE_INTEGER_ANSWER_BEGIN: '<MULTIPLE_INTEGER_ANSWER_BEGIN>';
-MULTIPLE_INTEGER_ANSWER_END: '<MULTIPLE_INTEGER_ANSWER_END>';
-
-DECIMAL_ANSWER_BEGIN: '<DECIMAL_ANSWER_BEGIN>';
-DECIMAL_ANSWER_END: '<DECIMAL_ANSWER_END>';
-
-DATE_ANSWER_BEGIN: '<DATE_ANSWER_BEGIN>';
-DATE_ANSWER_END: '<DATE_ANSWER_END>';
-
-TIME_ANSWER_BEGIN: '<TIME_ANSWER_BEGIN>';
-TIME_ANSWER_END: '<TIME_ANSWER_END>';
-
-RANGE_QUESTION_BEGIN: '<RANGE_QUESTION_BEGIN>';
-RANGE_QUESTION_END: '<RANGE_QUESTION_END>';
-
-RANGE_START_BEGIN: '<RANGE_START_BEGIN>';
-RANGE_START_END: '<RANGE_START_END>';
-
-RANGE_END_BEGIN: '<RANGE_END_BEGIN>';
-RANGE_END_END: '<RANGE_END_END>';
-
-VALUE_BEGIN: '<VALUE_BEGIN>';
-VALUE_END: '<VALUE_END>';
-
-WS  : [ \t\r\n]+ -> skip;
-
-BOOLEAN_VALUE: ('True' | 'False');
+STRING: '"' (~["\\] | '\\' .)* '"';
+BOOLEAN: 'true' | 'false';
+INTEGER: ('0' | [1-9][0-9]*);
 
 DATE_FORMAT: [0-9][0-9] '/' [0-9][0-9] '/' [0-9][0-9][0-9][0-9];
-
 TIME_FORMAT: [0-9][0-9] ':' [0-9][0-9];
+DECIMAL_VALUE: [0-9]+ ('.' [0-9]+)?;
 
-INTEGER: [0-9]+;
 
-DECIMAL: [0-9]+ ('.' [0-9]+)?;
+WS: [ \t\r\n]+ -> skip;
 
-TEXT: [a-zA-Z 0-9.]+;
+
