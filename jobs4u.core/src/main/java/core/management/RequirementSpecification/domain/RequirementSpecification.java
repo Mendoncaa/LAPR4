@@ -19,11 +19,11 @@ public class RequirementSpecification implements AggregateRoot<String> {
     private String name;
 
     @Column(nullable = false)
-    private String jarPath;
+    private String templatePath;
 
     public RequirementSpecification(String name, String jarPath) {
         this.name = name;
-        this.jarPath = jarPath;
+        this.templatePath = jarPath;
     }
 
     @Override
@@ -41,6 +41,6 @@ public class RequirementSpecification implements AggregateRoot<String> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, jarPath);
+        return Objects.hash(name, templatePath);
     }
 }

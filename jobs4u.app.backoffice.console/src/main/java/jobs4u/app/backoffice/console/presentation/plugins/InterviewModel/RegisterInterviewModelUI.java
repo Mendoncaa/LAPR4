@@ -11,7 +11,7 @@ public class RegisterInterviewModelUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         final String name = Console.readLine("Plugin Name:");
-        final String jarPath = Console.readLine("Jar Path:");
+        final String jarPath = Console.readLine("Template Path:");
 
         try {
             registerInterviewModelController.registerInterviewModel(name, jarPath);

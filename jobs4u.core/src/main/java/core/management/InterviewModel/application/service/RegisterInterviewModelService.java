@@ -19,21 +19,21 @@ public class RegisterInterviewModelService {
     public void registerPlugin(String name, String jarPath) throws Exception {
         Path path = Paths.get(jarPath);
         if (!Files.exists(path)) {
-            throw new IllegalArgumentException("The specified .jar file does not exist.");
+            throw new IllegalArgumentException("The specified .txt file does not exist.");
         }
 
         InterviewModel plugin = new InterviewModel(name, jarPath);
         interviewModelRepositoryRepository.save(plugin);
     }
 
-    // Método para carregar um plugin registrado
-    public Object loadPlugin(InterviewModel plugin) throws Exception {
-        URL[] urls = { new URL("file://" + plugin.getJarPath()) };
-        try (URLClassLoader classLoader = new URLClassLoader(urls)) {
-            Class<?> clazz = classLoader.loadClass("MainPlugin");
-            return clazz.getDeclaredConstructor().newInstance();
-        }
-    }
+//    // Método para carregar um plugin registrado
+//    public Object loadPlugin(InterviewModel plugin) throws Exception {
+//        URL[] urls = { new URL("file://" + plugin.getJarPath()) };
+//        try (URLClassLoader classLoader = new URLClassLoader(urls)) {
+//            Class<?> clazz = classLoader.loadClass("MainPlugin");
+//            return clazz.getDeclaredConstructor().newInstance();
+//        }
+//    }
 
     public Optional<InterviewModel> findPluginByName(String pluginName) {
         return interviewModelRepositoryRepository.ofIdentity(pluginName);
