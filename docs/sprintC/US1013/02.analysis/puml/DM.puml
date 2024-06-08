@@ -1,27 +1,91 @@
 @startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
+package JobOpeningAgg {
+
+    class JobOpening {
+        +id: JobReference
+        +recruitmentProcess: RecruitmentProcess
+    }
+    class RecruitmentProcess {
+        +id: int
+        +status: RecruitmentProcessStatus
+        +phases: List<Phase>
+    }
+
+    class Phase {
+        +id: PhaseName
+        +startDate: StartDate
+        +endDate: EndDate
+        +status: PhaseStatus
+    }
+
+    enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+    }
+
+    class StartDate {
+        +date: Date
+    }
+
+    class EndDate {
+        +date: Date
+    }
+
+    enum PhaseStatus {
+        OPEN
+        CLOSED
+    }
+
+    enum RecruitmentProcessStatus {
+        UNINITIATED
+        IN_PROCESS
+        FINISHED
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> RecruitmentProcessStatus
+    RecruitmentProcess --> Phase : "Is separated into"
+    Phase --> PhaseName
+    Phase --> StartDate
+    Phase --> EndDate
+    Phase --> PhaseStatus
 }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
+package RankAgg {
+    class Rank {
+        +id: Long
+        +rankPosition: RankPosition
+        +rankStatus: RankStatus
+    }
+
+    enum RankStatus {
+        UNSTARTED
+        STARTED
+        FINISHED
+    }
+
+    class RankPosition {
+        +value: int
+    }
+
+    Rank --> RankPosition
+    Rank --> RankStatus
+    JobOpening --> Rank : "has"
 }
 
-class Order {
-    +id: int
-    +orderDate: Date
-}
+package CandidateAgg {
+    class Candidate {
+        + candidateEmail : EmailAddress
+    }
 
-class OrderItem {
-    +quantity: int
-    +price: float
-}
+    class EmailAddress{
+        + email : String
+    }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
+    Candidate --> EmailAddress
+    RankPosition --> Candidate : "Is ranked by"
+}
 @enduml
