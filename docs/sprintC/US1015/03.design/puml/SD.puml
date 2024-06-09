@@ -1,19 +1,90 @@
-@startuml SequenceDiagram
-actor Customer
-boundary UI
-control OrderController
-entity OrderService
-entity OrderRepository
-entity PaymentService
+@startuml
+actor CustomerManager
+boundary VerifyRequirementsUI
+control VerifyRequirementsController
+control ListJobOpeningsController
+entity JobOpeningRepository
+entity ApplicationRepository
+entity jobApplication
+entity CostumerRequirementsLexer
+entity CostumerRequirementsParser
+entity RequirementsVisitor
 
-Customer -> UI: placeOrder()
-UI -> OrderController: placeOrder()
-OrderController -> OrderService: createOrder()
-OrderService -> OrderRepository: saveOrder()
-OrderRepository --> OrderService: orderSaved()
-OrderService -> PaymentService: processPayment()
-PaymentService --> OrderService: paymentConfirmed()
-OrderService --> OrderController: orderCreated()
-OrderController --> UI: orderConfirmation()
-UI --> Customer: displayConfirmation()
+CustomerManager -> VerifyRequirementsUI: doShow()
+activate VerifyRequirementsUI
+
+VerifyRequirementsUI -> ListJobOpeningsController: allJobReferences()
+activate ListJobOpeningsController
+ListJobOpeningsController -> JobOpeningRepository: findAllJobReferences()
+activate JobOpeningRepository
+JobOpeningRepository --> ListJobOpeningsController: List<JobReference>
+deactivate JobOpeningRepository
+ListJobOpeningsController --> VerifyRequirementsUI: List<JobReference>
+deactivate ListJobOpeningsController
+
+VerifyRequirementsUI -> CustomerManager: Display job references and prompt for input
+CustomerManager -> VerifyRequirementsUI: Input job reference
+
+VerifyRequirementsUI -> VerifyRequirementsController: getRequirementFilePath(jobReference)
+activate VerifyRequirementsController
+VerifyRequirementsController -> JobOpeningRepository: getRequirementFilePath(jobReference)
+activate JobOpeningRepository
+JobOpeningRepository --> VerifyRequirementsController: filePath
+deactivate JobOpeningRepository
+VerifyRequirementsController --> VerifyRequirementsUI: filePath
+deactivate VerifyRequirementsController
+
+VerifyRequirementsUI -> VerifyRequirementsController: getApplications(jobReference)
+activate VerifyRequirementsController
+VerifyRequirementsController -> ApplicationRepository: findByJobReference(jobReference)
+activate ApplicationRepository
+ApplicationRepository --> VerifyRequirementsController: List<jobApplication>
+deactivate ApplicationRepository
+VerifyRequirementsController --> VerifyRequirementsUI: List<jobApplication>
+deactivate VerifyRequirementsController
+
+VerifyRequirementsUI -> VerifyRequirementsController: getCandidatesFilePath(applications)
+activate VerifyRequirementsController
+VerifyRequirementsController -> jobApplication: getRequirementAnswersPath() (loop for each application)
+VerifyRequirementsController --> VerifyRequirementsController: List<String> (candidatesFilePath)
+deactivate VerifyRequirementsController
+VerifyRequirementsController --> VerifyRequirementsUI: List<String> (candidatesFilePath)
+
+loop for each filePath
+    VerifyRequirementsUI -> VerifyRequirementsController: getRequirementsFromFilePath(filePath)
+    activate VerifyRequirementsController
+    VerifyRequirementsController -> CostumerRequirementsLexer: new(CharStream)
+    activate CostumerRequirementsLexer
+    CostumerRequirementsLexer --> VerifyRequirementsController: lexer
+    deactivate CostumerRequirementsLexer
+    VerifyRequirementsController -> CostumerRequirementsParser: new(CommonTokenStream)
+    activate CostumerRequirementsParser
+    CostumerRequirementsParser --> VerifyRequirementsController: parser
+    deactivate CostumerRequirementsParser
+    VerifyRequirementsController -> CostumerRequirementsParser: start()
+    activate CostumerRequirementsParser
+    CostumerRequirementsParser -> RequirementsVisitor: visit(startContext)
+    activate RequirementsVisitor
+    RequirementsVisitor --> VerifyRequirementsController: List<RequirementAnswers> (candidateRequirements)
+    deactivate RequirementsVisitor
+    deactivate CostumerRequirementsParser
+    VerifyRequirementsController --> VerifyRequirementsUI: List<RequirementAnswers> (candidateRequirements)
+    deactivate VerifyRequirementsController
+
+    VerifyRequirementsUI -> VerifyRequirementsController: checkRequirements(correctRequirements, candidateRequirements)
+    activate VerifyRequirementsController
+    VerifyRequirementsController -> RequirementsChecker: checkRequirements(correctRequirements, candidateRequirements)
+    VerifyRequirementsController --> VerifyRequirementsUI: boolean (passedRequirements)
+    deactivate VerifyRequirementsController
+
+    VerifyRequirementsUI -> VerifyRequirementsController: saveEvaluationToJobApplication(application, passedRequirements)
+    activate VerifyRequirementsController
+    VerifyRequirementsController -> jobApplication: setRequirements(requirements)
+    VerifyRequirementsController -> ApplicationRepository: save(application)
+    deactivate VerifyRequirementsController
+end
+
+VerifyRequirementsUI --> CustomerManager: Display result
+deactivate VerifyRequirementsUI
+
 @enduml
