@@ -23,14 +23,17 @@ public class RankController {
     private final RankRepository rankRepository = PersistenceContext.repositories().rank();
 
 
-    public List<JobOpening> getJobOpeningsInAnalysis() {
+    public List<JobOpening> getJobOpeningsInAnalysis() throws InstantiationException {
         List<JobOpening> allJobOpenings = (List<JobOpening>) jobOpeningRepository.findAll();
         List<JobOpening> jobOpeningsInAnalysis = new ArrayList<>();
         for (JobOpening jobOpening : allJobOpenings) {
             if (jobOpening.getRecruitmentProcess().getStatus().equals(RecruitmentProcessStatus.IN_PROCESS)) {
-                if(jobOpening.getRecruitmentProcess().currentPhase().getName().equals(PhaseName.ANALYSIS))
+                if(jobOpening.getRecruitmentProcess().currentPhase().getName().equals(PhaseName.ANALYSIS)) {
                     jobOpeningsInAnalysis.add(jobOpening);
+                }
+                else throw new InstantiationException("The job opening is not in the analysis phase");
             }
+            else throw new InstantiationException("The job opening is not in process");
         }
         return jobOpeningsInAnalysis;
 
@@ -48,7 +51,7 @@ public class RankController {
                 }
             }
             if(!exists){
-                RankPosition rankPosition = new RankPosition(-1, candidate);
+                RankPosition rankPosition = new RankPosition(0, candidate);
                 rankPositions.add(rankPosition);
             }
         }
@@ -60,7 +63,7 @@ public class RankController {
         rank.setRankPosition(rankPositions);
         boolean finished = true;
         for(RankPosition rankPosition : rankPositions){
-            if (rankPosition.getPosition() == -1) {
+            if (rankPosition.getPosition() == 0) {
                 finished = false;
                 break;
             }

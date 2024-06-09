@@ -23,7 +23,12 @@ public class Address implements ValueObject {
         this.floor = floor;
         this.postalCode = postalCode;
     }
-
+public Address (String street ) {
+        this.street = street;
+    this.doorNumber = -1;
+    this.floor = null;
+    this.postalCode = null;
+}
     protected Address() {
         this.street = null;
         this.doorNumber = -1;

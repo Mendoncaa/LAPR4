@@ -25,6 +25,9 @@ public class RankPosition implements ValueObject {
         if (candidate == null){
             throw new IllegalArgumentException("Candidate must be provided");
         }
+        if (position < 0){
+            throw new IllegalArgumentException("Rank must be a positive number");
+        }
         this.position = position;
         this.candidate = candidate;
     }

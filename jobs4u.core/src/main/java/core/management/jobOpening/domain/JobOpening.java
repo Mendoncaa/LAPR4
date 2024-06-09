@@ -149,4 +149,5 @@ public class JobOpening implements AggregateRoot<JobReference> {
     public Object ActiveSince() {
         return activeSince;
     }
+
 }
