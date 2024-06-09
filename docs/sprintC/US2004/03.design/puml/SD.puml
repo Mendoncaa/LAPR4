@@ -15,10 +15,10 @@ activate Controller
 Controller -> AppService : findAll()
 activate AppService
 
-AppService --> Controller : Iterable<jobApplication>
+AppService --> Controller : Iterable<jobApplication> findAll()
 deactivate AppService
 
-Controller --> UI : Iterable<jobApplication>
+Controller --> UI : Iterable<jobApplication> findAll()
 deactivate Controller
 
 UI -> Operator : Asks to select an application
@@ -27,7 +27,7 @@ Operator -> UI : Select an application
 UI -> Operator : Request file
 Operator -> UI : Upload text file with requirements
 
-UI -> Controller : uploadTextFile(jobApplication, String)
+UI -> Controller : uploadTextFile(application, path)
 activate Controller
 
 Controller -> Controller: passGrammar(String)
@@ -39,7 +39,7 @@ alt File Verification
         AppService -> Application : updateResponses(String)
         activate Application
 
-        Application -> AppService : "Update Successful"
+
         deactivate Application
 
         AppService --> Controller : "Update Successful"
