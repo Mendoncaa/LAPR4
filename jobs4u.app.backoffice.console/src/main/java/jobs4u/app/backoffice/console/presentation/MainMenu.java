@@ -225,6 +225,7 @@ public class MainMenu extends AbstractUI {
 		menu.addItem(LIST_JOBOPENINGS_OPTION, "List all Job Openings", new ListJobOpeningsAction());
 		menu.addItem(SETUP_JOBOPENING_PHASES_OPTION, "Setup Job Opening Phases", new SetUpRecruitmentProcessAction());
 		menu.addItem(OPEN_OR_CLOSE_PHASES_OPTION, "Open or Close Phases", new PhasesAction());
+		menu.addItem(5,"Edit Job Opening", new EditJobOpeningAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;
