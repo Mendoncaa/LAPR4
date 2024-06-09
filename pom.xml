@@ -39,6 +39,7 @@
 		<module>jobs4u.core</module>
 		<module>jobs4u.infrastructure.application</module>
 		<module>jobs4u.persistence.impl</module>
+		<module>jobs4u.server</module>
 	</modules>
 	<dependencies>
 		<dependency>
