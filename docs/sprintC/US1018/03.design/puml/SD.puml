@@ -1,0 +1,90 @@
+@startuml
+actor CustomerManager
+boundary VerifyInterviewsUI
+control VerifyInterviewsController
+control ListJobOpeningsController
+entity JobOpeningRepository
+entity ApplicationRepository
+entity jobApplication
+entity CostumerInterviewsLexer
+entity CostumerInterviewsParser
+entity InterviewsVisitor
+
+CustomerManager -> VerifyInterviewsUI: Requests to verify candidate files
+activate VerifyInterviewsUI
+
+VerifyInterviewsUI -> ListJobOpeningsController: allJobReferences()
+activate ListJobOpeningsController
+ListJobOpeningsController -> JobOpeningRepository: findAllJobReferences()
+activate JobOpeningRepository
+JobOpeningRepository --> ListJobOpeningsController: List<JobReference>
+deactivate JobOpeningRepository
+ListJobOpeningsController --> VerifyInterviewsUI: List<JobReference>
+deactivate ListJobOpeningsController
+
+VerifyInterviewsUI -> CustomerManager: Display job references and prompt for input
+CustomerManager -> VerifyInterviewsUI: Input job reference
+
+VerifyInterviewsUI -> VerifyInterviewsController: getInterviewFilePath(jobReference)
+activate VerifyInterviewsController
+VerifyInterviewsController -> JobOpeningRepository: getInterviewFilePath(jobReference)
+activate JobOpeningRepository
+JobOpeningRepository --> VerifyInterviewsController: filePath
+deactivate JobOpeningRepository
+VerifyInterviewsController --> VerifyInterviewsUI: filePath
+deactivate VerifyInterviewsController
+
+VerifyInterviewsUI -> VerifyInterviewsController: getApplications(jobReference)
+activate VerifyInterviewsController
+VerifyInterviewsController -> ApplicationRepository: findByJobReference(jobReference)
+activate ApplicationRepository
+ApplicationRepository --> VerifyInterviewsController: List<jobApplication>
+deactivate ApplicationRepository
+VerifyInterviewsController --> VerifyInterviewsUI: List<jobApplication>
+deactivate VerifyInterviewsController
+
+VerifyInterviewsUI -> VerifyInterviewsController: getCandidatesFilePath(applications)
+activate VerifyInterviewsController
+VerifyInterviewsController -> jobApplication: getInterviewAnswersPath() (loop for each application)
+VerifyInterviewsController --> VerifyInterviewsController: List<String> (candidatesFilePath)
+deactivate VerifyInterviewsController
+VerifyInterviewsController --> VerifyInterviewsUI: List<String> (candidatesFilePath)
+
+loop for each filePath
+    VerifyInterviewsUI -> VerifyInterviewsController: getInterviewsFromFilePath(filePath)
+    activate VerifyInterviewsController
+    VerifyInterviewsController -> CostumerInterviewsLexer: new(CharStream)
+    activate CostumerInterviewsLexer
+    CostumerInterviewsLexer --> VerifyInterviewsController: lexer
+    deactivate CostumerInterviewsLexer
+    VerifyInterviewsController -> CostumerInterviewsParser: new(CommonTokenStream)
+    activate CostumerInterviewsParser
+    CostumerInterviewsParser --> VerifyInterviewsController: parser
+    deactivate CostumerInterviewsParser
+    VerifyInterviewsController -> CostumerInterviewsParser: start()
+    activate CostumerInterviewsParser
+    CostumerInterviewsParser -> InterviewsVisitor: visit(startContext)
+    activate InterviewsVisitor
+    InterviewsVisitor --> VerifyInterviewsController: List<InterviewAnswers> (candidateInterviews)
+    deactivate InterviewsVisitor
+    deactivate CostumerInterviewsParser
+    VerifyInterviewsController --> VerifyInterviewsUI: List<InterviewAnswers> (candidateInterviews)
+    deactivate VerifyInterviewsController
+
+    VerifyInterviewsUI -> VerifyInterviewsController: checkInterviews(correctInterviews, candidateInterviews)
+    activate VerifyInterviewsController
+    VerifyInterviewsController -> InterviewsChecker: checkInterviews(correctInterviews, candidateInterviews)
+    VerifyInterviewsController --> VerifyInterviewsUI: boolean (passedInterviews)
+    deactivate VerifyInterviewsController
+
+    VerifyInterviewsUI -> VerifyInterviewsController: saveEvaluationToJobApplication(application, passedInterviews)
+    activate VerifyInterviewsController
+    VerifyInterviewsController -> jobApplication: setInterviews(interviews)
+    VerifyInterviewsController -> ApplicationRepository: save(application)
+    deactivate VerifyInterviewsController
+end
+
+VerifyInterviewsUI --> CustomerManager: Display result
+deactivate VerifyInterviewsUI
+
+@enduml

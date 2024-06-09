@@ -1,49 +1,113 @@
-@startuml ClassDiagram
-package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
-    }
+@startuml
+
+class CustomerManager {
 }
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
-    }
+class VerifyInterviewsUI {
+    - listJobOpeningsController: ListJobOpeningsController
+    - theController: VerifyInterviewsController
+    + doShow(): boolean
+    + headline(): String
 }
 
-package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
-    }
+class ListJobOpeningsController {
+    + allJobReferences(): List<JobReference>
 }
 
-package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
-    }
-
-    class OrderItem {
-        +quantity: int
-        +price: float
-    }
-
-    class Payment {
-        +amount: float
-        +paymentDate: Date
-    }
-
-    class User {
-        +id: int
-        +username: String
-        +email: String
-    }
+class VerifyInterviewsController {
+    - jobOpeningRepository: JobOpeningRepository
+    - applicationRepository: ApplicationRepository
+    + getInterviewFilePath(jobReference: JobReference): String
+    + getApplications(jobReference: JobReference): List<jobApplication>
+    + getCandidatesFilePath(applications: List<jobApplication>): List<String>
+    + getInterviewsFromFilePath(filePath: String): List<InterviewAnswers>
+    + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
+    + saveEvaluationToJobApplication(application: jobApplication, passedInterviews: boolean): void
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+class JobOpeningRepository {
+    + getInterviewFilePath(jobReference: JobReference): String
+    + findAllJobReferences(): List<JobReference>
+}
+
+class ApplicationRepository {
+    + findByJobReference(jobReference: JobReference): List<jobApplication>
+    + save(application: jobApplication): void
+}
+
+class jobApplication {
+    - interviewAnswersPath: InterviewAnswersPath
+    + getInterviewAnswersPath(): InterviewAnswersPath
+    + setInterviews(interviews: Interviews): void
+    + reject(): void
+}
+
+class CostumerInterviewsLexer {
+    + CostumerInterviewsLexer(charStream: CharStream)
+}
+
+class CostumerInterviewsParser {
+    + CostumerInterviewsParser(commonTokenStream: CommonTokenStream)
+    + start(): StartContext
+}
+
+class InterviewsVisitor {
+    + visit(startContext: StartContext): void
+    + getInterviews(): List<InterviewAnswers>
+}
+
+class InterviewsChecker {
+    + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
+}
+
+class InterviewAnswers {
+    - id: String
+    - content: String
+    - answer: String
+    + InterviewAnswers(id: String, content: String, answer: String)
+    + getId(): String
+    + getContent(): String
+    + getAnswer(): String
+}
+
+class JobReference {
+}
+
+class InterviewAnswersPath {
+    + getFilePath(): String
+}
+
+class Interviews {
+    + static valueOf(evaluation: InterviewsEvaluation, justification: InterviewsJustification): Interviews
+}
+
+class InterviewsEvaluation {
+    <<enumeration>>
+    ACCEPTED
+    REJECTED
+}
+
+class InterviewsJustification {
+    + static valueOf(justification: String): InterviewsJustification
+}
+
+CustomerManager --> VerifyInterviewsUI
+VerifyInterviewsUI --> ListJobOpeningsController
+VerifyInterviewsUI --> VerifyInterviewsController
+ListJobOpeningsController --> JobOpeningRepository
+VerifyInterviewsController --> JobOpeningRepository
+VerifyInterviewsController --> ApplicationRepository
+VerifyInterviewsController --> CostumerInterviewsLexer
+VerifyInterviewsController --> CostumerInterviewsParser
+VerifyInterviewsController --> InterviewsVisitor
+VerifyInterviewsController --> InterviewsChecker
+VerifyInterviewsController --> jobApplication
+JobOpeningRepository --> JobReference
+ApplicationRepository --> jobApplication
+jobApplication --> InterviewAnswersPath
+jobApplication --> Interviews
+Interviews --> InterviewsEvaluation
+Interviews --> InterviewsJustification
+InterviewsVisitor --> InterviewAnswers
+
 @enduml

@@ -1,20 +1,13 @@
 @startuml
 
-title US1018 - Execute the Process that Evaluates (Grades) the Interviews for a Job Opening
+title System Sequence Diagram (SSD) - Execute Verification Process of Interviews
 
 actor "Customer Manager" as CM
 participant ":System" as S
 
-CM -> S : Asks to execute the process that evaluates the interviews for a job opening
-S -> S : Log Verification Process
-S --> CM : Request data
-CM -> S : Submits Job Reference and candidate Interviews File
-S -> S : Validate Job Reference
-S -> S : Validate Candidate Interviews Files
-S -> S : Evaluate Candidate Interviews
-S --> CM : Return validation results indicating a numeric grade for interview
-
-CM -> S : Confirms validation results
-S --> CM : Updates candidate grade and verification process completed
+CM -> S : Requests to verify candidate files
+S --> CM : Asks for JobReference
+CM -> S : Provides JobReference
+S --> CM : Interviews verification results
 
 @enduml

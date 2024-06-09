@@ -1,27 +1,121 @@
 @startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
+package InterviewsModelAgg {
+
+    class InterviewsModel {
+        +id: SpecName
+        +description: Description
+        +jarFile: JarFile
+    }
+
+    class Description {
+        +name: String
+    }
+
+    class JarFile {
+        + jarFilePath: String
+    }
+    class SpecName {
+        +name: String
+    }
+
+    InterviewsModel --> Description
+    InterviewsModel --> JarFile
+    InterviewsModel --> SpecName
+
+}
+package JobApplicationAgg {
+    class JobApplication {
+        +id: Long
+        +interviewsEvaluation: InterviewsEvaluation
+        +files: List<File>
+    }
+
+    class File
+    {
+        +id : long
+        +path : FilePath
+        +type : FileType
+    }
+
+    class FilePath {
+        +path: String
+    }
+
+    enum FileType
+    {
+        CandidateInterviewsAnswers
+        CandidateInterviewAnswers
+    }
+
+    class Interviews
+    {
+        +justification : InterviewsJustification
+        +evaluation : InterviewsEvaluation
+    }
+
+    class InterviewsJustification
+    {
+        +justification : String
+    }
+
+    enum InterviewsEvaluation {
+        Pending
+        Accepted
+        Rejected
+    }
+    JobApplication --> Interviews
+    JobApplication --> File
+
+    Interviews --> InterviewsJustification
+    Interviews --> InterviewsEvaluation
+
+    File --> FilePath
+    File --> FileType
+}
+package JobOpeningAgg {
+
+    class JobOpening {
+        +id: JobReference
+        +recruitmentProcess: RecruitmentProcess
+    }
+    class RecruitmentProcess {
+        +id: int
+        +status: RecruitmentProcessStatus
+        +phases: List<Phase>
+    }
+
+    class Phase {
+        +id: Long
+        +name: PhaseName
+        +status: PhaseStatus
+    }
+
+    enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+    }
+
+    enum PhaseStatus {
+        Open
+        Closed
+    }
+
+    enum RecruitmentProcessStatus {
+        Uninitiated
+        In Process
+        Finished
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> RecruitmentProcessStatus
+    RecruitmentProcess --> Phase : "Is separated into"
+    Phase --> PhaseName
+    Phase --> PhaseStatus
 }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
-}
-
-class Order {
-    +id: int
-    +orderDate: Date
-}
-
-class OrderItem {
-    +quantity: int
-    +price: float
-}
-
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
+JobOpening --> InterviewsModel
+JobApplication --> JobOpening : Refers To
 @enduml
