@@ -4,14 +4,14 @@ import eapli.framework.domain.model.ValueObject;
 import eapli.framework.validations.Preconditions;
 import jakarta.persistence.Embeddable;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Embeddable
 public class InterviewDateTime implements ValueObject {
 
-    private Date date;
+    private LocalDate date;
 
-    private InterviewDateTime(Date date) {
+    private InterviewDateTime(LocalDate date) {
         Preconditions.nonNull(date, "Date cannot be null");
         this.date = date;
     }
@@ -20,7 +20,7 @@ public class InterviewDateTime implements ValueObject {
         this.date = null;
     }
 
-    public static InterviewDateTime valueOf(Date date) {
+    public static InterviewDateTime valueOf(LocalDate date) {
         return new InterviewDateTime(date);
     }
 

@@ -25,7 +25,7 @@ public class Requirements implements ValueObject {
     }
 
     protected Requirements() {
-        this.requirementEvaluation = null;
+        this.requirementEvaluation = RequirementsEvaluation.PENDING;
         this.requirementJustification = null;
     }
 

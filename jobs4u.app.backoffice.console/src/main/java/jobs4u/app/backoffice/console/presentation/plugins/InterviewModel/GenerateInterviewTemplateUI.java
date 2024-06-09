@@ -5,6 +5,7 @@ import core.management.jobOpening.domain.JobOpening;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import jobs4u.antlr4.grammar.GenerateInterviewTemplateController;
+import jobs4u.app.backoffice.console.presentation.JobOpening.JobOpeningPrinter;
 import jobs4u.app.backoffice.console.presentation.authz.SystemUserPrinter;
 
 import java.util.ArrayList;
@@ -24,16 +25,16 @@ public class GenerateInterviewTemplateUI extends AbstractUI {
             System.out.println("Job Openings available");
             System.out.println(listHeader());
             int count = 1;
-            SystemUserPrinter printer = new SystemUserPrinter();
-            for (JobOpening jobOpening : openings) {
-                listJobOpenings.add(jobOpening);
-                System.out.print(count + " ");
-                printer.visit(jobOpening);
-                System.out.println();
-                count++;
-            }
 
             while (true) {
+                JobOpeningPrinter printer = new JobOpeningPrinter();
+                for (JobOpening jobOpening : openings) {
+                    listJobOpenings.add(jobOpening);
+                    System.out.print(count + ". ");
+                    printer.visit(jobOpening);
+                    System.out.println();
+                    count++;
+                }
                 final int option = Console.readInteger("Select a job opening (Enter 0 to exit): ");
                 if (option == 0) {
                     System.out.println("No Job Opening selected");
@@ -70,6 +71,7 @@ public class GenerateInterviewTemplateUI extends AbstractUI {
     }
 
     private String listHeader() {
-        return String.format("#%-10s %-10s %-10s %-10s %-10s %-10s %-10s", "CUSTOMER_ID", "JOB_REFERENCE", "CONTRACT_TYPE", "TITLE","DESCRIPTION ", "MODE", "ADDRESS");
+        return String.format("#  %-15s %-20s %-15s %-15s %-10s %-30s %-30s %-10s %-15s",
+                "Job Reference", "Job Title", "Job State", "Contract Type", "Mode", "Description", "Address", "Vacancies", "Active Since");
     }
 }

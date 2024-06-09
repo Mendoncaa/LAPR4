@@ -54,9 +54,9 @@ public class jobApplication implements AggregateRoot<Long> {
     public jobApplication(Candidate candidate, JobOpening jobOpening) {
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.applicationState = ApplicationState.SUBMITTED; // O status inicial é sempre "Pendente"
+        this.applicationState = ApplicationState.SUBMITTED;
         this.requirementAnswersPath = null;
-        this.requirements = null;
+        this.requirements = Requirements.valueOf(RequirementsEvaluation.PENDING, RequirementsJustification.valueOf("Sem justificação"));
         this.interviewAnswersPath = null;
         this.notificationStatus = NotificationStatus.UNSEND;
         this.interview = null;

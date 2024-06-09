@@ -19,25 +19,25 @@ public class Interview implements ValueObject {
     private InterviewGrade interviewGrade;
 
     @Embedded
-    private InterviewJustification interviewStatus;
+    private InterviewJustification interviewJustification;
 
-    private Interview(InterviewDateTime interviewDateTime, InterviewGrade interviewGrade, InterviewJustification interviewStatus) {
+    private Interview(InterviewDateTime interviewDateTime, InterviewGrade interviewGrade, InterviewJustification interviewJustification) {
         Preconditions.nonNull(interviewDateTime, "Interview date and time cannot be null");
         Preconditions.nonNull(interviewGrade, "Interview grade cannot be null");
-        Preconditions.nonNull(interviewStatus, "Interview status cannot be null");
+        Preconditions.nonNull(interviewJustification, "Interview status cannot be null");
         this.interviewDateTime = interviewDateTime;
         this.interviewGrade = interviewGrade;
-        this.interviewStatus = interviewStatus;
+        this.interviewJustification = interviewJustification;
     }
 
     protected Interview() {
         this.interviewDateTime = null;
         this.interviewGrade = null;
-        this.interviewStatus = null;
+        this.interviewJustification = null;
     }
 
-    public static Interview valueOf(InterviewDateTime interviewDateTime, InterviewGrade interviewGrade, InterviewJustification interviewStatus) {
-        return new Interview(interviewDateTime, interviewGrade, interviewStatus);
+    public static Interview valueOf(InterviewDateTime interviewDateTime, InterviewGrade interviewGrade, InterviewJustification interviewJustification) {
+        return new Interview(interviewDateTime, interviewGrade, interviewJustification);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Interview implements ValueObject {
         return "Interview{" +
                 "interviewDateTime=" + interviewDateTime +
                 ", interviewGrade=" + interviewGrade +
-                ", interviewStatus=" + interviewStatus +
+                ", interviewJustification=" + interviewJustification +
                 '}';
     }
     

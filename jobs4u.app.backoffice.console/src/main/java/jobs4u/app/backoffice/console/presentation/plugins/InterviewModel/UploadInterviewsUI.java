@@ -54,7 +54,7 @@ public class UploadInterviewsUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Upload Requirements";
+        return "Upload Interviews";
     }
 
     private String listHeader() {
