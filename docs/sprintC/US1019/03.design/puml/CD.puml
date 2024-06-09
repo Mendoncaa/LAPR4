@@ -1,77 +1,91 @@
 @startuml ClassDiagram
 
-package UI{
-    class ListOrderedApplicationUI{
-        - controller : ListOrderedApplicationController
-        + doShow() : boolean
-        + headline() : String
+package UI {
+    class ListOrderedApplicationsUI {
+        - controller: ListOrderedApplicationsController
+        + doShow(): boolean
+        + headline(): String
+        + askForJobReference(): String
+    }
+    class ApplicationByGradePrinter {
+        + visit(visitee: jobApplication): void
+        + printHeader(): void
+        + printRows(applications: List<jobApplication>): void
+        + printFooter(): void
     }
 }
+
 package Controller {
-    class ListOrderedApplicationController {
-        - jobRepository: JobOpeningRepository
-        - orderApplicationService : OrderApplicationService
-        + validateJobReference(jobReference : JobReference) : List<Application>
+    class ListOrderedApplicationsController {
+        - jobOpeningRepository: JobOpeningRepository
+        - applicationRepository: ApplicationRepository
+        - orderApplicationsService: OrderApplicationsService
+        + validateJobReference(jobReference: String): List<jobApplication>
     }
 }
 
 package Service {
-    class OrderApplicationService {
-        - applicationRepository: ApplicationRepository
-        + orderedListOfApplications() : List<Application>
-        - validateCurrentPhase() : boolean
-        - orderApplicationsByIntervewGrade(applications : Iterable<Application>) : List<Application>
+    class OrderApplicationsService {
+        - recruitmentProcess: RecruitmentProcess
+        + orderedListOfApplications(applications: List<jobApplication>): List<jobApplication>
+        - validateCurrentPhase(): boolean
     }
 }
 
 package Repository {
     class JobOpeningRepository {
-        + findByJobReference(jobReference : JobReference) : JobOpening
+        + findByJobReference(jobReference: JobReference): Optional<JobOpening>
     }
     class ApplicationRepository {
-        + findAll() : Iterable<Application>
+        + findByJobReference(jobReference: JobReference): List<jobApplication>
     }
 }
 
 package Model {
 
     package CandidateAgg {
-
         class Candidate {
             + candidateEmail: EmailAddress
             + candidateName: Name
-            + candidatePhone : PhoneNumber
-            + state : CandidateState
+            + candidatePhone: PhoneNumber
+            + state: CandidateState
         }
 
         class Name {
-            + customerName : String
+            + customerName: String
         }
         class EmailAddress {
-            + email : String
+            + email: String
         }
     }
 
     package JobOpeningAgg {
-
         class JobReference {
             + customerCode: String
             + jobNumber: int
         }
 
+        class JobOpening {
+            + jobReference: JobReference
+            + recruitmentProcess: RecruitmentProcess
+            + getJobReference(): JobReference
+            + getRecruitmentProcess(): RecruitmentProcess
+        }
+
         class RecruitmentProcess {
-            +id: int
-            +status: RecruitmentProcessStatus
-            +phases: List<Phase>
+            + id: int
+            + status: RecruitmentProcessStatus
+            + phases: List<Phase>
+            + currentPhase(): Phase
             + nextPhase(): void
             + previousPhase(): void
         }
 
         class Phase {
-            +name: PhaseName
-            +startDate: StartDate
-            +endDate: EndDate
-            +status: PhaseStatus
+            + name: PhaseName
+            + startDate: StartDate
+            + endDate: EndDate
+            + status: PhaseStatus
         }
 
         enum PhaseName {
@@ -83,11 +97,11 @@ package Model {
         }
 
         class StartDate {
-            +date: Date
+            + date: Date
         }
 
         class EndDate {
-            +date: Date
+            + date: Date
         }
 
         enum PhaseStatus {
@@ -103,28 +117,32 @@ package Model {
     }
 
     package ApplicationAgg {
+        class jobApplication {
+            + interview: Interview
+            + candidate: Candidate
+            + jobOpening: JobOpening
+            + getInterview(): Interview
+            + getCandidate(): Candidate
+            + getJobOpening(): JobOpening
+        }
 
-       class Application{
-            + interview : Interview
-       }
+        class Interview {
+            + dateTime: InterviewDateTime
+            + grade: InterviewGrade
+        }
 
-       class Interview{
-          + dateTime : InterviewDateTime
-          + grade : InterviewGrade
-       }
+        class InterviewDateTime {
+            + date: Date
+        }
 
-       class InterviewDateTime{
-          + date : Date
-       }
-
-       class InterviewGrade{
-          + grade : int
-       }
+        class InterviewGrade {
+            + grade: int
+        }
     }
 
     Candidate --> Name
     Candidate --> EmailAddress
-    RecruitmentProcess --> Phase : "has"
+    RecruitmentProcess --> Phase: "has"
     Phase --> PhaseName
     Phase --> StartDate
     Phase --> EndDate
@@ -133,14 +151,19 @@ package Model {
     Application --> Interview
     Interview --> InterviewDateTime
     Interview --> InterviewGrade
+    JobOpening --> JobReference
+    JobOpening --> RecruitmentProcess
+    jobApplication --> Interview
+    jobApplication --> Candidate
+    jobApplication --> JobOpening
 }
-ListOrderedApplicationUI --> ListOrderedApplicationController
-ListOrderedApplicationController --> OrderApplicationService
-OrderApplicationService --> ApplicationRepository
-OrderApplicationService ..> RecruitmentProcess
-ListOrderedApplicationUI ..> Candidate
-ListOrderedApplicationController ..> JobReference
-ListOrderedApplicationController --> JobOpeningRepository
-OrderApplicationService ..> Application
-}
+
+ListOrderedApplicationsUI --> ListOrderedApplicationsController
+ListOrderedApplicationsController --> OrderApplicationsService
+OrderApplicationsService ..> RecruitmentProcess
+ListOrderedApplicationsUI ..> Candidate
+ListOrderedApplicationsController ..> JobReference
+ListOrderedApplicationsController --> JobOpeningRepository
+ListOrderedApplicationsController --> ApplicationRepository
+OrderApplicationsService ..> jobApplication
 @enduml

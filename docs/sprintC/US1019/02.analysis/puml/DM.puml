@@ -2,7 +2,6 @@
 package JobOpeningAgg {
 
     class JobOpening {
-        +id: JobReference
         +title: JobOpeningTitle
     }
 
@@ -10,15 +9,31 @@ package JobOpeningAgg {
         +id: PhaseName
     }
 
+    class JobReference {
+        +customerCode: String
+        +jobCode: int
+    }
+
     enum PhaseName {
         ANALYSIS
     }
 
+    class PhaseStatus {
+        +status: PhaseStatusName
+    }
+
+    class RecruitmentProcess {
+        +id: Long
+        +phases: List<Phases>
+    }
+
+    JobOpening --> JobReference
     JobOpening --> RecruitmentProcess
     RecruitmentProcess --> Phase
     Phase --> PhaseName: "Is in phase"
+    Phase --> PhaseStatus
 
-    JobOpening --> RequirementsSpecification
+    
 }
 
 package ApplicationAgg {
@@ -29,7 +44,6 @@ package ApplicationAgg {
 
     class Interview {
         +grade: InterviewGrade
-        +justification: String
     }
 
 
@@ -41,24 +55,10 @@ package ApplicationAgg {
     Application --> JobOpening : Refers to
     Interview --> InterviewGrade
 
-    class RequirementsEvaluation<<Enum>>
 
-    Application "1" --> "1" RequirementsEvaluation
 }
 
 
-package RequirementsSpecificationAgg {
-    class RequirementsSpecification<<Root>><<Entity>>
-    class JarFile<<Value Object>>
-    class SpecName<<Value Object>><<Id>>
-    class Description<<Value Object>>
-
-    RequirementsSpecification "1" --> "1" JarFile
-    RequirementsSpecification "1" --> "1" SpecName
-    RequirementsSpecification "1" --> "1" Description
-
-    JobOpening --> RequirementsSpecification
-}
 
 
 
