@@ -1,52 +1,55 @@
-@startuml SequenceDiagram
+@startuml
 actor CustomerManager
-boundary ListOrderedApplicationUI
-control ListOrderedApplicationController
-entity OrderApplicationService
-participant PersistenceContext
-database JobOpeningRepository
-database ApplicationRepository
+boundary ListOrderedApplicationsUI
+control ListOrderedApplicationsController
+control OrderApplicationsService
+entity JobOpeningRepository
+entity ApplicationRepository
+entity RecruitmentProcess
+entity jobApplication
 
--> ListOrderedApplicationUI : doShow()
-activate ListOrderedApplicationUI
-ListOrderedApplicationUI -> ListOrderedApplicationController : create()
-activate ListOrderedApplicationController
-ListOrderedApplicationController -> PersistenceContext : repositories().jobOpening()
-activate PersistenceContext
-PersistenceContext -> JobOpeningRepository : create()
-PersistenceContext --> ListOrderedApplicationController : jobOpeningRepository : JobOpeningRepository
-deactivate PersistenceContext
-ListOrderedApplicationController --> ListOrderedApplicationUI : controller : ListOrderedApplicationController
-deactivate ListOrderedApplicationController
-ListOrderedApplicationUI --> CustomerManager : Ask for JobReference
-CustomerManager --> ListOrderedApplicationUI : Insert JobReference
-ListOrderedApplicationUI -> ListOrderedApplicationController : validateJobReference(jobReference : JobReference)
-activate ListOrderedApplicationController
-ListOrderedApplicationController -> JobOpeningRepository : findByJobReference(jobReference : JobReference)
+CustomerManager -> ListOrderedApplicationsUI: doShow()
+activate ListOrderedApplicationsUI
+
+ListOrderedApplicationsUI -> CustomerManager: askForJobReference()
+CustomerManager -> ListOrderedApplicationsUI: Input job reference
+
+ListOrderedApplicationsUI -> ListOrderedApplicationsController: validateJobReference(jobReference)
+activate ListOrderedApplicationsController
+
+ListOrderedApplicationsController -> JobOpeningRepository: findByJobReference(jobReference)
 activate JobOpeningRepository
-JobOpeningRepository --> ListOrderedApplicationController : jobOpening : JobOpening
+JobOpeningRepository --> ListOrderedApplicationsController: JobOpening
 deactivate JobOpeningRepository
-ListOrderedApplicationController -> OrderApplicationService : create(recruitmentProcess : RecruitmentProcess)
-activate OrderApplicationService
-OrderApplicationService -> PersistenceContext : repositories().application()
-activate PersistenceContext
-PersistenceContext -> ApplicationRepository : create()
-PersistenceContext --> OrderApplicationService : applicationRepository : ApplicationRepository
-deactivate PersistenceContext
-OrderApplicationService --> ListOrderedApplicationController : orderApplicationService : OrderApplicationService
-deactivate OrderApplicationService
-ListOrderedApplicationController -> OrderApplicationService : orderedListofApplications()
-activate OrderApplicationService
-OrderApplicationService -> OrderApplicationService : validateCurrentPhase()
-OrderApplicationService -> ApplicationRepository : findAll()
+
+
+ListOrderedApplicationsController -> OrderApplicationsService: create(recruitmentProcess : RecruitmentProcess)
+activate OrderApplicationsService
+OrderApplicationsService --> ListOrderedApplicationsController: orderApplicationsService
+deactivate OrderApplicationsService
+
+ListOrderedApplicationsController -> ApplicationRepository: findByJobReference(jobReference)
 activate ApplicationRepository
-ApplicationRepository --> OrderApplicationService : allApplications : Iterable<Application>
+ApplicationRepository --> ListOrderedApplicationsController: List<jobApplication>
 deactivate ApplicationRepository
-OrderApplicationService -> OrderApplicationService : orderApplicationsByInterviewGrade(applications : Iterable<Application>)
-OrderApplicationService --> ListOrderedApplicationController : orderedApplications : List<Application>
-deactivate OrderApplicationService
-ListOrderedApplicationController --> ListOrderedApplicationUI : orderedApplications : List<Application>
-deactivate ListOrderedApplicationController
-ListOrderedApplicationUI --> CustomerManager : Show ordered list of Candidates
-deactivate ListOrderedApplicationUI
+
+ListOrderedApplicationsController -> OrderApplicationsService: orderedListOfApplications(applications)
+activate OrderApplicationsService
+
+
+OrderApplicationsService -> OrderApplicationsService: validateCurrentPhase()
+activate OrderApplicationsService
+deactivate OrderApplicationsService
+OrderApplicationsService -> OrderApplicationsService: sort(applications)
+activate OrderApplicationsService
+deactivate OrderApplicationsService
+OrderApplicationsService --> ListOrderedApplicationsController: List<jobApplication>
+deactivate OrderApplicationsService
+
+ListOrderedApplicationsController --> ListOrderedApplicationsUI: List<jobApplication>
+deactivate ListOrderedApplicationsController
+
+
+ListOrderedApplicationsUI -> CustomerManager: Display ordered applications
+deactivate ListOrderedApplicationsUI
 @enduml
