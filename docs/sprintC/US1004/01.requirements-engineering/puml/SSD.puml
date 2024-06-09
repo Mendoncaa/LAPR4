@@ -1,0 +1,16 @@
+@startuml
+
+title System Sequence Diagram (SSD) - Edit Job Opening
+
+actor "Customer Manager" as CM
+participant ":System" as S
+
+CM -> S : Request to edit a job opening
+activate S
+S -> CM : Returns list of job openings
+CM -> S : Selects a job opening to edit
+S -> CM : Returns editable fields (e.g., job title, address, number of vacancies, etc.)
+CM -> S : Makes changes to selected fields
+S --> CM : Confirms successful editing
+
+@enduml
