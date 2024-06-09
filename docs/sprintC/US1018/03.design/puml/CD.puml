@@ -1,97 +1,105 @@
 @startuml
 
-class CustomerManager {
+package UI {
+    class VerifyInterviewsUI {
+        - listJobOpeningsController: ListJobOpeningsController
+        - theController: VerifyInterviewsController
+        + doShow(): boolean
+        + headline(): String
+    }
 }
 
-class VerifyInterviewsUI {
-    - listJobOpeningsController: ListJobOpeningsController
-    - theController: VerifyInterviewsController
-    + doShow(): boolean
-    + headline(): String
+package Controller {
+    class ListJobOpeningsController {
+        + allJobReferences(): List<JobReference>
+    }
+
+    class VerifyInterviewsController {
+        - jobOpeningRepository: JobOpeningRepository
+        - applicationRepository: ApplicationRepository
+        + getInterviewFilePath(jobReference: JobReference): String
+        + getApplications(jobReference: JobReference): List<jobApplication>
+        + getCandidatesFilePath(applications: List<jobApplication>): List<String>
+        + getInterviewsFromFilePath(filePath: String): List<InterviewAnswers>
+        + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
+        + saveEvaluationToJobApplication(application: jobApplication, passedInterviews: boolean): void
+    }
 }
 
-class ListJobOpeningsController {
-    + allJobReferences(): List<JobReference>
+package Repository {
+    class JobOpeningRepository {
+        + getInterviewFilePath(jobReference: JobReference): String
+        + findAllJobReferences(): List<JobReference>
+    }
+
+    class ApplicationRepository {
+        + findByJobReference(jobReference: JobReference): List<jobApplication>
+        + save(application: jobApplication): void
+    }
 }
 
-class VerifyInterviewsController {
-    - jobOpeningRepository: JobOpeningRepository
-    - applicationRepository: ApplicationRepository
-    + getInterviewFilePath(jobReference: JobReference): String
-    + getApplications(jobReference: JobReference): List<jobApplication>
-    + getCandidatesFilePath(applications: List<jobApplication>): List<String>
-    + getInterviewsFromFilePath(filePath: String): List<InterviewAnswers>
-    + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
-    + saveEvaluationToJobApplication(application: jobApplication, passedInterviews: boolean): void
+package ANTLR {
+    class CostumerInterviewsLexer {
+        + CostumerInterviewsLexer(charStream: CharStream)
+    }
+
+    class CostumerInterviewsParser {
+        + CostumerInterviewsParser(commonTokenStream: CommonTokenStream)
+        + start(): StartContext
+    }
+
+    class InterviewsVisitor {
+        + visit(startContext: StartContext): void
+        + getInterviews(): List<InterviewAnswers>
+    }
+
+    class InterviewsChecker {
+        + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
+    }
 }
 
-class JobOpeningRepository {
-    + getInterviewFilePath(jobReference: JobReference): String
-    + findAllJobReferences(): List<JobReference>
+package Model {
+    class jobApplication {
+        - interviewAnswersPath: InterviewAnswersPath
+        + getInterviewAnswersPath(): InterviewAnswersPath
+        + setInterviews(interviews: Interviews): void
+        + reject(): void
+    }
+
+    class InterviewAnswers {
+        - id: String
+        - content: String
+        - answer: String
+        + InterviewAnswers(id: String, content: String, answer: String)
+        + getId(): String
+        + getContent(): String
+        + getAnswer(): String
+    }
+
+    class JobReference {
+        - customerCode: String
+        -jobNumver: int
+    }
+
+    class InterviewAnswersPath {
+        + getFilePath(): String
+    }
+
+    class Interviews {
+        + static valueOf(evaluation: InterviewsEvaluation, justification: InterviewsJustification): Interviews
+    }
+
+    class InterviewsEvaluation {
+        <<enumeration>>
+        ACCEPTED
+        REJECTED
+    }
+
+    class InterviewsJustification {
+        + static valueOf(justification: String): InterviewsJustification
+    }
 }
 
-class ApplicationRepository {
-    + findByJobReference(jobReference: JobReference): List<jobApplication>
-    + save(application: jobApplication): void
-}
-
-class jobApplication {
-    - interviewAnswersPath: InterviewAnswersPath
-    + getInterviewAnswersPath(): InterviewAnswersPath
-    + setInterviews(interviews: Interviews): void
-    + reject(): void
-}
-
-class CostumerInterviewsLexer {
-    + CostumerInterviewsLexer(charStream: CharStream)
-}
-
-class CostumerInterviewsParser {
-    + CostumerInterviewsParser(commonTokenStream: CommonTokenStream)
-    + start(): StartContext
-}
-
-class InterviewsVisitor {
-    + visit(startContext: StartContext): void
-    + getInterviews(): List<InterviewAnswers>
-}
-
-class InterviewsChecker {
-    + checkInterviews(correctInterviews: List<InterviewAnswers>, candidateInterviews: List<InterviewAnswers>): boolean
-}
-
-class InterviewAnswers {
-    - id: String
-    - content: String
-    - answer: String
-    + InterviewAnswers(id: String, content: String, answer: String)
-    + getId(): String
-    + getContent(): String
-    + getAnswer(): String
-}
-
-class JobReference {
-}
-
-class InterviewAnswersPath {
-    + getFilePath(): String
-}
-
-class Interviews {
-    + static valueOf(evaluation: InterviewsEvaluation, justification: InterviewsJustification): Interviews
-}
-
-class InterviewsEvaluation {
-    <<enumeration>>
-    ACCEPTED
-    REJECTED
-}
-
-class InterviewsJustification {
-    + static valueOf(justification: String): InterviewsJustification
-}
-
-CustomerManager --> VerifyInterviewsUI
 VerifyInterviewsUI --> ListJobOpeningsController
 VerifyInterviewsUI --> VerifyInterviewsController
 ListJobOpeningsController --> JobOpeningRepository

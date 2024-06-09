@@ -47,8 +47,8 @@ VerifyInterviewsUI -> VerifyInterviewsController: getCandidatesFilePath(applicat
 activate VerifyInterviewsController
 VerifyInterviewsController -> jobApplication: getInterviewAnswersPath() (loop for each application)
 VerifyInterviewsController --> VerifyInterviewsController: List<String> (candidatesFilePath)
-deactivate VerifyInterviewsController
 VerifyInterviewsController --> VerifyInterviewsUI: List<String> (candidatesFilePath)
+deactivate VerifyInterviewsController
 
 loop for each filePath
     VerifyInterviewsUI -> VerifyInterviewsController: getInterviewsFromFilePath(filePath)
@@ -74,10 +74,11 @@ loop for each filePath
     VerifyInterviewsUI -> VerifyInterviewsController: checkInterviews(correctInterviews, candidateInterviews)
     activate VerifyInterviewsController
     VerifyInterviewsController -> InterviewsChecker: checkInterviews(correctInterviews, candidateInterviews)
-    VerifyInterviewsController --> VerifyInterviewsUI: boolean (passedInterviews)
+    InterviewsChecker -> VerifyInterviewsController: interviewPoints
+    VerifyInterviewsController --> VerifyInterviewsUI: int (interviewPoints)
     deactivate VerifyInterviewsController
 
-    VerifyInterviewsUI -> VerifyInterviewsController: saveEvaluationToJobApplication(application, passedInterviews)
+    VerifyInterviewsUI -> VerifyInterviewsController: savePointsToJobApplication(application, interviewPoints)
     activate VerifyInterviewsController
     VerifyInterviewsController -> jobApplication: setInterviews(interviews)
     VerifyInterviewsController -> ApplicationRepository: save(application)
