@@ -28,7 +28,7 @@ import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicationDataAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
-//import jobs4u.app.backoffice.console.presentation.JobApplication.ListOrderedApplicationsUI;
+import jobs4u.app.backoffice.console.presentation.JobApplication.ListOrderedApplicationsUI;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
 import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
@@ -236,7 +236,7 @@ public class MainMenu extends AbstractUI {
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
 			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
 			menu.addItem(DISPLAY_APPLICATION_DATA,"Display Application Data", new DisplayApplicationDataAction());
-			//menu.addItem(4, "List Ordered Applications", new ListOrderedApplicationsUI()::show);
+			menu.addItem(4, "List Ordered Applications", new ListOrderedApplicationsUI()::show);
 			menu.addItem(5, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
 			menu.addItem(6, "Register Candidate Interview for Job Application", new UploadInterviewsAction());
 		}
@@ -269,7 +269,7 @@ public class MainMenu extends AbstractUI {
 			menu.addItem(4, "Select Interview Model for a JobOpening", new SelectInterviewAction());
 			menu.addItem(5, "Export Template for Requirement Specification", new GenerateRequirementSpecificationTemplateAction());
 			menu.addItem(6, "Export Template for Interview", new GenerateInterviewTemplateAction());
-			//menu.addItem(7, "Verify Requirements Answers for a Job Opening", new VerifyRequirementsAction());
+			menu.addItem(7, "Verify Requirements Answers for a Job Opening", new VerifyRequirementsAction());
 			menu.addItem(8, "Verify Interviews Answers for a Job Opening", new VerifyInterviewsAction());
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
