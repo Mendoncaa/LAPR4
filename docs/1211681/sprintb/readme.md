@@ -1,4 +1,4 @@
-# 1211681 - Diogo Nunes - Sprint B - Self Assessment
+# 1211681 - João Sa - Sprint B - Self Assessment
 
 **This section is mandatory for students of LAPR4**
 
