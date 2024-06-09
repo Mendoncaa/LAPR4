@@ -1,46 +1,56 @@
 @startuml
-title US1017 - Upload Candidate Requirements
 
-actor "Operator" as O
-participant "UploadCandidateRequirementsUI" as UI
-participant "UploadCandidateRequirementsController" as C
-participant "CandidateRequirementsService" as S
-participant "ApplicationRepository" as FR
-participant "RequirementsEvaluator" as V
+actor CustomerManager
+participant "UploadInterviewUI" as UI
+participant "UploadInterviewController" as Controller
+participant "ApplicationService" as AppService
+participant "jobApplication" as Application
 
-O -> UI : request to upload a candidate requirements file
+CustomerManager -> UI : Asks to import candidate interview
 activate UI
 
-UI -> O : request candidate requirements file
-deactivate UI
+UI -> Controller : getApplications()
+activate Controller
 
-O -> UI : provide candidate requirements file
-activate UI
+Controller -> AppService : findAll()
+activate AppService
 
-UI -> C : uploadCandidateRequirementsFile(filePath)
-activate C
+AppService --> Controller : Iterable<jobApplication>
+deactivate AppService
 
-C -> V : validateSyntax(file)
-activate V
+Controller --> UI : Iterable<jobApplication>
+deactivate Controller
+
+UI -> CustomerManager : Asks to select an application
+CustomerManager -> UI : Select an application
+
+UI -> CustomerManager : Request file
+CustomerManager -> UI : Upload text file with Interview
+
+UI -> Controller : uploadTextFile(jobApplication, String)
+activate Controller
+
+Controller -> Controller: passGrammar(String)
 
 
-    V -> C : fileIsValid()
-    deactivate V
-    C -> S : storeFilePath(filePath)
-    activate S
+    alt if file is valid
+        Controller -> AppService : uploadInterviewResponses(jobApplication, String)
+        activate AppService
+        AppService -> Application : updateResponses(String)
+        activate Application
 
-    S -> FR : saveFilePath(filePath)
-    activate FR
+        Application -> AppService : "Update Successful"
+        deactivate Application
 
-    FR -> S : filePathSaved()
-    deactivate FR
+        AppService --> Controller : "Update Successful"
+        deactivate AppService
 
-    S -> C : filePathStored()
-    deactivate S
+        Controller --> UI : "Update Successful"
+        deactivate Controller
 
-    C -> UI : confirmUploadSuccess()
-    deactivate C
-    UI -> O : upload successful
+        UI -> CustomerManager : Return success message
+    
+
 deactivate UI
 
 @enduml

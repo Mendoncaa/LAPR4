@@ -1,38 +1,28 @@
 @startuml
-skinparam classAttributeIconSize 0
-skinparam classBorderColor black
 
+class UploadInterviewController {
+    + getApplications(): Iterable<jobApplication>
+    + uploadTextFile(application: jobApplication, path: String)
+    + passGrammar(path: String): boolean
 
-class UploadCandidateRequirementsUI {
-    + requestToUploadFile(): void
-    + requestCandidateRequirementsFile(): void
-    + provideCandidateRequirementsFile(file: File): void
-    + displayUploadSuccess(): void
-    + displayUploadError(): void
 }
 
-class UploadCandidateRequirementsController {
-    + uploadCandidateRequirementsFile(filePath: String): void
-    + confirmUploadSuccess(): void
+class UploadInterviewUI {
+    - controller: UploadInterviewController
+    + doShow(): boolean
+    + headline(): String
+
 }
 
-class CandidateRequirementsService {
-    + storeFilePath(filePath: String): void
+class ApplicationService {
+    + findAll(): Iterable
+    + uploadInterviewResponses(application: jobApplication, responses: String)
 }
 
-class ApplicationRepository {
-    + saveFilePath(filePath: String): void
-}
+class jobApplication
 
-class RequirementsEvaluator {
-    + validateSyntax(file: File): boolean
-}
+UploadInterviewUI --> UploadInterviewController
+UploadInterviewController --> ApplicationService
+UploadInterviewController --> jobApplication
 
-
-
-UploadCandidateRequirementsUI --> UploadCandidateRequirementsController : interacts with
-UploadCandidateRequirementsController --> CandidateRequirementsService : coordinates
-CandidateRequirementsService --> ApplicationRepository : stores file path
-UploadCandidateRequirementsController --> RequirementsEvaluator : validates syntax
-UploadCandidateRequirementsController --> UploadCandidateRequirementsUI : confirms upload success
 @enduml
