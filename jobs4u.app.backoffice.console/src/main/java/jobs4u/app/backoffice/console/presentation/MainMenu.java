@@ -34,7 +34,7 @@ import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.GenerateInterviewTemplateAction;
-//import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.UploadInterviewsAction;
+import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.UploadInterviewsAction;
 import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.*;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
 import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.RegisterInterviewModelAction;
@@ -239,7 +239,7 @@ public class MainMenu extends AbstractUI {
 			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
 			menu.addItem(DISPLAY_APPLICATION_DATA,"Display Application Data", new DisplayApplicationDataAction());
 			menu.addItem(6, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
-			//menu.addItem(7, "Register Candidate Interview for Job Application", new UploadInterviewsAction());
+			menu.addItem(7, "Register Candidate Interview for Job Application", new UploadInterviewsAction());
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
 			menu.addItem(4, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
