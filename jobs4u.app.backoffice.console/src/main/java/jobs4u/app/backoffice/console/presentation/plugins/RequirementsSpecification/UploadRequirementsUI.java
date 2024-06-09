@@ -1,6 +1,6 @@
 package jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification;
 
-import core.management.RequirementSpecification.application.controller.UploadRequirementsController;
+import jobs4u.antlr4.grammar.UploadRequirementsController;
 import core.management.jobApplication.domain.jobApplication;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;

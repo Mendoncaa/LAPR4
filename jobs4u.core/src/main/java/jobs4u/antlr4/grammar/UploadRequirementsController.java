@@ -1,9 +1,7 @@
-package core.management.RequirementSpecification.application.controller;
+package jobs4u.antlr4.grammar;
 
 import core.management.jobApplication.application.service.ApplicationService;
 import core.management.jobApplication.domain.jobApplication;
-import jobs4u.antlr4.grammar.CostumerRequirementsLexer;
-import jobs4u.antlr4.grammar.CostumerRequirementsParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
