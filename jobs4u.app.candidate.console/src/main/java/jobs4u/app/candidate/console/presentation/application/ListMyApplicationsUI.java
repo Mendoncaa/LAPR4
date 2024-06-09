@@ -28,7 +28,7 @@ public class ListMyApplicationsUI extends AbstractUI {
         } else {
             System.out.println("My Applications:");
             for (jobApplication application : applications) {
-                System.out.println(application.getJobOpening().getJobReference().toString() + " - " + application.getStatus() + " (" + theController.getNumberOfApplicants(application.getJobOpening()) + " applicant(s) for this Job Opening)");
+                System.out.println(application.getJobOpening().getJobReference().toString() + " - " + application.getApplicationState().toString() + " (" + theController.getNumberOfApplicants(application.getJobOpening()) + " applicant(s) for this Job Opening)");
             }
         }
 

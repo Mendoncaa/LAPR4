@@ -4,6 +4,7 @@ import core.infrastructure.persistence.PersistenceContext;
 import core.management.candidate.domain.Candidate;
 import core.management.candidate.repository.CandidateRepository;
 import core.management.costumer.domain.PhoneNumber;
+import core.management.jobApplication.domain.FileType;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobOpening;
@@ -78,8 +79,13 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
-    public void uploadRequirementsResponses(jobApplication application, String responses) {
-        application.updateResponses(responses);
+    public void uploadRequirementsResponses(jobApplication application, String path) {
+        application.setRequirementAnswersPath(core.management.jobApplication.domain.File.valueOf(path, FileType.CANDIDATE_REQUIREMENTS_ANSWERS));
+        applicationRepository.save(application);
+    }
+
+    public void uploadInterviewsResponses(jobApplication application, String path) {
+        application.setInterviewAnswersPath(core.management.jobApplication.domain.File.valueOf(path, FileType.CANDIDATE_INTERVIEW_ANSWERS));
         applicationRepository.save(application);
     }
 }

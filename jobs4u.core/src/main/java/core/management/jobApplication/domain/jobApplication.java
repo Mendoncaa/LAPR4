@@ -30,25 +30,36 @@ public class jobApplication implements AggregateRoot<Long> {
     private JobOpening jobOpening;
 
     @Column(nullable = false)
-    private String status; // O status da aplicação
+    private ApplicationState applicationState; // O status da aplicação
 
-    private String requirementAnswersPath; // As respostas do candidato às questões de requisitos
+    @Embedded
+    @AttributeOverride(name="filePath", column=@Column(name="requirement_answers_path"))
+    @AttributeOverride(name="fileType", column=@Column(name="requirement_answers_type"))
+    private File requirementAnswersPath; // As respostas do candidato às questões de requisitos
 
-    private boolean requirementEvaluation; // A avaliação dos requisitos
+    @Embedded
+    private Requirements requirements; // A avaliação dos requisitos
 
-    private String interviewAnswersPath; // As notas da entrevista
+    @Embedded
+    @AttributeOverride(name="filePath", column=@Column(name="interview_answers_path"))
+    @AttributeOverride(name="fileType", column=@Column(name="interview_answers_type"))
+    private File interviewAnswersPath; // As notas da entrevista
 
-    private int interviewGrades; // A classificação da entrevista
+    private NotificationStatus notificationStatus; // O status da notificação
+
+    @Embedded
+    private Interview interview; // A entrevista
 
     // Construtor com argumentos essenciais
     public jobApplication(Candidate candidate, JobOpening jobOpening) {
         this.candidate = candidate;
         this.jobOpening = jobOpening;
-        this.status = "Pending"; // O status inicial é sempre "Pendente"
+        this.applicationState = ApplicationState.SUBMITTED; // O status inicial é sempre "Pendente"
         this.requirementAnswersPath = null;
-        this.requirementEvaluation = false;
+        this.requirements = null;
         this.interviewAnswersPath = null;
-        this.interviewGrades = 0;
+        this.notificationStatus = NotificationStatus.UNSEND;
+        this.interview = null;
     }
 
     // Construtor protegido para JPA
@@ -63,20 +74,16 @@ public class jobApplication implements AggregateRoot<Long> {
         return this.jobOpening;
     }
 
-    public String status() {
-        return this.status;
+    public ApplicationState status() {
+        return this.applicationState;
     }
 
     public void approve() {
-        this.status = "Approved";
+        this.applicationState = ApplicationState.ACCEPTED;
     }
 
     public void reject() {
-        this.status = "Rejected";
-    }
-
-    public void updateResponses(String responses) {
-        this.requirementAnswersPath = responses;
+        this.applicationState = ApplicationState.REJECTED;
     }
 
     @Override

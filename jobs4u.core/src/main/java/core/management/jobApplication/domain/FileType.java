@@ -1,5 +1,8 @@
 package core.management.jobApplication.domain;
 
-public class FileType {
-    
+public enum FileType {
+
+    CANDIDATE_INTERVIEW_ANSWERS,
+    CANDIDATE_REQUIREMENTS_ANSWERS;
+
 }

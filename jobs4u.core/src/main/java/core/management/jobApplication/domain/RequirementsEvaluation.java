@@ -1,5 +1,11 @@
 package core.management.jobApplication.domain;
 
-public class RequirementsEvaluation {
-    
+import eapli.framework.domain.model.ValueObject;
+
+public enum RequirementsEvaluation implements ValueObject {
+
+    ACCEPTED,
+    REJECTED,
+    PENDING;
+
 }

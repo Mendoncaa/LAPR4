@@ -47,7 +47,7 @@ public class ListApplicationsForJobOpeningUI extends AbstractUI {
                 int count = 1;
 
                 for (jobApplication application : applications) {
-                    System.out.printf("%-3s %-15s %-20s %-10s\n",count, application.getJobOpening().getJobReference().toString(), application.getCandidate().getCandidateName().toString(), application.getStatus());
+                    System.out.printf("%-3s %-15s %-20s %-10s\n",count, application.getJobOpening().getJobReference().toString(), application.getCandidate().getCandidateName().toString(), application.getApplicationState().toString());
                 }
             } catch (IntegrityViolationException | ConcurrencyException ex) {
                 LOGGER.error("Error performing the operation", ex);
