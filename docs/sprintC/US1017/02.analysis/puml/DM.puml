@@ -1,59 +1,120 @@
-@startuml
+@startuml DomainModel
 
-hide field
-hide methods
 
-title US1017 - Upload Candidate Requirements\nDomain Model Excerpt
-skinparam linetype ortho
+package InterviewModelAgg  {
+    
+    class InterviewModel{
 
-package CandidateAgg #aababb {
-    class Candidate<<Root>><<Entity>> {
-        Email email
-        Name name
-        PhoneNumber phoneNumber
-        CandidateState state
     }
-    class Email<<Value Object>><<Id>>
-    class Name<<Value Object>>
-    class PhoneNumber<<Value Object>>
-    class CandidateState<<Value Object>>
-    Candidate "1" --> "1" Email
-    Candidate "1" --> "1" Name
-    Candidate "1" --> "1" PhoneNumber
-    Candidate "1" --> "1" CandidateState
+    
+    
+    class SpecName{
+
+
+    }
+    
+    
+    class JarFile{
+
+
+    }
+    
+    
+    class Description{
+
+
+    }
+
+    InterviewModel"1"-->"1"JarFile
+    InterviewModel"1"-->"1"SpecName
+    InterviewModel"1"-->"1"Description
+
+
+}
+package JobApplicationAgg {
+
+    class JobApplication {
+        +id: Long
+        +files: List<File>
+    }
+
+    class File
+    {
+        +id : long
+        +path : FilePath
+        +type : FileType
+    }
+
+    class FilePath {
+        +path: String
+    }
+
+    enum FileType
+    {
+        CandidateInterviewAnswers
+        
+    }
+
+    JobApplication --> File
+
+    File --> FilePath
+    File --> FileType
+}
+package JobOpeningAgg {
+
+    class JobOpening {
+        +id: JobReference
+        +recruitmentProcess: RecruitmentProcess
+    }
+
+    class JobReference {
+        +customerCode: String
+        +jobNumber: int
+
+    }
+
+    class RecruitmentProcess {
+        +id: int
+        +status: RecruitmentProcessStatus
+        +phases: List<Phase>
+    }
+
+    class Phase {
+        +id: Long
+        +name: PhaseName
+        +status: PhaseStatus
+    }
+
+    enum PhaseName {
+            APPLICATION,
+            SCREENING,
+            INTERVIEWS,
+            ANALYSIS,
+            RESULT
+    }
+
+    enum PhaseStatus {
+        Open
+        Closed
+    }
+
+    enum RecruitmentProcessStatus {
+        Uninitiated
+        In Process
+        Finished
+    }
+
+    JobOpening --> RecruitmentProcess
+    RecruitmentProcess --> RecruitmentProcessStatus
+    RecruitmentProcess --> Phase : "Is separated into"
+    Phase --> PhaseName
+    Phase --> PhaseStatus
+
+    JobOpening --> JobReference
+
+
+    InterviewModel --> JobOpening
 }
 
-package ApplicationAgg #aaaabb {
-    class Application<<Root>><<Entity>> {
-        ApplicationID id
-        ApplicationState state
-        RequirementsEvaluation evaluation
-        File candidateRequirementsFile
-    }
-    class ApplicationID<<Value Object>><<Id>>
-    class ApplicationState<<Entity>> {
-        ApplicationStateName name
-        RejectionJustification justification
-    }
-    class ApplicationStateName<<Enum>><<ID>>
-    class RejectionJustification<<Value Object>>
-    class RequirementsEvaluation<<Enum>>
-    class File<<Value Object>> {
-        FilePath path
-        FileType type
-    }
-    class FilePath<<Value Object>>
-    class FileType<<Enum>>
-
-    Application "1" --> "1" ApplicationID
-    Application "1" --> "1" ApplicationState
-    ApplicationState "1" --> "1" ApplicationStateName
-    ApplicationState "1" --> "0..1" RejectionJustification
-    Application "1" --> "1" RequirementsEvaluation
-    Application "1" --> "1" File
-    File "1" --> "1" FilePath
-    File "1" --> "1" FileType
-    Application "1..*" --> "1" Candidate : Is submitted by
-}
-
+JobApplication --> JobOpening : Refers To
 @enduml
