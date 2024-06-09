@@ -4,6 +4,8 @@ import core.infrastructure.persistence.PersistenceContext;
 import core.management.RecruitmentProcess.domain.Phase;
 import core.management.RecruitmentProcess.domain.PhaseName;
 import core.management.RecruitmentProcess.domain.RecruitmentProcess;
+import core.management.jobApplication.domain.NotificationStatus;
+import core.management.jobApplication.domain.RequirementsEvaluation;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
 import core.management.jobOpening.domain.JobReference;
@@ -93,7 +95,9 @@ public class PhaseValidatorService {
     private int countScreening(List<jobApplication> jobApplications) {
         int count = 0;
         for (jobApplication application : jobApplications) {
-
+            if (application.getRequirements() != null && application.getRequirements().getRequirementEvaluation() == RequirementsEvaluation.ACCEPTED) {
+                count++;
+            }
         }
         return count;
     }
@@ -101,7 +105,9 @@ public class PhaseValidatorService {
     private int countInterviews(List<jobApplication> jobApplications) {
         int count = 0;
         for (jobApplication application : jobApplications) {
-
+            if (application.getInterview() != null && application.getInterview().getInterviewGrade() != null && application.getInterview().getInterviewGrade().getGrade() != -1) {
+                count++;
+            }
         }
         return count;
     }
@@ -109,7 +115,9 @@ public class PhaseValidatorService {
     private int countResults(List<jobApplication> jobApplications) {
         int count = 0;
         for (jobApplication application : jobApplications) {
-
+            if (application.getNotificationStatus() == NotificationStatus.SEND) {
+                count++;
+            }
         }
         return count;
     }
