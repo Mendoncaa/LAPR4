@@ -1,15 +1,10 @@
-@startuml
+@startuml SystemSequenceDiagram
 
-title System Sequence Diagram (SSD) - Place an Order
+title US1016 - Notify Candidates by Email
 
-actor "Customer" as U
+actor CustomerManager
 participant ":System" as S
 
-U -> S : Requests to place an order
-S -> U : Asks for order details
-U --> S : Provides order details
-
-S -> U : Order placed successfully
-S -> U : Error message (if order placement fails)
-
+CustomerManager -> S: Notify Candidates
+S --> CustomerManager: Confirm sent notifications
 @enduml

@@ -1,27 +1,24 @@
 @startuml DomainModel
-class User {
-    +id: int
-    +username: String
-    +email: String
-}
+package JobApplicationAgg {
+    class JobApplication {
+        +id: ApplicationID
+        +RequirementsEvaluation: RequirementsEvaluation
+        +Interview: Interview
+    }
 
-class Product {
-    +id: int
-    +name: String
-    +price: float
-}
 
-class Order {
-    +id: int
-    +orderDate: Date
-}
+    enum RequirementsEvaluation {
+        Pending
+        Accepted
+        Rejected
+    }
 
-class OrderItem {
-    +quantity: int
-    +price: float
-}
+    enum NotificationStatus {
+        Unsent
+        Sent
+    }
 
-User "1" -- "0..*" Order : places
-Order "1" -- "1..*" OrderItem : contains
-OrderItem "0..*" -- "1" Product : includes
+    JobApplication --> RequirementsEvaluation
+    JobApplication --> NotificationStatus
+}
 @enduml
