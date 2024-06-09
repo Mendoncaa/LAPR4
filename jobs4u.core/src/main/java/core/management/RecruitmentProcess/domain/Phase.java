@@ -9,7 +9,10 @@ import java.time.LocalDate;
 @Entity
 public class Phase implements ValueObject {
 
-    @EmbeddedId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Getter
     private PhaseName name;
 
@@ -19,7 +22,6 @@ public class Phase implements ValueObject {
     @Embedded
     private EndDate endDate;
 
-    @Embedded
     @Getter
     private PhaseStatus phaseStatus;
 

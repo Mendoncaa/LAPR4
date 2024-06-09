@@ -30,7 +30,7 @@ import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicat
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
-//import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
+import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.GenerateInterviewTemplateAction;
@@ -270,6 +270,8 @@ public class MainMenu extends AbstractUI {
 			menu.addItem(4, "Select Interview Model for a JobOpening", new SelectInterviewAction());
 			menu.addItem(5, "Export Template for Requirement Specification", new GenerateRequirementSpecificationTemplateAction());
 			menu.addItem(6, "Export Template for Interview", new GenerateInterviewTemplateAction());
+			menu.addItem(7, "Verify Requirements Answers for a Job Opening", new GenerateInterviewTemplateAction());// new VerifyRequirementsAnswersAction()
+			menu.addItem(8, "Verify Interviews Answers for a Job Opening", new GenerateInterviewTemplateAction());// new VerifyInterviewsAnswersAction()
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
 			menu.addItem(1, "Export Template for Requirement Specification", new GenerateRequirementSpecificationTemplateAction());
@@ -282,7 +284,7 @@ public class MainMenu extends AbstractUI {
 	private Menu buildRankMenu(){
 		final var menu = new Menu("Rank >");
 
-		//menu.addItem(1, "Rank Candidates by JobOpening", new RankCandidatesAction());
+		menu.addItem(1, "Rank Candidates by JobOpening", new RankCandidatesAction());
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
 		return menu;

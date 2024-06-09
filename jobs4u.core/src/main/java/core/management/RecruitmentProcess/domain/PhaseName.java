@@ -5,15 +5,9 @@ import lombok.Getter;
 
 @Getter
 public enum PhaseName implements ValueObject {
-    APPLICATION("Application"),
-    SCREENING("Screening"),
-    INTERVIEWS("Interviews"),
-    ANALYSIS("Analysis"),
-    RESULT("Result");
-
-    private final String description;
-
-    PhaseName(String description) {
-        this.description = description;
-    }
+    APPLICATION,
+    SCREENING,
+    INTERVIEWS,
+    ANALYSIS,
+    RESULT
 }

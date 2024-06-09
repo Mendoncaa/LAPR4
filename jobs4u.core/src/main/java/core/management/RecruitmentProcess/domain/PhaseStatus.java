@@ -5,12 +5,6 @@ import lombok.Getter;
 
 @Getter
 public enum PhaseStatus implements ValueObject {
-    OPEN("Open"),
-    CLOSED("Closed");
-
-    private final String state;
-
-    PhaseStatus(String state) {
-        this.state = state;
-    }
+    OPEN,
+    CLOSED
 }
