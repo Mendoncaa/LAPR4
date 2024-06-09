@@ -6,8 +6,8 @@ actor "Customer Manager" as CM
 participant ":System" as S
 
 CM -> S : Requests to verify candidate files
-S -> CM : Asks for JobReference
+S --> CM : Asks for JobReference
 CM -> S : Provides JobReference
-S -> CM : Requirements verification results
+S --> CM : Requirements verification results
 
 @enduml
