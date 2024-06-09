@@ -19,8 +19,13 @@ public class RankCandidatesUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-
-        List<JobOpening> jobOpenings = this.theController.getJobOpeningsInAnalysis();
+        List<JobOpening> jobOpenings;
+        try {
+            jobOpenings = this.theController.getJobOpeningsInAnalysis();
+        } catch (InstantiationException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
         if (jobOpenings.isEmpty()) {
             System.out.println("No job openings in Analysis found.");
             return false;

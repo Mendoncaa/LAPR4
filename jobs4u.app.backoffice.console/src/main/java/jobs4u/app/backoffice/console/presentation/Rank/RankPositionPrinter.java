@@ -6,7 +6,7 @@ import eapli.framework.visitor.Visitor;
 public class RankPositionPrinter implements Visitor<RankPosition> {
     @Override
     public void visit(RankPosition visitee) {
-        if (visitee.getPosition() == -1) {
+        if (visitee.getPosition() == 0) {
             System.out.printf("%-10s (Rank: Not Ranked)",
                     visitee.getCandidate().getCandidateName().toString()
             );
