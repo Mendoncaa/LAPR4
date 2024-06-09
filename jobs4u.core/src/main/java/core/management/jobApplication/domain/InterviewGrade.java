@@ -20,7 +20,7 @@ public class InterviewGrade implements ValueObject {
     }
 
     protected InterviewGrade() {
-        this.grade = -1;
+        this.grade = 0;
     }
 
     public static InterviewGrade valueOf(int grade) {

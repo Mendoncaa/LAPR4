@@ -28,17 +28,15 @@ import jobs4u.app.backoffice.console.presentation.Candidate.AddCandidateAction;
 import jobs4u.app.backoffice.console.presentation.Candidate.ListCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.DisplayApplicationDataAction;
 import jobs4u.app.backoffice.console.presentation.JobApplication.ListApplicationsForJobOpeningAction;
+//import jobs4u.app.backoffice.console.presentation.JobApplication.ListOrderedApplicationsUI;
 import jobs4u.app.backoffice.console.presentation.JobApplication.RegisterApplicationAction;
 import jobs4u.app.backoffice.console.presentation.JobOpening.*;
 import jobs4u.app.backoffice.console.presentation.Rank.RankCandidatesAction;
 import jobs4u.app.backoffice.console.presentation.authz.AddUserUI;
 import jobs4u.app.backoffice.console.presentation.authz.DeactivateUserAction;
-import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.GenerateInterviewTemplateAction;
-import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.UploadInterviewsAction;
+import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.*;
 import jobs4u.app.backoffice.console.presentation.plugins.RequirementsSpecification.*;
 import jobs4u.app.backoffice.console.presentation.authz.ListUsersAction;
-import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.RegisterInterviewModelAction;
-import jobs4u.app.backoffice.console.presentation.plugins.InterviewModel.SelectInterviewAction;
 import jobs4u.app.backoffice.console.presentation.utente.AcceptRefuseSignupRequestAction;
 import jobs4u.app.common.console.presentation.authz.MyUserMenu;
 import core.management.user.domain.ExemploRoles;
@@ -89,7 +87,6 @@ public class MainMenu extends AbstractUI {
 	// JOB APPLICATION
 
 	private static final int REGISTER_JOBAPPLICATION_OPTION = 1;
-	private static final int BRUNA = 12;
 
 	// MAIN MENU
 	private static final int MY_USER_OPTION = 1;
@@ -239,11 +236,12 @@ public class MainMenu extends AbstractUI {
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.ADMIN, ExemploRoles.CUSTOMER_MANAGER)){
 			menu.addItem(LIST_APPLICATIONS_FOR_JOBOPENING_OPTION, "List all Applications for a Job Opening", new ListApplicationsForJobOpeningAction()); //new ListApplicationsForJobOpeningAction());
 			menu.addItem(DISPLAY_APPLICATION_DATA,"Display Application Data", new DisplayApplicationDataAction());
-			menu.addItem(6, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
-			menu.addItem(7, "Register Candidate Interview for Job Application", new UploadInterviewsAction());
+			//menu.addItem(4, "List Ordered Applications", new ListOrderedApplicationsUI()::show);
+			menu.addItem(5, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
+			menu.addItem(6, "Register Candidate Interview for Job Application", new UploadInterviewsAction());
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
-			menu.addItem(4, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
+			menu.addItem(2, "Register Candidate Answers for Job Application", new UploadRequirementsAction());
 		}
 
 		menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
@@ -271,8 +269,8 @@ public class MainMenu extends AbstractUI {
 			menu.addItem(4, "Select Interview Model for a JobOpening", new SelectInterviewAction());
 			menu.addItem(5, "Export Template for Requirement Specification", new GenerateRequirementSpecificationTemplateAction());
 			menu.addItem(6, "Export Template for Interview", new GenerateInterviewTemplateAction());
-			menu.addItem(7, "Verify Requirements Answers for a Job Opening", new GenerateInterviewTemplateAction());// new VerifyRequirementsAnswersAction()
-			menu.addItem(8, "Verify Interviews Answers for a Job Opening", new GenerateInterviewTemplateAction());// new VerifyInterviewsAnswersAction()
+			//menu.addItem(7, "Verify Requirements Answers for a Job Opening", new VerifyRequirementsAction());
+			menu.addItem(8, "Verify Interviews Answers for a Job Opening", new VerifyInterviewsAction());
 		}
 		if(authz.isAuthenticatedUserAuthorizedTo(ExemploRoles.OPERATOR)){
 			menu.addItem(1, "Export Template for Requirement Specification", new GenerateRequirementSpecificationTemplateAction());

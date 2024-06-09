@@ -74,4 +74,14 @@ public class InMemoryJobOpeningRepository
     public Rank findRankByJobReference(JobReference jobReference) {
         return findByJobReference(jobReference).get().getRank();
     }
+
+    @Override
+    public String getInterviewFilePath(JobReference jobReference) {
+        return findByJobReference(jobReference).get().getInterviewModel().getTemplatePath();
+    }
+
+    @Override
+    public String getRequirementFilePath(JobReference jobReference) {
+        return findByJobReference(jobReference).get().getRequirementsSpecification().getTemplatePath();
+    }
 }

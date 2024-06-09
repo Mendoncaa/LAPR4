@@ -71,7 +71,7 @@ class JpaApplicationRepository extends JpaAutoTxRepository<jobApplication, Long,
 	public List<jobApplication> findByJobReference(JobReference jobReference) {
 		final Map<String, Object> params = new HashMap<>();
 		params.put("jobReference", jobReference);
-		return (List<jobApplication>) match("e.jobReference=:jobReference", params);
+		return (List<jobApplication>) match("e.jobOpening.jobReference=:jobReference", params);
     }
 	@Override
 	public List<Candidate> findCandidatesByJobOpening(JobOpening jobOpening) {

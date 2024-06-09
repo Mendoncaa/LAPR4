@@ -86,4 +86,16 @@ class JpaJobOpeningRepository extends JpaAutoTxRepository<JobOpening, JobReferen
 		JobOpening job = findByJobReference(jobReference).get();
 		return job.getRank();
 	}
+
+	@Override
+	public String getInterviewFilePath(JobReference jobReference) {
+		JobOpening job = findByJobReference(jobReference).get();
+		return job.getInterviewModel().getTemplatePath();
+	}
+
+	@Override
+	public String getRequirementFilePath(JobReference jobReference) {
+		JobOpening job = findByJobReference(jobReference).get();
+		return job.getRequirementsSpecification().getTemplatePath();
+	}
 }

@@ -24,4 +24,8 @@ public interface JobOpeningRepository extends DomainRepository<JobReference, Job
 
     Rank findRankByJobReference(JobReference jobReference);
 
+    String getInterviewFilePath(JobReference jobReference);
+
+    String getRequirementFilePath(JobReference jobReference);
+
 }

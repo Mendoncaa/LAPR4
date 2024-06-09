@@ -5,5 +5,5 @@
 4 RQ: "Descreva brevemente a sua experiência com a linguagem de programação Python." [ShortAnswer] [value: 40] 4 RA: "Tenho trabalhado com Python por 3 anos, principalmente em análise de dados e desenvolvimento web."
 5 RQ: "Selecione as linguagens de programação que você conhece." [MultiChoice] [value: 50] 5 RA: "Java""Python"
 6 RQ: "Qual é a sua data de nascimento?" [Date] [value: 60] 6 RA: 15/02/1996
-7 RQ: "Qual é o horário em que você prefere trabalhar?" [Time] [value: 70] 7 RA: 10:00
-8 RQ: "Qual é o valor de PI?" [Decimal] [value: 80] 8 RA: 3.1415
+7 RQ: "Qual é o horário em que você prefere trabalhar?" [Time] [value: 70] 7 RA: 09:00
+8 RQ: "Qual é o valor de PI?" [Decimal] [value: 80] 8 RA: 3.14
