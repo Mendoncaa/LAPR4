@@ -1,49 +1,113 @@
-@startuml ClassDiagram
-package Controller {
-    class OrderController {
-        +placeOrder(orderDetails: OrderDetails): OrderConfirmation
-    }
+@startuml
+
+class CustomerManager {
 }
 
-package Service {
-    class OrderService {
-        +createOrder(orderDetails: OrderDetails): Order
-        +processPayment(order: Order): PaymentConfirmation
-    }
+class VerifyRequirementsUI {
+    - listJobOpeningsController: ListJobOpeningsController
+    - theController: VerifyRequirementsController
+    + doShow(): boolean
+    + headline(): String
 }
 
-package Repository {
-    class OrderRepository {
-        +saveOrder(order: Order): void
-    }
+class ListJobOpeningsController {
+    + allJobReferences(): List<JobReference>
 }
 
-package Model {
-    class Order {
-        +id: int
-        +orderDate: Date
-        +addItem(item: OrderItem): void
-    }
-
-    class OrderItem {
-        +quantity: int
-        +price: float
-    }
-
-    class Payment {
-        +amount: float
-        +paymentDate: Date
-    }
-
-    class User {
-        +id: int
-        +username: String
-        +email: String
-    }
+class VerifyRequirementsController {
+    - jobOpeningRepository: JobOpeningRepository
+    - applicationRepository: ApplicationRepository
+    + getRequirementFilePath(jobReference: JobReference): String
+    + getApplications(jobReference: JobReference): List<jobApplication>
+    + getCandidatesFilePath(applications: List<jobApplication>): List<String>
+    + getRequirementsFromFilePath(filePath: String): List<RequirementAnswers>
+    + checkRequirements(correctRequirements: List<RequirementAnswers>, candidateRequirements: List<RequirementAnswers>): boolean
+    + saveEvaluationToJobApplication(application: jobApplication, passedRequirements: boolean): void
 }
 
-OrderController --> OrderService
-OrderService --> OrderRepository
-OrderService --> Order
-Order --> OrderItem
+class JobOpeningRepository {
+    + getRequirementFilePath(jobReference: JobReference): String
+    + findAllJobReferences(): List<JobReference>
+}
+
+class ApplicationRepository {
+    + findByJobReference(jobReference: JobReference): List<jobApplication>
+    + save(application: jobApplication): void
+}
+
+class jobApplication {
+    - requirementAnswersPath: RequirementAnswersPath
+    + getRequirementAnswersPath(): RequirementAnswersPath
+    + setRequirements(requirements: Requirements): void
+    + reject(): void
+}
+
+class CostumerRequirementsLexer {
+    + CostumerRequirementsLexer(charStream: CharStream)
+}
+
+class CostumerRequirementsParser {
+    + CostumerRequirementsParser(commonTokenStream: CommonTokenStream)
+    + start(): StartContext
+}
+
+class RequirementsVisitor {
+    + visit(startContext: StartContext): void
+    + getRequirements(): List<RequirementAnswers>
+}
+
+class RequirementsChecker {
+    + checkRequirements(correctRequirements: List<RequirementAnswers>, candidateRequirements: List<RequirementAnswers>): boolean
+}
+
+class RequirementAnswers {
+    - id: String
+    - content: String
+    - answer: String
+    + RequirementAnswers(id: String, content: String, answer: String)
+    + getId(): String
+    + getContent(): String
+    + getAnswer(): String
+}
+
+class JobReference {
+}
+
+class RequirementAnswersPath {
+    + getFilePath(): String
+}
+
+class Requirements {
+    + static valueOf(evaluation: RequirementsEvaluation, justification: RequirementsJustification): Requirements
+}
+
+class RequirementsEvaluation {
+    <<enumeration>>
+    ACCEPTED
+    REJECTED
+}
+
+class RequirementsJustification {
+    + static valueOf(justification: String): RequirementsJustification
+}
+
+CustomerManager --> VerifyRequirementsUI
+VerifyRequirementsUI --> ListJobOpeningsController
+VerifyRequirementsUI --> VerifyRequirementsController
+ListJobOpeningsController --> JobOpeningRepository
+VerifyRequirementsController --> JobOpeningRepository
+VerifyRequirementsController --> ApplicationRepository
+VerifyRequirementsController --> CostumerRequirementsLexer
+VerifyRequirementsController --> CostumerRequirementsParser
+VerifyRequirementsController --> RequirementsVisitor
+VerifyRequirementsController --> RequirementsChecker
+VerifyRequirementsController --> jobApplication
+JobOpeningRepository --> JobReference
+ApplicationRepository --> jobApplication
+jobApplication --> RequirementAnswersPath
+jobApplication --> Requirements
+Requirements --> RequirementsEvaluation
+Requirements --> RequirementsJustification
+RequirementsVisitor --> RequirementAnswers
+
 @enduml
