@@ -30,7 +30,7 @@ public class Interview implements ValueObject {
         this.interviewJustification = interviewJustification;
     }
 
-    protected Interview() {
+    public Interview() {
         this.interviewDateTime = null;
         this.interviewGrade = null;
         this.interviewJustification = null;
