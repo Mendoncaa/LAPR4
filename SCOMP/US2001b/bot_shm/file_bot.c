@@ -12,16 +12,10 @@
 #include <sys/mman.h>
 #include <semaphore.h>
 
-//Prototipos das funções que serão implementadas
 int check_for_new_files(const char *input_path);
 void distribute_files(shared_memory *shm_ptr, config *config, sem_t *job_sem_id);
 
-
-// Variável global para controlar a terminação
-volatile sig_atomic_t should_terminate = 0;
-
-// Função para executar o watcher
-pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id) {
+pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id, sem_t *job_sem_id) {
     pid_t pid = fork();
     if (pid == -1) {
         perror("Impossível criar o processo watcher");
@@ -29,7 +23,7 @@ pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id) {
     }
 
     if (pid == 0) { // Processo filho (watcher)
-        while (should_terminate == 0) { // Adicionado controle para should_terminate
+        while (!should_terminate) { // Controle de terminação
             printf("[Monitor] Procurando novos ficheiros\n");
             int found_new_files = check_for_new_files(config->input_path);
 
@@ -38,7 +32,6 @@ pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id) {
                 sem_wait(sem_id);
                 printf("[Monitor] Semáforo adquirido\n");
 
-                // Adiciona novos trabalhos ao buffer circular
                 DIR *dir = opendir(config->input_path);
                 if (dir == NULL) {
                     perror("Erro ao abrir o diretório");
@@ -50,15 +43,31 @@ pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id) {
                 while ((entry = readdir(dir)) != NULL) {
                     if (entry->d_type == DT_REG) {
                         int prefix;
-                        if (sscanf(entry->d_name, "%d-", &prefix) == 1) {
-                            if (shm_ptr->job_queue.count < BUFFER_SIZE) {
+                        if (sscanf(entry->d_name, "%d-candidate-data.txt", &prefix) == 1) {
+                            int already_processed = 0;
+
+                            for (int i = 0; i < shm_ptr->processed_files_count; i++) {
+                                if (shm_ptr->processed_files[i] == prefix) {
+                                    already_processed = 1;
+                                    break;
+                                }
+                            }
+
+                            for (int i = 0; i < shm_ptr->job_queue.count; i++) {
+                                if (shm_ptr->job_queue.buffer[(shm_ptr->job_queue.head + i) % BUFFER_SIZE].prefix == prefix) {
+                                    already_processed = 1;
+                                    break;
+                                }
+                            }
+
+                            if (!already_processed && shm_ptr->job_queue.count < BUFFER_SIZE) {
                                 shm_ptr->job_queue.buffer[shm_ptr->job_queue.tail].prefix = prefix;
-                                strncpy(shm_ptr->job_queue.buffer[shm_ptr->job_queue.tail].file_name, entry->d_name, MAX_PATH_LENGTH);
                                 shm_ptr->job_queue.tail = (shm_ptr->job_queue.tail + 1) % BUFFER_SIZE;
                                 shm_ptr->job_queue.count++;
-                                printf("[Monitor] Arquivo adicionado ao buffer: %s\n", entry->d_name);
+                                printf("[Monitor] Prefixo adicionado ao buffer: %d\n", prefix);
+                                sem_post(job_sem_id); // Sinaliza que há novos trabalhos
                             } else {
-                                printf("[Monitor] Buffer circular cheio, não é possível adicionar mais trabalhos\n");
+                                printf("[Monitor] Buffer circular cheio ou prefixo já processado, não é possível adicionar mais trabalhos\n");
                             }
                         }
                     }
@@ -77,10 +86,9 @@ pid_t run_watcher(config *config, shared_memory *shm_ptr, sem_t *sem_id) {
     return pid;
 }
 
-// Função para executar o processo pai
-void run_parent(worker *workers, pid_t watcher_pid, config *config, shared_memory *shm_ptr, sem_t *sem_id, sem_t *job_sem_id) {
-    while (should_terminate == 0) {
 
+void run_parent(worker *workers, pid_t watcher_pid, config *config, shared_memory *shm_ptr, sem_t *sem_id, sem_t *job_sem_id) {
+    while (!should_terminate) {
         sem_wait(sem_id);
         distribute_files(shm_ptr, config, job_sem_id);
         sem_post(sem_id);
@@ -94,49 +102,10 @@ void run_parent(worker *workers, pid_t watcher_pid, config *config, shared_memor
 
         sleep(1);
     }
-    generate_report(shm_ptr, config);
+
     terminate(workers, watcher_pid, config, shm_ptr, sem_id, job_sem_id);
 }
 
-// Função para configurar o handler para SIGINT
-void setup_sigint_handler() {
-    struct sigaction act;
-    memset(&act, 0, sizeof(struct sigaction));
-    act.sa_handler = handle_sigint;
-    sigaction(SIGINT, &act, NULL);
-}
-
-// Handler para SIGINT
-void handle_sigint(int signal) {
-    (void)signal;  // Suprime o aviso de parâmetro não utilizado
-    should_terminate = 1;
-}
-
-// Função para gerar o relatório
-void generate_report(shared_memory *shm_ptr, config *config) {
-    char report_path[MAX_PATH_LENGTH + 12]; // Ajustar tamanho para evitar truncamento
-    snprintf(report_path, sizeof(report_path), "%s/report.csv", config->output_path); // Usar snprintf para evitar truncamento
-
-    printf("[Pai] Gerando o relatório %s\n", report_path);
-
-    FILE *file = fopen(report_path, "a");
-    if (file == NULL) {
-        perror("Erro ao abrir o arquivo de relatório");
-        return;
-    }
-
-    for (int i = 0; i < shm_ptr->jobs_length; i++) {
-        job job = shm_ptr->jobs[i];
-
-        for (int j = 0; j < job.length; j++) {
-            fprintf(file, "%d,%s,%s\n", job.prefix, job.output_directory, job.copied_files[j]);
-        }
-    }
-
-    fclose(file);
-}
-
-// Função para terminar o processo
 void terminate(worker *workers, pid_t watcher_pid, config *config, shared_memory *shm_ptr, sem_t *sem_id, sem_t *job_sem_id) {
     printf("[Pai] Terminando watcher\n");
     kill(watcher_pid, SIGTERM);
@@ -159,7 +128,6 @@ void terminate(worker *workers, pid_t watcher_pid, config *config, shared_memory
     }
 }
 
-// Função para verificar novos arquivos
 int check_for_new_files(const char *input_path) {
     DIR *dir = opendir(input_path);
     if (dir == NULL) {
@@ -169,32 +137,40 @@ int check_for_new_files(const char *input_path) {
 
     struct dirent *entry;
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_REG) { // Se é um arquivo regular
+        if (entry->d_type == DT_REG) {
             closedir(dir);
-            return 1; // Novo arquivo encontrado
+            return 1;
         }
     }
 
     closedir(dir);
-    return 0; // Nenhum novo arquivo encontrado
+    return 0;
 }
 
-// Função para distribuir arquivos entre os trabalhadores
 void distribute_files(shared_memory *shm_ptr, config *config, sem_t *job_sem_id) {
-    if (shm_ptr->job_queue.count > 0) {
-        job_item next_job = shm_ptr->job_queue.buffer[shm_ptr->job_queue.head];
+    while (shm_ptr->job_queue.count > 0) {
+        int prefix = shm_ptr->job_queue.buffer[shm_ptr->job_queue.head].prefix;
         shm_ptr->job_queue.head = (shm_ptr->job_queue.head + 1) % BUFFER_SIZE;
         shm_ptr->job_queue.count--;
 
-        // Procura um worker disponível e atribui o trabalho
+        int assigned = 0;
         for (int i = 0; i < config->number_of_workers; i++) {
             if (shm_ptr->worker_is_busy[i] == 0) {
-                shm_ptr->distributed_prefixes[i] = next_job.prefix;
+                shm_ptr->distributed_prefixes[i] = prefix;
                 shm_ptr->worker_is_busy[i] = 1;
-                printf("[Pai] Associando prefixo %d ao trabalhador %d\n", next_job.prefix, i);
-                sem_post(job_sem_id); // Sinaliza que há um novo trabalho disponível
+                printf("[Pai] Associando prefixo %d ao trabalhador %d\n", prefix, i);
+                sem_post(job_sem_id);
+                assigned = 1;
                 break;
             }
+        }
+
+        if (!assigned) {
+            // Se não puder atribuir, devolve o trabalho para o buffer
+            shm_ptr->job_queue.head = (shm_ptr->job_queue.head - 1 + BUFFER_SIZE) % BUFFER_SIZE;
+            shm_ptr->job_queue.buffer[shm_ptr->job_queue.head].prefix = prefix;
+            shm_ptr->job_queue.count++;
+            break;
         }
     }
 }
