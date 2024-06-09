@@ -3,7 +3,6 @@ import java.util.Map;
 
 public class WordFrequency {
     private final Map<String, WordData> wordMap = new HashMap<>(); // Mapa de armazenamento dos detalhes das palavras
-
     public void addWord(String word, String fileName) {
         word = word.toLowerCase(); // Conversão para lowercase
         WordData wordData = wordMap.get(word); // Obtém os dados da palavra através do mapa

@@ -50,6 +50,6 @@ public class WordFrequencyMain {
             System.out.println();
         }
 
-        System.out.println("All processing threads finished.");
+        System.out.println("Todas as threads acabaram de processar.");
     }
 }

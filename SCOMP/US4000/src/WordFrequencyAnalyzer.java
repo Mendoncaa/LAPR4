@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 public class WordFrequencyAnalyzer {
     private final WordFrequency wordFrequency = new WordFrequency(); // Instância de WordFrequency para armazenar dados das palavras
-
     public void analyzeFile(Path filePath) throws IOException {
         List<String> lines = Files.readAllLines(filePath); // Lê todas as linhas do arquivo
         String fileName = filePath.getFileName().toString();

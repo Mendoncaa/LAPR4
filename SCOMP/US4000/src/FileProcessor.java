@@ -5,7 +5,6 @@ import java.util.List;
 public class FileProcessor implements Runnable {
     private final File directory; // Diretório a processar
     private final List<WordData> topWords; // Lista com as palavras mais frequentes
-
     public FileProcessor(File directory, List<WordData> topWords) {
         this.directory = directory;
         this.topWords = topWords;
