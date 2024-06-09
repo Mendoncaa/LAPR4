@@ -2,16 +2,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WordFrequency {
-    private final Map<String, WordData> wordMap = new HashMap<>(); // Mapa para armazenar dados de palavras
+    private final Map<String, WordData> wordMap = new HashMap<>(); // Mapa de armazenamento dos detalhes das palavras
 
     public void addWord(String word, String fileName) {
-        word = word.toLowerCase(); // Converte a palavra para minúsculas
-        WordData wordData = wordMap.get(word); // Obtém os dados da palavra, se já existir no mapa
+        word = word.toLowerCase(); // Conversão para lowercase
+        WordData wordData = wordMap.get(word); // Obtém os dados da palavra através do mapa
         if (wordData == null) {
-            wordData = new WordData(word, fileName); // Cria um novo WordData se a palavra não existir
-            wordMap.put(word, wordData); // Adiciona a nova palavra ao mapa
+            wordData = new WordData(word, fileName); // Cria um novo WordData
+            wordMap.put(word, wordData); // Adiciona a palavra ao mapa
         } else {
-            wordData.incrementFrequency(fileName); // Incrementa a frequência da palavra existente
+            wordData.incrementFrequency(fileName); // Aumenta a frequência
         }
     }
 
