@@ -92,6 +92,7 @@ public class ExemploBootstrapper implements Action {
 		registerCustomerManager();
 		registerCustomer();
 		registerJobOpening();
+		registerJobOpening2();
 		authenticateForBootstrapping();
 
 		// execute all bootstrapping
@@ -245,6 +246,44 @@ public class ExemploBootstrapper implements Action {
 
 		RecruitmentProcess recruitmentProcess = jobOpening.getRecruitmentProcess();
 		recruitmentProcess.setStatus(RecruitmentProcessStatus.IN_PROCESS);
+		recruitmentProcess.setPhases(phases);
+		jobOpening.setRecruitmentProcess(recruitmentProcess);
+
+		JobOpening jobOpening1;
+
+		try {
+			jobOpening1 = jobOpeningRepository.save(jobOpening);
+			assert jobOpening1 != null;
+			return true;
+		} catch (ConcurrencyException | IntegrityViolationException e) {
+			// ignoring exception. assuming it is just a primary key violation
+			// due to the tentative of inserting a duplicated user
+			LOGGER.warn("Assuming {} already exists (activate trace log for details)", jobOpening.getJobReference().toString());
+			LOGGER.trace("Assuming existing record", e);
+			return false;
+		}
+	}
+
+	private boolean registerJobOpening2() {
+		JobReference ref = new JobReference("TST", 2);
+		JobTitle title = JobTitle.valueOf("Titulo2");
+		Description desc = Description.valueOf("descricao2");
+		core.management.jobOpening.domain.Address addr = core.management.jobOpening.domain.Address.valueOf("rua teste3", 2, "2", "1002-102");
+		NumberOfVacancies vacancies = new NumberOfVacancies(10);
+		List<RankPosition> rankPositions = new ArrayList<>();
+		Rank rank = new Rank(rankPositions);
+
+		JobOpening jobOpening = new JobOpening(ref, title, JobState.CLOSED, ContractType.FULL_TIME, JobMode.HYBRID, desc, addr, vacancies, rank);
+
+		List<Phase> phases = new ArrayList<>();
+		phases.add(new Phase(PhaseName.APPLICATION, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.SCREENING, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.INTERVIEWS, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.ANALYSIS, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+		phases.add(new Phase(PhaseName.RESULT, LocalDate.now(), LocalDate.now(), PhaseStatus.CLOSED));
+
+		RecruitmentProcess recruitmentProcess = jobOpening.getRecruitmentProcess();
+		recruitmentProcess.setStatus(RecruitmentProcessStatus.UNINITIATED);
 		recruitmentProcess.setPhases(phases);
 		jobOpening.setRecruitmentProcess(recruitmentProcess);
 

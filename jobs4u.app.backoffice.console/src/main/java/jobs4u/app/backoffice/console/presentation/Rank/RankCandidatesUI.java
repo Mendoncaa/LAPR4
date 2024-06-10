@@ -33,6 +33,9 @@ public class RankCandidatesUI extends AbstractUI {
         final SelectWidget<JobOpening> selector = new SelectWidget<>("Select JobOpening",
                 jobOpenings, new JobOpeningPrinter());
         selector.show();
+        if(selector.selectedElement() == null){
+            return false;
+        }
         final JobOpening jobOpening = selector.selectedElement();
 
         int choice = -1;
