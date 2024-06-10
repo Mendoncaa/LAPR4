@@ -8,6 +8,7 @@ import core.management.jobApplication.domain.NotificationStatus;
 import core.management.jobApplication.domain.RequirementsEvaluation;
 import core.management.jobApplication.domain.jobApplication;
 import core.management.jobApplication.repository.ApplicationRepository;
+import core.management.jobOpening.domain.JobOpening;
 import core.management.jobOpening.domain.JobReference;
 import core.management.rank.domain.Rank;
 import core.management.rank.domain.RankStatus;
@@ -25,16 +26,14 @@ public class PhaseValidatorService {
 
     private final RecruitmentProcess recruitmentProcess;
     private final ApplicationRepository applicationRepository;
-    private final RankRepository rankRepository;
 
     public PhaseValidatorService(RecruitmentProcess recruitmentProcess) {
         this.recruitmentProcess = recruitmentProcess;
         this.applicationRepository = PersistenceContext.repositories().application();
-        this.rankRepository = PersistenceContext.repositories().rank();
     }
 
     @Transactional
-    public Iterable<String> validatePhaseTransition(JobReference jobRef) throws Exception {
+    public Iterable<String> validatePhaseTransition(JobOpening jobOpening) throws Exception {
 
         Phase currentPhase = recruitmentProcess.currentPhase();
         if (currentPhase == null) {
@@ -44,17 +43,12 @@ public class PhaseValidatorService {
         List<String> options = new ArrayList<>();
         try {
             if (currentPhaseName == PhaseName.ANALYSIS) {
-                Rank rank = rankRepository.findByJobReference(jobRef);
-                if (rank.getRankStatus() == RankStatus.FINISHED) {
-                    options.add("Forward");
-                }
-                else if (rank.getRankStatus() == RankStatus.UNSTARTED) {
-                    options.add("Backward");
-                }
+                Rank rank = jobOpening.getRank();
+                options = validateRankOptions(rank);
             }
             else
             {
-                List<jobApplication> jobApplications = applicationRepository.findByJobReference(jobRef);
+                List<jobApplication> jobApplications = applicationRepository.findByJobReference(jobOpening.identity());
                 int specificPhaseCount = getSpecificPhaseCount(currentPhaseName, jobApplications);
 
                 boolean canMoveForward = validatePhaseTransitionForward(currentPhaseName, jobApplications.size(), specificPhaseCount);
@@ -142,5 +136,15 @@ public class PhaseValidatorService {
             default:
                 return false;
         }
+    }
+    private List<String> validateRankOptions(Rank rank) {
+    List<String> options = new ArrayList<>();
+        if (rank.getRankStatus() == RankStatus.FINISHED) {
+            options.add("Forward");
+        }
+        else if (rank.getRankStatus() == RankStatus.UNSTARTED) {
+            options.add("Backward");
+        }
+        return options;
     }
 }

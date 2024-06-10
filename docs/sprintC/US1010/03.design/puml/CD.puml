@@ -15,12 +15,12 @@ package Service {
     class PhaseValidatorService {
         - recruitmentProcess: RecruitmentProcess
         - applicationRepository: ApplicationRepository
-        - rankRepository: RankRepository
-        + validatePhaseTransition(jobRef: JobReference): Iterable<String>
+        + validatePhaseTransition(jobOpening: JobOpening)): Iterable<String>
         - getSpecificPhaseCount(currentPhase: PhaseName, jobApplications: List<jobApplication>): int
         - countScreening(jobApplications: List<jobApplication>): int
         - countInterviews(jobApplications: List<jobApplication>): int
         - countResults(jobApplications: List<jobApplication>): int
+        - validateRankOptions(rank : Rank): List<String>
         + validatePhaseTransitionForward(currentPhase: PhaseName, numberOfApplications: int, specificPhaseCount: int): boolean
         + validatePhaseTransitionBackward(currentPhase: PhaseName, specificPhaseCount: int): boolean
     }
@@ -39,9 +39,6 @@ package Repository {
             + save(jobOpening: JobOpening): JobOpening
     }
 
-    class RankRepository {
-            + findByJobReference(jobReference: JobReference): Rank
-    }
 }
 
 package Model {
@@ -103,24 +100,25 @@ package Model {
     }
     package JobApplicationAgg {
         class JobApplication {
-            +id: ApplicationID
-            +RequirementsEvaluation: RequirementsEvaluation
-            +Interview: Interview
+            +id: Long
+            +requirementsEvaluation: RequirementsEvaluation
+            +notificationStatus: NotificationStatus
+            +interview: Interview
         }
 
         enum RequirementsEvaluation {
-            Pending
-            Accepted
-            Rejected
+            PENDING
+            ACCEPTED
+            REJECTED
+        }
+
+        enum NotificationStatus {
+            UNSEND
+            SEND
         }
 
         class Interview {
-            +InterviewDateTime: Date
-            +InterviewGrade: int
-        }
-
-        class InterviewDateTime {
-            +date: Date
+            +interviewGrade: InterviewGrade
         }
 
         class InterviewGrade {
@@ -129,7 +127,7 @@ package Model {
 
         JobApplication --> RequirementsEvaluation
         JobApplication --> Interview
-        Interview --> InterviewDateTime
+        JobApplication --> NotificationStatus
         Interview --> InterviewGrade
     }
     package RankAgg {
@@ -139,8 +137,9 @@ package Model {
         }
 
         enum RankStatus {
-            Started
-            Finished
+                UNSTARTED,
+                STARTED,
+                FINISHED
         }
 
         Rank --> RankStatus
@@ -165,7 +164,6 @@ PhasesController --> JobOpeningRepository
 PhasesController ..> JobReference
 PhaseValidatorService --> ApplicationRepository
 PhaseValidatorService ..> RecruitmentProcess
-PhaseValidatorService --> RankRepository
 PhaseValidatorService ..> Rank
 PhaseValidatorService ..> JobApplication
 RecruitmentProcess --> Phase : "has"

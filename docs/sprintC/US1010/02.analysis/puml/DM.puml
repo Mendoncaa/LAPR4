@@ -41,14 +41,14 @@ package JobOpeningAgg {
     }
 
     enum PhaseStatus {
-        Open
-        Closed
+        OPEN
+        CLOSED
     }
 
     enum RecruitmentProcessStatus {
-        Uninitiated
-        In Process
-        Finished
+        UNINITIALIZED
+        IN_PROGRESS
+        FINISHED
     }
 
     JobOpening --> RecruitmentProcess
@@ -63,19 +63,25 @@ package JobOpeningAgg {
 
 package JobApplicationAgg {
     class JobApplication {
-        +id: ApplicationID
-        +RequirementsEvaluation: RequirementsEvaluation
-        +Interview: Interview
+        +id: Long
+        +requirementsEvaluation: RequirementsEvaluation
+        +notificationStatus : NotificationStatus
+        +interview: Interview
     }
 
     enum RequirementsEvaluation {
-        Pending
-        Accepted
-        Rejected
+        PENDING
+        ACCEPTED
+        REJECTED
+    }
+
+    enum NotificationStatus {
+        UNSEND
+        SEND
     }
 
     class Interview {
-        +InterviewGrade: int
+        +interviewGrade: InterviewGrade
     }
 
     class InterviewGrade {
@@ -85,6 +91,7 @@ package JobApplicationAgg {
     JobApplication --> RequirementsEvaluation
     JobApplication --> Interview
     JobApplication --> JobOpening : Refers to
+    JobApplication --> NotificationStatus
     Interview --> InterviewGrade
 }
 
@@ -95,8 +102,9 @@ package RankAgg {
     }
 
     enum RankStatus {
-        Started
-        Finished
+        UNSTARTED,
+        STARTED,
+        FINISHED
     }
 
     Rank --> RankStatus

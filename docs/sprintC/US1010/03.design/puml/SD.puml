@@ -8,7 +8,6 @@ entity RecruitmentProcess
 participant PersistenceContext
 database JobOpeningRepository
 database ApplicationRepository
-database RankRepository
 
 -> PhasesUI: doShow()
 activate PhasesUI
@@ -36,20 +35,14 @@ activate PersistenceContext
 PersistenceContext -> ApplicationRepository : create
 PersistenceContext --> PhaseValidatorService : applicationRepository : ApplicationRepository
 deactivate PersistenceContext
-PhaseValidatorService -> PersistenceContext : repositories().rank()
-activate PersistenceContext
-PersistenceContext -> RankRepository : create
-PersistenceContext --> PhaseValidatorService : rankRepository : RankRepository
-deactivate PersistenceContext
 PhaseValidatorService --> PhasesController: phaseValidatorService : PhaseValidatorService
 deactivate PhaseValidatorService
-PhasesController -> PhaseValidatorService: validatePhaseTransition(jobReference : JobReference))
+PhasesController -> PhaseValidatorService: validatePhaseTransition(jobOpeningChosen : JobOpening)
 activate PhaseValidatorService
 alt PhaseName == "Analysis"
-PhaseValidatorService -> RankRepository : findByJobReference(jobReference : JobReference)
-activate RankRepository
-RankRepository --> PhaseValidatorService: rank : Rank
-deactivate RankRepository
+PhaseValidatorService -> PhaseValidatorService: validateRankOptions(rank : Rank)
+activate PhaseValidatorService
+deactivate PhaseValidatorService
 else PhaseName != "Analysis"
 PhaseValidatorService -> ApplicationRepository : findByJobReference(jobReference : JobReference)
 activate ApplicationRepository

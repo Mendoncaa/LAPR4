@@ -46,7 +46,7 @@ public class PhasesController {
         jobOpeningChosen = jobOpening.get();
         RecruitmentProcess recruitmentProcess = jobOpeningChosen.getRecruitmentProcess();
         phaseValidatorService = new PhaseValidatorService(recruitmentProcess);
-        return phaseValidatorService.validatePhaseTransition(jobOpeningChosen.identity());
+        return phaseValidatorService.validatePhaseTransition(jobOpeningChosen);
     }
 
     @Transactional
